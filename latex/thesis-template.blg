@@ -1,18 +1,9 @@
-[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'thesis-template.blg'
-[61] biber:340> INFO - === Do Jul 27, 2023, 18:29:52
-[72] Biber.pm:418> INFO - Reading 'thesis-template.bcf'
-[125] Biber.pm:972> INFO - Found 8 citekeys in bib section 0
-[135] Biber.pm:4383> INFO - Processing section 0
-[143] Biber.pm:4574> INFO - Looking for bibtex file 'thesis.bib' for section 0
-[144] bibtex.pm:1713> INFO - LaTeX decoding ...
-[152] bibtex.pm:1518> INFO - Found BibTeX data source 'thesis.bib'
-[217] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[217] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[217] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
-[217] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[224] bbl.pm:654> INFO - Writing 'thesis-template.bbl' with encoding 'UTF-8'
-[228] bbl.pm:757> INFO - Output to thesis-template.bbl
-[228] Biber.pm:130> WARN - BibTeX subsystem: /tmp/biber_tmp_UG1C/10964c7c28215ff4e717a58daf08cffc_1755751.utf8, line 4, warning: 60 characters of junk seen at toplevel
-[228] Biber.pm:130> WARN - BibTeX subsystem: /tmp/biber_tmp_UG1C/10964c7c28215ff4e717a58daf08cffc_1755751.utf8, line 85, warning: 203 characters of junk seen at toplevel
-[228] Biber.pm:132> INFO - WARNINGS: 2
+[39] biber-darwin:340> INFO - === Sat Jul 29, 2023, 18:11:28
+[49] Biber.pm:419> INFO - Reading 'thesis-template.bcf'
+[95] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
+[104] bbl.pm:660> INFO - Writing 'thesis-template.bbl' with encoding 'UTF-8'
+[104] bbl.pm:763> INFO - Output to thesis-template.bbl
+[104] Biber.pm:131> WARN - The file 'thesis-template.bcf' does not contain any citations!
+[104] Biber.pm:133> INFO - WARNINGS: 1
