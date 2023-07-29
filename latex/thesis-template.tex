@@ -1,0 +1,85 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX spellcheck = en
+% spell-checker:ignore RWTH, leavevmode, qedhere, siunitx, titlehead
+\documentclass[fleqn,bibliography=totoc,index=totoc,paper=A4,twoside=semi,DIV=12]{scrbook}
+\usepackage[american]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% spell-checker:disable
+% Restore the typical KOMA-Script style fonts, which are changed by setting fontenc to T1
+\usepackage{lmodern}
+\DeclareSymbolFont{largesymbols}{OMX}{cmex}{m}{n} % use cmex rather than lmex
+% spell-checker:enable
+\usepackage{styleBB}
+\usepackage{bm}
+\usepackage{algorithm2e}
+\usepackage{nicefrac}
+\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
+% \usepackage[acronym]{glossaries}
+% \usepackage{algorithm}
+% \usepackage{algpseudocode}
+% \usepackage{algorithmic}
+% \usepackage{silence}
+% \WarningFilter{latex}{Marginpar on page}
+
+\setlength{\marginparwidth}{2cm}
+\usepackage[textsize=tiny]{todonotes}
+
+\graphicspath{
+{./figures/},
+}
+
+\pgfplotsset{
+  table/search path={data},
+}
+
+\addbibresource{thesis.bib}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\,\,#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\,\,#1}}
+\newtheorem{problem}{Problem}
+% \newcommand{\vct}[1]{\bm{#1}}
+\usepackage[headsepline]{scrlayer-scrpage}
+\clearpairofpagestyles
+\addtokomafont{pagehead}{\normalfont\bfseries}
+\lohead{\rightmark}
+\rohead{\thepage}
+\lehead{\thepage}
+\rehead{\leftmark}
+
+\makeindex
+
+% Useful to build the dvi/pdf without any images
+%\renewcommand{\includegraphics}[2][a]{image}
+% Useful to let jpg be preferred to png by \includegraphics (default behavior is the other way round) if no suffix is specified.
+%\DeclareGraphicsExtensions{.pdf,.jpg,.png}
+
+
+
+\include{symbols}
+
+\begin{document}
+
+% \include{00.frontmatter}
+
+\tableofcontents
+
+
+% \mainmatter
+% \include{dedication}
+% \include{abstract}
+% \include{acknowledgements}
+
+\printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
+\include{01}
+\include{02}
+% \include{03}
+% \include{04}
+% \include{05}
+% \include{symbols}
+
+% \backmatter
+
+\printbibliography
+
+\end{document}

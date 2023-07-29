@@ -1,0 +1,143 @@
+\ProvidesPackage{styleBB}
+% Provides all important math symbols and environments.
+\usepackage{amssymb,mathtools,amsthm}
+\allowdisplaybreaks[3]
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{verbatim}
+% This can be used to get rid of the indentation of the figure captions, but produces warnings
+%\usepackage{float}
+%\restylefloat{figure}
+\usepackage{makeidx}
+% \xspace should be used at the end of a macro designed to be used mainly in text.
+% It adds a space unless the macro is followed by certain punctuation characters.
+% Note that this package must be loaded after any language (or other) packages
+% that make punctuation characters `active'.
+\usepackage{xspace}
+\usepackage[backend=biber,giveninits=true,sorting=none,defernumbers=true,url=false,doi=false,isbn=false,maxnames=99]{biblatex}
+\usepackage{csquotes}
+% Allows to create unnumbered figure captions with \caption*
+\usepackage{caption}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{stmaryrd}
+\usepackage{relsize}
+% enhanced cross-referencing with automatic format determination
+\@ifpackagewith{babel}{german}
+{\usepackage[capitalise,noabbrev,ngerman]{cleveref}}
+{\usepackage[capitalise,noabbrev]{cleveref}}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{patterns}
+\usepackage{siunitx}
+\usepackage{textcomp}
+\usepackage{enumitem}
+\usepackage{hyphenat}
+
+\newcommand{\progress}[3]{}
+
+\DeclareOption{showprogress}{
+  \renewcommand{\progress}[3]{\marginpar{\fbox{\begin{minipage}{0.8\marginparwidth}\tiny #1: #2\\Ende #3.\thinspace VL\end{minipage}}}}
+}
+
+\newif\ifmypackage@swapthmnums
+\DeclareOption{swapthmnums}{\mypackage@swapthmnumstrue}
+\DeclareOption{noswapthmnums}{\mypackage@swapthmnumsfalse}
+
+\ExecuteOptions{swapthmnums}
+
+\ProcessOptions\relax
+
+\ifmypackage@swapthmnums
+  \swapnumbers
+\fi
+
+\newtheorem {Thm} {Theorem}[section]
+%\renewcommand{\theThm}{\arabic{chapter}.\arabic{section}.\roman{Thm}}
+\@ifpackagewith{babel}{german}{%
+\newtheorem {Prop} [Thm]{Satz}
+\newtheorem {Cor} [Thm]{Corollary}
+\newtheorem {Kor} [Thm]{Korollar}
+\newtheorem {Lem} [Thm]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem {Def} [Thm]{Definition}
+\newtheorem {Pro} [Thm]{Problem}
+
+\theoremstyle{remark}
+\newtheorem {Rem} [Thm]{Bemerkung}
+\newtheorem {Exp} [Thm]{Beispiel}
+
+\newtheorem {Ans} [Thm]{Ansatz}
+\newtheorem {Sch} [Thm]{Scheme}
+\newtheorem {Not} [Thm]{Notation}
+
+}{}
+
+% omit "p." at \cite's optional argument.
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat{multipostnote}{#1}
+
+\@ifpackagewith{babel}{american}{%
+\newtheorem {Prop} [Thm]{Proposition}
+\newtheorem {Cor} [Thm]{Corollary}
+\newtheorem {Lem} [Thm]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem {Def} [Thm]{Definition}
+\newtheorem {Pro} [Thm]{Problem}
+
+\theoremstyle{remark}
+\newtheorem {Rem} [Thm]{Remark}
+\newtheorem {Exp} [Thm]{Example}
+
+\newtheorem {Ans} [Thm]{Ansatz}
+\newtheorem {Sch} [Thm]{Scheme}
+\newtheorem {Not} [Thm]{Notation}
+
+\makeatletter
+\if@cref@capitalise
+\crefname{Lem}{Lemma}{Lemmas}
+\else
+\crefname{Lem}{lemma}{lemmas}
+\fi
+\makeatother
+\Crefname{Lem}{Lemma}{Lemmas}
+
+}{}
+
+\newlist{thmenum}{enumerate}{1} % creates a counter called 'thmenumi'
+\setlist[thmenum]{label=(\roman*), ref=\theThm\,(\roman*)}
+\crefalias{thmenumi}{Thm}
+
+\newlist{korenum}{enumerate}{1} % creates a counter called 'korenumi'
+\setlist[korenum]{label=(\roman*), ref=\theKor\,(\roman*)}
+\crefalias{korenumi}{Kor}
+
+\newlist{remenum}{enumerate}{1} % creates a counter called 'remenumi'
+\setlist[remenum]{label=(\roman*), ref=\theRem\,(\roman*)}
+\crefalias{remenumi}{Rem}
+
+\newlist{lemenum}{enumerate}{1} % creates a counter called 'lemenumi'
+\setlist[lemenum]{label=(\roman*), ref=\theLem\,(\roman*)}
+\crefalias{lemenumi}{Lem}
+
+\newlist{expenum}{enumerate}{1} % creates a counter called 'expenumi'
+\setlist[expenum]{label=(\roman*), ref=\theExp\,(\roman*)}
+\crefalias{expenumi}{Exp}
+
+\newlist{propenum}{enumerate}{1} % creates a counter called 'propenumi'
+\setlist[propenum]{label=(\roman*), ref=\theProp\,(\roman*)}
+\crefalias{propenumi}{Prop}
+
+\newlist{defenum}{enumerate}{1} % creates a counter called 'defenumi'
+\setlist[defenum]{label=(\roman*), ref=\theDef\,(\roman*)}
+\crefalias{defenumi}{Def}
+
+\newenvironment{Proof}[1][\proofname]{%
+  \proof[\normalfont\bfseries #1]%
+}{\endproof}
