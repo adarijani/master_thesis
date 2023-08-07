@@ -1,14 +1,72 @@
-\chapter{Algorithms}
+\chapter{Wirtinger Flow}
 
-write something about the history of the other algorithms and the introduce the main 5 algorithms
+The whole thing about \emph{Wirtinger Flow} variants started with the seminal work of Candes and Soltanolkotabi\cite{bib:wf}.
+The most important improvements chronologically were done by Candes and Chen\cite{bib:twf}, Kolte and Özgür\cite{bib:itwf}, and Zhang et al.\cite{bib:rfw-irwf}.
+For a quite extensive survey on \emph{Wirtinger Flow} variants please refer to Liu et al.\cite{bib:wf-survey}. Chandra et al.\cite{bib:phasepack} 
+gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{Wirtinger Flow} variants in the MATLAB\textregistered\space 
+problem solving environment in a uniform manner.\\
+We quickly go over the problem formulation, difficulties, algorithms, and at the of the chapter we give some numerical experiments we are going
+to refer to in the subsequent chapters.
 
-\begin{itemize}
-\item  Wirtinger FLow suggested by \cite{Candes_2015}
-\item Truncated Wirtinger Flow suggested by \cite{chen2016solving}
-\item Incrementally Truncated Wirtinger Flow suggested by \cite{kolte2016phase}
-\item Reshaped Wirtinger Flow and Incrementally Reshaped Wirtinger FLow suggested by \cite{zhang2016reshaped}
+\section{Problem Formulation}
+Consider the ray $\boldsymbol{x} \in \mathbb{C}^{n \times 1}$ is emitted onto the object of interest and the diffracted rays are measured as 
+$\boldsymbol{y} \in \mathbb{R}^{m \times 1}$ and is connected to the original ray by $\boldsymbol{y} = \varphi(\boldsymbol{A}\boldsymbol{x})$,
+where $\boldsymbol{A} \in \mathbb{C}^{m \times n}$ and $\varphi$ the usual element-wise absolute value(or the squared absolute value) from 
+$\mathbb{C}^{m \times 1}$ to $\mathbb{R}^{m \times 1}$.\\
+Candes and Soltanolkotabi\cite{bib:wf} considered $\varphi$ to be squared element-wise absolute value and the loss function to be quadratic. 
+The summary for all the variants in terms of formulation is in table\ref{tab:formulation}  
 
-\end{itemize}
+
+\begin{table}
+	\centering
+	\begin{tabular}{||c l c||} 
+	 \hline
+	 \emph{Wirtinger Flow} Variant 			& $\varphi$ 						& loss functions\\ [0.5ex] 
+	 \hline\hline
+	 Wirtinger Flow 			 			& $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\ 
+	 Truncated Wirtinger Flow   			& $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
+	 Incrementally Truncated Wirtinger Flow & $\left|\boldsymbol{z}\right|^2$  	& quadratic 	\\
+	 Reshaped Wirtinger Flow 				& $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
+	 Incrementally Reshaped Flow 			& $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\ [1ex] 
+	 \hline
+	\end{tabular}
+	\caption{$\varphi$ and the loss function used in \cite{bib:wf}, \cite{bib:twf}, \cite{bib:itwf}, \cite{bib:rfw-irwf}}
+	\label{tab:formulation}
+	\end{table}
+\section{Difficulties}
+
+The loss function is non-convex. Two nice figures can be found in \cite{bib:rfw-irwf} that show the effect of different formulation in the curvature 
+but at the same time the non-convexness of the presented problem. For the thorough geometric analysis of the \emph{Phase Retrieval} problem 
+we refer to Wright et al.\cite{bib:phase-geometric}   
+% \begin{equation} \label{prob:mainproblem}
+% 	Recover $\boldsymbol{x} \in \mathbb{R}^n/\mathbb{C}^n$ from measurements $y_i$ given by
+% 	\begin{flalign}
+% 		y_i=\left|\langle \boldsymbol{a}_i,\mathbf{x}\rangle\right|, \quad \text{for }\; i=1,\cdots,m, \label{eq:mainproblem}
+% 	\end{flalign}
+% 	where $\boldsymbol{a}_i \in \mathbb{R}^n/\mathbb{C}^n$ are random design vectors (known). 
+% \end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \begin{itemize}
+% \item Wirtinger FLow suggested by \cite{Candes_2015}
+% \item Truncated Wirtinger Flow suggested by \cite{chen2016solving}
+% \item Incrementally Truncated Wirtinger Flow suggested by \cite{kolte2016phase}
+% \item Reshaped Wirtinger Flow and Incrementally Reshaped Wirtinger FLow suggested by \cite{zhang2016reshaped}
+
+% \end{itemize}
 
 
 

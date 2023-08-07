@@ -16,5 +16,308 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{GoWo07}{book}{}
+      \name{author}{2}{}{%
+        {{hash=07713b8c79fe78ffaf9ab728a5f3ce88}{%
+           family={Gonzalez},
+           familyi={G\bibinitperiod},
+           given={Rafael\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=f7e4f4ce32d8e1ac04f7ee5eefcabe8f}{%
+           family={Woods},
+           familyi={W\bibinitperiod},
+           given={Richard\bibnamedelima E.},
+           giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Prentice Hall}%
+      }
+      \strng{namehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{fullhash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{bibnamehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{authorbibnamehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{authornamehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{authorfullhash}{629c2754a63b62c1f205866b8ab085f9}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{title}{Digital Image Processing}
+      \field{year}{2007}
+    \endentry
+    \entry{Ar66}{article}{}
+      \name{author}{1}{}{%
+        {{hash=9b247b523635a52cd440b2d7f421b150}{%
+           family={Armijo},
+           familyi={A\bibinitperiod},
+           given={Larry},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{fullhash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{bibnamehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{authorbibnamehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{authornamehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{authorfullhash}{9b247b523635a52cd440b2d7f421b150}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Pacific Journal of Mathematics}
+      \field{number}{1}
+      \field{title}{Minimization of functions having {L}ipschitz continuous first partial derivatives}
+      \field{volume}{16}
+      \field{year}{1966}
+      \field{pages}{1\bibrangedash 3}
+      \range{pages}{3}
+    \endentry
+    \entry{Ch05}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=680af58d38f3c3c0dd43394b2f898dca}{%
+           family={Chambolle},
+           familyi={C\bibinitperiod},
+           given={Antonin},
+           giveni={A\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=f7babc8fccb57abd2ce3ec7dcd7a54e8}{%
+           family={Rangarajan},
+           familyi={R\bibinitperiod},
+           given={Anand},
+           giveni={A\bibinitperiod}}}%
+        {{hash=3106f4445ee764d91ed3427f2f9d31b6}{%
+           family={Vemuri},
+           familyi={V\bibinitperiod},
+           given={Baba},
+           giveni={B\bibinitperiod}}}%
+        {{hash=53a8d2ea6010d6c2a2c8a7c283548c6e}{%
+           family={Yuille},
+           familyi={Y\bibinitperiod},
+           given={Alan},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{fullhash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{bibnamehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{authorbibnamehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{authornamehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{authorfullhash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{editorbibnamehash}{b8bc446519256d13e0c674a21ef09056}
+      \strng{editornamehash}{b8bc446519256d13e0c674a21ef09056}
+      \strng{editorfullhash}{b8bc446519256d13e0c674a21ef09056}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Energy Minimization Methods in Computer Vision and Pattern Recognition}
+      \field{series}{LNCS}
+      \field{title}{Total Variation Minimization and a Class of Binary {MRF} Models}
+      \field{volume}{3757}
+      \field{year}{2005}
+      \field{pages}{136\bibrangedash 152}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.1007/11585978_10
+      \endverb
+    \endentry
+    \entry{ChEsNi04}{report}{}
+      \name{author}{3}{}{%
+        {{hash=f6e01f498ba16c55d62c2f3a7edb1a86}{%
+           family={Chan},
+           familyi={C\bibinitperiod},
+           given={Tony\bibnamedelima F.},
+           giveni={T\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=578d55e775731c54b39793abe094acfb}{%
+           family={Esedoḡlu},
+           familyi={E\bibinitperiod},
+           given={Selim},
+           giveni={S\bibinitperiod}}}%
+        {{hash=23981f391484341637a131fb54b2e576}{%
+           family={Nikolova},
+           familyi={N\bibinitperiod},
+           given={Mila},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {University of California, Los Angeles}%
+      }
+      \strng{namehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{fullhash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{bibnamehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{authorbibnamehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{authornamehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{authorfullhash}{9b0d0347a42abd292d186b586a697c66}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{9}
+      \field{number}{04-54}
+      \field{title}{Algorithms for Finding Global Minimizers of Image Segmentation and Denoising Models}
+      \field{type}{techreport}
+      \field{year}{2004}
+    \endentry
+    \entry{Candes_2015}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=204f23c4cd71374a68afa533fd9c9d74}{%
+           family={Candes},
+           familyi={C\bibinitperiod},
+           given={Emmanuel\bibnamedelima J.},
+           giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=2e19f117f2923574b82023ddbfe80eec}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiaodong},
+           giveni={X\bibinitperiod}}}%
+        {{hash=cdc208189d9717c3f2ecb7869ad7a68a}{%
+           family={Soltanolkotabi},
+           familyi={S\bibinitperiod},
+           given={Mahdi},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{2}{%
+        {Institute of Electrical}%
+        {Electronics Engineers ({IEEE})}%
+      }
+      \strng{namehash}{78aca9f500313b1a96253b8c9f8d0678}
+      \strng{fullhash}{78aca9f500313b1a96253b8c9f8d0678}
+      \strng{bibnamehash}{78aca9f500313b1a96253b8c9f8d0678}
+      \strng{authorbibnamehash}{78aca9f500313b1a96253b8c9f8d0678}
+      \strng{authornamehash}{78aca9f500313b1a96253b8c9f8d0678}
+      \strng{authorfullhash}{78aca9f500313b1a96253b8c9f8d0678}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{IEEE} Transactions on Information Theory}
+      \field{month}{4}
+      \field{number}{4}
+      \field{title}{Phase Retrieval via Wirtinger Flow: Theory and Algorithms}
+      \field{volume}{61}
+      \field{year}{2015}
+      \field{pages}{1985\bibrangedash 2007}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1109/tit.2015.2399924
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1109%2Ftit.2015.2399924
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1109%2Ftit.2015.2399924
+      \endverb
+    \endentry
+    \entry{chen2016solving}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=e8622380f54d2d9127e4610dfcfccc66}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Yuxin},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=204f23c4cd71374a68afa533fd9c9d74}{%
+           family={Candes},
+           familyi={C\bibinitperiod},
+           given={Emmanuel\bibnamedelima J.},
+           giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{a51eba2ffd0e7bad5ec68715375acb54}
+      \strng{fullhash}{a51eba2ffd0e7bad5ec68715375acb54}
+      \strng{bibnamehash}{a51eba2ffd0e7bad5ec68715375acb54}
+      \strng{authorbibnamehash}{a51eba2ffd0e7bad5ec68715375acb54}
+      \strng{authornamehash}{a51eba2ffd0e7bad5ec68715375acb54}
+      \strng{authorfullhash}{a51eba2ffd0e7bad5ec68715375acb54}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.IT}
+      \field{eprinttype}{arXiv}
+      \field{title}{Solving Random Quadratic Systems of Equations Is Nearly as Easy as Solving Linear Systems}
+      \field{year}{2016}
+      \verb{eprint}
+      \verb 1505.05114
+      \endverb
+    \endentry
+    \entry{kolte2016phase}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=baabb2aeee0cc5d656198c38f513841f}{%
+           family={Kolte},
+           familyi={K\bibinitperiod},
+           given={Ritesh},
+           giveni={R\bibinitperiod}}}%
+        {{hash=8c29fcb223096f55d509149b6a9b3fd1}{%
+           family={Özgür},
+           familyi={Ö\bibinitperiod},
+           given={Ayfer},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{436a9a1c71081fd841929e2b89c4959e}
+      \strng{fullhash}{436a9a1c71081fd841929e2b89c4959e}
+      \strng{bibnamehash}{436a9a1c71081fd841929e2b89c4959e}
+      \strng{authorbibnamehash}{436a9a1c71081fd841929e2b89c4959e}
+      \strng{authornamehash}{436a9a1c71081fd841929e2b89c4959e}
+      \strng{authorfullhash}{436a9a1c71081fd841929e2b89c4959e}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.IT}
+      \field{eprinttype}{arXiv}
+      \field{title}{Phase Retrieval via Incremental Truncated Wirtinger Flow}
+      \field{year}{2016}
+      \verb{eprint}
+      \verb 1606.03196
+      \endverb
+    \endentry
+    \entry{zhang2016reshaped}{misc}{}
+      \name{author}{4}{}{%
+        {{hash=3df4b7f900b4f1fc7d047987a30e02cf}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Huishuai},
+           giveni={H\bibinitperiod}}}%
+        {{hash=3625efaf108a2751cfdacddd7a073c3d}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Yi},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=be4ec9d52691f418d2df8f3c182bf506}{%
+           family={Liang},
+           familyi={L\bibinitperiod},
+           given={Yingbin},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=5df2ba3cc4b25862d8ad56ac2998846c}{%
+           family={Chi},
+           familyi={C\bibinitperiod},
+           given={Yuejie},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{d369c89cdc12ef79b62eea58e75c9d8e}
+      \strng{fullhash}{d369c89cdc12ef79b62eea58e75c9d8e}
+      \strng{bibnamehash}{d369c89cdc12ef79b62eea58e75c9d8e}
+      \strng{authorbibnamehash}{d369c89cdc12ef79b62eea58e75c9d8e}
+      \strng{authornamehash}{d369c89cdc12ef79b62eea58e75c9d8e}
+      \strng{authorfullhash}{d369c89cdc12ef79b62eea58e75c9d8e}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{stat.ML}
+      \field{eprinttype}{arXiv}
+      \field{title}{Reshaped Wirtinger Flow and Incremental Algorithm for Solving Quadratic System of Equations}
+      \field{year}{2016}
+      \verb{eprint}
+      \verb 1605.07719
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 
