@@ -19,6 +19,151 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
+    \entry{GoWo07}{book}{}
+      \name{author}{2}{}{%
+        {{hash=07713b8c79fe78ffaf9ab728a5f3ce88}{%
+           family={Gonzalez},
+           familyi={G\bibinitperiod},
+           given={Rafael\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=f7e4f4ce32d8e1ac04f7ee5eefcabe8f}{%
+           family={Woods},
+           familyi={W\bibinitperiod},
+           given={Richard\bibnamedelima E.},
+           giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Prentice Hall}%
+      }
+      \strng{namehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{fullhash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{bibnamehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{authorbibnamehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{authornamehash}{629c2754a63b62c1f205866b8ab085f9}
+      \strng{authorfullhash}{629c2754a63b62c1f205866b8ab085f9}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{title}{Digital Image Processing}
+      \field{year}{2007}
+    \endentry
+    \entry{Ar66}{article}{}
+      \name{author}{1}{}{%
+        {{hash=9b247b523635a52cd440b2d7f421b150}{%
+           family={Armijo},
+           familyi={A\bibinitperiod},
+           given={Larry},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{fullhash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{bibnamehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{authorbibnamehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{authornamehash}{9b247b523635a52cd440b2d7f421b150}
+      \strng{authorfullhash}{9b247b523635a52cd440b2d7f421b150}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Pacific Journal of Mathematics}
+      \field{number}{1}
+      \field{title}{Minimization of functions having {L}ipschitz continuous first partial derivatives}
+      \field{volume}{16}
+      \field{year}{1966}
+      \field{pages}{1\bibrangedash 3}
+      \range{pages}{3}
+    \endentry
+    \entry{Ch05}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=680af58d38f3c3c0dd43394b2f898dca}{%
+           family={Chambolle},
+           familyi={C\bibinitperiod},
+           given={Antonin},
+           giveni={A\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=f7babc8fccb57abd2ce3ec7dcd7a54e8}{%
+           family={Rangarajan},
+           familyi={R\bibinitperiod},
+           given={Anand},
+           giveni={A\bibinitperiod}}}%
+        {{hash=3106f4445ee764d91ed3427f2f9d31b6}{%
+           family={Vemuri},
+           familyi={V\bibinitperiod},
+           given={Baba},
+           giveni={B\bibinitperiod}}}%
+        {{hash=53a8d2ea6010d6c2a2c8a7c283548c6e}{%
+           family={Yuille},
+           familyi={Y\bibinitperiod},
+           given={Alan},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{fullhash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{bibnamehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{authorbibnamehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{authornamehash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{authorfullhash}{680af58d38f3c3c0dd43394b2f898dca}
+      \strng{editorbibnamehash}{b8bc446519256d13e0c674a21ef09056}
+      \strng{editornamehash}{b8bc446519256d13e0c674a21ef09056}
+      \strng{editorfullhash}{b8bc446519256d13e0c674a21ef09056}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Energy Minimization Methods in Computer Vision and Pattern Recognition}
+      \field{series}{LNCS}
+      \field{title}{Total Variation Minimization and a Class of Binary {MRF} Models}
+      \field{volume}{3757}
+      \field{year}{2005}
+      \field{pages}{136\bibrangedash 152}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.1007/11585978_10
+      \endverb
+    \endentry
+    \entry{ChEsNi04}{report}{}
+      \name{author}{3}{}{%
+        {{hash=f6e01f498ba16c55d62c2f3a7edb1a86}{%
+           family={Chan},
+           familyi={C\bibinitperiod},
+           given={Tony\bibnamedelima F.},
+           giveni={T\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=578d55e775731c54b39793abe094acfb}{%
+           family={Esedoḡlu},
+           familyi={E\bibinitperiod},
+           given={Selim},
+           giveni={S\bibinitperiod}}}%
+        {{hash=23981f391484341637a131fb54b2e576}{%
+           family={Nikolova},
+           familyi={N\bibinitperiod},
+           given={Mila},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {University of California, Los Angeles}%
+      }
+      \strng{namehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{fullhash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{bibnamehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{authorbibnamehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{authornamehash}{9b0d0347a42abd292d186b586a697c66}
+      \strng{authorfullhash}{9b0d0347a42abd292d186b586a697c66}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{9}
+      \field{number}{04-54}
+      \field{title}{Algorithms for Finding Global Minimizers of Image Segmentation and Denoising Models}
+      \field{type}{techreport}
+      \field{year}{2004}
+    \endentry
     \entry{bib:wf}{misc}{}
       \name{author}{3}{}{%
         {{hash=204f23c4cd71374a68afa533fd9c9d74}{%
@@ -47,8 +192,8 @@
       \strng{authorbibnamehash}{78aca9f500313b1a96253b8c9f8d0678}
       \strng{authornamehash}{78aca9f500313b1a96253b8c9f8d0678}
       \strng{authorfullhash}{78aca9f500313b1a96253b8c9f8d0678}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{{IEEE} Transactions on Information Theory}
@@ -88,8 +233,8 @@
       \strng{authorbibnamehash}{a51eba2ffd0e7bad5ec68715375acb54}
       \strng{authornamehash}{a51eba2ffd0e7bad5ec68715375acb54}
       \strng{authorfullhash}{a51eba2ffd0e7bad5ec68715375acb54}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprintclass}{cs.IT}
@@ -119,8 +264,8 @@
       \strng{authorbibnamehash}{436a9a1c71081fd841929e2b89c4959e}
       \strng{authornamehash}{436a9a1c71081fd841929e2b89c4959e}
       \strng{authorfullhash}{436a9a1c71081fd841929e2b89c4959e}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprintclass}{cs.IT}
@@ -160,8 +305,8 @@
       \strng{authorbibnamehash}{d369c89cdc12ef79b62eea58e75c9d8e}
       \strng{authornamehash}{d369c89cdc12ef79b62eea58e75c9d8e}
       \strng{authorfullhash}{d369c89cdc12ef79b62eea58e75c9d8e}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprintclass}{stat.ML}
@@ -216,8 +361,8 @@
       \strng{authorbibnamehash}{7402433708597f0e03e948e279403f09}
       \strng{authornamehash}{7402433708597f0e03e948e279403f09}
       \strng{authorfullhash}{7402433708597f0e03e948e279403f09}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{2019 International Conference on Machine Learning and Cybernetics (ICMLC)}
@@ -268,8 +413,8 @@
       \strng{authorbibnamehash}{f57575074ea2757cd737aa7e44ad2e2f}
       \strng{authornamehash}{f57575074ea2757cd737aa7e44ad2e2f}
       \strng{authorfullhash}{f57575074ea2757cd737aa7e44ad2e2f}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprintclass}{math.OC}
@@ -302,8 +447,8 @@
       \strng{authorbibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
       \strng{authornamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
       \strng{authorfullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Convex Optimization}
@@ -337,8 +482,8 @@
       \strng{authorbibnamehash}{5b8fd28f6245ae8b0af119560622fa4f}
       \strng{authornamehash}{5b8fd28f6245ae8b0af119560622fa4f}
       \strng{authorfullhash}{5b8fd28f6245ae8b0af119560622fa4f}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{2}
@@ -371,8 +516,8 @@
       \strng{authorbibnamehash}{06279e3288d63e142f89770b2fb69721}
       \strng{authornamehash}{06279e3288d63e142f89770b2fb69721}
       \strng{authorfullhash}{06279e3288d63e142f89770b2fb69721}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{edition}{2}

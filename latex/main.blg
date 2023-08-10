@@ -1,20 +1,20 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[39] biber-darwin:340> INFO - === Mon Aug  7, 2023, 21:53:51
-[49] Biber.pm:419> INFO - Reading 'main.bcf'
-[96] Biber.pm:979> INFO - Found 9 citekeys in bib section 0
-[103] Biber.pm:4419> INFO - Processing section 0
-[108] Biber.pm:4610> INFO - Looking for bibtex file 'thesis.bib' for section 0
-[109] bibtex.pm:1713> INFO - LaTeX decoding ...
-[116] bibtex.pm:1519> INFO - Found BibTeX data source 'thesis.bib'
-[161] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[161] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[162] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
-[162] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
-[167] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[171] bbl.pm:763> INFO - Output to main.bbl
-[171] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_38pD/10964c7c28215ff4e717a58daf08cffc_70470.utf8, line 2, warning: 61 characters of junk seen at toplevel
-[171] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_38pD/10964c7c28215ff4e717a58daf08cffc_70470.utf8, line 18, warning: 60 characters of junk seen at toplevel
-[171] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_38pD/10964c7c28215ff4e717a58daf08cffc_70470.utf8, line 75, warning: 68 characters of junk seen at toplevel
-[171] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_38pD/10964c7c28215ff4e717a58daf08cffc_70470.utf8, line 135, warning: 203 characters of junk seen at toplevel
-[171] Biber.pm:133> INFO - WARNINGS: 4
+[43] biber-darwin:340> INFO - === Thu Aug 10, 2023, 08:23:57
+[56] Biber.pm:419> INFO - Reading 'main.bcf'
+[104] Biber.pm:979> INFO - Found 13 citekeys in bib section 0
+[112] Biber.pm:4419> INFO - Processing section 0
+[117] Biber.pm:4610> INFO - Looking for bibtex file 'thesis.bib' for section 0
+[118] bibtex.pm:1713> INFO - LaTeX decoding ...
+[126] bibtex.pm:1519> INFO - Found BibTeX data source 'thesis.bib'
+[182] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[182] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[182] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
+[183] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[192] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[197] bbl.pm:763> INFO - Output to main.bbl
+[197] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_iXh6/10964c7c28215ff4e717a58daf08cffc_85443.utf8, line 2, warning: 61 characters of junk seen at toplevel
+[197] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_iXh6/10964c7c28215ff4e717a58daf08cffc_85443.utf8, line 18, warning: 60 characters of junk seen at toplevel
+[197] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_iXh6/10964c7c28215ff4e717a58daf08cffc_85443.utf8, line 75, warning: 68 characters of junk seen at toplevel
+[197] Biber.pm:131> WARN - BibTeX subsystem: /var/folders/5b/9rjkrpsn62q651jqz_r951680000gn/T/biber_tmp_iXh6/10964c7c28215ff4e717a58daf08cffc_85443.utf8, line 135, warning: 203 characters of junk seen at toplevel
+[197] Biber.pm:133> INFO - WARNINGS: 4

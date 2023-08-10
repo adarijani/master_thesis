@@ -1,6 +1,15 @@
 \babel@toc {american}{}\relax 
-\contentsline {chapter}{\numberline {1}Wirtinger Flow}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Problem Formulation}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Difficulties}{1}{section.1.2}%
-\contentsline {chapter}{\nonumberline Bibliography}{3}{chapter*.6}%
+\contentsline {chapter}{Dedication}{1}{chapter*.2}%
+\contentsline {chapter}{Abstract}{3}{chapter*.3}%
+\contentsline {chapter}{Acknowledgements}{5}{chapter*.4}%
+\contentsline {chapter}{Acronyms and List of Special Symbols}{7}{section*.5}%
+\contentsline {chapter}{\numberline {1}Introduction}{9}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Related work}{9}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Wirtinger Flow}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Problem Formulation}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Difficulties}{11}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Deep Unfolding}{13}{chapter.3}%
+\contentsline {chapter}{\numberline {4}UNROLLED WIRTINGER FLOWS}{15}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Results}{17}{chapter.5}%
+\contentsline {chapter}{\nonumberline Bibliography}{19}{chapter*.13}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
