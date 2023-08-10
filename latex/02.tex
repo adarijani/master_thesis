@@ -35,9 +35,14 @@ The summary for all the variants in terms of formulation is in table\ref{tab:for
 	\end{table}
 \section{Difficulties}
 
-The loss function is non-convex. Two nice figures can be found in \cite{bib:rfw-irwf} that show the effect of different formulation in the curvature 
-but at the same time the non-convexness of the presented problem. For the thorough geometric analysis of the \emph{Phase Retrieval} problem 
-we refer to Wright et al.\cite{bib:phase-geometric}   
+The loss function is non-convex. Set $n=1$, $m=2$, $\boldsymbol{x}_1 = \begin{pmatrix}1+i\end{pmatrix}^{1 \times 1}$, 
+$\boldsymbol{x}_2 = \begin{pmatrix}-1-i\end{pmatrix}^{1 \times 1}$, $\boldsymbol{A}=\begin{pmatrix}1\\i \end{pmatrix}^{2 \times 1}$, 
+$\boldsymbol{y}=\begin{pmatrix}1\\2 \end{pmatrix}^{2 \times 1}$, and $\lambda=1/2$ to build a counterexample. Non-convexity is bad news for 
+optimization as it can be seen vividly in \cite{bib:opt-boyd} and \cite{bib:opt-wright}. To make the matter worse the loss function is not 
+holomorphic( it can be easily seen that Cauchy-Riemann equations\cite{bib:complex-ahl} do not hold) and therefore complex differentiability 
+is out of the question\cite{bib:complex-ahl}.   
+
+
 % \begin{equation} \label{prob:mainproblem}
 % 	Recover $\boldsymbol{x} \in \mathbb{R}^n/\mathbb{C}^n$ from measurements $y_i$ given by
 % 	\begin{flalign}
@@ -87,14 +92,14 @@ we refer to Wright et al.\cite{bib:phase-geometric}
 
 
 	\begin{algorithm}
-	\caption{Reshaped Wirtinger Flow suggested by \cite{zhang2016reshaped}}\label{alg:rwf}
+	\caption{Reshaped \emph{Wirtinger Flow} suggested by \cite{bib:rfw-irwf}}\label{alg:rwf}
 		\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
 		\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
 		\textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
 		\begin{equation}\label{eq:init_TRWF}
 			\boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
 		\end{equation}
-		\textbf{Gradient loop}: for $t=0:T-1$ do
+		\textbf{Update loop}: for $t=0:T-1$ do
 		\begin{flalign}\label{eq:loop_FWF}
 			\boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}-y_i\cdot\frac{\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}}{|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}|} \right) \boldsymbol{a}_i.
 		\end{flalign}
@@ -102,8 +107,7 @@ we refer to Wright et al.\cite{bib:phase-geometric}
 	\end{algorithm}
 
 	\begin{algorithm}[th]
-		\caption{Incremental Reshaped Wirtinger Flow (IRWF) suggested by \cite{zhang2016reshaped}}\label{alg:irwf}
-		
+		\caption{Incremental Reshaped \emph{Wirtinger Flow} (IRWF) suggested by \cite{bib:rfw-irwf}}\label{alg:irwf}
 		\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
 		\textbf{Initialization}: Same as in RWF (Algorithm \ref{alg:rwf}); \\
 		\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
@@ -112,7 +116,7 @@ we refer to Wright et al.\cite{bib:phase-geometric}
 		%\bY:=\frac{1}{m}\sum_{i=1}^m y_i\ba_i \boldsymbol{a}_i^*\bone_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
 		%\end{equation*}
 		
-		 \textbf{Gradient loop}: for $t=0:T-1$ do\\
+		 \textbf{Update loop}: for $t=0:T-1$ do\\
 		 Choose $i_t$ uniformly at random from $\{1,2,\ldots, m\}$, and let
 		  \begin{flalign}
 				\boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu\left(\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}-y_{i_t}\cdot\frac{\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}}{|\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}|} \right) \boldsymbol{a}_{i_t}, \label{eq:incrementalupdate}
@@ -123,7 +127,7 @@ we refer to Wright et al.\cite{bib:phase-geometric}
 
 
 		\begin{algorithm}[th]
-			\caption{Minibatch Incremetnal Reshaped Wirtinger Flow (minibatch IRWF) suggested by \cite{zhang2016reshaped}}\label{alg:mbirwf}
+			\caption{Minibatch Incremetnal Reshaped \emph{Wirtinger Flow} (minibatch IRWF) suggested by \cite{bib:rfw-irwf}}\label{alg:mbirwf}
 			
 			\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
 			\textbf{Initialization}: Same as in RWF (Algorithm \ref{alg:rwf}); \\
@@ -133,7 +137,7 @@ we refer to Wright et al.\cite{bib:phase-geometric}
 			%\bY:=\frac{1}{m}\sum_{i=1}^m y_i\ba_i \boldsymbol{a}_i^*\bone_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
 			%\end{equation*}
 			
-			 \textbf{Gradient loop}: for $t=0:T-1$ do\\
+			 \textbf{Update loop}: for $t=0:T-1$ do\\
 			 Choose $\Gamma_t$ uniformly at random from the subsets of  $\{1,2,\ldots, m\}$ with cardinality $k$, and let
 			 \begin{flalign}
 				\boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}-\mu\cdot\boldsymbol{A}_{\Gamma_t}^* \left(\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}-\boldsymbol{y}_{\Gamma_t}\odot\text{Ph} (\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)})\right), \label{eq:mbirwfUpdate}
@@ -144,4 +148,4 @@ we refer to Wright et al.\cite{bib:phase-geometric}
 			\end{algorithm}
 
 
-			$ $
+			

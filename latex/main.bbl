@@ -280,58 +280,108 @@
       \verb 1711.10175
       \endverb
     \endentry
-    \entry{bib:phase-geometric}{article}{}
-      \name{author}{3}{}{%
-        {{hash=bf64358c364b080e7c137951c366bd89}{%
-           family={Sun},
-           familyi={S\bibinitperiod},
-           given={Ju},
-           giveni={J\bibinitperiod}}}%
-        {{hash=cac9e8c38fcd786f4cd021d721c0abc7}{%
-           family={Qu},
-           familyi={Q\bibinitperiod},
-           given={Qing},
-           giveni={Q\bibinitperiod}}}%
-        {{hash=08d606d3cdd9e3e64020f253922ab631}{%
-           family={Wright},
-           familyi={W\bibinitperiod},
-           given={John},
-           giveni={J\bibinitperiod}}}%
+    \entry{bib:opt-boyd}{book}{}
+      \name{author}{2}{}{%
+        {{hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
+           family={Boyd},
+           familyi={B\bibinitperiod},
+           given={Stephen},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2608d599a0bc2a784c301329a8da5f7b}{%
+           family={Vandenberghe},
+           familyi={V\bibinitperiod},
+           given={Lieven},
+           giveni={L\bibinitperiod}}}%
       }
-      \list{publisher}{2}{%
-        {Springer Science}%
-        {Business Media {LLC}}%
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
       }
-      \strng{namehash}{7057a362c1410384e5d4362344167a63}
-      \strng{fullhash}{7057a362c1410384e5d4362344167a63}
-      \strng{bibnamehash}{7057a362c1410384e5d4362344167a63}
-      \strng{authorbibnamehash}{7057a362c1410384e5d4362344167a63}
-      \strng{authornamehash}{7057a362c1410384e5d4362344167a63}
-      \strng{authorfullhash}{7057a362c1410384e5d4362344167a63}
+      \strng{namehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{fullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{bibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authorbibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authornamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authorfullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Foundations of Computational Mathematics}
-      \field{month}{8}
-      \field{number}{5}
-      \field{title}{A Geometric Analysis of Phase Retrieval}
-      \field{volume}{18}
-      \field{year}{2017}
-      \field{pages}{1131\bibrangedash 1198}
-      \range{pages}{68}
-      \verb{doi}
-      \verb 10.1007/s10208-017-9365-9
-      \endverb
+      \field{title}{Convex Optimization}
+      \field{year}{2004}
       \verb{urlraw}
-      \verb https://doi.org/10.1007%2Fs10208-017-9365-9
+      \verb http://www.amazon.com/exec/obidos/redirect?tag=citeulike-20\&path=ASIN/0521833787
       \endverb
       \verb{url}
-      \verb https://doi.org/10.1007%2Fs10208-017-9365-9
+      \verb http://www.amazon.com/exec/obidos/redirect?tag=citeulike-20%5C&path=ASIN/0521833787
       \endverb
     \endentry
+    \entry{bib:opt-wright}{book}{}
+      \name{author}{2}{}{%
+        {{hash=88a342d927bf795b0d92af8a5613da31}{%
+           family={Nocedal},
+           familyi={N\bibinitperiod},
+           given={Jorge},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c49efb16d3fa7eef002cc3620d42ab8a}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={Stephen\bibnamedelima J.},
+           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{5b8fd28f6245ae8b0af119560622fa4f}
+      \strng{fullhash}{5b8fd28f6245ae8b0af119560622fa4f}
+      \strng{bibnamehash}{5b8fd28f6245ae8b0af119560622fa4f}
+      \strng{authorbibnamehash}{5b8fd28f6245ae8b0af119560622fa4f}
+      \strng{authornamehash}{5b8fd28f6245ae8b0af119560622fa4f}
+      \strng{authorfullhash}{5b8fd28f6245ae8b0af119560622fa4f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{title}{Numerical Optimization}
+      \field{year}{2006}
+      \verb{doi}
+      \verb 10.1007/978-0-387-40065-5
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007%2F978-0-387-40065-5
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007%2F978-0-387-40065-5
+      \endverb
+    \endentry
+    \entry{bib:complex-ahl}{book}{}
+      \name{author}{1}{}{%
+        {{hash=06279e3288d63e142f89770b2fb69721}{%
+           family={Ahlfors},
+           familyi={A\bibinitperiod},
+           given={L.\bibnamedelimi V.},
+           giveni={L\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill Book Company}%
+      }
+      \strng{namehash}{06279e3288d63e142f89770b2fb69721}
+      \strng{fullhash}{06279e3288d63e142f89770b2fb69721}
+      \strng{bibnamehash}{06279e3288d63e142f89770b2fb69721}
+      \strng{authorbibnamehash}{06279e3288d63e142f89770b2fb69721}
+      \strng{authornamehash}{06279e3288d63e142f89770b2fb69721}
+      \strng{authorfullhash}{06279e3288d63e142f89770b2fb69721}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{subtitle}{An introduction to the theory of analytic functions of one complex variable}
+      \field{title}{Complex Analysis}
+      \field{year}{1966}
+      \field{dateera}{ce}
+    \endentry
   \enddatalist
-  \missing{zhang2016reshaped}
 \endrefsection
 \endinput
 

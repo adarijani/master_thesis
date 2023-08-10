@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.8)  7 AUG 2023 10:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.8)  7 AUG 2023 22:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1466,27 +1466,13 @@ Package biblatex Info: Automatic encoding selection.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
- (./main.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                zhang2016reshaped
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
-
-Package biblatex Warning: citation 'zhang2016reshaped'
-(biblatex)                was not found at all in the .bbl file,
-(biblatex)                bibliography labels cannot be generated,
-(biblatex)                please correct the citation.
-
+ (./main.bbl)
 Package biblatex Info: Reference section=0 on input line 62.
 Package biblatex Info: Reference segment=0 on input line 62.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
-(/usr/local/texlive/2023/texmf-dist/tex/latex/caption/ltcaption.sty
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/ltcaption.sty
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: supertabular package is loaded.
@@ -1594,28 +1580,7 @@ chapter 1.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 6.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-
-LaTeX Warning: Citation 'zhang2016reshaped' on page 1 undefined on input line 90.
-
-
-LaTeX Warning: Citation 'zhang2016reshaped' on page 1 undefined on input line 105.
-
-
-LaTeX Warning: Citation 'zhang2016reshaped' on page 1 undefined on input line 105.
-
-
-Underfull \hbox (badness 7238) in paragraph at lines 105--105
-[]\T1/lmr/bx/n/10.95 (+20) Algorithm 2: \T1/lmr/m/n/10.95 (+20) In-cre-men-tal Re-shaped Wirtinger Flow (IRWF) sug-gested by
- []
-
-
-LaTeX Warning: Citation 'zhang2016reshaped' on page 1 undefined on input line 126.
-
-
-LaTeX Warning: Citation 'zhang2016reshaped' on page 1 undefined on input line 126.
-
-)
+))
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -1657,18 +1622,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 65828 strings out of 476025
- 1505393 string characters out of 5790018
- 2588360 words of memory out of 5000000
- 85179 multiletter control sequences out of 15000+600000
- 573668 words of font info for 132 fonts, out of 8000000 for 9000
+ 65845 strings out of 476025
+ 1505906 string characters out of 5790018
+ 2590482 words of memory out of 5000000
+ 85192 multiletter control sequences out of 15000+600000
+ 573798 words of font info for 133 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  118i,19n,119p,10666b,2281s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (5 pages, 242956 bytes).
+Output written on main.pdf (5 pages, 244532 bytes).
 PDF statistics:
- 197 PDF objects out of 1000 (max. 8388607)
- 149 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
+ 206 PDF objects out of 1000 (max. 8388607)
+ 157 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
  35373 words of extra memory for PDF output out of 35830 (max. 10000000)
 
