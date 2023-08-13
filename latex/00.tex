@@ -1,0 +1,23 @@
+\chapter{Mathematical Preliminaries}
+
+
+
+\begin{Def}\label{def:dft}
+    \emph{$2$D Discrete Fourier Transform}\\
+    The \emph{$2$D Discrete Fourier Transform} of the $2$D array $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
+    $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by
+    \begin{equation}\label{eq:dft}
+        \{\hat {\boldsymbol{X}}\}_{k,l} \coloneq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
+    \end{equation}
+    and the get back the original array one can use the inversion formula
+    \begin{equation}\label{eq:idft}
+        \{{\boldsymbol{X}}\}_{n,m} \coloneq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1} \{\hat {\boldsymbol{X}}\}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right).
+    \end{equation}    
+    
+\end{Def}
+
+
+\begin{Thm}\label{theorem:dft is unitary}
+    
+    Here goes the actual theorem description.
+\end{Thm}
