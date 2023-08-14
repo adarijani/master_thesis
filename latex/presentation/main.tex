@@ -2,14 +2,21 @@
 
 \documentclass{beamer}
 \usetheme{Berkeley}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[backend=biber]{biblatex}
+\bibliography{thesis.bib}
+\setbeamertemplate{bibliography item}{}
 
 \begin{document}
-\title[Complete-simple distributive lattices]{A construction of complete-simple\\ distributive lattices}
-\author[]{George~A. Menuhin}
-\institute{Computer Science Department\\
-         University of Winnebago\\
-         Winnebago, MN 53714} 
-\date{March 15, 2015}
+\title[Deep Unfolding of Wirtinger Flow type Schemes]{Deep Unfolding of Wirtinger Flow type Schemes}
+\author[]{Ali Darijani\\ \href{mailto:ali.darijani.me@gmail.com}{ali.darijani.me@gmail.com}\newline
+\\ Supervisor: Prof. Benjamin Berkels\\ \href{mailto:berkels@aices.rwth-aachen.de}{berkels@aices.rwth-aachen.de}
+}
+% \author[author1]{author1\inst{1}\\[1ex]  {\small supervisor1\inst{1,2}}}
+
+\institute{RWTH Aachen University} 
+\date{\today}
 
 \begin{frame}
 \titlepage
@@ -19,12 +26,13 @@
 \frametitle{Outline}
 
 \tableofcontents[pausesections]
+% \tableofcontents
 \end{frame}
 
-\section{Introduction}
+\section{Phase Problem}
 
 \begin{frame}
-\frametitle{Introduction}
+\frametitle{Phase Problem}
 
 In this note, we prove the following result:
 
@@ -173,5 +181,14 @@ Magyar Tud. Akad. Mat. Fiz. Oszt. K\"{o}zl. \textbf{9}
 
 \end{thebibliography}
 \end{frame}
+
+
+% \begin{frame}
+%    \frametitle{References}
+%    % This prints the bibliography on the slide
+%    \nocite{bib:book-convex-boyd}
+%    \nocite{bib:paper-wf-candes}
+%    \printbibliography
+%    \end{frame}
 \end{document}
 
