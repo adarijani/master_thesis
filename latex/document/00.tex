@@ -2,19 +2,115 @@
 
 
 
-\begin{Def}\label{def:dft}
+
+
+
+\begin{Def}\label{def:1ddft}
+    \emph{$1$D Discrete Fourier Transform}\\
+    The \emph{$1$D Discrete Fourier Transform} of the $1$D array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
+    $\hat {\boldsymbol{X}} \in \mathbb{C}^{N}$ and is defined by
+    \begin{equation}\label{eq:1ddft}
+        \{\hat {\boldsymbol{X}}\}_{k} \coloneq \frac{1}{N}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n}\exp\left({\frac{-2\pi ink}{N}}\right)
+    \end{equation}
+    and to get back the original array one can use the inversion formula
+    \begin{equation}\label{eq:1didft}
+        \{{\boldsymbol{X}}\}_{n} \coloneq \sum_{k=0}^{N-1}\{\hat {\boldsymbol{X}}\}_{k}\exp\left({\frac{2\pi ink}{N}}\right)
+    \end{equation}    
+\end{Def}
+
+As it is evident from the formula the $1$D Discrete Fourier Transform is a linear transformation therefor 
+there a corresponding matrix and basis vectors. The matrix is dense matrix and due to computational efficiency 
+is almost never computed directly, however taking a closer look at the basis vectors would shed some light on 
+the nature of the said transform and is a time well spent.
+
+\begin{Prop}\label{Prop:1ddftbasisvectors}
+    The basis vectors
+    \begin{equation}\label{eq:1ddftbasisvectors}
+        \boldsymbol{g}^n = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\right\}_{k=0,\ldots,N-1}
+    \end{equation}
+    are orthogonal to each other with respect to the usual inner product form complex valued vectors 
+    with the normalization constant of $N$
+    \begin{equation}
+        \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle= N \delta_{n,n'}
+    \end{equation}
+\end{Prop}
+
+\begin{proof}
+    \begin{equation*}
+        \boldsymbol{g}^n = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\right\}_{k=0,\ldots,N-1}, \quad \boldsymbol{g}^{n'} = \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\right\}_{k=0,\ldots,N-1}
+    \end{equation*}
+    \begin{align*} 
+        \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)}
+        = \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\\
+        &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)=
+        \begin{cases}
+            N & \text{when $n = n'$}\text{(trivial)},\\
+            0 & \text{when $n\neq n'$}\text{(using geometric sum formula)}.
+        \end{cases}
+    \end{align*}
+    
+\end{proof}
+
+
+
+
+
+
+
+
+\begin{Def}\label{def:2ddft}
     \emph{$2$D Discrete Fourier Transform}\\
     The \emph{$2$D Discrete Fourier Transform} of the $2$D array $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
     $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by
-    \begin{equation}\label{eq:dft}
+    \begin{equation}\label{eq:2ddft}
         \{\hat {\boldsymbol{X}}\}_{k,l} \coloneq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
     \end{equation}
-    and the get back the original array one can use the inversion formula
-    \begin{equation}\label{eq:idft}
-        \{{\boldsymbol{X}}\}_{n,m} \coloneq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1} \{\hat {\boldsymbol{X}}\}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right).
+    and to get back the original array one can use the inversion formula
+    \begin{equation}\label{eq:2didft}
+        \{{\boldsymbol{X}}\}_{n,m} \coloneq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}\{\hat {\boldsymbol{X}}\}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
     \end{equation}    
-    
 \end{Def}
+
+As it is evident from the formula the $2$D Discrete Fourier Transform is a linear transformation therefor 
+there a corresponding matrix and basis vectors. The matrix is dense matrix and due to computational efficiency 
+is almost never computed directly, however taking a closer look at the basis vectors would shed some light on 
+the nature of the said transform and is a time well spent.
+
+\begin{Prop}\label{Prop:2ddftbasisvectors}
+    The basis vectors
+    \begin{equation}\label{eq:2ddftbasisvectors}
+        \boldsymbol{g}^{n,m} = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
+    \end{equation}
+    are orthogonal to each other with respect to the usual inner product form complex valued vectors 
+    with the normalization constant of $MN$
+    \begin{equation}
+        \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle= MN \delta_{n,n'}\delta_{m,m'}
+    \end{equation}
+\end{Prop}
+
+\begin{proof}
+    \begin{align*}
+        \boldsymbol{g}^{n,m}    &= \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}\\
+        \boldsymbol{g}^{n',m'}  &= \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
+    \end{align*}
+    \begin{align*} 
+        \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)}\\
+        &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\exp\left({\frac{+2\pi im'l}{M}}\right)\\
+        &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\exp\left({\frac{-2\pi i(m'-m)l}{M}}\right)\\
+        &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\sum_{l=0}^{M-1} \exp\left({\frac{-2\pi i(m'-m)k}{M}}\right)\\
+        &= 
+        \begin{cases}
+            MN & \text{when $n = n' \wedge m=m'$}\text{(trivial)},\\
+            0 & \text{when $\neg(n = n' \wedge m=m')$}\text{(using geometric sum formula)}.
+        \end{cases}
+    \end{align*}
+    
+\end{proof}
+
+
+
+
+
 
 
 \begin{Thm}\label{theorem:dft is unitary}
