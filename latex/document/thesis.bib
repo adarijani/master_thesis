@@ -1,219 +1,112 @@
-######################## Phase Retrieval #######################
-@book{bib:book-complex-ahlfors,
-  title     = {Complex Analysis},
-  author    = {Ahlfors, L. V.},
-  publisher = {McGraw-Hill Book Company},
-  date      = {1966},
-  edition   = {2}
-}
+%% This BibTeX bibliography file was created using BibDesk.
+%% https://bibdesk.sourceforge.io/
 
-################## Wirtinger FLow Variants #####################
-@misc{bib:papercandes,
-  doi       = {10.1109/tit.2015.2399924},
-  url       = {https://doi.org/10.1109%2Ftit.2015.2399924},
-  year      = 2015,
-  month     = {4},
-  publisher = {Institute of Electrical and Electronics Engineers ({IEEE})},
-  volume    = {61},
-  number    = {4},
-  pages     = {1985--2007},
-  author    = {Emmanuel J. Candes and Xiaodong Li and Mahdi Soltanolkotabi},
-  title     = {Phase Retrieval via Wirtinger Flow: Theory and Algorithms},
-  journal   = {{IEEE} Transactions on Information Theory}
-}
-@misc{bib:paper-twf-cadnes,
-  title         = {Solving Random Quadratic Systems of Equations Is Nearly as Easy as Solving Linear Systems},
-  author        = {Yuxin Chen and Emmanuel J. Candes},
-  year          = {2016},
-  eprint        = {1505.05114},
-  archiveprefix = {arXiv},
-  primaryclass  = {cs.IT}
-}
-@misc{bib:paper-itwf-kolte,
-  title         = {Phase Retrieval via Incremental Truncated Wirtinger Flow},
-  author        = {Ritesh Kolte and Ayfer Özgür},
-  year          = {2016},
-  eprint        = {1606.03196},
-  archiveprefix = {arXiv},
-  primaryclass  = {cs.IT}
-}
-@misc{bib:paper-rfw-irwf-zhang,
-  title         = {Reshaped Wirtinger Flow and Incremental Algorithm for Solving Quadratic System of Equations},
-  author        = {Huishuai Zhang and Yi Zhou and Yingbin Liang and Yuejie Chi},
-  year          = {2016},
-  eprint        = {1605.07719},
-  archiveprefix = {arXiv},
-  primaryclass  = {stat.ML}
-}
-@inproceedings{bib:paper-wf-survey-liu,
-  author    = {Liu, Jian-Wei and Cao, Zhi-Juan and Liu, Jing and Luo, Xiong-Lin and Li, Wei-Min and Ito, Nobuyasu and Guo, Long-Chuan},
-  booktitle = {2019 International Conference on Machine Learning and Cybernetics (ICMLC)},
-  title     = {Phase Retrieval via Wirtinger Flow Algorithm and Its Variants},
-  year      = {2019},
-  volume    = {},
-  number    = {},
-  pages     = {1-9},
-  doi       = {10.1109/ICMLC48188.2019.8949170}
-}
-@misc{bib:paper-phasepack-chandra,
-  title         = {PhasePack: A Phase Retrieval Library},
-  author        = {Rohan Chandra and Ziyuan Zhong and Justin Hontz and Val McCulloch and Christoph Studer and Tom Goldstein},
-  year          = {2017},
-  eprint        = {1711.10175},
-  archiveprefix = {arXiv},
-  primaryclass  = {math.OC}
-}
-
-############################# Analysis ###############################
+%% Created for rknot at 2023-08-18 17:39:58 +0200 
 
 
-############################# Unrolling ##############################
+%% Saved with string encoding Unicode (UTF-8) 
 
 
 
-############################# Implementation Stuff ###################
+@article{wirtinger_flow_cadnes,
+	abstract = {We study the problem of recovering the phase from magnitude measurements; specifically, we wish to reconstruct a complex-valued signal x of C^n about which we have phaseless samples of the form y_r = |< a_r,x >|^2, r = 1,2,...,m (knowledge of the phase of these samples would yield a linear system). This paper develops a non-convex formulation of the phase retrieval problem as well as a concrete solution algorithm. In a nutshell, this algorithm starts with a careful initialization obtained by means of a spectral method, and then refines this initial estimate by iteratively applying novel update rules, which have low computational complexity, much like in a gradient descent scheme. The main contribution is that this algorithm is shown to rigorously allow the exact retrieval of phase information from a nearly minimal number of random measurements. Indeed, the sequence of successive iterates provably converges to the solution at a geometric rate so that the proposed scheme is efficient both in terms of computational and data resources. In theory, a variation on this scheme leads to a near-linear time algorithm for a physically realizable model based on coded diffraction patterns. We illustrate the effectiveness of our methods with various experiments on image data. Underlying our analysis are insights for the analysis of non-convex optimization schemes that may have implications for computational problems beyond phase retrieval.},
+	author = {Emmanuel Candes and Xiaodong Li and Mahdi Soltanolkotabi},
+	date-added = {2023-08-18 17:36:23 +0200},
+	date-modified = {2023-08-18 17:37:35 +0200},
+	doi = {https://doi.org/10.1109/TIT.2015.2399924},
+	eprint = {1407.1065},
+	month = {07},
+	rating = {1},
+	read = {0},
+	title = {Phase Retrieval via Wirtinger Flow: Theory and Algorithms},
+	url = {https://arxiv.org/pdf/1407.1065.pdf},
+	year = {2014},
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAuLi4vLi4vLi4vLi4vc2NpZWJvL3RoZXNpcy9wYXBlcnMvMTQwNy4xMDY1LnBkZk8RAVQAAAAAAVQAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAODS5dZCRAAB/////w0xNDA3LjEwNjUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////4QVdTAAAAAAAAAAAAAQABAAACiBjdQAAAAAAAAAAAAAAAAAGcGFwZXJzAAIAMC86VXNlcnM6cmtub3Q6c2NpZWJvOnRoZXNpczpwYXBlcnM6MTQwNy4xMDY1LnBkZgAOABwADQAxADQAMAA3AC4AMQAwADYANQAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIALlVzZXJzL3Jrbm90L3NjaWViby90aGVzaXMvcGFwZXJzLzE0MDcuMTA2NS5wZGYAEwABLwAAFQACAAz//wAAAAgADQAaACQAVQAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAGt}}
 
+@book{grandpa_rudin,
+	author = {Walter Rudin},
+	date-added = {2023-08-18 17:30:06 +0200},
+	date-modified = {2023-08-18 17:32:38 +0200},
+	edition = {2},
+	publisher = {McGraw-Hill},
+	series = {International series in pure and applied mathematics},
+	title = {Functional Analysis},
+	year = {1991},
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxBNLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvYW5hbHlzaXMvZnVuY3Rpb25hbF9hbmFseXNpc19ydWRpbl9zZWNvbmRfZWRpdGlvbi5wZGZPEQHUAAAAAAHUAAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAADg0uXWQkQAAf////8fZnVuY3Rpb25hbF9hbmFseXNpI0ZGRkZGRkZGLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////+B6kmIAAAAAAAAAAAAEAAQAAAogY3UAAAAAAAAAAAAAAAAACGFuYWx5c2lzAAIATy86VXNlcnM6cmtub3Q6c2NpZWJvOm1hdGg6YW5hbHlzaXM6ZnVuY3Rpb25hbF9hbmFseXNpc19ydWRpbl9zZWNvbmRfZWRpdGlvbi5wZGYAAA4AWgAsAGYAdQBuAGMAdABpAG8AbgBhAGwAXwBhAG4AYQBsAHkAcwBpAHMAXwByAHUAZABpAG4AXwBzAGUAYwBvAG4AZABfAGUAZABpAHQAaQBvAG4ALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAE1Vc2Vycy9ya25vdC9zY2llYm8vbWF0aC9hbmFseXNpcy9mdW5jdGlvbmFsX2FuYWx5c2lzX3J1ZGluX3NlY29uZF9lZGl0aW9uLnBkZgAAEwABLwAAFQACAAz//wAAAAgADQAaACQAdAAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAJM}}
 
-########################### Optimization #############################
-@book{bib:book-convex-boyd,
-  author    = {Boyd, Stephen and Vandenberghe, Lieven},
-  publisher = {{Cambridge University Press}},
-  title     = {Convex Optimization},
-  url       = {http://www.amazon.com/exec/obidos/redirect?tag=citeulike-20\&path=ASIN/0521833787},
-  year      = 2004
-}
-@book{bib:book-numerical-optimization-wright,
-  author    = {Jorge Nocedal and Stephen J. Wright},
-  publisher = {Springer New York},
-  title     = {Numerical Optimization},
-  url       = {https://doi.org/10.1007%2F978-0-387-40065-5},
-  doi       = {10.1007/978-0-387-40065-5},
-  edition   = 2,
-  year      = 2006
-}
+@book{papa_rudin,
+	author = {Walter Rudin},
+	date-added = {2023-08-18 17:26:50 +0200},
+	date-modified = {2023-08-18 17:29:15 +0200},
+	edition = {3},
+	publisher = {McGraw-Hill},
+	read = {0},
+	title = {Real and Complex Analysis Real and Complex Analysis},
+	year = {1987},
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxBLLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvYW5hbHlzaXMvcmVhbF9hbmRfY29tcGxleF9hbmFseXNpc193YWx0ZXJfcnVkaW4ucGRmTxEBzAAAAAABzAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAA4NLl1kJEAAH/////H3JlYWxfYW5kX2NvbXBsZXhfYSNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////dqhlPAAAAAAAAAAAABAAEAAAKIGN1AAAAAAAAAAAAAAAAAAhhbmFseXNpcwACAE0vOlVzZXJzOnJrbm90OnNjaWVibzptYXRoOmFuYWx5c2lzOnJlYWxfYW5kX2NvbXBsZXhfYW5hbHlzaXNfd2FsdGVyX3J1ZGluLnBkZgAADgBWACoAcgBlAGEAbABfAGEAbgBkAF8AYwBvAG0AcABsAGUAeABfAGEAbgBhAGwAeQBzAGkAcwBfAHcAYQBsAHQAZQByAF8AcgB1AGQAaQBuAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgBLVXNlcnMvcmtub3Qvc2NpZWJvL21hdGgvYW5hbHlzaXMvcmVhbF9hbmRfY29tcGxleF9hbmFseXNpc193YWx0ZXJfcnVkaW4ucGRmAAATAAEvAAAVAAIADP//AAAACAANABoAJAByAAAAAAAAAgEAAAAAAAAABQAAAAAAAAAAAAAAAAAAAkI=}}
 
+@book{baby_rudin,
+	author = {Walter Rudin},
+	date-added = {2023-08-18 17:21:33 +0200},
+	date-modified = {2023-08-18 17:24:53 +0200},
+	edition = {3},
+	publisher = {McGraw-Hill},
+	series = {International series in pure and applied mathematics},
+	title = {Principles of Mathematical Analysis},
+	year = {1976},
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxBVLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvYW5hbHlzaXMvcHJpbmNpcGxlc19vZl9tYXRoZW1hdGljYWxfYW5hbHlzaXNfd2FsdGVyX3J1ZGluLnBkZk8RAfQAAAAAAfQAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAODS5dZCRAAB/////x9wcmluY2lwbGVzX29mX21hdGgjRkZGRkZGRkYucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////3aobLwAAAAAAAAAAAAQABAAACiBjdQAAAAAAAAAAAAAAAAAIYW5hbHlzaXMAAgBXLzpVc2Vyczpya25vdDpzY2llYm86bWF0aDphbmFseXNpczpwcmluY2lwbGVzX29mX21hdGhlbWF0aWNhbF9hbmFseXNpc193YWx0ZXJfcnVkaW4ucGRmAAAOAGoANABwAHIAaQBuAGMAaQBwAGwAZQBzAF8AbwBmAF8AbQBhAHQAaABlAG0AYQB0AGkAYwBhAGwAXwBhAG4AYQBsAHkAcwBpAHMAXwB3AGEAbAB0AGUAcgBfAHIAdQBkAGkAbgAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAVVVzZXJzL3Jrbm90L3NjaWViby9tYXRoL2FuYWx5c2lzL3ByaW5jaXBsZXNfb2ZfbWF0aGVtYXRpY2FsX2FuYWx5c2lzX3dhbHRlcl9ydWRpbi5wZGYAABMAAS8AABUAAgAM//8AAAAIAA0AGgAkAHwAAAAAAAACAQAAAAAAAAAFAAAAAAAAAAAAAAAAAAACdA==}}
 
-############################ Signal Processing ######################
-@book{bib:book-signal-miller,
-  title     = {The Mathematics of Signal Processing},
-  author    = {Damelin, Steven B. and Miller, Willard Jr.},
-  publisher = {Cambridge University Press},
-  date      = {2012},
-  edition   = {1},
-  doi       = {10.1017/CBO9781139003896},
-  subtitle  = {}
-}
+@book{signal_miller,
+	author = {Steven B. Damelin and Willard Miller, Jr},
+	date-added = {2023-08-18 17:06:54 +0200},
+	date-modified = {2023-08-18 17:11:06 +0200},
+	publisher = {Cambridge University Press},
+	title = {The Mathematics of Signal Processing The Mathematics of Signal Processing},
+	year = {2011},
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxCfLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvaW1hZ2VfcHJvY2Vzc2luZy9tYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3NpbmcvcmVmZXJlbmNlcy90aGVfbWF0aGVtYXRpY3Nfb2Zfc2lnbmFsX3Byb2Nlc3NpbmdfZGFtZWxpbl9taWxsZXIucGRmTxECkAAAAAACkAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAA4NLl1kJEAAH/////H3RoZV9tYXRoZW1hdGljc19vZiNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////deLExAAAAAAAAAAAABAAGAAAKIGN1AAAAAAAAAAAAAAAAAApyZWZlcmVuY2VzAAIAoS86VXNlcnM6cmtub3Q6c2NpZWJvOm1hdGg6aW1hZ2VfcHJvY2Vzc2luZzptYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3Npbmc6cmVmZXJlbmNlczp0aGVfbWF0aGVtYXRpY3Nfb2Zfc2lnbmFsX3Byb2Nlc3NpbmdfZGFtZWxpbl9taWxsZXIucGRmAAAOAHAANwB0AGgAZQBfAG0AYQB0AGgAZQBtAGEAdABpAGMAcwBfAG8AZgBfAHMAaQBnAG4AYQBsAF8AcAByAG8AYwBlAHMAcwBpAG4AZwBfAGQAYQBtAGUAbABpAG4AXwBtAGkAbABsAGUAcgAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAn1VzZXJzL3Jrbm90L3NjaWViby9tYXRoL2ltYWdlX3Byb2Nlc3NpbmcvbWF0aGVtYXRpY2FsX21ldGhvZHNfaW5fc2lnbmFsX2FuZF9pbWFnZV9wcm9jZXNzaW5nL3JlZmVyZW5jZXMvdGhlX21hdGhlbWF0aWNzX29mX3NpZ25hbF9wcm9jZXNzaW5nX2RhbWVsaW5fbWlsbGVyLnBkZgAAEwABLwAAFQACAAz//wAAAAgADQAaACQAxgAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAANa}}
 
-############################ Image Processing #######################
-@book{bib:book-image-bredies,
-  author    = {Bredies, Kristian and  Lorenz, Dirk},
-  publisher = {Birkhäuser Cham},
-  date      = {2018},
-  edition   = {1},
-  subtitle  = {},
-  doi       = {10.1007/978-3-030-01458-2},
-  title     = {Mathematical Image Processing}
-}
-@book{bib:book-image-gonzalez,
-  title     = {Digital Image Processing},
-  publisher = {Pearson},
-  year      = {2017},
-  author    = {Gonzalez, Rafael C. and Woods, Richard E.},
-  edition   = 4
-}
+@book{image_processing_bredies,
+	author = {Kristian Bredies and Dirk Lorenz},
+	date-added = {2023-08-18 17:00:28 +0200},
+	date-modified = {2023-08-18 17:00:47 +0200},
+	doi = {10.1007/978-3-030-01458-2},
+	publisher = {Springer International Publishing},
+	title = {Mathematical Image Processing},
+	url = {https://doi.org/10.1007%2F978-3-030-01458-2},
+	year = 2018,
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxCYLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvaW1hZ2VfcHJvY2Vzc2luZy9tYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3NpbmcvcmVmZXJlbmNlcy9tYXRoZW1hdGljYWxfaW1hZ2VfcHJvY2Vzc2luZ19icmVkaWVzX2xvcmVuei5wZGZPEQJyAAAAAAJyAAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAADg0uXWQkQAAf////8fbWF0aGVtYXRpY2FsX2ltYWdlI0ZGRkZGRkZGLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////92FJMIAAAAAAAAAAAAEAAYAAAogY3UAAAAAAAAAAAAAAAAACnJlZmVyZW5jZXMAAgCaLzpVc2Vyczpya25vdDpzY2llYm86bWF0aDppbWFnZV9wcm9jZXNzaW5nOm1hdGhlbWF0aWNhbF9tZXRob2RzX2luX3NpZ25hbF9hbmRfaW1hZ2VfcHJvY2Vzc2luZzpyZWZlcmVuY2VzOm1hdGhlbWF0aWNhbF9pbWFnZV9wcm9jZXNzaW5nX2JyZWRpZXNfbG9yZW56LnBkZgAOAGIAMABtAGEAdABoAGUAbQBhAHQAaQBjAGEAbABfAGkAbQBhAGcAZQBfAHAAcgBvAGMAZQBzAHMAaQBuAGcAXwBiAHIAZQBkAGkAZQBzAF8AbABvAHIAZQBuAHoALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAJhVc2Vycy9ya25vdC9zY2llYm8vbWF0aC9pbWFnZV9wcm9jZXNzaW5nL21hdGhlbWF0aWNhbF9tZXRob2RzX2luX3NpZ25hbF9hbmRfaW1hZ2VfcHJvY2Vzc2luZy9yZWZlcmVuY2VzL21hdGhlbWF0aWNhbF9pbWFnZV9wcm9jZXNzaW5nX2JyZWRpZXNfbG9yZW56LnBkZgATAAEvAAAVAAIADP//AAAACAANABoAJAC/AAAAAAAAAgEAAAAAAAAABQAAAAAAAAAAAAAAAAAAAzU=}}
 
+@book{analysis_tao_II,
+	author = {Terence Tao},
+	date-added = {2023-08-18 16:57:30 +0200},
+	date-modified = {2023-08-18 17:24:07 +0200},
+	doi = {10.1007/978-981-19-7284-3},
+	edition = {4},
+	publisher = {Springer Nature Singapore},
+	title = {Analysis {II}},
+	url = {https://doi.org/10.1007%2F978-981-19-7284-3},
+	year = 2022,
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxA0Li4vLi4vLi4vLi4vc2NpZWJvL21hdGgvYW5hbHlzaXMvYW5hbHlzaXNfMDFfdGFvLnBkZk8RAW4AAAAAAW4AAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAODS5dZCRAAB/////xNhbmFseXNpc18wMV90YW8ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////4GBTwgAAAAAAAAAAAAQABAAACiBjdQAAAAAAAAAAAAAAAAAIYW5hbHlzaXMAAgA2LzpVc2Vyczpya25vdDpzY2llYm86bWF0aDphbmFseXNpczphbmFseXNpc18wMV90YW8ucGRmAA4AKAATAGEAbgBhAGwAeQBzAGkAcwBfADAAMQBfAHQAYQBvAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgA0VXNlcnMvcmtub3Qvc2NpZWJvL21hdGgvYW5hbHlzaXMvYW5hbHlzaXNfMDFfdGFvLnBkZgATAAEvAAAVAAIADP//AAAACAANABoAJABbAAAAAAAAAgEAAAAAAAAABQAAAAAAAAAAAAAAAAAAAc0=}}
 
+@book{analysis_tao_I,
+	author = {Terence Tao},
+	date-added = {2023-08-18 16:57:16 +0200},
+	date-modified = {2023-08-18 17:24:13 +0200},
+	doi = {10.1007/978-981-19-7261-4},
+	edition = {4},
+	publisher = {Springer Nature Singapore},
+	title = {Analysis I},
+	url = {https://doi.org/10.1007%2F978-981-19-7261-4},
+	year = 2022,
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxA0Li4vLi4vLi4vLi4vc2NpZWJvL21hdGgvYW5hbHlzaXMvYW5hbHlzaXNfMDJfdGFvLnBkZk8RAW4AAAAAAW4AAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAODS5dZCRAAB/////xNhbmFseXNpc18wMl90YW8ucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////4GBTzgAAAAAAAAAAAAQABAAACiBjdQAAAAAAAAAAAAAAAAAIYW5hbHlzaXMAAgA2LzpVc2Vyczpya25vdDpzY2llYm86bWF0aDphbmFseXNpczphbmFseXNpc18wMl90YW8ucGRmAA4AKAATAGEAbgBhAGwAeQBzAGkAcwBfADAAMgBfAHQAYQBvAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgA0VXNlcnMvcmtub3Qvc2NpZWJvL21hdGgvYW5hbHlzaXMvYW5hbHlzaXNfMDJfdGFvLnBkZgATAAEvAAAVAAIADP//AAAACAANABoAJABbAAAAAAAAAgEAAAAAAAAABQAAAAAAAAAAAAAAAAAAAc0=}}
 
-
-
-
-############################# Deep Learning ##########################
-@book{bib:book-goodfellow,
-  title     = {Deep Learning},
-  author    = {Ian J. Goodfellow and Yoshua Bengio and Aaron Courville},
-  publisher = {MIT Press},
-  year      = {2016},
-  address   = {Cambridge, MA, USA},
-  note      = {\url{http://www.deeplearningbook.org}}
-}
-
-
-
-
-
-########################## Python Libraries ##########################
-@book{bib:book-pytorch-antiga,
-  added-at = {2021-04-12T10:26:10.000+0200},
-  author = {Stevens, Eli and Antiga, Luca and Viehmann, Thomas},
-  biburl = {https://www.bibsonomy.org/bibtex/2503faa8d303a673d1d2050d57adf5267/sdo},
-  description = {Deep Learning with PyTorch: Build, Train, and Tune Neural Networks Using Python Tools: Amazon.de: Eli Stevens, Luca Antiga: Fremdsprachige Bücher},
-  interhash = {ef88188f86a956fd589649a0a3502b89},
-  intrahash = {503faa8d303a673d1d2050d57adf5267},
-  keywords = {deep learning network neural python pytorch},
-  timestamp = {2021-04-12T10:26:10.000+0200},
-  title = {Deep Learning with PyTorch},
-  url = {https://pytorch.org/assets/deep-learning/Deep-Learning-with-PyTorch.pdf},
-  year = 2020
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@article{Ar66,
-  author  = {Armijo, Larry},
-  title   = {Minimization of functions having {L}ipschitz continuous first partial derivatives},
-  journal = {Pacific Journal of Mathematics},
-  year    = {1966},
-  volume  = {16},
-  pages   = {1--3},
-  number  = {1}
-}
-
-@techreport{ChEsNi04,
-  author      = {Chan, Tony F. and Esedo{\=g}lu, Selim and Nikolova, Mila},
-  title       = {Algorithms for Finding Global Minimizers of Image Segmentation and
-                 Denoising Models},
-  institution = {University of California, Los Angeles},
-  year        = {2004},
-  number      = {04-54},
-  month       = 9
-}
-
-@inproceedings{Ch05,
-  author    = {Chambolle, Antonin},
-  title     = {Total Variation Minimization and a Class of Binary {MRF} Models},
-  booktitle = {Energy Minimization Methods in Computer Vision and Pattern Recognition},
-  year      = {2005},
-  editor    = {Rangarajan, Anand and Vemuri, Baba and Yuille, Alan},
-  volume    = {3757},
-  series    = {LNCS},
-  pages     = {136--152},
-  publisher = {Springer},
-  doi       = {10.1007/11585978_10}
-}
+@book{functional_alt,
+	author = {Hans Wilhelm Alt},
+	date-added = {2023-08-18 16:51:51 +0200},
+	date-modified = {2023-08-18 17:00:03 +0200},
+	doi = {10.1007/978-1-4471-7280-2},
+	publisher = {Springer London},
+	title = {Linear Functional Analysis},
+	url = {https://doi.org/10.1007%2F978-1-4471-7280-2},
+	year = 2016,
+	bdsk-file-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxCKLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvaW1hZ2VfcHJvY2Vzc2luZy9tYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3NpbmcvcmVmZXJlbmNlcy9saW5lYXJfZnVuY3Rpb25hbF9hbmFseXNpc19hbHQucGRmTxECOgAAAAACOgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAA4NLl1kJEAAH/////H2xpbmVhcl9mdW5jdGlvbmFsXyNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////dhSjGAAAAAAAAAAAABAAGAAAKIGN1AAAAAAAAAAAAAAAAAApyZWZlcmVuY2VzAAIAjC86VXNlcnM6cmtub3Q6c2NpZWJvOm1hdGg6aW1hZ2VfcHJvY2Vzc2luZzptYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3Npbmc6cmVmZXJlbmNlczpsaW5lYXJfZnVuY3Rpb25hbF9hbmFseXNpc19hbHQucGRmAA4ARgAiAGwAaQBuAGUAYQByAF8AZgB1AG4AYwB0AGkAbwBuAGEAbABfAGEAbgBhAGwAeQBzAGkAcwBfAGEAbAB0AC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgCKVXNlcnMvcmtub3Qvc2NpZWJvL21hdGgvaW1hZ2VfcHJvY2Vzc2luZy9tYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3NpbmcvcmVmZXJlbmNlcy9saW5lYXJfZnVuY3Rpb25hbF9hbmFseXNpc19hbHQucGRmABMAAS8AABUAAgAM//8AAAAIAA0AGgAkALEAAAAAAAACAQAAAAAAAAAFAAAAAAAAAAAAAAAAAAAC7w==}}

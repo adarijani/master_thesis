@@ -23,6 +23,25 @@ there a corresponding matrix and basis vectors. The matrix is dense matrix and d
 is almost never computed directly, however taking a closer look at the basis vectors would shed some light on 
 the nature of the said transform and is a time well spent.
 
+\begin{Prop}
+    For complex valued vectors $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^n$ the following is a proper scalar product
+    \begin{equation*}
+        \boldsymbol{x} = \left\{x_i\right\}_{i=1,\ldots,n-1}, \quad \boldsymbol{y} = \left\{y_i\right\}_{i=1,\ldots,n-1}
+    \end{equation*}
+    \begin{equation*}
+        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=0}^{i=n-1} x_i y_i
+    \end{equation*}
+\end{Prop}
+
+\begin{proof}
+    You can consult a standard book on functional analysis like \cite{rudin} 
+\end{proof}
+
+
+
+
+
+
 \begin{Prop}\label{Prop:1ddftbasisvectors}
     The basis vectors
     \begin{equation}\label{eq:1ddftbasisvectors}
@@ -125,4 +144,8 @@ the nature of the said transform and is a time well spent.
 \end{Thm}
 
 
-\cite{bib:book-complex-ahlfors}
+\cite{analysis_tao_II}
+
+
+
+
