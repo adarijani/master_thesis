@@ -1,7 +1,7 @@
 \chapter{Wirtinger Flow}
 
-The whole thing about \emph{Wirtinger Flow} variants started with the seminal work of Candes and Soltanolkotabi\cite{bib:wf}.
-The most important improvements chronologically were done by Candes and Chen\cite{bib:twf}, Kolte and Özgür\cite{bib:itwf}, and Zhang et al.\cite{bib:rfw-irwf}.
+The whole thing about \emph{Wirtinger Flow} variants started with the seminal work of Candes and Soltanolkotabi\cite{bib:paper-wf-candes}.
+The most important improvements chronologically were done by Candes and Chen\cite{bib:paper-twf-cadnes}, Kolte and Özgür\cite{bib:paper-itwf-kolte}, and Zhang et al.\cite{bib:rfw-irwf}.
 For a quite extensive survey on \emph{Wirtinger Flow} variants please refer to Liu et al.\cite{bib:wf-survey}. Chandra et al.\cite{bib:phasepack} 
 gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{Wirtinger Flow} variants in the MATLAB\textregistered\space 
 problem solving environment in a uniform manner.\\
@@ -113,7 +113,7 @@ is out of the question\cite{bib:boo}.
 	\begin{algorithm}[th] 
 		\caption{Incremental Reshaped \emph{Wirtinger Flow} (IRWF) suggested by \cite{bib:rfw-irwf}}\label{alg:irwf}
 		\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
-		\textbf{Initialization}: Same as in RWF (Algorithm \ref{alg:rwf}); \\
+		\textbf{Initialization}: Same as in RWF (Algorithm \cref{alg:rwf}); \\
 		\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
 		% \textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
 		%\begin{equation*}
@@ -131,10 +131,10 @@ is out of the question\cite{bib:boo}.
 
 
 		\begin{algorithm}[th]
-			\caption{Minibatch Incremetnal Reshaped \emph{Wirtinger Flow} (minibatch IRWF) suggested by \cite{bib:rfw-irwf}}\label{alg:mbirwf}
+			\caption{Mini-batch Incremental Reshaped \emph{Wirtinger Flow} (mini-batch IRWF) suggested by \cite{bib:paper-rfw-irwf-zhang}}\label{alg:mbirwf}
 			
 			\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
-			\textbf{Initialization}: Same as in RWF (Algorithm \ref{alg:rwf}); \\
+			\textbf{Initialization}: Same as in RWF (Algorithm \ref{alg:}); \\
 			%\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
 			%\textbf{Initialization}: Let $\bz^{(0)}=\lambda_0 \tilde{\bz}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\ba_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\bz}$ is the leading eigenvector of
 			%\begin{equation*}%\label{eq:init_TRWF}

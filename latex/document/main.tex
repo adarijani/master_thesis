@@ -10,6 +10,7 @@
 \usepackage{lmodern}
 \DeclareSymbolFont{largesymbols}{OMX}{cmex}{m}{n} % use cmex rather than lmex
 % spell-checker:enable
+% \usepackage{stmaryrd} 
 \usepackage{styleBB}
 \usepackage{bm}
 \usepackage{multirow}
@@ -20,18 +21,26 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usetikzlibrary{positioning}
-\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
+% \usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
+\usepackage[symbols,nogroupskip,nonumberlist,sort=use]{glossaries-extra}
+\makenoidxglossaries
 \usepackage[utf8]{inputenc}
 \usepackage{pgfplots}
-\DeclareUnicodeCharacter{2212}{−}
+% \DeclareUnicodeCharacter{2212}{−}
 \usepgfplotslibrary{groupplots,dateplot}
 \usetikzlibrary{patterns,shapes.arrows}
 \pgfplotsset{compat=newest}
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+% \SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
+% \SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
+% \usepackage{stmaryrd}
+% \SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
 % \usepackage[acronym]{glossaries}
 % \usepackage{algorithm}
 % \usepackage{algpseudocode}
 % \usepackage{algorithmic}
-% \usepackage{silence}
+\usepackage{silence}
 % \WarningFilter{latex}{Marginpar on page}
 
 \setlength{\marginparwidth}{2cm}
@@ -69,30 +78,38 @@
 
 
 
+\includeonly{00.frontmatter,dedication,abstract,acknowledgements,symbols,00}
+% \includeonly{01}
+% \includeonly{02}
+% \includeonly{03}
+% \includeonly{04}
+% \includeonly{05}
+% \includeonly{06}
 
 \begin{document}
 
-% \include{00.frontmatter}
+\include{00.frontmatter} 
 
 \tableofcontents
 
 \mainmatter
-% \include{dedication}
-% \include{abstract}
-% \include{acknowledgements}
-% \include{symbols}
-% \printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
+\include{dedication}
+\include{abstract}
+\include{acknowledgements} 
+\include{symbols}
+\printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
 \include{00}  
-% \include{01}
-% \include{02}
-% \include{03}
-% \include{04} 
-% \include{05}
-% \include{06} 
-% \include{symbols}
+\include{01}
+\include{02} 
+\include{03}
+\include{04}   
+\include{05}
+\include{06} 
+
 
 \backmatter
+% \include{symbols}
 
 \printbibliography
 
-\end{document}
+\end{document} 

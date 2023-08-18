@@ -10,11 +10,11 @@
     The \emph{$1$D Discrete Fourier Transform} of the $1$D array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
     $\hat {\boldsymbol{X}} \in \mathbb{C}^{N}$ and is defined by
     \begin{equation}\label{eq:1ddft}
-        \{\hat {\boldsymbol{X}}\}_{k} \coloneq \frac{1}{N}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n}\exp\left({\frac{-2\pi ink}{N}}\right)
+        \{\hat {\boldsymbol{X}}\}_{k} \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n}\exp\left({\frac{-2\pi ink}{N}}\right)
     \end{equation}
     and to get back the original array one can use the inversion formula
     \begin{equation}\label{eq:1didft}
-        \{{\boldsymbol{X}}\}_{n} \coloneq \sum_{k=0}^{N-1}\{\hat {\boldsymbol{X}}\}_{k}\exp\left({\frac{2\pi ink}{N}}\right)
+        \{{\boldsymbol{X}}\}_{n} \coloneqq \sum_{k=0}^{N-1}\{\hat {\boldsymbol{X}}\}_{k}\exp\left({\frac{2\pi ink}{N}}\right)
     \end{equation}    
 \end{Def}
 
@@ -28,7 +28,7 @@ the nature of the said transform and is a time well spent.
     \begin{equation}\label{eq:1ddftbasisvectors}
         \boldsymbol{g}^n = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\right\}_{k=0,\ldots,N-1}
     \end{equation}
-    are orthogonal to each other with respect to the usual inner product form complex valued vectors 
+    are orthogonal to each other with respect to the usual inner product for complex valued vectors 
     with the normalization constant of $N$
     \begin{equation}
         \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle= N \delta_{n,n'}
@@ -39,7 +39,8 @@ the nature of the said transform and is a time well spent.
     \begin{equation*}
         \boldsymbol{g}^n = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\right\}_{k=0,\ldots,N-1}, \quad \boldsymbol{g}^{n'} = \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\right\}_{k=0,\ldots,N-1}
     \end{equation*}
-    \begin{align*} 
+    \begin{equation*}
+    \begin{split} 
         \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)}
         = \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\\
         &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)=
@@ -47,7 +48,8 @@ the nature of the said transform and is a time well spent.
             N & \text{when $n = n'$}\text{(trivial)},\\
             0 & \text{when $n\neq n'$}\text{(using geometric sum formula)}.
         \end{cases}
-    \end{align*}
+    \end{split}
+\end{equation*}
     
 \end{proof}
 
@@ -81,7 +83,7 @@ the nature of the said transform and is a time well spent.
     \begin{equation}\label{eq:2ddftbasisvectors}
         \boldsymbol{g}^{n,m} = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
     \end{equation}
-    are orthogonal to each other with respect to the usual inner product form complex valued vectors 
+    are orthogonal to each other with respect to the usual inner product for complex valued vectors 
     with the normalization constant of $MN$
     \begin{equation}
         \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle= MN \delta_{n,n'}\delta_{m,m'}
@@ -89,21 +91,25 @@ the nature of the said transform and is a time well spent.
 \end{Prop}
 
 \begin{proof}
-    \begin{align*}
+    \begin{align*} 
         \boldsymbol{g}^{n,m}    &= \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}\\
         \boldsymbol{g}^{n',m'}  &= \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
     \end{align*}
-    \begin{align*} 
-        \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)}\\
-        &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\exp\left({\frac{+2\pi im'l}{M}}\right)\\
-        &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\exp\left({\frac{-2\pi i(m'-m)l}{M}}\right)\\
-        &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\sum_{l=0}^{M-1} \exp\left({\frac{-2\pi i(m'-m)k}{M}}\right)\\
-        &= 
-        \begin{cases}
-            MN & \text{when $n = n' \wedge m=m'$}\text{(trivial)},\\
-            0 & \text{when $\neg(n = n' \wedge m=m')$}\text{(using geometric sum formula)}.
-        \end{cases}
-    \end{align*}
+    \begin{equation*}
+        \begin{split} 
+            \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)}\\
+            &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\exp\left({\frac{+2\pi im'l}{M}}\right)\\
+            &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\exp\left({\frac{-2\pi i(m'-m)l}{M}}\right)\\
+            &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\sum_{l=0}^{M-1} \exp\left({\frac{-2\pi i(m'-m)k}{M}}\right)\\
+            &= 
+            \begin{cases}
+                MN & \text{when $n = n' \wedge m=m'$}\text{(trivial)},\\
+                0 & \text{when $\neg(n = n' \wedge m=m')$}\text{(using geometric sum formula)}.
+            \end{cases}    
+        \end{split}
+    \end{equation*}
+    
+
     
 \end{proof}
 
@@ -117,3 +123,6 @@ the nature of the said transform and is a time well spent.
     
     Here goes the actual theorem description.
 \end{Thm}
+
+
+\cite{bib:book-complex-ahlfors}
