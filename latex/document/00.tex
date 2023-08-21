@@ -29,12 +29,12 @@ the nature of the said transform and is a time well spent.
         \boldsymbol{x} = \left\{x_i\right\}_{i=1,\ldots,n-1}, \quad \boldsymbol{y} = \left\{y_i\right\}_{i=1,\ldots,n-1}
     \end{equation*}
     \begin{equation*}
-        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=0}^{i=n-1} x_i y_i
+        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=0}^{n-1} x_i \overline{y_i} 
     \end{equation*}
 \end{Prop}
 
 \begin{proof}
-    You can consult a standard book on functional analysis like \cite{rudin} 
+    You can consult a standard book on functional analysis like \cite{functional_alt}. 
 \end{proof}
 
 
@@ -96,6 +96,22 @@ As it is evident from the formula the $2$D Discrete Fourier Transform is a linea
 there a corresponding matrix and basis vectors. The matrix is dense matrix and due to computational efficiency 
 is almost never computed directly, however taking a closer look at the basis vectors would shed some light on 
 the nature of the said transform and is a time well spent.
+
+
+
+\begin{Prop}
+    For complex valued second order tensors $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{m \times n}$ the following is a proper scalar product
+    \begin{equation*}
+        \boldsymbol{X} = \left\{X_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}, \quad \boldsymbol{Y} = \left\{Y_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}
+    \end{equation*}
+    \begin{equation*}
+        \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=0}^{n-1}\sum_{i=0}^{m-1} X_{i,j} \overline{Y_{i,j}} 
+    \end{equation*}
+\end{Prop}
+
+\begin{proof}
+    You can consult a standard book on functional analysis like \cite{functional_alt}. 
+\end{proof}
 
 \begin{Prop}\label{Prop:2ddftbasisvectors}
     The basis vectors
