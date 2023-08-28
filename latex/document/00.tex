@@ -34,7 +34,7 @@ the nature of the said transform and is a time well spent.
 \end{Prop}
 
 \begin{proof}
-    You can consult a standard book on functional analysis like \cite{functional_alt}. 
+    You can consult \cite{wavelets_linear_algebra} or \cite{matrix_analysis_horn} \cite{numerical_tensor_hackbusch}.
 \end{proof}
 
 
@@ -109,8 +109,10 @@ the nature of the said transform and is a time well spent.
     \end{equation*}
 \end{Prop}
 
+Which is also called 
+
 \begin{proof}
-    You can consult a standard book on functional analysis like \cite{functional_alt}. 
+    You can consult \cite{wavelets_linear_algebra} or \cite{matrix_analysis_horn} \cite{numerical_tensor_hackbusch}
 \end{proof}
 
 \begin{Prop}\label{Prop:2ddftbasisvectors}
@@ -131,7 +133,7 @@ the nature of the said transform and is a time well spent.
         \boldsymbol{g}^{n',m'}  &= \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
     \end{align*}
     \begin{equation*}
-        \begin{split} 
+        \begin{split}  
             \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)}\\
             &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\exp\left({\frac{+2\pi im'l}{M}}\right)\\
             &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\exp\left({\frac{-2\pi i(m'-m)l}{M}}\right)\\
@@ -160,7 +162,7 @@ the nature of the said transform and is a time well spent.
 \end{Thm}
 
 
-\cite{analysis_tao_II}
+
 
 
 
