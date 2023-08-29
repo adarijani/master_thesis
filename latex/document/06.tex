@@ -1,9 +1,86 @@
 \chapter{Reconstructed Natural Images}
 
+
+
+
+
+
+\begin{equation*}
+  y_k = \left| \sum_{t=0}^{n-1} x[t] e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega
+\end{equation*}
+
+\begin{equation*}
+  y_k = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega
+\end{equation*}
+
+\begin{equation*}
+  y_k = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \begin{split}
+  0 &\leq k \leq n-1\\
+  1 &\leq l \leq L
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  \mathbb{E}\left[d\right] = 0, \qquad \mathbb{E}\left[d^2\right] = 0, \qquad\mathbb{E}\left[\left|d\right|^4\right] = 2\mathbb{E}\left[\left|d\right|^2\right]
+\end{equation*}
+
+Ternary Modulation
+\begin{equation*}
+  d =
+      \begin{cases}
+          +1 & \text{with prob.  $1/4$}\\
+          0 & \text{with prob.  $1/2$}\\
+          -i & \text{with prob.  $1/4$}
+      \end{cases}  
+\end{equation*}
+
+
+
+
+
+Octanary Modulation
+\begin{equation*}
+  b_1 =
+      \begin{cases}
+          +1 & \text{with prob.  $1/4$}\\
+          -1 & \text{with prob.  $1/4$}\\
+          -i & \text{with prob.  $1/4$}\\
+          +i & \text{with prob.  $1/4$}\\
+
+      \end{cases}  
+      \qquad \text{and} \qquad 
+  b_2 
+      \begin{cases}  
+        +\sqrt{2}/2 & \text{with prob.  $4/5$}\\
+        +\sqrt{3} & \text{with prob.  $1/5$}\\
+    \end{cases}   
+\end{equation*}
+
+
+
+
+
+
+
 Reconstructed natural images using coded diffraction patterns and a couple of Wirtinger Flow Variants.
 
 
 \input{./tikz/error_T_max=500_steps=11_dc.tex}
+
+\afterpage{%
+  \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[p]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=0.70\textwidth]{./images/phase_importance/comparison.png}
+    \caption{The Importance of Phase in Fourier Reconstruction}
+    \label{fig:totoro}
+  \end{figure}
+  \clearpage % End the page
+}
+
+
 \afterpage{%
   \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
@@ -73,5 +150,69 @@ Reconstructed natural images using coded diffraction patterns and a couple of Wi
 
 % what a mess \cite{papa_rudin}
 
+
+\afterpage{%
+  \clearpage % Start a new page
+  \begin{table}
+    \centering
+    \begin{tabular}{||l l||} 
+     \hline
+     General 		                	&  						                                            \\ [0.5ex] 
+     \hline\hline
+     Processor 	         		 			& Intel(R) Xeon(R)                                       	\\
+     Accelerator 			 	       		& NVIDIA  	                                              \\ 
+     Operating System   			    & GNU/Linux(Ubuntu) 	                                   	\\
+     Memory 	               			& 32617768 kB                                            	\\ [1ex] 
+     \hline
+     \hline
+     Processor Details 	      		&  						                                            \\ [0.5ex] 
+     \hline\hline
+     Architecture     			 			& X86\_64                                               	\\ 
+     CPU op-mode(s)         			& 32-bit, 64-bit 	                                      	\\
+     Address sizes                & 46 bits physical, 48 bits virtual  		                  \\
+     Byte Order                   & Little Endian  	                                        \\ 
+     CPU(s):                      & 8 	 	                                                  \\
+     On-line CPU(s) list:         & 0-7  	                                              	  \\
+     Vendor ID:                   & GenuineIntel 	                                        	\\
+     Model name:                  & Intel(R) Xeon(R) CPU E5-1630 v3 at 3.70GHz  	        	\\
+     Thread(s) per core:          & 2                                                       \\
+     Core(s) per socket:          & 4                                                   		\\
+     Socket(s):                   & 1 	                                                	  \\
+     CPU max MHz:                 & 3800.0000 	                                         	  \\
+     CPU min MHz:                 & 1200.0000                                         	  	\\
+     L1d Cache:                   & 128 KiB (4 instances)                           	    	\\
+     L1i Cache:                   & 128 KiB (4 instances) 	 	                              \\
+     L2 Cache:                    & 1 MiB (4 instances) 	                                 	\\
+     L3 Cache:                    & 10 MiB (1 instance) 	 	                                \\
+     NUMA node(s):                & 1                                               	 	    \\
+     Optimization Flags           & Please Refer to the Intel Brochure for the Details  		\\[1ex] 
+     \hline
+     \hline
+     Accelerator Details 			    &  					                                            	\\[0.5ex] 
+     \hline\hline
+     Full Designation 	    			& NVIDIA GeForce RTX 2080 Ti 	                            \\ 
+     Memory   	              		& 11264 MiB 	                                           	\\
+     CUDA Version:                & 12.2  	                                               	\\
+     width:                       & 64 bits                                                 \\
+     clock:                       & 33 MHz 	                                                \\[1ex] 
+     \hline
+     \hline
+     Numerical Framework Details	&  				                                            		\\[0.5ex] 
+     \hline\hline
+     python                       & 3.10.12                                                 \\
+     numpy                        & 1.25.2  		                                            \\
+     scipy                        & 1.11.1  		                                            \\
+     matplotlib                   & 3.7.2   		                                            \\
+     scikit-learn                 & 1.3.0  		                                              \\
+     scikit-image                 & 0.21.0  		                                            \\
+     pytorch                      & 2.0.0			 			 	                                      \\ 
+     pytorch-cuda                 & 11.7 	 	                                                \\[1ex] 
+     \hline
+    \end{tabular}
+    \caption{Software and Hardware that were used}
+    % \label{tab:formulation}
+    \end{table}
+  \clearpage % End the page
+}
 
 
