@@ -73,6 +73,25 @@ the nature of the said transform and is a time well spent.
 \end{proof}
 
 
+\begin{Rem}
+    showing the Fourier transform by a matrix \cite{wavelets_linear_algebra_frazier} \cite{image_processing_bredies} \cite{signal_miller}.
+    Let $W_N$ be the matrix with $\left\{W_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$ 
+    \begin{equation*}
+        W_N \coloneqq 
+        \begin{bmatrix}
+            1     & 1                & 1                   & 1                   & \cdots & 1                      \\
+            1     & \omega_{N}^{}    & \omega_{N}^{2}      & \omega_{N}^{3}      & \cdots & \omega_{N}^{N-1}       \\
+            1     & \omega_{N}^{2}   & \omega_{N}^{4}      & \omega_{N}^{6}      & \cdots & \omega_{N}^{2(N-1)}    \\
+            1     & \omega_{N}^{3}   & \omega_{N}^{6}      & \omega_{N}^{9}      & \cdots & \omega_{N}^{3(N-1)}    \\
+            \cdot & \cdot            & \cdot               & \cdot               & \cdots & \cdot                  \\ 
+            \cdot & \cdot            & \cdot               & \cdot               & \cdots & \cdot                  \\ 
+            1     & \omega_{N}^{N-1} & \omega_{N}^{2(N-1)} & \omega_{N}^{3(N-1)} & \cdots & \omega_{N}^{(N-1)(N-1)}
+            \end{bmatrix}
+    \end{equation*}
+    where $\omega_N = e^{-2\pi i/N}$ then $e^{-2\pi i/N} = \omega_N^{mn}$
+\end{Rem}
+
+
 
 
 
@@ -84,11 +103,11 @@ the nature of the said transform and is a time well spent.
     The \emph{$2$D Discrete Fourier Transform} of the $2$D array $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
     $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by
     \begin{equation}\label{eq:2ddft}
-        \{\hat {\boldsymbol{X}}\}_{k,l} \coloneq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
+        \{\hat {\boldsymbol{X}}\}_{k,l} \coloneqq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
     \end{equation}
     and to get back the original array one can use the inversion formula
     \begin{equation}\label{eq:2didft}
-        \{{\boldsymbol{X}}\}_{n,m} \coloneq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}\{\hat {\boldsymbol{X}}\}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
+        \{{\boldsymbol{X}}\}_{n,m} \coloneqq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}\{\hat {\boldsymbol{X}}\}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
     \end{equation}    
 \end{Def}
 
