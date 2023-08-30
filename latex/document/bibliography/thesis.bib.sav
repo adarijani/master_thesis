@@ -13,7 +13,7 @@
   journal       = {Journal of the Royal Statistical Society. Series B (Methodological)},
   title         = {The Interaction Algorithm and Practical Fourier Analysis: An Addendum},
   year          = {1960},
-  issn          = {0035-9246},
+  issn          = {00359246},
   number        = {2},
   pages         = {372--375},
   volume        = {22},
@@ -38,6 +38,7 @@
   date-modified = {2023-08-27 20:28:49 +0200},
   doi           = {10.1007/978-3-030-35554-8},
   file          = {:numerical_tensor_hackbusch - Tensor Spaces and Numerical Tensor Calculus.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-3-030-35554-8},
 }
 
 @Book{matrix_analysis_horn,
@@ -64,6 +65,7 @@
   date-modified = {2023-08-22 15:46:34 +0200},
   doi           = {10.1007/978-3-319-91041-3},
   file          = {:linear_algebra_shakiban_olver - Applied Linear Algebra.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-3-319-91041-3},
 }
 
 @Book{wavelets_linear_algebra_frazier,
@@ -76,6 +78,7 @@
   date-modified = {2023-08-29 16:30:10 +0200},
   doi           = {10.1007/b97841},
   file          = {:wavelets_linear_algebra_frazier - An Introduction to Wavelets through Linear Algebra.pdf:PDF},
+  url           = {https://doi.org/10.1007%2Fb97841},
 }
 
 @Book{finite_dimensional_halmos,
@@ -88,6 +91,7 @@
   date-modified = {2023-08-22 15:27:12 +0200},
   doi           = {10.1007/978-1-4612-6387-6},
   file          = {:finite_dimensional_halmos - Finite Dimensional Vector Spaces.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-1-4612-6387-6},
 }
 
 @Book{linea_algebra_axler,
@@ -99,8 +103,8 @@
   bdsk-file-1   = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxBsLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvdW5kZXJncmFkdWF0ZV90ZXh0X2luX21hdGhlbWF0aWNzL2xpbmVhcl9hbGdlYnJhL2xpbmVhcl9hbGdlYnJhX2RvbmVfcmlnaHRfYXhsZXIucGRmTxECBAAAAAACBAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAA4NLl1kJEAAH/////H2xpbmVhcl9hbGdlYnJhX2RvbiNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////c4lNUAAAAAAAAAAAABAAFAAAKIGN1AAAAAAAAAAAAAAAAAA5saW5lYXJfYWxnZWJyYQACAG4vOlVzZXJzOnJrbm90OnNjaWVibzptYXRoOnVuZGVyZ3JhZHVhdGVfdGV4dF9pbl9tYXRoZW1hdGljczpsaW5lYXJfYWxnZWJyYTpsaW5lYXJfYWxnZWJyYV9kb25lX3JpZ2h0X2F4bGVyLnBkZgAOAEgAIwBsAGkAbgBlAGEAcgBfAGEAbABnAGUAYgByAGEAXwBkAG8AbgBlAF8AcgBpAGcAaAB0AF8AYQB4AGwAZQByAC4AcABkAGYADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgBsVXNlcnMvcmtub3Qvc2NpZWJvL21hdGgvdW5kZXJncmFkdWF0ZV90ZXh0X2luX21hdGhlbWF0aWNzL2xpbmVhcl9hbGdlYnJhL2xpbmVhcl9hbGdlYnJhX2RvbmVfcmlnaHRfYXhsZXIucGRmABMAAS8AABUAAgAM//8AAAAIAA0AGgAkAJMAAAAAAAACAQAAAAAAAAAFAAAAAAAAAAAAAAAAAAACmw==},
   date-added    = {2023-08-22 15:24:54 +0200},
   date-modified = {2023-08-22 15:25:55 +0200},
-  doi           = {10.1007/978-3-319-11080-6},
   file          = {:linea_algebra_axler - Linear Algebra Done Right.pdf:PDF},
+  url           = {https://link.springer.com/book/10.1007/978-3-319-11080-6},
 }
 
 @Book{linear_algebra_janich,
@@ -111,8 +115,9 @@
   bdsk-file-1   = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxBoLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvdW5kZXJncmFkdWF0ZV90ZXh0X2luX21hdGhlbWF0aWNzL2xpbmVhcl9hbGdlYnJhL2xpbmVhcl9hbGdlYnJhX2tsYXVzX2phbmljaC5wZGZPEQH0AAAAAAH0AAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAADg0uXWQkQAAf////8fbGluZWFyX2FsZ2VicmFfa2xhdXNfamFuaWNoLnBkZgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////9ziUnoAAAAAAAAAAAAEAAUAAAogY3UAAAAAAAAAAAAAAAAADmxpbmVhcl9hbGdlYnJhAAIAai86VXNlcnM6cmtub3Q6c2NpZWJvOm1hdGg6dW5kZXJncmFkdWF0ZV90ZXh0X2luX21hdGhlbWF0aWNzOmxpbmVhcl9hbGdlYnJhOmxpbmVhcl9hbGdlYnJhX2tsYXVzX2phbmljaC5wZGYADgBAAB8AbABpAG4AZQBhAHIAXwBhAGwAZwBlAGIAcgBhAF8AawBsAGEAdQBzAF8AagBhAG4AaQBjAGgALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAGhVc2Vycy9ya25vdC9zY2llYm8vbWF0aC91bmRlcmdyYWR1YXRlX3RleHRfaW5fbWF0aGVtYXRpY3MvbGluZWFyX2FsZ2VicmEvbGluZWFyX2FsZ2VicmFfa2xhdXNfamFuaWNoLnBkZgATAAEvAAAVAAIADP//AAAACAANABoAJACPAAAAAAAAAgEAAAAAAAAABQAAAAAAAAAAAAAAAAAAAoc=},
   date-added    = {2023-08-22 15:21:45 +0200},
   date-modified = {2023-08-22 15:23:40 +0200},
-  doi           = {10.1007/978-1-4612-4298-7},
+  doi           = {https://doi.org/10.1007/978-1-4612-4298-7},
   file          = {:linear_algebra_janich - Linear Algebra.pdf:PDF},
+  url           = {https://link.springer.com/book/10.1007/978-1-4612-4298-7},
 }
 
 @Book{linear_algebra_lang,
@@ -126,6 +131,7 @@
   date-modified = {2023-08-22 15:18:34 +0200},
   doi           = {10.1007/978-1-4757-1949-9},
   file          = {:linear_algebra_lang - Linear Algebra.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-1-4757-1949-9},
 }
 
 @Book{introduction_to_linear_algebra_lang,
@@ -139,6 +145,7 @@
   date-modified = {2023-08-22 15:17:23 +0200},
   doi           = {10.1007/978-1-4612-1070-2},
   file          = {:introduction_to_linear_algebra_lang - Introduction to Linear Algebra.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-1-4612-1070-2},
 }
 
 @Book{functional_stein,
@@ -274,6 +281,7 @@
   date-modified = {2023-08-21 20:31:19 +0200},
   doi           = {10.1007/978-3-319-23796-1},
   file          = {:more_math_intro_latex_gratzer - More Math into LaTeX.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-3-319-23796-1},
 }
 
 @Book{practical_latex_gratzer,
@@ -286,6 +294,7 @@
   date-modified = {2023-08-21 20:29:58 +0200},
   doi           = {10.1007/978-3-319-06425-3},
   file          = {:practical_latex_gratzer - Practical LaTeX.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-3-319-06425-3},
 }
 
 @Book{latex_lamport,
@@ -324,6 +333,7 @@
   doi           = {10.1137/1.9781611974423},
   eprint        = {https://epubs.siam.org/doi/pdf/10.1137/1.9781611974423},
   file          = {:learning_latex_higham - Learning LaTeX, 2nd Edition.pdf:PDF},
+  url           = {https://epubs.siam.org/doi/abs/10.1137/1.9781611974423},
 }
 
 @Book{numerical_optimization_wright,
@@ -337,6 +347,7 @@
   date-modified = {2023-08-21 16:28:36 +0200},
   doi           = {10.1007/978-0-387-40065-5},
   file          = {:numerical_optimization_wright - Numerical Optimization.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-0-387-40065-5},
 }
 
 @Book{convex_optimization_boyd,
@@ -430,7 +441,7 @@
   bdsk-file-1   = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAuLi4vLi4vLi4vLi4vc2NpZWJvL3RoZXNpcy9wYXBlcnMvMTQwNy4xMDY1LnBkZk8RAVQAAAAAAVQAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAODS5dZCRAAB/////w0xNDA3LjEwNjUucGRmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////4QVdTAAAAAAAAAAAAAQABAAACiBjdQAAAAAAAAAAAAAAAAAGcGFwZXJzAAIAMC86VXNlcnM6cmtub3Q6c2NpZWJvOnRoZXNpczpwYXBlcnM6MTQwNy4xMDY1LnBkZgAOABwADQAxADQAMAA3AC4AMQAwADYANQAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIALlVzZXJzL3Jrbm90L3NjaWViby90aGVzaXMvcGFwZXJzLzE0MDcuMTA2NS5wZGYAEwABLwAAFQACAAz//wAAAAgADQAaACQAVQAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAGt},
   date-added    = {2023-08-18 17:36:23 +0200},
   date-modified = {2023-08-18 17:37:35 +0200},
-  doi           = {10.1109/TIT.2015.2399924},
+  doi           = {https://doi.org/10.1109/TIT.2015.2399924},
   eprint        = {1407.1065},
   file          = {:wirtinger_flow_cadnes - Phase Retrieval Via Wirtinger Flow_ Theory and Algorithms.pdf:PDF},
   rating        = {1},
@@ -488,7 +499,7 @@
   bdsk-file-1   = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxCfLi4vLi4vLi4vLi4vc2NpZWJvL21hdGgvaW1hZ2VfcHJvY2Vzc2luZy9tYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3NpbmcvcmVmZXJlbmNlcy90aGVfbWF0aGVtYXRpY3Nfb2Zfc2lnbmFsX3Byb2Nlc3NpbmdfZGFtZWxpbl9taWxsZXIucGRmTxECkAAAAAACkAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAA4NLl1kJEAAH/////H3RoZV9tYXRoZW1hdGljc19vZiNGRkZGRkZGRi5wZGYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////deLExAAAAAAAAAAAABAAGAAAKIGN1AAAAAAAAAAAAAAAAAApyZWZlcmVuY2VzAAIAoS86VXNlcnM6cmtub3Q6c2NpZWJvOm1hdGg6aW1hZ2VfcHJvY2Vzc2luZzptYXRoZW1hdGljYWxfbWV0aG9kc19pbl9zaWduYWxfYW5kX2ltYWdlX3Byb2Nlc3Npbmc6cmVmZXJlbmNlczp0aGVfbWF0aGVtYXRpY3Nfb2Zfc2lnbmFsX3Byb2Nlc3NpbmdfZGFtZWxpbl9taWxsZXIucGRmAAAOAHAANwB0AGgAZQBfAG0AYQB0AGgAZQBtAGEAdABpAGMAcwBfAG8AZgBfAHMAaQBnAG4AYQBsAF8AcAByAG8AYwBlAHMAcwBpAG4AZwBfAGQAYQBtAGUAbABpAG4AXwBtAGkAbABsAGUAcgAuAHAAZABmAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAn1VzZXJzL3Jrbm90L3NjaWViby9tYXRoL2ltYWdlX3Byb2Nlc3NpbmcvbWF0aGVtYXRpY2FsX21ldGhvZHNfaW5fc2lnbmFsX2FuZF9pbWFnZV9wcm9jZXNzaW5nL3JlZmVyZW5jZXMvdGhlX21hdGhlbWF0aWNzX29mX3NpZ25hbF9wcm9jZXNzaW5nX2RhbWVsaW5fbWlsbGVyLnBkZgAAEwABLwAAFQACAAz//wAAAAgADQAaACQAxgAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAANa},
   date-added    = {2023-08-18 17:06:54 +0200},
   date-modified = {2023-08-18 17:11:06 +0200},
-  doi           = {10.1017/CBO9781139003896},
+  doi           = {https://doi.org/10.1017/CBO9781139003896},
   file          = {:signal_miller - The Mathematics of Signal Processing the Mathematics of Signal Processing.pdf:PDF},
   url           = {https://www.cambridge.org/core/books/mathematics-of-signal-processing/A3F20BC5FBB820E923E66C8CCB13B173},
 }
@@ -503,6 +514,7 @@
   date-modified = {2023-08-18 17:00:47 +0200},
   doi           = {10.1007/978-3-030-01458-2},
   file          = {:image_processing_bredies - Mathematical Image Processing.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-3-030-01458-2},
 }
 
 @Book{analysis_tao_II,
@@ -516,6 +528,7 @@
   date-modified = {2023-08-18 17:24:07 +0200},
   doi           = {10.1007/978-981-19-7284-3},
   file          = {:analysis_tao_II - Analysis II.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-981-19-7284-3},
 }
 
 @Book{analysis_tao_I,
@@ -528,7 +541,8 @@
   date-added    = {2023-08-18 16:57:16 +0200},
   date-modified = {2023-08-18 17:24:13 +0200},
   doi           = {10.1007/978-981-19-7261-4},
-  file          = {:/Users/rknot/sciebo/math/analysis/analysis_tao_I - Analysis I.pdf:PDF},
+  file          = {:/Users/rknot/sciebo/math/analysis/analysis_01_tao.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-981-19-7261-4},
 }
 
 @Book{functional_alt,
@@ -541,6 +555,7 @@
   date-modified = {2023-08-18 17:00:03 +0200},
   doi           = {10.1007/978-1-4471-7280-2},
   file          = {:functional_alt - Linear Functional Analysis.pdf:PDF},
+  url           = {https://doi.org/10.1007%2F978-1-4471-7280-2},
 }
 
 @Article{fft_cooley_tukey,
@@ -556,6 +571,7 @@
   doi           = {10.1090/s0025-5718-1965-0178586-1},
   file          = {:fft_cooley_tukey - An Algorithm for the Machine Calculation of Complex Fourier Series.pdf:PDF},
   publisher     = {American Mathematical Society ({AMS})},
+  url           = {https://doi.org/10.1090/s0025-5718-1965-0178586-1},
 }
 
 @Book{algorithm_clrs,
@@ -630,7 +646,7 @@ number of recent phase retrieval methods against one another
 to generate comparisons using a range of different performance well as multiple method comparisons.
 metrics. The software package handles single method testing as The methods in PhasePack differ in numerous ways from
 well as multiple method comparisons. their original descriptions in the literature in order to achieve},
-  file     = {:/Users/rknot/sciebo/thesis/papers/Chandra1711 - PhasePack_ a Phase Retrieval Library Https___github.com_tomgoldstein_phasepack Matlab.pdf:PDF},
+  file     = {:/Users/rknot/sciebo/thesis/papers/PhasePack.pdf:PDF},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

@@ -1,3 +1,4 @@
+% !TEX program = lualatex
 % !TEX encoding = UTF-8 Unicode
 % !TEX spellcheck = en
 % spell-checker:ignore RWTH, leavevmode, qedhere, siunitx, titlehead
@@ -54,7 +55,7 @@
 \pgfplotsset{
   table/search path={data},
 }
-
+% \usepackage{biblatex}
 \addbibresource{./bibliography/thesis.bib}
 
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter\,\,#1}{}}
@@ -114,11 +115,12 @@
 \include{04}   
 \include{05}
 \include{06} 
-
-
+% \cite{the_texbook_knuth}
+\nocite{*}
 \backmatter
 % \include{symbols}
 \printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
+% \bibliographystyle{siam}
 \printbibliography
 
-\end{document} 
+\end{document}
