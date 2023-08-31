@@ -1,4 +1,4 @@
-% !TEX program = lualatex
+
 % !TEX encoding = UTF-8 Unicode
 % !TEX spellcheck = en
 % spell-checker:ignore RWTH, leavevmode, qedhere, siunitx, titlehead
@@ -55,13 +55,12 @@
 \pgfplotsset{
   table/search path={data},
 }
-% \usepackage{biblatex}
 \addbibresource{/Users/rknot/sciebo/jabref_files/database.bib}
 
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter\,\,#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\,\,#1}}
 \newtheorem{problem}{Problem}
-% \newcommand{\vct}[1]{\bm{#1}}
+
 \usepackage[headsepline]{scrlayer-scrpage}
 \clearpairofpagestyles
 \addtokomafont{pagehead}{\normalfont\bfseries}
@@ -72,33 +71,25 @@
 
 \makeindex
 
-% Useful to build the dvi/pdf without any images
-%\renewcommand{\includegraphics}[2][a]{image}
-% Useful to let jpg be preferred to png by \includegraphics (default behavior is the other way round) if no suffix is specified.
-%\DeclareGraphicsExtensions{.pdf,.jpg,.png}
-
-
-
-
 \includeonly{
-            %  00.frontmatter,
+             frontmatter,
             %  dedication,
             %  abstract,
             %  acknowledgements,
-             symbols,
-             00,
-             01,
-             02,
-            %  03,
-            %  04,
-            %  05,
-             06,
+            %  symbols,
+            %  Mathematical Preliminaries,
+            %  Introduction,
+            %  Wirtinger Flow,
+            %  Deep Unfolding,
+            %  Unrolled Wirtinger Flows,
+            %  Results,
+            %  Images and Plots,
              }
 
 
 \begin{document}
 
-\include{00.frontmatter} 
+\include{frontmatter} 
 
 \tableofcontents
 
@@ -107,20 +98,16 @@
 \include{abstract}
 \include{acknowledgements} 
 \include{symbols}
-
-\include{00}  
-\include{01}
-\include{02} 
-\include{03}
-\include{04}   
-\include{05}
-\include{06} 
-% \cite{the_texbook_knuth}
+\printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
+\include{Mathematical Preliminaries}  
+\include{Introduction}
+\include{Wirtinger Flow} 
+\include{Deep Unfolding}
+\include{Unrolled Wirtinger Flows}   
+\include{Results}
+\include{Images and Plots} 
 \nocite{*}
 \backmatter
-% \include{symbols}
-\printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
-% \bibliographystyle{siam}
 \printindex
 \printbibliography
 
