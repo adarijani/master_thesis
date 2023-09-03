@@ -10,7 +10,7 @@
   
   \begin{axis}[
   width = 1.0\textwidth,
-  height = 25em,
+  height = 65em,
   legend cell align={left},
   legend style={fill opacity=0.8, draw opacity=1, text opacity=1, draw=lightgray204},
   log basis y={10},
@@ -19,10 +19,12 @@
   title={WF Variants, $\boldsymbol{x} \in \mathbb{C}^n$ and $\boldsymbol{A} \in \mathbb{C}^{m \times n}$},
   x grid style={darkgray176},
   xlabel={Iteration Number},
+  xmajorgrids,
   xmin=-50, xmax=1050,
   xtick style={color=black},
   y grid style={darkgray176},
   ylabel={Relative Error},
+  ymajorgrids,
   ymin=2.75985430994154e-17, ymax=62.0823981613045,
   ymode=log,
   ytick style={color=black},
@@ -40,7 +42,7 @@
     \(\displaystyle {10^{7}}\)
   }
   ]
-  \addplot [semithick, red]
+  \addplot [ultra thick, red]
   table {%
   0 0.994928926814044
   1 0.994889801322374
@@ -1045,7 +1047,7 @@
   1000 4.40225098524068e-16
   };
   \addlegendentry{WF}
-  \addplot [semithick, darkviolet1910191]
+  \addplot [ultra thick, darkviolet1910191]
   table {%
   0 9.09458579801178
   1 4.17278269794901
@@ -2050,7 +2052,7 @@
   1000 2.05332711011562e-16
   };
   \addlegendentry{TWF}
-  \addplot [semithick, darkturquoise0191191]
+  \addplot [ultra thick, darkturquoise0191191]
   table {%
   0 0.484490414454006
   1 0.380430706489868
@@ -3055,7 +3057,7 @@
   1000 2.10716879853006e-16
   };
   \addlegendentry{RWF}
-  \addplot [semithick, green01270]
+  \addplot [ultra thick, green01270]
   table {%
   0 0.684674144325005
   1 0.119847295785935
@@ -4060,7 +4062,7 @@
   1000 5.36353593219108e-16
   };
   \addlegendentry{IRWF}
-  \addplot [semithick, goldenrod1911910]
+  \addplot [ultra thick, goldenrod1911910]
   table {%
   0 0.67937172379363
   1 0.25512439505689
