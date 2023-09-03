@@ -1,8 +1,8 @@
 \chapter{Wirtinger Flow}
 
-The whole thing about \emph{Wirtinger Flow} variants started with the seminal work of Candes and Soltanolkotabi\cite{wirtinger_flow_cadnes}.
-The most important improvements chronologically were done by Candes and Chen\cite{truncated_wirtinger_flow}, Kolte and Özgür\cite{incrementaly_truncated_wirtinger_flow}, and Zhang et al.\cite{reshaped_and_incrementally_reshaped_wirtinger_flow}.
-For a quite extensive survey on \emph{Wirtinger Flow} variants please refer to Liu et al.\cite{wirtinger_flow_variants_survey}. Chandra et al.\cite{phase_pack} 
+The whole thing about \emph{Wirtinger Flow} variants started with the seminal work of Candes and Soltanolkotabi\cite{Candes2014}.
+The most important improvements chronologically were done by Candes and Chen\cite{Chen2015}, Kolte and Özgür\cite{Kolte2016}, and Zhang et al.\cite{Zhang2016}.
+For a quite extensive survey on \emph{Wirtinger Flow} variants please refer to Liu et al.\cite{Liu2019}. Chandra et al.\cite{Chandra2017} 
 gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{Wirtinger Flow} variants in the MATLAB\textregistered\space 
 problem solving environment in a uniform manner.\\
 We quickly go over the problem formulation, difficulties, algorithms, and at the of the chapter we give some numerical experiments we are going
@@ -13,7 +13,7 @@ Consider the ray $\boldsymbol{x} \in \mathbb{C}^{n \times 1}$ is emitted onto th
 $\boldsymbol{y} \in \mathbb{R}^{m \times 1}$ and is connected to the original ray by $\boldsymbol{y} = \varphi(\boldsymbol{A}\boldsymbol{x})$,
 where $\boldsymbol{A} \in \mathbb{C}^{m \times n}$ and $\varphi$ the usual element-wise absolute value(or the squared absolute value) from 
 $\mathbb{C}^{m \times 1}$ to $\mathbb{R}^{m \times 1}$.\\
-Candes and Soltanolkotabi\cite{wirtinger_flow_cadnes} considered $\varphi$ to be squared element-wise absolute value and the loss function to be quadratic. 
+Candes and Soltanolkotabi\cite{Candes2014} considered $\varphi$ to be squared element-wise absolute value and the loss function to be quadratic. 
 The summary for all the variants in terms of formulation is in table\ref{tab:formulation}  
 
 
@@ -21,16 +21,17 @@ The summary for all the variants in terms of formulation is in table\ref{tab:for
 	\centering
 	\begin{tabular}{||c l c||} 
 	 \hline
-	 \emph{Wirtinger Flow} Variant 			& $\varphi$ 						& loss functions\\ [0.5ex] 
+	 \emph{Wirtinger Flow} Variant 			 & $\varphi$ 						& loss functions\\ [0.5ex] 
 	 \hline\hline
-	 Wirtinger Flow 			 			& $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\ 
-	 Truncated Wirtinger Flow   			& $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
-	 Incrementally Truncated Wirtinger Flow & $\left|\boldsymbol{z}\right|^2$  	& quadratic 	\\
-	 Reshaped Wirtinger Flow 				& $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
-	 Incrementally Reshaped Flow 			& $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\ [1ex] 
+	 Wirtinger Flow 			 			 & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\ 
+	 Truncated Wirtinger Flow   			 & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
+	 Incrementally Truncated Wirtinger Flow  & $\left|\boldsymbol{z}\right|^2$  & quadratic 	\\
+	 Reshaped Wirtinger Flow 				 & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
+	 Incrementally Reshaped Wirtinger Flow 	 & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
+	 Incrementally-Minibatch Wirtinger Flow  & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\ [1ex] 
 	 \hline
 	\end{tabular}
-	\caption{$\varphi$ and the loss function used in \cite{wirtinger_flow_cadnes}, \cite{truncated_wirtinger_flow}, \cite{incrementaly_truncated_wirtinger_flow}, \cite{reshaped_and_incrementally_reshaped_wirtinger_flow}}
+	\caption{$\varphi$ and the loss function used in \cite{Candes2014}, \cite{Chen2015}, \cite{Kolte2016}, and \cite{Zhang2016}}
 	\label{tab:formulation}
 	\end{table}
 \section{Difficulties}
@@ -58,34 +59,11 @@ is out of the question\cite{Rudin1987}.
 
 
 
-% \input{./tikz/}
+
 
 
 
 \index{Scalar Product}
-
-
-% \begin{itemize}
-% \item Wirtinger FLow suggested by \cite{Candes_2015}
-% \item Truncated Wirtinger Flow suggested by \cite{chen2016solving}
-% \item Incrementally Truncated Wirtinger Flow suggested by \cite{kolte2016phase}
-% \item Reshaped Wirtinger Flow and Incrementally Reshaped Wirtinger FLow suggested by \cite{zhang2016reshaped}
-
-% \end{itemize}
-
-
-
-
-
-
-
-% \cite{bib:signal-miller}
-
-% \cite{bib:image-bredies}
-
-
-
-
 
 
 
@@ -95,7 +73,7 @@ is out of the question\cite{Rudin1987}.
 
 
 	\begin{algorithm}
-	\caption{Reshaped \emph{Wirtinger Flow} suggested by \cite{reshaped_and_incrementally_reshaped_wirtinger_flow}}
+	\caption{Reshaped \emph{Wirtinger Flow} suggested by \cite{Zhang2016}}
 		\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
 		\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
 		\textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
@@ -110,7 +88,7 @@ is out of the question\cite{Rudin1987}.
 	\end{algorithm}
 
 	\begin{algorithm}[th] 
-		\caption{Incremental Reshaped \emph{Wirtinger Flow} (IRWF) suggested by \cite{reshaped_and_incrementally_reshaped_wirtinger_flow}}\label{alg:irwf}
+		\caption{Incremental Reshaped \emph{Wirtinger Flow} (IRWF) suggested by \cite{Zhang2016}}\label{alg:irwf}
 		\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
 		\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
 		\textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
@@ -133,7 +111,7 @@ is out of the question\cite{Rudin1987}.
 
 
 		\begin{algorithm}[th]
-			\caption{Mini-batch Incremental Reshaped \emph{Wirtinger Flow} (mini-batch IRWF) suggested by \cite{reshaped_and_incrementally_reshaped_wirtinger_flow}}\label{alg:mbirwf}
+			\caption{Mini-batch Incremental Reshaped \emph{Wirtinger Flow} (mini-batch IRWF) suggested by \cite{Zhang2016}}\label{alg:mbirwf}
 			
 			\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
 			\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
