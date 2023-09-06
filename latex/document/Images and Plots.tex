@@ -4,66 +4,6 @@
 
 
 
-
-\begin{equation*}
-  y_k = \left| \sum_{t=0}^{n-1} x[t] e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega
-\end{equation*}
-
-\begin{equation*}
-  y_k = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega
-\end{equation*}
-
-\begin{equation*}
-  y_k = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \begin{split}
-  0 &\leq k \leq n-1\\
-  1 &\leq l \leq L
-  \end{split}
-\end{equation*}
-
-\begin{equation*}
-  \mathbb{E}\left[d\right] = 0, \qquad \mathbb{E}\left[d^2\right] = 0, \qquad\mathbb{E}\left[\left|d\right|^4\right] = 2\mathbb{E}\left[\left|d\right|^2\right]
-\end{equation*}
-
-Ternary Modulation
-\begin{equation*}
-  d =
-      \begin{cases}
-          +1 & \text{with prob.  $1/4$}\\
-          0 & \text{with prob.  $1/2$}\\
-          -i & \text{with prob.  $1/4$}
-      \end{cases}  
-\end{equation*}
-
-
-
-
-
-Octanary Modulation
-\begin{equation*}
-  b_1 =
-      \begin{cases}
-          +1 & \text{with prob.  $1/4$}\\
-          -1 & \text{with prob.  $1/4$}\\
-          -i & \text{with prob.  $1/4$}\\
-          +i & \text{with prob.  $1/4$}\\
-
-      \end{cases}  
-      \qquad \text{and} \qquad 
-  b_2 
-      \begin{cases}  
-        +\sqrt{2}/2 & \text{with prob.  $4/5$}\\
-        +\sqrt{3} & \text{with prob.  $1/5$}\\
-    \end{cases}   
-\end{equation*}
-
-
-
-
-
-
-
-Reconstructed natural images using coded diffraction patterns and a couple of Wirtinger Flow Variants.
-
 \afterpage{%
   % \clearpage % Start a new page
   \input{tikz/wf_variants.tex}
@@ -72,11 +12,13 @@ Reconstructed natural images using coded diffraction patterns and a couple of Wi
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Phase in Fourier Reconstruction %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
+  \begin{figure}[!htbp]
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
@@ -85,28 +27,25 @@ Reconstructed natural images using coded diffraction patterns and a couple of Wi
   \end{figure}
   % \clearpage % End the page
 }
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% modulation on fourier visualization %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
-  \clearpage % Start a new page
+  % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
+  \begin{figure}[!htbp]
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/mask_effect/regular_fourier_vs_modulated.png}
     \caption{effect of modulation on fourier visualization}
     \label{fig:modulation effect}
   \end{figure}
-  \clearpage % End the page
+  % \clearpage % End the page
 }
-
-
 \afterpage{%
-  \clearpage % Start a new page
+  % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
+  \begin{figure}[!htbp]
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_sat_phone/measurements.png}
@@ -114,123 +53,98 @@ Reconstructed natural images using coded diffraction patterns and a couple of Wi
     Red Channel, Green Channel, Blue Channel, and Full RGB}
     \label{fig:coded_diffractions_measurements_dc}
   \end{figure}
-  \clearpage % End the page
+  % \clearpage % End the page
 }
-
-
-
-
-% \input{./tikz/error_T_max=400_steps=1_sat_phone.tex}
-
 \afterpage{%
-  \clearpage % Start a new page
+  % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this pages
-  \begin{figure}[p]
+  \begin{figure}[!htbp]
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_zoomed_sat_phone/measurements.png}
     \caption{Measurements on DC\textregistered\space Universe Characters Due to a Random Modulation Plate from Top to Buttom: 
     Red Channel, Green Channel, Blue Channel, and Full RGB Zoomed Version}
-    \label{fig:coded_diffractions_measurements_zoomed_dc}
-  \end{figure}
-  \clearpage % End the page
-}
-
-
-
-
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/000_123_134_original.png}
-    \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, 
-	at Iteration $=123$, at Iteration $=134$, and the Original Image}
-    \label{fig:wf_dc/0_121_132_original}
+    % \label{fig:coded_diffractions_measurements_zoomed_dc}
   \end{figure}
   % \clearpage % End the page
 }
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/142_164_499_original.png}
-    \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=142$, 
-    at Iteration $=164$, at Iteration $=499$, and the Original Image}
-    \label{fig:wf_142_164_499_original}
-  \end{figure}
-  % \clearpage % End the page
-}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% WF Variants Error During Retrieval Reconstruction %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
     \input{./tikz/wf_error_sat_phone_500_sat_phone.tex}
   % \clearpage % End the page
 }
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/000_123_134_original.png}
-    \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, 
-	at Iteration $=123$, at Iteration $=134$, and the Original Image}
-    \label{fig:wf_dc/0_121_132_original}
-  \end{figure}
-  % \clearpage % End the page
-}
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/000_008_021_original.png}
-    \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, at Iteration $=21$, and the Original Image}
-    \label{fig:wf356_1443563454}
-  \end{figure}
-  % \clearpage % End the page
-}
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[p]
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/030_050_499_original.png}
-    \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=30$, 
-    at Iteration $=50$, at Iteration $=499$, and the Original Image}
-    \label{fig:wf_457143454}
-  \end{figure}
-  % \clearpage % End the page
-}
-
-
 \afterpage{%
   % \clearpage % Start a new page
     \input{./tikz/twf_error_sat_phone_500_sat_phone.tex}
   % \clearpage % End the page
 }
-
-
-
-
-% what a mess \cite{papa_rudin}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% WF Reconstruction %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/000_123_134_original.png}
+    \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, 
+	at Iteration $=123$, at Iteration $=134$, and the Original Image}
+    \label{fig:wf_dc/0_121_inal}
+  \end{figure}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/142_164_499_original.png}
+    \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=142$, 
+	at Iteration $=164$, at Iteration $=499$, and the Original Image}
+    % \label{fig:wf_dc/0_121_132riginal}
+  \end{figure}
+  % \clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% TWF Reconstruction %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/000_008_012_original.png}
+    \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, at Iteration $=8$, at Iteration $=12$, and the Original Image}
+    % \label{fig:wf356_1443563454}
+  \end{figure}
+  % \clearpage % End the page
+}
 
 \afterpage{%
-  \clearpage % Start a new page
-  \begin{table}
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/015_017_499_original.png}
+    \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=15$, 
+    at Iteration $=17$, at Iteration $=499$, and the Original Image}
+    % \label{fig:wf_457143454}
+  \end{figure}
+  % \clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% msip-Dell Specs %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \begin{table}[!htbp]
     \centering
     \begin{tabular}{||l l||} 
      \hline
@@ -291,7 +205,7 @@ Reconstructed natural images using coded diffraction patterns and a couple of Wi
     \caption{Software and Hardware that were used}
     % \label{tab:formulation}
     \end{table}
-  \clearpage % End the page
+  % \clearpage % End the page
 }
 
 
