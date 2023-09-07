@@ -28,7 +28,7 @@
   % \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%% modulation on fourier visualization %%%%%%%%%%%%%
+%%%%%%%%%%% modulation on Fourier visualization %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
@@ -79,6 +79,11 @@
 \afterpage{%
   % \clearpage % Start a new page
     \input{./tikz/twf_error_sat_phone_500_sat_phone.tex}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+    \input{./tikz/rwf_error_sat_phone_500_sat_phone.tex}
   % \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -135,6 +140,35 @@
     \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/015_017_499_original.png}
     \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=15$, 
     at Iteration $=17$, at Iteration $=499$, and the Original Image}
+    % \label{fig:wf_457143454}
+  \end{figure}
+  % \clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% RWF Reconstruction %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/rwf_sat_phone/000_025_32_original.png}
+    \caption{RWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, at Iteration $=25$, at Iteration $=32$, and the Original Image}
+    % \label{fig:wf356_1443563454}
+  \end{figure}
+  % \clearpage % End the page
+}
+
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/rwf_sat_phone/034_037_499_original.png}
+    \caption{RWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=34$, 
+    at Iteration $=37$, at Iteration $=499$, and the Original Image}
     % \label{fig:wf_457143454}
   \end{figure}
   % \clearpage % End the page
