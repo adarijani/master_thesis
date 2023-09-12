@@ -2,6 +2,8 @@
 % !TEX spellcheck = en
 % spell-checker:ignore RWTH, leavevmode, qedhere, siunitx, titlehead
 \documentclass[fleqn,bibliography=totoc,index=totoc,paper=A4,twoside=semi,DIV=12]{scrbook}
+\usepackage{acro}
+
 % \usepackage[outputdir={/tmp/latex}]{minted}
 % \usepackage{minted}
 % \usepackage{euler}
@@ -112,19 +114,20 @@
 
 \includeonly{
              frontmatter,
-            %  dedication,
-            %  abstract,
-            %  acknowledgements,
-            %  symbols,
-             Mathematical Preliminaries,
+             dedication,
+             abstract,
+             acknowledgements,
+             symbols,
+            %  Mathematical Preliminaries,
             %  Introduction,
              Wirtinger Flow,
             %  Deep Unfolding,
             %  Unrolled Wirtinger Flows,
-            %  Results,
+             Results,
             %  Images and Plots,
              }
 
+\input{acro.tex}
 
 \begin{document}
 
@@ -147,6 +150,8 @@
 \include{Images and Plots} 
 \nocite{*}
 \backmatter
+\printacronyms[include=abbrev, name=Abbreviation]
+\printacronyms[include=nomencl,name=Nomenclature]
 \printindex
 \printbibliography
 

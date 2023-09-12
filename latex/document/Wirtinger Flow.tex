@@ -1,9 +1,10 @@
 \chapter{Wirtinger Flow}
 
-The whole thing about \emph{Wirtinger Flow} variants started with the seminal work of Candes and Soltanolkotabi\cite{Candes2014}.
-The most important improvements chronologically were done by Candes and Chen\cite{Chen2015}, Kolte and Özgür\cite{Kolte2016}, and Zhang et al.\cite{Zhang2016}.
-For a quite extensive survey on \emph{Wirtinger Flow} variants please refer to Liu et al.\cite{Liu2019}. Chandra et al.\cite{Chandra2017} 
-gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{Wirtinger Flow} variants in the MATLAB\textregistered\space 
+The whole thing about \emph{\ac{WF}} variants started with the seminal work of \cite{Candes2014}.
+The most important improvements chronologically were done by \cite{Chen2015}, \cite{Kolte2016}, and\cite{Zhang2016}
+with the nicknames of \ac{TWF}, \ac{ITWF}, \ac{RWF}, \ac{IRWF}, and \ac{IMRWF}.
+For a quite extensive survey on \emph{\ac{WF}} variants please refer to Liu et al.\cite{Liu2019}. Chandra et al.\cite{Chandra2017} 
+gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{\ac{WF}} variants in the MATLAB\textregistered\space 
 problem solving environment in a uniform manner.\\
 We quickly go over the problem formulation, difficulties, algorithms, and at the of the chapter we give some numerical experiments we are going
 to refer to in the subsequent chapters.
@@ -21,14 +22,14 @@ The summary for all the variants in terms of formulation is in table\ref{tab:for
 	\centering
 	\begin{tabular}{||c l c||} 
 	 \hline
-	 \emph{Wirtinger Flow} Variant 			 & $\varphi$ 						& loss functions\\ [0.5ex] 
+	 \emph{\ac{WF}} Variant & $\varphi$ 						& loss functions\\ [0.5ex] 
 	 \hline\hline
-	 Wirtinger Flow 			 			 & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\ 
-	 Truncated Wirtinger Flow   			 & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
-	 Incrementally Truncated Wirtinger Flow  & $\left|\boldsymbol{z}\right|^2$  & quadratic 	\\
-	 Reshaped Wirtinger Flow 				 & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
-	 Incrementally Reshaped Wirtinger Flow 	 & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
-	 Incrementally-Minibatch Wirtinger Flow  & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\ [1ex] 
+	 \ac{WF}                & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\ 
+	 \ac{TWF}   			& $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
+	 \ac{ITWF}              & $\left|\boldsymbol{z}\right|^2$   & quadratic 	\\
+	 \ac{RWF} 				& $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
+	 \ac{IRWF} 	            & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
+	 \ac{IMRWF}             & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\ [1ex] 
 	 \hline
 	\end{tabular}
 	\caption{$\varphi$ and the loss function used in \cite{Candes2014}, \cite{Chen2015}, \cite{Kolte2016}, and \cite{Zhang2016}}
