@@ -2,11 +2,15 @@
 % !TEX spellcheck = en
 % spell-checker:ignore RWTH, leavevmode, qedhere, siunitx, titlehead
 \documentclass[fleqn,bibliography=totoc,index=totoc,paper=A4,twoside=semi,DIV=12]{scrbook}
+% \usepackage[outputdir={/tmp/latex}]{minted}
+% \usepackage{minted}
 % \usepackage{euler}
 % \usepackage{lucidabr}
 \usepackage[american]{babel}
+\usepackage{adjustbox}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
 % spell-checker:disable
 % Restore the typical KOMA-Script style fonts, which are changed by setting fontenc to T1
 \usepackage{lmodern}
@@ -53,10 +57,44 @@
 {./figures/},
 }
 
+\usepackage{xcolor}
+
+\definecolor{codegreen}{RGB}{105,153,89}
+\definecolor{codegray}{RGB}{30,30,30}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{RGB}{30,30,30}
+\definecolor{almostwhite}{RGB}{211,211,211}
+
+% \lstdefinestyle{mystyle}{
+%     backgroundcolor=\color{backcolour},   
+%     commentstyle=\color{codegreen},
+%     keywordstyle=\color{magenta},
+%     numberstyle=\tiny\color{codegray},
+%     stringstyle=\color{codepurple},
+%     % rulecolor=\color{almostwhite}
+%     basicstyle=\ttfamily\footnotesize,
+%     breakatwhitespace=false,         
+%     breaklines=true,                 
+%     captionpos=b,                    
+%     keepspaces=true,                 
+%     numbers=left,                    
+%     numbersep=5pt,                  
+%     showspaces=false,                
+%     showstringspaces=false,
+%     showtabs=false,                  
+%     tabsize=2
+% }
+
+% \lstset{style=mystyle}
+
+
+
 \pgfplotsset{
   table/search path={data},
 }
 \addbibresource{/Users/rknot/sciebo/jabref_files/database.bib}
+
+
 
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter\,\,#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\,\,#1}}
@@ -74,17 +112,17 @@
 
 \includeonly{
              frontmatter,
-             dedication,
-             abstract,
-             acknowledgements,
+            %  dedication,
+            %  abstract,
+            %  acknowledgements,
             %  symbols,
-            %  Mathematical Preliminaries,
+             Mathematical Preliminaries,
             %  Introduction,
-            %  Wirtinger Flow,
+             Wirtinger Flow,
             %  Deep Unfolding,
             %  Unrolled Wirtinger Flows,
             %  Results,
-             Images and Plots,
+            %  Images and Plots,
              }
 
 

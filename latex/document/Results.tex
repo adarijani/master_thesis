@@ -1,1 +1,130 @@
 \chapter{Results}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% WF Variants Algorithms %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\afterpage{%
+  \clearpage % Start a new page
+  \begin{algorithm}[!htbp]
+    \caption{Reshaped  filll\emph{Wirtinger Flow} suggested by \cite{Zhang2016}}
+      \textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
+      \textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
+      \textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
+      \begin{equation}
+        \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
+      \end{equation}
+      \textbf{Update loop}: for $t=0:T-1$ do
+      \begin{flalign}
+        \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}-y_i\cdot\frac{\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}}{|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}|} \right) \boldsymbol{a}_i.
+      \end{flalign}
+      \textbf{Output} $\boldsymbol{z}^{(T)}$.
+    \end{algorithm}
+    % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+    % \lstinputlisting[language=Python]{./algorithms/wf.py}    
+
+  % \clearpage % End the page
+}
+
+
+\afterpage{%
+  \clearpage % Start a new page
+	\begin{algorithm}[!htbp]
+		\caption{Incremental Reshaped \emph{Wirtinger Flow} (IRWF) suggested by \cite{Zhang2016}}\label{alg:irwf}
+		\textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
+		\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
+		\textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
+		\begin{equation}
+			\boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
+		\end{equation}
+		% \textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
+		%\begin{equation*}
+		%\bY:=\frac{1}{m}\sum_{i=1}^m y_i\ba_i \boldsymbol{a}_i^*\bone_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
+		%\end{equation*}
+		
+		 \textbf{Update loop}: for $t=0:T-1$ do\\
+		 Choose $i_t$ uniformly at random from $\{1,2,\ldots, m\}$, and let
+		  \begin{flalign}
+				\boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu\left(\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}-y_{i_t}\cdot\frac{\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}}{|\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}|} \right) \boldsymbol{a}_{i_t}, \label{eq:incrementalupdate}
+		\end{flalign}
+		\textbf{Output} $\boldsymbol{z}^{(T)}$.
+		\end{algorithm}
+  % \clearpage % End the page
+}
+
+\afterpage{%
+  \clearpage % Start a new page
+  \begin{algorithm}[!htbp]
+    \caption{Mini-batch Incremental Reshaped \emph{Wirtinger Flow} (mini-batch IRWF) suggested by \cite{Zhang2016}}\label{alg:mbirwf}
+    
+    \textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
+    \textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
+    \textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
+    \end{equation}
+    %\textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
+    %\textbf{Initialization}: Let $\bz^{(0)}=\lambda_0 \tilde{\bz}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\ba_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\bz}$ is the leading eigenvector of
+    %\begin{equation*}%\label{eq:init_TRWF}
+    %\bY:=\frac{1}{m}\sum_{i=1}^m y_i\ba_i \boldsymbol{a}_i^*\bone_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
+    %\end{equation*}
+    
+     \textbf{Update loop}: for $t=0:T-1$ do\\
+     Choose $\Gamma_t$ uniformly at random from the subsets of  $\{1,2,\ldots, m\}$ with cardinality $k$, and let
+     \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}-\mu\cdot\boldsymbol{A}_{\Gamma_t}^* \left(\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}-\boldsymbol{y}_{\Gamma_t}\odot\text{Ph} (\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)})\right), \label{eq:mbirwfUpdate}
+    \end{flalign}
+    where $\boldsymbol{A}_{\Gamma_t}$ is a matrix stacking $\boldsymbol{a}_i^*$ for $i\in \Gamma_t$ as its rows,  $\boldsymbol{y}_{\Gamma_t}$ is a vector stacking $y_i$ for $i\in \Gamma_t$ as its elements, $\odot$ denotes element-wise product, and $\text{Ph}(\boldsymbol{z})$ denotes a phase vector of $\boldsymbol{z}$.% (stacking phase of each element of $\bz$ together).
+    
+    \textbf{Output} $\boldsymbol{z}^{(T)}$.
+    \end{algorithm}
+  % \clearpage % End the page
+}
+
+\afterpage{%
+  \clearpage % Start a new page
+  \begin{algorithm}[!htbp]
+    \caption{Reshaped  filll\emph{Wirtinger Flow} suggested by \cite{Zhang2016}}
+      \textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
+      \textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
+      \textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
+      \begin{equation}
+        \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
+      \end{equation}
+      \textbf{Update loop}: for $t=0:T-1$ do
+      \begin{flalign}
+        \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}-y_i\cdot\frac{\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}}{|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}|} \right) \boldsymbol{a}_i.
+      \end{flalign}
+      \textbf{Output} $\boldsymbol{z}^{(T)}$.
+    \end{algorithm}
+    % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+    % \lstinputlisting[language=Python]{./algorithms/wf.py}    
+
+  % \clearpage % End the page
+}
+
+
+\afterpage{%
+  \clearpage % Start a new page
+  \begin{algorithm}[!htbp]
+    \caption{Reshaped  filll\emph{Wirtinger Flow} suggested by \cite{Zhang2016}}
+      \textbf{Input}: $\boldsymbol{y}=\{y_i\}_{i=1}^m$, $\{\boldsymbol{a}_i\}_{i=1}^m$; \\
+      \textbf{Parameters:}  Lower and upper thresholds $\alpha_l,\alpha_u$ for  truncation in initialization, step size $\mu$;\\
+      \textbf{Initialization}: Let $\boldsymbol{z}^{(0)}=\lambda_0 \tilde{\boldsymbol{z}}$, where $\lambda_0=\frac{mn}{\sum_{i=1}^m \|\boldsymbol{a}_i\|_1}\cdot \left(\frac{1}{m}\sum_{i=1}^m y_i\right)$ and $\tilde{\boldsymbol{z}}$ is the leading eigenvector of
+      \begin{equation}
+        \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\{\alpha_l \lambda_0<y_i< \alpha_u \lambda_0\}}.
+      \end{equation}
+      \textbf{Update loop}: for $t=0:T-1$ do
+      \begin{flalign}
+        \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}-y_i\cdot\frac{\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}}{|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}|} \right) \boldsymbol{a}_i.
+      \end{flalign}
+      \textbf{Output} $\boldsymbol{z}^{(T)}$.
+    \end{algorithm}
+    % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+    % \lstinputlisting[language=Python]{./algorithms/wf.py}    
+
+  % \clearpage % End the page
+}
