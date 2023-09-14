@@ -3,14 +3,12 @@
 % spell-checker:ignore RWTH, leavevmode, qedhere, siunitx, titlehead
 \documentclass[fleqn,bibliography=totoc,index=totoc,paper=A4,twoside=semi,DIV=12]{scrbook}
 \usepackage{acro}
+\usepackage{imakeidx}
+\makeindex[columns=3, title=Alphabetical Index, intoc]
 
-% \usepackage[outputdir={/tmp/latex}]{minted}
-% \usepackage{minted}
-% \usepackage{euler}
-% \usepackage{lucidabr}
 \usepackage[american]{babel}
 \usepackage{adjustbox}
-\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc} 
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 % spell-checker:disable
@@ -110,21 +108,21 @@
 \lehead{\thepage}
 \rehead{\leftmark}
 
-\makeindex
+% \makeindex
 
 \includeonly{
-            %  frontmatter,
-            %  dedication,
-            %  abstract,
-            %  acknowledgements,
-            %  symbols,
-            %  Mathematical Preliminaries,
-            %  Introduction,
-            %  Wirtinger Flow,
-            %  Deep Unfolding,
-            %  Unrolled Wirtinger Flows,
+             frontmatter,
+             dedication,
+             abstract,
+             acknowledgements,
+             symbols,
+             Mathematical Preliminaries,
+             Introduction,
+             Wirtinger Flow,
+             Deep Unfolding,
+             Unrolled Wirtinger Flows,
              Results,
-            %  Images and Plots,
+             Images and Plots,
              }
 
 \input{acro.tex}
@@ -140,7 +138,8 @@
 \include{abstract}
 \include{acknowledgements} 
 \include{symbols}
-\printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
+\printacronyms[include=abbrev, name=Abbreviation]
+\printacronyms[include=acronym,name=Acronyms]
 \include{Mathematical Preliminaries}  
 \include{Introduction}
 \include{Wirtinger Flow} 
@@ -150,8 +149,7 @@
 \include{Images and Plots} 
 \nocite{*}
 \backmatter
-\printacronyms[include=abbrev, name=Abbreviation]
-% \printacronyms[include=nomencl,name=Nomenclature]
+\printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
 \printindex
 \printbibliography
 

@@ -251,8 +251,198 @@
 
 
 
-% \afterpage{%
-  % \clearpage % Start a new page
-% \lstinputlisting[language=Python]{./algorithms/wf.py}
-  % \clearpage % End the page
-  % }
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% WF Variants Algorithms %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Wirtinger Flow %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}[!htbp]
+  \caption{\ac{WF}\index{WF} suggested by \cite{Candes2014}}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters}:  step size $\mu$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=\sqrt{n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_X^2}}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu_{t+1}}{\left|z_0\right|_X^2}\left(\frac{1}{m}\sum_{i=1}^{m}\left(\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X-y_i\right)\left(\boldsymbol{a}_i\boldsymbol{a}_i^*\right)\boldsymbol{z}^{(t)}\right).
+    \end{flalign}
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+  \lstinputlisting[language=Python]{./algorithms/wf.py}\index{WF}    
+\clearpage % End the page
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Truncated Wirtinger Flow %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}[!htbp]
+  \caption{\ac{TWF}\index{TWF} suggested by \cite{Chen2015}}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters}: step size $\mu$, and thresholds $\alpha_{z}^{lb},\alpha_{z}^{ub},\alpha_{h},\alpha_{y}$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{\left|y_i\right|_X\leq \frac{\alpha_{y}^2\sum_{i=1}^{m}y_i}{m}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=\sqrt{n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_X^2}}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu_{t+1}}{{\boldsymbol{z}^{(t)}}^*\boldsymbol{a}_i}\left(\frac{1}{m}\sum_{i=1}^{m}2\left(\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X^2-y_i\right)\boldsymbol{a}_i\boldsymbol{1}_{\mathcal{E}_1^i\cap\mathcal{E}_2^i}\right).
+    \end{flalign}
+    where
+    \begin{equation*}
+      \begin{split}
+        \mathcal{E}_1^i &\coloneqq \left\{  \alpha_z^{lb}  \leq \frac{\sqrt{n}\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X}{\left|\boldsymbol{a}_i\right|_X\left|\boldsymbol{z}^{(t)}\right|_X} \leq  \alpha_z^{ub}   \right\} \\
+        \mathcal{E}_2^i &\coloneqq \left\{ \left|y_i-\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X^2\right| \leq  \alpha_h{K_t}\frac{\sqrt{n}\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X}{\left|\boldsymbol{a}_i\right|_X\left|\boldsymbol{z}^{(t)}\right|_X}   \right\} \\
+        K_t             &\coloneqq \frac{1}{m}\sum_{j=1}^{m}\left|y_j-\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X^2\right|
+      \end{split}
+    \end{equation*}
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/twf.py}
+  \lstinputlisting[language=Python]{./algorithms/twf.py}\index{TWF}    
+\clearpage % End the page
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Reshaped Wirtinger Flow %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}[!htbp]
+  \caption{\ac{RWF}\index{RWF} suggested by \cite{Zhang2016}}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{ \alpha_{l}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1} \leq \left|y_i\right|_X \alpha_{u}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu_{t+1}\left(\frac{1}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}-y_i\frac{\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}}{\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X}\right)\boldsymbol{a}_i\right).
+    \end{flalign}
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/rwf.py}
+  \lstinputlisting[language=Python]{./algorithms/rwf.py}\index{RWF}    
+\clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% Incrementally Reshaped Wirtinger Flow %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}[!htbp]
+  \caption{\ac{IRWF}\index{IRWF} suggested by \cite{Zhang2016}}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{ \alpha_{l}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1} \leq \left|y_i\right|_X \alpha_{u}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu_{t+1}\left(\frac{1}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}-y_{i_t}\frac{\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}}{\left|\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}\right|_X}\right)\boldsymbol{a}_i\right).
+    \end{flalign}
+    where $i_t$ is randomly selected from the set $\left\{1,\cdots,m\right\}$.\\
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+  \lstinputlisting[language=Python]{./algorithms/irwf.py}\index{IRWF}    
+\clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Incrementally Mini-Batch Reshaped Wirtinger Flow %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}[!htbp]
+  \caption{\ac{IMRWF}\index{IMRWF} suggested by \cite{Zhang2016}}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$, batch size $k$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{ \alpha_{l}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1} \leq \left|y_i\right|_X \alpha_{u}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu_{t+1}\boldsymbol{A}_{\Gamma_t}\left(\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}-\boldsymbol{y}_{\Gamma_t} \odot \frac{\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}}{\left|\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}\right|_{e_X}}\right).
+    \end{flalign}
+    where $\Gamma_t$, the index vector, is randomly selected from the subsets of $\left\{1,\cdots,m\right\}$ that has $k$ members. $\boldsymbol{A}_{\Gamma_t}, \boldsymbol{y}_{\Gamma_t}$ 
+    correspond to the index vector taken from the original $\boldsymbol{A}$ and $\boldsymbol{y}$ \\
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+  \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}    
+\clearpage % End the page
+}

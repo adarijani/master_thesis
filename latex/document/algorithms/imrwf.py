@@ -20,16 +20,10 @@ T = 200
 # batch = int(batch_factor*n)
 batch = m
 npower_iter = 30
-
-
 def A(Amatrix, X):
     return torch.linalg.matmul(Amatrix, X)
-
-
 def Ah(Amatrix, Z):
     return torch.linalg.matmul(Amatrix.adjoint(), Z)
-
-
 def generator():
     x = (
         torch.randn((n, 1), dtype=torch.double)
@@ -41,8 +35,6 @@ def generator():
     ) / math.sqrt(2) ** cplx_flag
     y = torch.abs(A(Amatrix, x))
     return Amatrix, x, y
-
-
 def irwf(Amatrix, x, y):
     Relerrs = np.zeros((T + 1, 1))
     z0 = torch.randn((n, n2), dtype=torch.cdouble)
@@ -77,8 +69,6 @@ def irwf(Amatrix, x, y):
             x - torch.exp(-1j * torch.angle(torch.trace(x.H * z))) * z
         ) / torch.linalg.norm(x)
     return z, Relerrs
-
-
 Amatrix, x, y = generator()
 z, err = irwf(Amatrix, x, y)
 print(err, "\n", err[-1])
