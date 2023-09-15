@@ -1,25 +1,25 @@
 
-\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.3cm,
   thick,c node/.style={circle,draw,
-  ,minimum size=20mm},c_empt node/.style={circle,draw=none,
-  ,minimum size=20mm},r node/.style={ rectangle,draw,
-  ,minimum height=20mm,minimum width=30mm},a node/.style={single arrow, draw, rotate=0}]
+  ,minimum size=20mm},c_empt node/.style={circle,draw=none,font=\LARGE
+  ,minimum size=20mm},r node/.style={ rectangle,draw,font=\LARGE
+  ,minimum height=20mm,minimum width=20mm},a node/.style={single arrow, draw,font=\LARGE, rotate=0}]
   \node[r node] (Input_O) {Input};
-  \node[c node] (Iteration)[above of=Input_O] {$h(.;\theta)$};
+  \node[c node] (Iteration)[above of=Input_O] {\LARGE$h(.;\theta)$};
   \node[r node] (Output_O)[above of=Iteration] {Output};
   \node[a node] (Unrolling)[right of=Iteration] {Unrolling}; 
   \node[r node] (Input_U)[right of=Unrolling] {Input}; 
-  \node[c node] (iter_1)[right of=Input_U] {$h^1(.;\theta^1)$}; 
-  \node[c node] (iter_2)[right of=iter_1] {$h^2(.;\theta^2)$}; 
-  \node[c_empt node] (dotdotdot)[right of=iter_2] {$\cdots\cdots$}; 
+  \node[c node] (iter_1)[right of=Input_U] {\LARGE$h^1(.;\theta^1)$}; 
+  \node[c node] (iter_2)[right of=iter_1] {\LARGE$h^2(.;\theta^2)$}; 
+  \node[c_empt node] (dotdotdot)[right of=iter_2] {\LARGE$\cdots\cdots$}; 
   \node[r node] (Output_U)[right of=dotdotdot] {Output};
   \node[r node] (interpretable)[below of=iter_2] {Interpretable Layers}; 
   \node[r node] (train)[above of=iter_2] {End to End Training}; 
   \path[every node/.style={font=\sffamily\small,
   		fill=white,inner sep=1pt}]
-    (Input_O) edge [ left=30] node[left=1mm] {Preprocessing} (Iteration)    
-    (Iteration) edge [loop left] node[left=1mm] {$k \rightarrow k+1$} (Iteration)
-    (Iteration) edge [ left=30] node[left=1mm] {Post Processing} (Output_O)
+    (Input_O) edge [ left=30] node[left=1mm] {} (Iteration)    
+    (Iteration) edge [loop left] node[left=1mm] {\LARGE$k \rightarrow k+1$} (Iteration)
+    (Iteration) edge [ left=30] node[left=1mm] {} (Output_O)
     (Input_U) edge [ left=30] node[above=1mm] {} (iter_1)     
     (iter_1) edge [ left=30] node[above=1mm] {} (iter_2)     
     (iter_2) edge [ left=30] node[above=1mm] {} (dotdotdot)     
