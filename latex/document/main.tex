@@ -5,7 +5,7 @@
 \usepackage{acro}
 \usepackage{imakeidx}
 \makeindex[columns=3, title=Alphabetical Index, intoc]
-
+\usepackage{rotating}
 \usepackage[american]{babel}
 \usepackage{adjustbox}
 \usepackage[T1]{fontenc} 
@@ -36,6 +36,14 @@
 % \DeclareUnicodeCharacter{2212}{−}
 \usepgfplotslibrary{groupplots,dateplot}
 \usetikzlibrary{patterns,shapes.arrows}
+\usetikzlibrary{arrows}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes}
+\usetikzlibrary{graphs}
+\usetikzlibrary{quotes}
+\usetikzlibrary {shapes.arrows} 
 \pgfplotsset{compat=newest}
 \usepackage{stmaryrd}
 \SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
@@ -111,18 +119,18 @@
 % \makeindex
 
 \includeonly{
-             frontmatter,
-             dedication,
-             abstract,
-             acknowledgements,
-             symbols,
-             Mathematical Preliminaries,
-             Introduction,
-             Wirtinger Flow,
-             Deep Unfolding,
-             Unrolled Wirtinger Flows,
+            %  frontmatter,
+            %  dedication,
+            %  abstract,
+            %  acknowledgements,
+            %  symbols,
+            %  Mathematical Preliminaries,
+            %  Introduction,
+            %  Wirtinger Flow,
+            %  Deep Unfolding,
+            %  Unrolled Wirtinger Flows,
              Results,
-             Images and Plots,
+            %  Images and Plots,
              }
 
 \input{acro.tex}
