@@ -1,3 +1,6 @@
+#######################################################
+######## Incrementally Reshaped Wirtinger Flow ########
+#######################################################
 import torch
 import numpy as np
 import math
@@ -47,11 +50,10 @@ def irwf(Amatrix, x, y):
     Relerrs = np.zeros((T + 1, 1))
     z0 = torch.randn((n, n2), dtype=torch.cdouble)
     torch.linalg.norm(z0)
-    normest = (
-        (math.sqrt(math.pi / 2) * (1 - cplx_flag) + math.sqrt(4 / math.pi) * cplx_flag)
-        * torch.sum(y)
-        / m
-    )
+    n_r = math.sqrt(math.pi / 2) * (1 - cplx_flag)
+    n_c = math.sqrt(4 / math.pi) * cplx_flag
+    n_y = torch.sum(y) / m
+    normest = (n_r + n_c) * n_y
     ytr = torch.multiply(y, (torch.abs(y) > 1 * normest))
     for tt in range(npower_iter):
         z0 = Ah(Amatrix, torch.multiply(ytr, (A(Amatrix, z0))))
@@ -64,18 +66,19 @@ def irwf(Amatrix, x, y):
     for t in range(T + 1):
         shuffled_indices = torch.randperm(batch)
         Asub = Amatrix[shuffled_indices, :]
-        yz_batch = A(Asub, z)
-        y_batch = y[shuffled_indices]
-        yz_abs_batch = torch.abs(yz_batch)
-        first_divide_batch = torch.divide(yz_batch, yz_abs_batch)
-        first_multi_batch = torch.multiply(y_batch, first_divide_batch)
-        sub_batch = yz_batch - first_multi_batch
-        second_multi_batch = Ah(Asub, sub_batch)
-        second_divide_batch = torch.divide(second_multi_batch, m)
-        z = z - mu * second_divide_batch
-        Relerrs[t] = torch.linalg.norm(
-            x - torch.exp(-1j * torch.angle(torch.trace(x.H * z))) * z
-        ) / torch.linalg.norm(x)
+        yz_b = A(Asub, z)
+        y_b = y[shuffled_indices]
+        yz_abs_b = torch.abs(yz_b)
+        first_div_b = torch.divide(yz_b, yz_abs_b)
+        first_mul_b = torch.multiply(y_b, first_div_b)
+        sub_b = yz_b - first_mul_b
+        second_multi_b = Ah(Asub, sub_b)
+        second_divide_b = torch.divide(second_multi_b, m)
+        z = z - mu * second_divide_b
+        ang_tr = torch.angle(torch.trace(x.H * z))
+        diff = x - torch.exp(-1j * ang_tr) * z
+        norm = torch.linalg.norm(x)
+        Relerrs[t] = torch.linalg.norm(diff) / norm
     return z, Relerrs
 
 

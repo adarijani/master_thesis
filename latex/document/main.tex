@@ -1,7 +1,11 @@
 % !TEX encoding = UTF-8 Unicode
 % !TEX spellcheck = en
 % spell-checker:ignore RWTH, leavevmode, qedhere, siunitx, titlehead
+% \documentclass{amsbook}
+
 \documentclass[fleqn,bibliography=totoc,index=totoc,paper=A4,twoside=semi,DIV=12]{scrbook}
+% \usepackage[a4paper,left=1.5in,right=1.5in,bottom=0.3in,top=0.1in]{geometry}
+% \usepackage[fontsize=12pt]{fontsize}
 \usepackage{acro}
 \usepackage{imakeidx}
 \makeindex[columns=3, title=Alphabetical Index, intoc]
@@ -47,15 +51,15 @@
 \pgfplotsset{compat=newest}
 \usepackage{stmaryrd}
 \SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
-% \SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
-% \SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
 % \usepackage{stmaryrd}
 % \SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
 % \usepackage[acronym]{glossaries}
 % \usepackage{algorithm}
 % \usepackage{algpseudocode}
 % \usepackage{algorithmic}
-\usepackage{silence}
+% \usepackage{silence}
 % \WarningFilter{latex}{Marginpar on page}
 
 \setlength{\marginparwidth}{2cm}
@@ -119,7 +123,7 @@
 % \makeindex
 
 \includeonly{
-            %  frontmatter,
+             frontmatter,
             %  dedication,
             %  abstract,
             %  acknowledgements,
@@ -129,12 +133,12 @@
             %  Wirtinger Flow,
             %  Deep Unfolding,
             %  Unrolled Wirtinger Flows,
-             Results,
+            %  Results,
             %  Images and Plots,
              }
 
 \input{acro.tex}
-
+\input{commands.tex}
 \begin{document}
 
 \include{frontmatter} 
@@ -145,9 +149,15 @@
 \include{dedication}
 \include{abstract}
 \include{acknowledgements} 
-\include{symbols}
+
+
 \printacronyms[include=abbrev, name=Abbreviation]
+\addcontentsline{toc}{chapter}{Abbreviations and Acronyms}
+
 \printacronyms[include=acronym,name=Acronyms]
+
+\include{symbols}
+\printunsrtglossary[type=symbols,style=long,title=Symbols and Conventions]
 \include{Mathematical Preliminaries}  
 \include{Introduction}
 \include{Wirtinger Flow} 
@@ -157,7 +167,6 @@
 \include{Images and Plots} 
 \nocite{*}
 \backmatter
-\printunsrtglossary[type=symbols,style=long,title=Acronyms and List of Special Symbols]
 \printindex
 \printbibliography
 

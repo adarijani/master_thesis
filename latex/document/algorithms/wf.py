@@ -1,6 +1,10 @@
+#######################################################
+#################### Wirtinger Flow ###################
+#######################################################
 import torch
-import numpy as np 
+import numpy as np
 import math
+
 cuda_opt = True
 if torch.cuda.is_available() & cuda_opt:
     DEVICE = "cuda"
@@ -13,10 +17,16 @@ cplx_flag = 1
 T = 800
 npower_iter = 30
 tau0 = 330
+
+
 def A(Amatrix, X):
     return torch.linalg.matmul(Amatrix, X)
+
+
 def Ah(Amatrix, Z):
     return torch.linalg.matmul(Amatrix.adjoint(), Z)
+
+
 def generator():
     x = (
         torch.randn((n, 1), dtype=torch.double)
@@ -28,6 +38,8 @@ def generator():
     ) / math.sqrt(2) ** cplx_flag
     y = torch.abs(A(Amatrix, x))
     return Amatrix, x, y
+
+
 def wf(Amatrix, x, y):
     Relerrs = np.zeros((T + 1, 1))
     z0 = torch.randn((n, n2), dtype=torch.cdouble)
@@ -38,18 +50,24 @@ def wf(Amatrix, x, y):
     normest = math.sqrt(torch.sum(y)) / m
     z0 = normest * z0
     z = z0
-    Relerrs[0] = torch.linalg.norm(
-        x - torch.exp(-1j * torch.angle(torch.trace(x.H * z))) * z
-    ) / torch.linalg.norm(x)
+    ang_tr = torch.angle(torch.trace(x.H * z))
+    diff = x - torch.exp(-1j * ang_tr) * z
+    norm = torch.linalg.norm(x)
+    Relerrs[0] = torch.linalg.norm(diff) / norm
     normest = math.sqrt(torch.sum(y**2) / m)
     for tt in range(T + 1):
         yz = Amatrix @ z
-        grad = 1 / m * Ah(Amatrix, torch.multiply(abs(yz) ** 2 - y**2, yz))
-        z = z - (min(1 - math.exp(-tt / tau0), 0.2)) / normest**2 * grad
-        Relerrs[tt] = torch.linalg.norm(
-            x - torch.exp(-1j * torch.angle(torch.trace(x.H * z))) * z
-        ) / torch.linalg.norm(x)
+        mul_diff = torch.multiply(abs(yz) ** 2 - y**2, yz)
+        grad = 1 / m * Ah(Amatrix, mul_diff)
+        tau = min(1 - math.exp(-tt / tau0), 0.2)
+        z = z - tau / normest**2 * grad
+        ang_tr = torch.angle(torch.trace(x.H * z))
+        diff = x - torch.exp(-1j * ang_tr) * z
+        norm = torch.linalg.norm(x)
+        Relerrs[tt] = torch.linalg.norm(diff) / norm
     return z, Relerrs
+
+
 Amatrix, x, y = generator()
 z, err = wf(Amatrix, x, y)
 print(err, "\n", err[-1])

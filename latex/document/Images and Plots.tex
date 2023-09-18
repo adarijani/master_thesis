@@ -1,15 +1,6 @@
 \chapter{Images and Plots}
 
-
-
-
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \input{tikz/wf_variants.tex}
-  % \clearpage % End the page
-}
-
+All the diagrams, plots, and natural images are included in this chapter.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -17,16 +8,34 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
+  % \thispagestyle{empty} % No header/footer on this page
   \begin{figure}[!htbp]
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
     \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1981}\cite{Shechtman2015} }
-    \label{fig:totoro}
+    \label{fig:sat_phone_vs_job_hunting}
   \end{figure}
   % \clearpage % End the page
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% WF vs TWF vs RWF vs IRWF vs IMRWF  %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+%   \clearpage % Start a new page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+  % \begin{turn}{-90}
+    \input{tikz/wf_variants.tex}
+  % \end{turn}
+  \caption{Wf vs TWF vs RWF vs IRWF vs IMRWF}
+    \label{fig:wf_variants}
+  \end{figure}
+%   \clearpage % End the page
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% modulation on Fourier visualization %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,7 +47,7 @@
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/mask_effect/regular_fourier_vs_modulated.png}
     \caption{effect of modulation on fourier visualization}
-    \label{fig:modulation effect}
+    \label{fig:modulation_effect}
   \end{figure}
   % \clearpage % End the page
 }
@@ -73,17 +82,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
-    \input{./tikz/wf_error_sat_phone_500_sat_phone.tex}
+    
+    \begin{figure}[!htbp]
+      \centering
+    \captionsetup{justification=centering}
+    % \begin{turn}{-90}
+      \input{./tikz/wf_error_sat_phone_500_sat_phone.tex}
+    % \end{turn}
+    \caption{WF on the sat phone using coded diffraction pattern}
+      \label{fig:wf_sat_phone_error}
+    \end{figure}
   % \clearpage % End the page
 }
 \afterpage{%
   % \clearpage % Start a new page
-    \input{./tikz/twf_error_sat_phone_500_sat_phone.tex}
+    
+    \begin{figure}[!htbp]
+      \centering
+    \captionsetup{justification=centering}
+    % \begin{turn}{-90}
+      \input{./tikz/twf_error_sat_phone_500_sat_phone.tex}
+    % \end{turn}
+    \caption{TWF on the sat phone using coded diffraction pattern}
+      \label{fig:twf_sat_phone_error}
+    \end{figure}
   % \clearpage % End the page
 }
 \afterpage{%
   % \clearpage % Start a new page
-    \input{./tikz/rwf_error_sat_phone_500_sat_phone.tex}
+    
+    \begin{figure}[!htbp]
+      \centering
+    \captionsetup{justification=centering}
+    % \begin{turn}{-90}
+      \input{./tikz/rwf_error_sat_phone_500_sat_phone.tex}
+    % \end{turn}
+    \caption{RWF on the sat phone using coded diffraction pattern}
+      \label{fig:rwf_sat_phone_error}
+    \end{figure}
   % \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -174,6 +210,25 @@
   % \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Unrolling an Iterative Algorithm  %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  % \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+  \begin{turn}{-90}
+    \input{./tikz/unrolling.tex}
+  \end{turn}
+  \caption{The Unrolling Process of an Iterative Algorithm Schematically}
+    \label{fig:unrolling}
+  \end{figure}
+  % \clearpage % End the page
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%% msip-Dell Specs %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
@@ -184,7 +239,7 @@
      \hline
      General 		                	&  						                                                             \\ [0.5ex] 
      \hline\hline
-     Processor 	         		 			& Intel\textregistered(R) Xeon\textregistered(R)         	                 \\
+     Processor 	         		 			& Intel\textregistered \space Xeon\textregistered         	                 \\
      Accelerator 			 	       		& NVIDIA\textregistered  	                                                 \\ 
      Operating System   			    & GNU/Linux(Ubuntu\textregistered) 	                                    	 \\
      Memory 	               			& 32617768 kB                                                              \\ [1ex] 
@@ -199,7 +254,7 @@
      CPU(s):                      & 8 	 	                                                                   \\
      On-line CPU(s) list:         & 0-7  	                                              	                   \\
      Vendor ID:                   & GenuineIntel\textregistered 	                         	                 \\
-     Model name:                  & Intel\textregistered(R) Xeon\textregistered(R) CPU E5-1630 v3 at 3.70GHz \\
+     Model name:                  & Intel\textregistered \space Xeon\textregistered CPU E5-1630 v3 at 3.70GHz \\
      Thread(s) per core:          & 2                                                                        \\
      Core(s) per socket:          & 4                                                   		                 \\
      Socket(s):                   & 1 	                                                	                   \\
@@ -210,12 +265,12 @@
      L2 Cache:                    & 1 MiB (4 instances) 	                                                   \\
      L3 Cache:                    & 10 MiB (1 instance) 	 	                                                 \\
      NUMA node(s):                & 1                                               	 	                     \\
-     Optimization Flags           & Please Refer to the Intel\textregistered Brochure for the Details  		   \\[1ex] 
+     Optimization Flags           & Please Refer to the Intel\textregistered \space Brochure for the Details  		   \\[1ex] 
      \hline
      \hline
      Accelerator Details 			    &                                                                          \\[0.5ex] 
      \hline\hline
-     Full Designation 	    			& NVIDIA\textregistered GeForce\textregistered RTX 2080 Ti 	               \\ 
+     Full Designation 	    			& NVIDIA\textregistered \space GeForce\textregistered \space RTX 2080 Ti 	               \\ 
      Memory   	              		& 11264 MiB 	                                           	                 \\
      CUDA Version:                & 12.2  	                                               	                 \\
      width:                       & 64 bits                                                                  \\
@@ -232,11 +287,11 @@
      scikit-image                 & 0.21.0  		                                                             \\
      pytorch                      & 2.0.0			 			 	                                                       \\ 
      pytorch-cuda                 & 11.7 	 	                                                                 \\
-     \LaTeX \space Distribution   & Mac\TeX			 			 	                                                     \\
+     \LaTeX \space Distribution   & \TeX-Live			 			 	                                                     \\
      \LaTeX \space Engine/Recipe  & Auto Recipe in VS-Code \LaTeX \space Extension		                       \\[1ex] 
      \hline
     \end{tabular}
-    \caption{Software and Hardware that were used}
+    \caption{Software and Hardware that were used on the second system}
     % \label{tab:formulation}
     \end{table}
   % \clearpage % End the page
@@ -291,7 +346,7 @@
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/wf.py}\index{WF}    
 \clearpage % End the page
@@ -335,7 +390,7 @@
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/twf.py}
   \lstinputlisting[language=Python]{./algorithms/twf.py}\index{TWF}    
 \clearpage % End the page
@@ -370,7 +425,7 @@
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/rwf.py}
   \lstinputlisting[language=Python]{./algorithms/rwf.py}\index{RWF}    
 \clearpage % End the page
@@ -441,7 +496,7 @@
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}    
 \clearpage % End the page

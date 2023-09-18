@@ -1,6 +1,10 @@
+#######################################################
+############## Reshaped Wirtinger Flow ################
+#######################################################
 import torch
 import numpy as np
 import math
+
 cuda_opt = True
 if torch.cuda.is_available() & cuda_opt:
     DEVICE = "cuda"
@@ -13,10 +17,16 @@ cplx_flag = 1
 mu = 0.8 + 0.4 * cplx_flag
 T = 800
 npower_iter = 30
+
+
 def A(Amatrix, X):
     return torch.linalg.matmul(Amatrix, X)
+
+
 def Ah(Amatrix, Z):
     return torch.linalg.matmul(Amatrix.adjoint(), Z)
+
+
 def generator():
     x = (
         torch.randn((n, 1), dtype=torch.double)
@@ -28,15 +38,16 @@ def generator():
     ) / math.sqrt(2) ** cplx_flag
     y = torch.abs(A(Amatrix, x))
     return Amatrix, x, y
+
+
 def rwf(Amatrix, x, y):
     Relerrs = np.zeros((T + 1, 1))
     z0 = torch.randn((n, n2), dtype=torch.cdouble)
     torch.linalg.norm(z0)
-    normest = (
-        (math.sqrt(math.pi / 2) * (1 - cplx_flag) + math.sqrt(4 / math.pi) * cplx_flag)
-        * torch.sum(y)
-        / m
-    )
+    n_r = math.sqrt(math.pi / 2) * (1 - cplx_flag)
+    n_c = math.sqrt(4 / math.pi) * cplx_flag
+    n_y = torch.sum(y) / m
+    normest = (n_r + n_c) * n_y
     ytr = torch.multiply(y, (torch.abs(y) > 1 * normest))
     for tt in range(npower_iter):
         z0 = Ah(Amatrix, torch.multiply(ytr, (A(Amatrix, z0))))
@@ -55,10 +66,13 @@ def rwf(Amatrix, x, y):
         second_multi = Ah(Amatrix, sub)
         second_divide = torch.divide(second_multi, m)
         z = z - mu * second_divide
-        Relerrs[t] = torch.linalg.norm(
-            x - torch.exp(-1j * torch.angle(torch.trace(x.H * z))) * z
-        ) / torch.linalg.norm(x)
+        ang_tr = torch.angle(torch.trace(x.H * z))
+        diff = x - torch.exp(-1j * ang_tr) * z
+        norm = torch.linalg.norm(x)
+        Relerrs[t] = torch.linalg.norm(diff) / norm
     return z, Relerrs
+
+
 Amatrix, x, y = generator()
 z, err = rwf(Amatrix, x, y)
 print(err, "\n", err[-1])

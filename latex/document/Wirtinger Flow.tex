@@ -1,5 +1,23 @@
 \chapter{Wirtinger Flow}
 
+
+\begin{equation*}
+	E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{} {\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X}^2}_{\coloneqq D(\psi)}+ R(\psi)
+  \end{equation*}
+  with $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}, z \rightarrow \left|z\right|_X \lor {\left|z\right|_X}^2$
+  
+  
+  Minimization by forward-backward splitting
+  \begin{equation*}
+	\psi^{k+1} = \text{prox}_{\tau_{k}R}(\psi^k-\tau_k\nabla{D(\psi^k)})
+  \end{equation*}
+  
+  Gradient structure 
+  \begin{equation*}
+	\nabla{D(\psi^k)} = \frac{1}{KN} \sum_{j=1}^{K} \boldsymbol{A}_j^*\left(\varphi\left(\boldsymbol{A}_j\psi\right)-G_j\right)\odot \varphi'(\boldsymbol{A}_j\psi)
+  \end{equation*}
+
+
 The whole thing about \emph{\ac{WF}} variants started with the seminal work of \cite{Candes2014}.
 The most important improvements chronologically were done by \cite{Chen2015}, \cite{Kolte2016}, and\cite{Zhang2016}
 with the nicknames of \ac{TWF}, \ac{ITWF}, \ac{RWF}, \ac{IRWF}, and \ac{IMRWF}.
