@@ -14,7 +14,7 @@ All the diagrams, plots, and natural images are included in this chapter.
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
     \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1981}\cite{Shechtman2015} }
-    \label{fig:sat_phone_vs_job_hunting}
+    \label{image:sat_phone_vs_job_hunting}
   \end{figure}
   % \clearpage % End the page
 }
@@ -30,124 +30,90 @@ All the diagrams, plots, and natural images are included in this chapter.
   % \begin{turn}{-90}
     \input{tikz/wf_variants.tex}
   % \end{turn}
-  \caption{Wf vs TWF vs RWF vs IRWF vs IMRWF}
+  \caption{\ac{WF} vs \ac{TWF} vs \ac{RWF} vs \ac{IRWF} vs \ac{IMRWF}}
     \label{fig:wf_variants}
   \end{figure}
 %   \clearpage % End the page
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%% modulation on Fourier visualization %%%%%%%%%%%%%
+%%%%%%%%%%%%%% CDPs on Fourier visualization %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:cdp_effect_fourier_visual}
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/mask_effect/regular_fourier_vs_modulated.png}
     \caption{effect of modulation on fourier visualization}
-    \label{fig:modulation_effect}
   \end{figure}
   % \clearpage % End the page
 }
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:cdp_effect_measurements_visual}
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_sat_phone/measurements.png}
     \caption{Measurements on DC\textregistered\space Universe Characters Due to a Random Modulation Plate from Top to Buttom: 
     Red Channel, Green Channel, Blue Channel, and Full RGB}
-    \label{fig:coded_diffractions_measurements_dc}
   \end{figure}
   % \clearpage % End the page
 }
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this pages
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:cdp_effect_measurements_zoomed_visual}
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_zoomed_sat_phone/measurements.png}
     \caption{Measurements on DC\textregistered\space Universe Characters Due to a Random Modulation Plate from Top to Buttom: 
     Red Channel, Green Channel, Blue Channel, and Full RGB Zoomed Version}
-    % \label{fig:coded_diffractions_measurements_zoomed_dc}
   \end{figure}
   % \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% WF Variants Error During Retrieval Reconstruction %%%%%%
+%%%% WF, TWF, RWF for CDPs Retrieval of Natural Images %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
-  % \clearpage % Start a new page
-    
-    \begin{figure}[!htbp]
-      \centering
-    \captionsetup{justification=centering}
-    % \begin{turn}{-90}
-      \input{./tikz/wf/wf_error_sat_phone_500_sat_phone.tex}
-    % \end{turn}
-    \caption{WF on the sat phone using coded diffraction pattern}
-      \label{fig:wf_sat_phone_error}
-    \end{figure}
-  % \clearpage % End the page
+%   \clearpage % Start a new page
+  \begin{figure}[!htbp]\label{fig:cdp_wf_twf_rwf}
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}]{\input{./tikz/wf/wf_error_sat_phone_500_sat_phone.tex}}\\  
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{TWF}]{\input{./tikz/twf/twf_error_sat_phone_500_sat_phone.tex}}\\  
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{RWF}]{\input{./tikz/rwf/rwf_error_sat_phone_500_sat_phone.tex}}\\  
+  \caption{Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}, \ac{TWF}, and \ac{RWF}}
+  \end{figure}
+%   \clearpage % End the page
 }
-\afterpage{%
-  % \clearpage % Start a new page
-    
-    \begin{figure}[!htbp]
-      \centering
-    \captionsetup{justification=centering}
-    % \begin{turn}{-90}
-      \input{./tikz/twf/twf_error_sat_phone_500_sat_phone.tex}
-    % \end{turn}
-    \caption{TWF on the sat phone using coded diffraction pattern}
-      \label{fig:twf_sat_phone_error}
-    \end{figure}
-  % \clearpage % End the page
-}
-\afterpage{%
-  % \clearpage % Start a new page
-    
-    \begin{figure}[!htbp]
-      \centering
-    \captionsetup{justification=centering}
-    % \begin{turn}{-90}
-      \input{./tikz/rwf/rwf_error_sat_phone_500_sat_phone.tex}
-    % \end{turn}
-    \caption{RWF on the sat phone using coded diffraction pattern}
-      \label{fig:rwf_sat_phone_error}
-    \end{figure}
-  % \clearpage % End the page
-}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% WF Variants CDPs Reconstruction %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%% WF Reconstruction %%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:wf_sat_01}
     \centering
-	\captionsetup{justification=centering}
+    \captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/000_123_134_original.png}
-    \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, 
+  \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, 
 	at Iteration $=123$, at Iteration $=134$, and the Original Image}
-    \label{fig:wf_dc/0_121_inal}
   \end{figure}
   % \clearpage % End the page
 }
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:wf_sat_02}
     \centering
-	\captionsetup{justification=centering}
+    \captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/142_164_499_original.png}
-    \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=142$, 
+  \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=142$, 
 	at Iteration $=164$, at Iteration $=499$, and the Original Image}
-    % \label{fig:wf_dc/0_121_132riginal}
   \end{figure}
   % \clearpage % End the page
 }
@@ -157,12 +123,11 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:twf_sat_01}
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/000_008_012_original.png}
     \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, at Iteration $=8$, at Iteration $=12$, and the Original Image}
-    % \label{fig:wf356_1443563454}
   \end{figure}
   % \clearpage % End the page
 }
@@ -170,13 +135,12 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:twf_sat_02}
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/015_017_499_original.png}
     \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=15$, 
     at Iteration $=17$, at Iteration $=499$, and the Original Image}
-    % \label{fig:wf_457143454}
   \end{figure}
   % \clearpage % End the page
 }
@@ -186,12 +150,11 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:rwf_sat_01}
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/rwf_sat_phone/000_025_32_original.png}
     \caption{RWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, at Iteration $=25$, at Iteration $=32$, and the Original Image}
-    % \label{fig:wf356_1443563454}
   \end{figure}
   % \clearpage % End the page
 }
@@ -199,13 +162,13 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{image:rwf_sat_02}
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/rwf_sat_phone/034_037_499_original.png}
     \caption{RWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=34$, 
     at Iteration $=37$, at Iteration $=499$, and the Original Image}
-    % \label{fig:wf_457143454}
+
   \end{figure}
   % \clearpage % End the page
 }
@@ -215,14 +178,13 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
   % \clearpage % Start a new page
   % \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}[!htbp]\label{fig:unrolling}
     \centering
 	\captionsetup{justification=centering}
   \begin{turn}{-90}
     \input{./tikz/diagrams/unrolling.tex}
   \end{turn}
   \caption{The Unrolling Process of an Iterative Algorithm Schematically}
-    \label{fig:unrolling}
   \end{figure}
   % \clearpage % End the page
 }
@@ -297,33 +259,16 @@ All the diagrams, plots, and natural images are included in this chapter.
   % \clearpage % End the page
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% WF Variants Algorithms %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%% Wirtinger Flow %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
 \clearpage % Start a new page
 \begin{algorithm}[!htbp]
-  \caption{\ac{WF}\index{WF} suggested by \cite{Candes2014}}
+  \caption{\ac{WF}\index{WF} suggested by \cite{Candes2014}}\label{pseudocode:wf}
     \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
     \textbf{Parameters}:  step size $\mu$;\\
     \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
@@ -348,7 +293,7 @@ All the diagrams, plots, and natural images are included in this chapter.
   \end{itemize}
   A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
-  \lstinputlisting[language=Python]{./algorithms/wf.py}\index{WF}    
+  \lstinputlisting[language=Python]{./algorithms/wf.py}\index{WF}\label{code:wf}    
 \clearpage % End the page
 }
 
@@ -359,7 +304,7 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
 \clearpage % Start a new page
 \begin{algorithm}[!htbp]
-  \caption{\ac{TWF}\index{TWF} suggested by \cite{Chen2015}}
+  \caption{\ac{TWF}\index{TWF} suggested by \cite{Chen2015}}\label{pseudocode:twf}
     \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
     \textbf{Parameters}: step size $\mu$, and thresholds $\alpha_{z}^{lb},\alpha_{z}^{ub},\alpha_{h},\alpha_{y}$;\\
     \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
@@ -392,7 +337,7 @@ All the diagrams, plots, and natural images are included in this chapter.
   \end{itemize}
   A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/twf.py}
-  \lstinputlisting[language=Python]{./algorithms/twf.py}\index{TWF}    
+  \lstinputlisting[language=Python]{./algorithms/twf.py}\index{TWF}\label{code:twf}    
 \clearpage % End the page
 }
 
@@ -402,7 +347,7 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
 \clearpage % Start a new page
 \begin{algorithm}[!htbp]
-  \caption{\ac{RWF}\index{RWF} suggested by \cite{Zhang2016}}
+  \caption{\ac{RWF}\index{RWF} suggested by \cite{Zhang2016}}\label{pseudocode:rwf}
     \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
     \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$;\\
     \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
@@ -427,7 +372,7 @@ All the diagrams, plots, and natural images are included in this chapter.
   \end{itemize}
   A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/rwf.py}
-  \lstinputlisting[language=Python]{./algorithms/rwf.py}\index{RWF}    
+  \lstinputlisting[language=Python]{./algorithms/rwf.py}\index{RWF}\label{code:rwf}     
 \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -436,7 +381,7 @@ All the diagrams, plots, and natural images are included in this chapter.
 \afterpage{%
 \clearpage % Start a new page
 \begin{algorithm}[!htbp]
-  \caption{\ac{IRWF}\index{IRWF} suggested by \cite{Zhang2016}}
+  \caption{\ac{IRWF}\index{IRWF} suggested by \cite{Zhang2016}}\label{pseudocode:irwf}
     \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
     \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$;\\
     \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
@@ -462,7 +407,7 @@ All the diagrams, plots, and natural images are included in this chapter.
   \end{itemize}
   A possible PyTorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
-  \lstinputlisting[language=Python]{./algorithms/irwf.py}\index{IRWF}    
+  \lstinputlisting[language=Python]{./algorithms/irwf.py}\index{IRWF}\label{code:irwf}    
 \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -470,7 +415,7 @@ All the diagrams, plots, and natural images are included in this chapter.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
 \clearpage % Start a new page
-\begin{algorithm}[!htbp]
+\begin{algorithm}[!htbp]\label{pseudocode:imrwf}
   \caption{\ac{IMRWF}\index{IMRWF} suggested by \cite{Zhang2016}}
     \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
     \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$, batch size $k$;\\
@@ -498,6 +443,76 @@ All the diagrams, plots, and natural images are included in this chapter.
   \end{itemize}
   A possible \pytorch\cite{LFMAI2023} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
-  \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}    
+  \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}\label{code:imrwf}    
 \clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Training WF Without Hyperparameter Optimization %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+%   \clearpage % Start a new page
+\begin{figure}[!htbp]
+  \subfloat[First Scenario: Single Scalar$(\tau)$]{\input{./tikz/wf/wf_s_00_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Second Scenario: Different Scalars$(\tau_k)$]{\input{./tikz/wf/wf_s_01_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Third Scenario: Single Matrix$(\boldsymbol{M})$]{\input{./tikz/wf/wf_s_02_l_160_e_50_lr_0.001.tex}}\\  
+  \caption{Training the \ac{WF} Algorithm in different Scenarios}
+  \label{fig:wf_training_wo_1_2_3_optuna}
+  \end{figure}
+%   \clearpage % End the page
+}
+\afterpage{%
+%   \clearpage % Start a new page
+\begin{figure}[!htbp]
+  \subfloat[Fourth Scenario: Single Semi-Positive Definite Matrix$(\boldsymbol{S})$]{\input{./tikz/wf/wf_s_03_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Fifth Scenario: Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$]{\input{./tikz/wf/wf_s_04_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Sixth Scenario: Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$]{\input{./tikz/wf/wf_s_05_l_160_e_50_lr_0.001.tex}}\\
+  \caption{Training the \ac{WF} Algorithm in different Scenarios}
+  \label{fig:wf_training_wo_4_5_6_optuna}
+  \end{figure}
+%   \clearpage % End the page
+}
+\afterpage{%
+%   \clearpage % Start a new page
+\begin{figure}[!htbp]
+  \subfloat[Seventh Scenario: Different Matrices$(\boldsymbol{M}_k)$]{\input{./tikz/wf/wf_s_06_l_160_e_50_lr_0.001.tex}}\\  
+  \subfloat[Eighth Scenario: Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$]{\input{./tikz/wf/wf_s_07_l_160_e_50_lr_0.001.tex}}\\  
+  \caption{Training the \ac{WF} Algorithm in different Scenarios}
+  \label{fig:wf_training_wo_7_8_optuna}
+  \end{figure}
+%   \clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Training RWF Without Hyperparameter Optimization %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+%   \clearpage % Start a new page
+\begin{figure}[!htbp]
+  \subfloat[First Scenario: Single Scalar$(\tau)$]{\input{./tikz/rwf/rwf_s_00_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Second Scenario: Different Scalars$(\tau_k)$]{\input{./tikz/rwf/rwf_s_01_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Third Scenario: Single Matrix$(\boldsymbol{M})$]{\input{./tikz/rwf/rwf_s_02_l_30_e_50_lr_0.001.tex}}\\  
+  \caption{Training the \ac{RWF} Algorithm in different Scenarios}
+  \label{fig:rwf_training_wo_1_2_3_optuna}
+  \end{figure}
+%   \clearpage % End the page
+}
+\afterpage{%
+%   \clearpage % Start a new page
+\begin{figure}[!htbp]
+  \subfloat[Fourth Scenario: Single Semi-Positive Definite Matrix$(\boldsymbol{S})$]{\input{./tikz/rwf/rwf_s_03_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Fifth Scenario: Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$]{\input{./tikz/rwf/rwf_s_04_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Sixth Scenario: Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$]{\input{./tikz/rwf/rwf_s_05_l_30_e_50_lr_0.001.tex}}\\
+  \caption{Training the \ac{RWF} Algorithm in different Scenarios}
+  \label{fig:rwf_training_wo_4_5_6_optuna}
+  \end{figure}
+%   \clearpage % End the page
+}
+\afterpage{%
+%   \clearpage % Start a new page
+\begin{figure}[!htbp]
+  \subfloat[Seventh Scenario: Different Matrices$(\boldsymbol{M}_k)$]{\input{./tikz/rwf/rwf_s_06_l_30_e_50_lr_0.001.tex}}\\  
+  \subfloat[Eighth Scenario: Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$]{\input{./tikz/rwf/rwf_s_07_l_30_e_50_lr_0.001.tex}}\\  
+  \caption{Training the \ac{RWF} Algorithm in different Scenarios}
+  \label{fig:rwf_training_wo_7_8_optuna}
+  \end{figure}
+%   \clearpage % End the page
 }
