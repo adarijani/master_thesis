@@ -7,6 +7,7 @@
 % \usepackage[a4paper,left=1.5in,right=1.5in,bottom=0.3in,top=0.1in]{geometry}
 % \usepackage[fontsize=12pt]{fontsize}
 \usepackage{acro}
+% \usepackage{minted}
 \usepackage{imakeidx}
 \makeindex[columns=3, title=Alphabetical Index, intoc]
 \usepackage{rotating}
@@ -49,6 +50,35 @@
 \usetikzlibrary{quotes}
 \usetikzlibrary {shapes.arrows} 
 \pgfplotsset{compat=newest}
+\usepackage{tikz}
+%\usepackage{etoolbox} % for \ifthen
+\usepackage{listofitems} % for \readlist to create arrays
+\usetikzlibrary{arrows.meta} % for arrow size
+\usepackage[outline]{contour} % glow around text
+\contourlength{1.4pt}
+
+\tikzset{>=latex} % for LaTeX arrow head
+\usepackage{xcolor}
+% \colorlet{myred}{red!255!green!255!blue!255}
+% \colorlet{myblue}{blue!80!black}
+% \colorlet{mygreen}{green!60!black}
+% \colorlet{myorange}{orange!70!red!60!black}
+% \colorlet{mydarkred}{red!30!black}
+% \colorlet{mydarkblue}{blue!40!black}
+% \colorlet{mydarkgreen}{green!30!black}
+\tikzstyle{node}=[thick,circle,draw=black,minimum size=22,inner sep=0.5,outer sep=0.6]
+\tikzstyle{node in}=[node,black,draw=black,fill=white]
+\tikzstyle{node hidden}=[node,black,draw=black,fill=white]
+\tikzstyle{node convol}=[node,black,draw=black,fill=white]
+\tikzstyle{node out}=[node,black,draw=black,fill=white]
+\tikzstyle{connect}=[thick,black] %,line cap=round
+\tikzstyle{connect arrow}=[-{Latex[length=4,width=3.5]},thick,black,shorten <=0.5,shorten >=1]
+\tikzset{ % node styles, numbered for easy mapping with \nstyle
+  node 1/.style={node in},
+  node 2/.style={node hidden},
+  node 3/.style={node out},
+}
+\def\nstyle{int(\lay<\Nnodlen?min(2,\lay):3)} % map layer number onto 1, 2, or 3
 \usepackage{stmaryrd}
 \SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
 \SetSymbolFont{stmry}{bold}{U}{stmry}{b}{n}
@@ -77,27 +107,27 @@
 \definecolor{backcolour}{RGB}{30,30,30}
 \definecolor{almostwhite}{RGB}{211,211,211}
 
-% \lstdefinestyle{mystyle}{
-%     backgroundcolor=\color{backcolour},   
-%     commentstyle=\color{codegreen},
-%     keywordstyle=\color{magenta},
-%     numberstyle=\tiny\color{codegray},
-%     stringstyle=\color{codepurple},
-%     % rulecolor=\color{almostwhite}
-%     basicstyle=\ttfamily\footnotesize,
-%     breakatwhitespace=false,         
-%     breaklines=true,                 
-%     captionpos=b,                    
-%     keepspaces=true,                 
-%     numbers=left,                    
-%     numbersep=5pt,                  
-%     showspaces=false,                
-%     showstringspaces=false,
-%     showtabs=false,                  
-%     tabsize=2
-% }
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{white},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    % rulecolor=\color{almostwhite}
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
 
-% \lstset{style=mystyle}
+\lstset{style=mystyle}
 
 
 
@@ -105,6 +135,7 @@
   table/search path={data},
 }
 \addbibresource{/Users/rknot/sciebo/jabref_files/database.bib}
+% \addbibresource{./database.bib}
 
 
 
@@ -124,17 +155,17 @@
 
 \includeonly{
              frontmatter,
-             dedication,
-             abstract,
-             acknowledgements,
-             symbols,
-             Mathematical Preliminaries,
-             Introduction,
-             Wirtinger Flow,
+            %  dedication,
+            %  abstract,
+            %  acknowledgements,
+            %  symbols,
+            %  Mathematical Preliminaries,
+            %  Introduction,
+            %  Wirtinger Flow,
              Deep Unfolding,
-             Unrolled Wirtinger Flows,
-             Results,
-             Images and Plots,
+            %  Unrolled Wirtinger Flows,
+            %  Results,
+            %  Images and Plots,
              }
 
 \input{acro.tex}

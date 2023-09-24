@@ -228,46 +228,49 @@ Consult a book on discrete probability on any other undergraduate level book on 
 
 
 
-\begin{Prop}
-Let $x$,$y$ $\in \mathbb{R}$ and $\sin$ the usual trigonometric sin function then:
-\begin{equation*}
-	\sin(x+y) = \sin(x)\cos(y)+\cos(x)\sin(y)
-\end{equation*}
-\end{Prop}
-\begin{Proof}
-	A simple geometric argument and periodicity of $\sin$ would give confirm the claim.
-\end{Proof}
+% \begin{Prop}
+% Let $x$,$y$ $\in \mathbb{R}$ and $\sin$ the usual trigonometric sin function then:
+% \begin{equation*}
+% 	\sin(x+y) = \sin(x)\cos(y)+\cos(x)\sin(y)
+% \end{equation*}
+% \end{Prop}
+% \begin{Proof}
+% 	A simple geometric argument and periodicity of $\sin$ would give confirm the claim.
+% \end{Proof}
 
 
-\begin{Prop}
-	Let $a$,$b$,$\theta$ $\in \mathbb{R}$ and $\sin$,$\cos$ the usual trigonometric sin and cos functions then:
-	\begin{equation*}
-		a\sin \theta+b\cos \theta  = \sqrt{a^2+b^2}\sin(\theta + \varphi)
-	\end{equation*}
-	such that:
-	\begin{equation*}
-		\sin\varphi=b, \qquad \cos\varphi = a
-	\end{equation*}
-	\end{Prop}
-	\begin{Proof}
-		A simple geometric argument and periodicity of $\sin$ would confirm the claim.
-	\end{Proof}
+
 
 	\begin{Thm}\label{theorem:euler formula}
-    Let $\theta \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ with the usual field operations associated with 
+    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ with the usual field operations associated with the 
 	complex field. Then:
 	\begin{equation*}
-		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta
+		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}
 	\end{equation*}
 	\end{Thm}
 	\begin{Proof}
 		Expanding the $\exp$ function and separating the so-called Real and Imaginary part and convergence arguments 
-	on infinite series would confirm the claim\cite{Rudin1987}\cite{Stein2003}. 
+	on infinite series would confirm the claim\cite{Rudin1976}\cite{Rudin1987}\cite{Stein2005}\cite{Stein2003}. 
+	\end{Proof}
+	\begin{Cor}
+		Let $a$,$b$,$\theta$ $\in \mathbb{R}$ and $\sin$,$\cos$ the usual trigonometric sin and cos functions then:
+		\begin{equation*}
+			a\sin \theta+b\cos \theta  = \sqrt{a^2+b^2}\sin(\theta + \varphi)
+		\end{equation*}
+		such that:
+		\begin{equation*}
+			\sin\varphi=b, \qquad \cos\varphi = a
+		\end{equation*}
+		\end{Cor}
+	\begin{Proof}
+		Use \cref{theorem:euler formula}.
 	\end{Proof}
 
 
+
+
 	\begin{Prop}\label{theorem:min distance}
-		Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, $w \coloneqq (z,x)_X \coloneqq \operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$ where $(z,x)_X$ is 
+		Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, where $(z,x)_X$ is 
 		the usual scalar product associated with such vector spaces, and $\left|\cdot\right|_X$ the induced norm using the scalar product on the vector space $X$, then the expression
 		\begin{equation*}
 			f(\varphi) \coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X
@@ -275,7 +278,8 @@ Let $x$,$y$ $\in \mathbb{R}$ and $\sin$ the usual trigonometric sin function the
 		has a minimum and the minimum can be calculated in a closed form manner.
 		\end{Prop}
 		\begin{Proof}
-			$f(\varphi)$ is continuous and periodic therefore it will attain its minimum and maximum for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}\cite{Rudin1987}.
+			$f(\varphi)$ is continuous and periodic therefore it will attain its minimum and maximum for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}\cite{Rudin1987}. 
+			Let $w \coloneqq (z,x)_X = \operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$
 			\begin{equation*}
 				\begin{split}
 				f(\varphi) &\coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X = 
@@ -288,17 +292,17 @@ Let $x$,$y$ $\in \mathbb{R}$ and $\sin$ the usual trigonometric sin function the
 			  \end{equation*}
 			  \begin{equation*}
 				\begin{split}
-				\frac{\mathrm{d}f(\varphi)}{\mathrm{d}\varphi} &\coloneqq - 2\left(-\sin\varphi\operatorname{Re}(w)+\cos\varphi\operatorname{Im}(w)\right) = 2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\sin(\varphi-\theta)\\ 
+				\frac{\mathrm{d}f(\varphi)}{\mathrm{d}\varphi} &= - 2\left(-\sin\varphi\operatorname{Re}(w)+\cos\varphi\operatorname{Im}(w)\right) = 2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\sin(\varphi-\theta)\\ 
 				\end{split}
 			  \end{equation*}
 			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$.
 			  \begin{equation*}
 				\begin{split}
-				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &\coloneqq - 2\left(-\cos\varphi\operatorname{Re}(w)-\sin\varphi\operatorname{Im}(w)\right) = -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
+				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &= - 2\left(-\cos\varphi\operatorname{Re}(w)-\sin\varphi\operatorname{Im}(w)\right) = -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
 				\end{split}
 			  \end{equation*}
 			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$. 
-			  For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ we would arrive at the minimum.
+			  For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ we would arrive at the minimum\cite{Boyd2004}\cite{Nocedal2006}.
 
 		\end{Proof}
 

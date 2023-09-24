@@ -13,8 +13,8 @@ All the diagrams, plots, and natural images are included in this chapter.
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
-    \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1981}\cite{Shechtman2015} }
-    \label{image:sat_phone_vs_job_hunting}
+    \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1979}\cite{Hayes1980}\cite{Oppenheim1981}\cite{Shechtman2015}}
+    \label{image:phase_swap}
   \end{figure}
   % \clearpage % End the page
 }
@@ -88,103 +88,44 @@ All the diagrams, plots, and natural images are included in this chapter.
 %   \clearpage % End the page
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% WF Variants CDPs Reconstruction %%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%% WF Reconstruction %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% WF Variants CDP Reconstruction Comparison %%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:wf_sat_01}
+  \begin{figure}[!htbp]
     \centering
-    \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/000_123_134_original.png}
-  \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, 
-	at Iteration $=123$, at Iteration $=134$, and the Original Image}
+    % \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{./images/cdp/out_wf_twf.png}
+  \caption{\ac{WF}(left) vs \ac{TWF}(right) Using Coded Diffraction Patterns for Retrieval of the Sat Phone Image from Top to Buttom: After Initialization, 
+	at Iteration $=120$, at Iteration $=350$ for \ac{WF} and at Iteration $=200$ for \ac{TWF}, and the Original Image}
+  \label{image:wf_vs_twf}
   \end{figure}
   % \clearpage % End the page
 }
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:wf_sat_02}
+  \begin{figure}[!htbp]
     \centering
-    \captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/wf_sat_phone/142_164_499_original.png}
-  \caption{WF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=142$, 
-	at Iteration $=164$, at Iteration $=499$, and the Original Image}
+    % \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{./images/cdp/out_wf_rwf.png}
+  \caption{\ac{WF}(left) vs \ac{RWF}(right) Using Coded Diffraction Patterns for Retrieval of the Sat Phone Image from Top to Buttom: After Initialization, 
+	at Iteration $=120$, at Iteration $=350$ for \ac{WF} and at Iteration $=150$ for \ac{RWF}, and the Original Image}
+  \label{image:wf_vs_rwf}
   \end{figure}
   % \clearpage % End the page
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%% TWF Reconstruction %%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:twf_sat_01}
+  \begin{figure}[!htbp]
     \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/000_008_012_original.png}
-    \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, at Iteration $=8$, at Iteration $=12$, and the Original Image}
-  \end{figure}
-  % \clearpage % End the page
-}
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:twf_sat_02}
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/twf_sat_phone/015_017_499_original.png}
-    \caption{TWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=15$, 
-    at Iteration $=17$, at Iteration $=499$, and the Original Image}
-  \end{figure}
-  % \clearpage % End the page
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%% RWF Reconstruction %%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:rwf_sat_01}
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/rwf_sat_phone/000_025_32_original.png}
-    \caption{RWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: After Initialization, at Iteration $=25$, at Iteration $=32$, and the Original Image}
-  \end{figure}
-  % \clearpage % End the page
-}
-
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:rwf_sat_02}
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/rwf_sat_phone/034_037_499_original.png}
-    \caption{RWF Using Coded Diffraction Patterns on the Sat Phone Image from Top to Buttom: At Iteration $=34$, 
-    at Iteration $=37$, at Iteration $=499$, and the Original Image}
-
-  \end{figure}
-  % \clearpage % End the page
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% Unrolling an Iterative Algorithm  %%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-  % \clearpage % Start a new page
-  % \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{fig:unrolling}
-    \centering
-	\captionsetup{justification=centering}
-  \begin{turn}{-90}
-    \input{./tikz/diagrams/unrolling.tex}
-  \end{turn}
-  \caption{The Unrolling Process of an Iterative Algorithm Schematically}
+    % \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{./images/cdp/out_twf_rwf.png}
+  \caption{\ac{TWF}(left) vs \ac{RWF}(right) Using Coded Diffraction Patterns for Retrieval of the Sat Phone Image from Top to Buttom: After Initialization, 
+	at Iteration $=25$, at Iteration $=200$ for \ac{TWF} and at Iteration $=150$ for \ac{RWF}, and the Original Image}
+  \label{image:twf_vs_rwf}
   \end{figure}
   % \clearpage % End the page
 }
@@ -254,7 +195,7 @@ All the diagrams, plots, and natural images are included in this chapter.
      \hline
     \end{tabular}
     \caption{Software and Hardware that were used on the second system}
-    % \label{tab:formulation}
+    \label{tab:system_specs}
     \end{table}
   % \clearpage % End the page
 }

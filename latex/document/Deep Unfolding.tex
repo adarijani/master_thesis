@@ -1,32 +1,85 @@
 \chapter{Deep Unfolding}
 
-Potentially learnable parameters that we worked on\\
-\begin{itemize}
-  \item Single (scalar) step size $\tau$.
-  \item Different scalars in different iterations $\tau_k$.
-  \item A matrix $\boldsymbol{M}$.
-  \item Different scalars combined with a matrix $\boldsymbol{M}$ in the form of $\tau_k \boldsymbol{M}$.
-  \item Different scalars combined with a positive semi-definite matrix $\boldsymbol{S}$ in the form of $\tau_k \boldsymbol{S}$.
-  \item Different matrices $\boldsymbol{M}_k$ in different iterations.
-  \item Different positive semi-definite matrices $\boldsymbol{S}_k$ in different iterations.
-  \item Adjoint operator $\boldsymbol{A}_k^*$.  
-\end{itemize}
 
-Potentially learnable parameters that others can work on\\
-\begin{itemize}
-  \item Giving weights to the sampling operation by $\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X^2 \rightarrow \left|c_j \odot \left(\phi(\boldsymbol{A}_j\psi)-G_j\right)\right|_X^2$
-  \item Regularizer's weight $\lambda$.
-\end{itemize}
+In 2012 when Alex Krizhevsky's and his supervisors' \dl architecture \cite{Krizhevsky2017} decimated all other competitors in the 
+ImageNet \cite{Vision2021} image classification challenge\cite{Vision} 
+he ended the harsh winter that the \ml/\ai scientists were experiencing. It was no fluke and nowadays the challenge is always won by \dl 
+architectures \cite{Szegedy2014}\cite{He2015}\cite{Simonyan2014} and not carefully handcrafted feature extraction modules. The  might and success of
+ \ml/\dl solutions were made possible by powerful parallel 
+computers \cite{Meuer} and large data collections gathered since the dawn of Web $2.0$. All and all \dl architectures had great success in a broad
+ range of problems ranging from single object image classification \cite{Rawat2017} to real-time multi-object classification and tracking\cite{Luo2021}.
+While during the last decade mostly solving the problem at hand was satisfactory, due to a couple of issues(required tremendous raw computational
+ power, required large high-quality datasets) which can be troublesome researchers are trying to revisit their approaches 
+to tackles the said issues. Training large architecture which can have easily millions of parameters in order to discover the mapping that are fed
+ large amount of data can 
+only be done on supercomputers which is both costly and time consuming and only a handful of people have access to these kind of resources. With large number of trainable
+ parameters comes the need for large clean and high-quality datasets. The ImageNet\cite{Vision2021} image dataset is currently having more than $14$ millions data points which is
+  huge. Putting the cost and time aside  
+such large architectures lack interpretability and quite the black box mostly as they are usually general convolutions and matrix-vector products combined with general non-linearities. 
+This is the exact opposite of iterative algorithms that are drawn from physical models and therefore interpretable at the level that we understand the math and physics behind the model. 
+Due to the iterative nature of the signal-image processing technics and similarities \cref{fig:deep_unfolding} to the \dl architectures the attention of the some of the 
+researches has been to reconcile these two to benefit from nice feature associated with either of these approaches. When using the model-based 
+approach is designing your architecture the number of parameters decrease significantly and the same goes for the need of large datasets. Your initialization of the weights also 
+becomes easier and you are more likely to start from a low(given you are looking for a (local)minimum) loss function. If you can write your iteration process in terms of the innate/atomic 
+modules of your \dl framework\cite{Google2023}\cite{Chollet2023}\cite{LFMAI2023}, the computation will be done quite fast thanks to years of optimization of the frameworks\cite{Google2023}\cite{Chollet2023}\cite{LFMAI2023} and the near bare-metal programming of the said frameworks 
+
+\section{Multi-Layer Perceptrons}
+Let $\boldsymbol{x} \in \mathbb{R}^n,\boldsymbol{y} \in \mathbb{R}^m, \boldsymbol{h}_l \in \mathbb{R}^{k_l}, \boldsymbol{W}^1 \in \mathbb{R}^{k_1 \times n}
+,\boldsymbol{W}^{N+1} \in \mathbb{R}^{m \times k_N},\boldsymbol{W}^{l+1} \in \mathbb{R}^{k_l \times k_{l+1}}$ where $m,n,l,k_l \in \mathbb{N}$ and $\varphi$ is a
+function from $\mathbb{R}$ to $\mathbb{R}$ with certain properties. 
+Consecutive mappings:
+\begin{equation}
+  \begin{split}
+    h_i^{1}   &= \sigma \left( \sum_{j}^{} W_{ij}^{1}x_j + b_i^{1} \right)\\ 
+              & \vdots\\
+    h_i^{l+1} &= \sigma \left( \sum_{j}^{} W_{ij}^{l+1}h_j^l + b_i^{l+1} \right)\\
+              & \vdots\\
+    y_i^{}    &= \sigma \left( \sum_{j}^{} W_{ij}^{N+1}h_j^N + b_i^{N+1} \right)
+  \end{split}
+  \end{equation}
+% \begin{equation*}
+  % x_i^{l+1} = \sigma \left( \sum_{j}^{} W_{ij}^{l+1}x_j^l + b_i^{l+1} \right)
+% \end{equation*}
+that take $\boldsymbol{x}$ to $\boldsymbol{y}$ is called a \ac{MLP} architecture.
+In the \ml jargon $\boldsymbol{x},\boldsymbol{y},\boldsymbol{h}^j,\boldsymbol{W}^j,\boldsymbol{b}^j,\varphi$ are called \emph{input}, \emph{output}, \emph{hidden variables},
+\emph{weight matrices}, \emph{biases}, and \emph{activation function}. \ac{MLP}s were designed to approximate outputs from inputs without knowing the the actual mapping and with observations and measurements. 
+It is worth noting that the existence of $\varphi$ is necessary otherwise the pairs $\boldsymbol{W}^j,\boldsymbol{b}^j$ would 
+just be an affine transformation and stacking multiple affine transformation would still be an affine transformation and stacking 
+such layers would be redundant. Not having an activation function also means the whole mapping would perform poorly when approximating 
+complex mappings that do not resemble affine transformation. The schematic involving only the input, output, and hidden variables can be seen 
+in \cref{fig:multi_layer_perceptron}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Multi-Layer Perceptron %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+  \centering
+  % \captionsetup{justification=centering}
+  \resizebox{1.0\textwidth}{!}{\input{./tikz/neural_networks/sample.tex}}
+  \caption{$\boldsymbol{x} =\text{input},\boldsymbol{h}^j=\text{hidden variables},\boldsymbol{y}=\text{output}$}
+  \label{fig:multi_layer_perceptron}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Deep Learning}
+The advancements in \ac{HPC}\cite{Meuer} in terms of both software\cite{OpenMPCommette}\cite{MPICommittee}\cite{Nvidia} and 
+hardware\cite{Patterson2014}\cite{Hennessy2019}\cite{Nvidia}, Mathematical Optimization\cite{Boyd2004}\cite{Nocedal2006}\cite{Sun2019}, 
+\ac{AD}\cite{Naumann2011}\cite{Griewank2008} combined with the abundance of data gathered during the Web $2.0$ era gave birth 
+to what is currently known as \dl\cite{LeCun2015}\cite{Higham2018}\cite{Berner2021}.  
 
 
 
-
-
-Write some stuff about Optuna pros and Cons
-keywords:
-* Easy description of parameter space.
-* seamless integration with \pytorch. 
-* Grid search vs stochastic search vs Bayesian optimization search
-* Pruning 
-* distributed Optimization up to 6 nodes
-* \ac{SQL} or any \ac{RDBMS} and deadlocks and stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% Deep Unfolding(Schematic Diagram) %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+  \centering
+	\captionsetup{justification=centering}
+  \resizebox{35em}{10em}{\input{./tikz/diagrams/unfolding.tex}}
+  \caption{The Schematic Unfolding of an Iterative Algorithm}
+  \label{fig:deep_unfolding}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+sdfl

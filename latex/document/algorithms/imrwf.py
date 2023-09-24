@@ -64,7 +64,8 @@ def imrwf(Amatrix, x, y):
         x - torch.exp(-1j * torch.angle(torch.trace(x.H * z))) * z
     ) / torch.linalg.norm(x)
     for t in range(T + 1):
-        shuffled_indices = torch.randperm(batch)
+        shuffled_indices = (torch.randperm(m))[0:batch]
+        # shuffled_indices = torch.randperm(batch)
         Asub = Amatrix[shuffled_indices, :]
         yz_b = A(Asub, z)
         y_b = y[shuffled_indices]

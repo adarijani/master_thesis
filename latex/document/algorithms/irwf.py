@@ -18,10 +18,7 @@ cplx_flag = 1
 mu = 0.8 + 0.4 * cplx_flag
 # mu = 1.2
 T = 200
-# T = 800
-# batch_factor = 5
-# batch = int(batch_factor*n)
-batch = m
+batch = 300
 npower_iter = 30
 
 
@@ -64,7 +61,8 @@ def irwf(Amatrix, x, y):
         x - torch.exp(-1j * torch.angle(torch.trace(x.H * z))) * z
     ) / torch.linalg.norm(x)
     for t in range(T + 1):
-        shuffled_indices = torch.randperm(batch)
+        shuffled_indices = (torch.randperm(m))[0:batch]
+        # shuffled_indices = torch.randperm(batch)
         Asub = Amatrix[shuffled_indices, :]
         yz_b = A(Asub, z)
         y_b = y[shuffled_indices]
