@@ -1,27 +1,7 @@
 \chapter{Deep Unfolding}
 
-
-In 2012 when Alex Krizhevsky's and his supervisors' \dl architecture \cite{Krizhevsky2017} decimated all other competitors in the 
-ImageNet \cite{Vision2021} image classification challenge\cite{Vision} 
-he ended the harsh winter that the \ml/\ai scientists were experiencing. It was no fluke and nowadays the challenge is always won by \dl 
-architectures \cite{Szegedy2014}\cite{He2015}\cite{Simonyan2014} and not carefully handcrafted feature extraction modules. The  might and success of
- \ml/\dl solutions were made possible by powerful parallel 
-computers \cite{Meuer} and large data collections gathered since the dawn of Web $2.0$. All and all \dl architectures had great success in a broad
- range of problems ranging from single object image classification \cite{Rawat2017} to real-time multi-object classification and tracking\cite{Luo2021}.
-While during the last decade mostly solving the problem at hand was satisfactory, due to a couple of issues(required tremendous raw computational
- power, required large high-quality datasets) which can be troublesome researchers are trying to revisit their approaches 
-to tackles the said issues. Training large architecture which can have easily millions of parameters in order to discover the mapping that are fed
- large amount of data can 
-only be done on supercomputers which is both costly and time consuming and only a handful of people have access to these kind of resources. With large number of trainable
- parameters comes the need for large clean and high-quality datasets. The ImageNet\cite{Vision2021} image dataset is currently having more than $14$ millions data points which is
-  huge. Putting the cost and time aside  
-such large architectures lack interpretability and quite the black box mostly as they are usually general convolutions and matrix-vector products combined with general non-linearities. 
-This is the exact opposite of iterative algorithms that are drawn from physical models and therefore interpretable at the level that we understand the math and physics behind the model. 
-Due to the iterative nature of the signal-image processing technics and similarities \cref{fig:deep_unfolding} to the \dl architectures the attention of the some of the 
-researches has been to reconcile these two to benefit from nice feature associated with either of these approaches. When using the model-based 
-approach is designing your architecture the number of parameters decrease significantly and the same goes for the need of large datasets. Your initialization of the weights also 
-becomes easier and you are more likely to start from a low(given you are looking for a (local)minimum) loss function. If you can write your iteration process in terms of the innate/atomic 
-modules of your \dl framework\cite{Google2023}\cite{Chollet2023}\cite{LFMAI2023}, the computation will be done quite fast thanks to years of optimization of the frameworks\cite{Google2023}\cite{Chollet2023}\cite{LFMAI2023} and the near bare-metal programming of the said frameworks 
+We give a story like introduction to \ac{DL} and by pointing out some \ac{DL} limitations motivate the use of \ac{DU}/\ac{AU} 
+which is \ac{DL} but with context inspired architecture.
 
 \section{Multi-Layer Perceptrons}
 Let $\boldsymbol{x} \in \mathbb{R}^n,\boldsymbol{y} \in \mathbb{R}^m, \boldsymbol{h}_l \in \mathbb{R}^{k_l}, \boldsymbol{W}^1 \in \mathbb{R}^{k_1 \times n}
@@ -54,7 +34,7 @@ in \cref{fig:multi_layer_perceptron}.
 \begin{figure}
   \centering
   % \captionsetup{justification=centering}
-  \resizebox{1.0\textwidth}{!}{\input{./tikz/neural_networks/sample.tex}}
+  \resizebox{0.7\textwidth}{!}{\input{./tikz/neural_networks/sample.tex}}
   \caption{$\boldsymbol{x} =\text{input},\boldsymbol{h}^j=\text{hidden variables},\boldsymbol{y}=\text{output}$}
   \label{fig:multi_layer_perceptron}
 \end{figure}
@@ -64,11 +44,36 @@ in \cref{fig:multi_layer_perceptron}.
 \section{Deep Learning}
 The advancements in \ac{HPC}\cite{Meuer} in terms of both software\cite{OpenMPCommette}\cite{MPICommittee}\cite{Nvidia} and 
 hardware\cite{Patterson2014}\cite{Hennessy2019}\cite{Nvidia}, Mathematical Optimization\cite{Boyd2004}\cite{Nocedal2006}\cite{Sun2019}, 
-\ac{AD}\cite{Naumann2011}\cite{Griewank2008} combined with the abundance of data gathered during the Web $2.0$ era gave birth 
-to what is currently known as \dl\cite{LeCun2015}\cite{Higham2018}\cite{Berner2021}.  
+\ac{AD}\cite{Naumann2011}\cite{Griewank2008} combined with the abundance of data gathered during the Web $2.0$ era, 
+and finally complex approximation architectures gave birth to what is currently known as 
+\ac{DL}\cite{LeCun2015}\cite{Higham2018}\cite{Berner2021}. In the \ac{ML}/\ac{DL}/\ac{AI} folklore there were these two dark 
+periods known as the \emph{\ac{AI} winters} that meant the substantial reduction in \ac{ML}/\ac{DL}/\ac{AI} funding and 
+interest. In 2012 when Alex Krizhevsky's and his supervisors' \dl architecture \cite{Krizhevsky2017} decimated all other 
+competitors in the ImageNet \cite{Vision2021} image classification challenge\cite{Vision} he ended the second harsh winter 
+that the \ac{ML}/\ac{AI} scientists were experiencing. It was no fluke and at the time of writing the challenge is 
+always won by \ac{DL} architectures \cite{Szegedy2014}\cite{He2015}\cite{Simonyan2014} and alike and not carefully 
+handcrafted feature extraction modules. All and all \ac{DL} architectures had great success in a broad flavors of 
+problems ranging from single object image classification \cite{Rawat2017} to real-time multi-object classification and 
+tracking\cite{Luo2021}. \ac{DL} approach has pros:
 
+\begin{itemize}
+  \item can extract extremely complicated mappings or extremely subtle features(depending on the desired wording),
+  \item requires little to no knowledge about the exact internals of the problem(no need for handcrafted feature engineering),
+  \item currently can beat human level performance in lots of areas,
+\end{itemize}
 
+and cons:
 
+\begin{itemize}
+  \item requires large and high quality datasets\cite{Vision2021} which are expensive to acquire and store,
+  \item requires tremendous raw computational power and storage which in turn would result in large electricity bills and expensive maintenance costs,
+  \item since mostly there is no interpretability associated with models, there will be no reasoning when a model gives objectively wrong answers. 
+\end{itemize}
+
+Due to the pros and cons tied to \ac{DL} what is getting a bit of traction at least in \ac{DSIP} and \ac{CV} is \ac{AU} or \ac{DU}. 
+\ac{DU}/\ac{AU} is the process of unfolding/unrolling an iterative algorithm finite times and training certain parameters in 
+the hopes of improving some metric by putting the unrolled algorithm in a model. It is best to look at the process in \cref{fig:deep_unfolding_unrolling} 
+to get a better feeling of what is being done. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% Deep Unfolding(Schematic Diagram) %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -76,10 +81,15 @@ to what is currently known as \dl\cite{LeCun2015}\cite{Higham2018}\cite{Berner20
   \centering
 	\captionsetup{justification=centering}
   \resizebox{35em}{10em}{\input{./tikz/diagrams/unfolding.tex}}
-  \caption{The Schematic Unfolding of an Iterative Algorithm}
-  \label{fig:deep_unfolding}
+  \caption{The Schematic Unfolding/Unrolling of an Iterative Algorithm}
+  \label{fig:deep_unfolding_unrolling}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-sdfl
+\ac{DU}/\ac{AU} tries to bring the best of the both worlds(analytical approach and data driven approach) in one and reconcile the two. 
+Since in the \ac{DU}/\ac{AU} you significantly reduce the number of parameters by using a context inspired model and not a full blown 
+general \ac{DL} architecture, the need for large datasets and computational power ceases to exist. initialization of the weights 
+and interpretation of the models become way easier. A nice review on the recent application of \ac{DU}/\ac{AU} in \ac{DSIP} is done by\cite{Monga2019}.
+
+

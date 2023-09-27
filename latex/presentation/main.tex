@@ -2,6 +2,7 @@
 
 \documentclass{beamer}
 \usepackage{amssymb,mathtools,amsthm}
+
 \usepackage{pgfplots}
 % \DeclareUnicodeCharacter{2212}{−}
 \usepgfplotslibrary{groupplots,dateplot}
@@ -67,6 +68,7 @@
 \newtheorem {Ans} [Thm]{Ansatz}
 \newtheorem {Sch} [Thm]{Scheme}
 \newtheorem {Not} [Thm]{Notation}
+\usepackage{algorithm2e}
 \begin{document}
 \title[Deep Unfolding of Wirtinger Flow type Schemes]{Deep Unfolding of Wirtinger Flow type Schemes}
 \author[]{Ali Darijani\\ \href{mailto:ali.darijani.me@gmail.com}{ali.darijani.me@gmail.com}\newline
@@ -132,6 +134,19 @@ congruence relations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WF* on CDPs %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[WF* Algorithms]{WF* Algorithms}
+\begin{frame}
+  \frametitle{WF}
+sdjv
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WF* on CDPs %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[WF* Using CDPs]{Wirtinger Flow Variants on Coded Diffraction Pattern Scenario}
 
 
@@ -173,6 +188,29 @@ congruence relations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[DU/AU of WF*]{Deep Unfolding of Wirtinger Flow Variants}
 \begin{frame}
+  % Let the update rule be of the form:
+  Update Rule:
+  \begin{equation*}
+    \boldsymbol{z}_{k+1} \leftarrow \boldsymbol{z}_k - \tau\boldsymbol{\theta}
+  \end{equation*}
+
+  % and Unrolled/Unfolded $L$ times
+  
+  % where $\boldsymbol{\theta}$ is of the same size and structure as $\boldsymbol{z}$ and $\tau$ is the step size that was proposed by the respective algorithm. Assume that the algorithms are unfolded/unrolled $L$ times, then we considered the following 
+  % scenarios by substituting $\tau$ with:
+  
+  \begin{itemize}
+    \item Single Scalar $\tau \in \mathbb{R}$(no change).
+    \item Different Scalars $\tau_k\in\mathbb{R}$.
+    \item Single Matrix $\boldsymbol{M}\in \mathbb{R}^{n\times n}$.
+    \item Single Semi-Positive Definite Matrix $\boldsymbol{S}\in \mathbb{R}^{n\times n}$.
+    \item Different Scalars $\tau_k \in \mathbb{R}$ multiply by a Single Matrix $\boldsymbol{M} \in \mathbb{R}^{n\times n}$.
+    \item Different Scalars $\tau_k \in \mathbb{R}$ multiply by a Single Semi-Positive Definite Matrix $\boldsymbol{S} \in \mathbb{R}^{n\times n}$.
+    \item Different Semi-Positive Definite Matrices $\boldsymbol{S}_k\in \mathbb{R}^{n\times n}$.
+    % \item Adjoint operator $\boldsymbol{A}_k^*$.  
+  \end{itemize}
+\end{frame}
+\begin{frame}
   \begin{figure}
     \frametitle{URWF, $\tau,L=30,lr=0.001$}
     \centering
@@ -194,7 +232,7 @@ congruence relations.
 \end{frame}
 \begin{frame}
   \begin{figure}
-    \frametitle{URWF, $M,L=30,lr=0.001$}
+    \frametitle{URWF, $\boldsymbol{M},L=30,lr=0.001$}
     \centering
     % \captionsetup{justification=centering}
     \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_02_l_30_e_50_lr_0.001.tex}}
@@ -204,7 +242,7 @@ congruence relations.
 \end{frame}
 \begin{frame}
   \begin{figure}
-    \frametitle{URWF, $S,L=30,lr=0.001$}
+    \frametitle{URWF, $\boldsymbol{S},L=30,lr=0.001$}
     \centering
     % \captionsetup{justification=centering}
     \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_03_l_30_e_50_lr_0.001.tex}}
@@ -214,7 +252,7 @@ congruence relations.
 \end{frame}
 \begin{frame}
   \begin{figure}
-    \frametitle{URWF, $\tau_{k}M,L=30,lr=0.001$}
+    \frametitle{URWF, $\tau_{k}\boldsymbol{M},L=30,lr=0.001$}
     \centering
     % \captionsetup{justification=centering}
     \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_04_l_30_e_50_lr_0.001.tex}}
@@ -234,7 +272,7 @@ congruence relations.
 \end{frame}
 \begin{frame}
   \begin{figure}
-    \frametitle{URWF, $M_k,L=30,lr=0.001$}
+    \frametitle{URWF, $\boldsymbol{M}_k,L=30,lr=0.001$}
     \centering
     % \captionsetup{justification=centering}
     \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_06_l_30_e_50_lr_0.001.tex}}
@@ -244,12 +282,22 @@ congruence relations.
 \end{frame}
 \begin{frame}
   \begin{figure}
-    \frametitle{URWF, $S_k,L=30,lr=0.001$}
+    \frametitle{URWF, $\boldsymbol{S}_k,L=30,lr=0.001$}
     \centering
     % \captionsetup{justification=centering}
     \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_07_l_30_e_50_lr_0.001.tex}}
     % \caption{The Schematic Unfolding of an Iterative Algorithm}
     \label{fig:rwf_s_07_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+\begin{frame}
+  \begin{figure}
+    \frametitle{Optuna on URWF, $\tau_k\boldsymbol{M},L=30,lr=0.007622$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/optuna.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:urwf_optuna}
   \end{figure}
 \end{frame}
 

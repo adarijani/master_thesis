@@ -3,21 +3,7 @@
 All the diagrams, plots, and natural images are included in this chapter.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% Phase in Fourier Reconstruction %%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-  % \clearpage % Start a new page
-  % \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
-    \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1979}\cite{Hayes1980}\cite{Oppenheim1981}\cite{Shechtman2015}}
-    \label{image:phase_swap}
-  \end{figure}
-  % \clearpage % End the page
-}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% WF vs TWF vs RWF vs IRWF vs IMRWF  %%%%%%%%%%%%%%
@@ -387,73 +373,4 @@ All the diagrams, plots, and natural images are included in this chapter.
   \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}\label{code:imrwf}    
 \clearpage % End the page
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Training WF Without Hyperparameter Optimization %%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-%   \clearpage % Start a new page
-\begin{figure}[!htbp]
-  \subfloat[First Scenario: Single Scalar$(\tau)$]{\input{./tikz/wf/wf_s_00_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Second Scenario: Different Scalars$(\tau_k)$]{\input{./tikz/wf/wf_s_01_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Third Scenario: Single Matrix$(\boldsymbol{M})$]{\input{./tikz/wf/wf_s_02_l_160_e_50_lr_0.001.tex}}\\  
-  \caption{Training the \ac{WF} Algorithm in different Scenarios}
-  \label{fig:wf_training_wo_1_2_3_optuna}
-  \end{figure}
-%   \clearpage % End the page
-}
-\afterpage{%
-%   \clearpage % Start a new page
-\begin{figure}[!htbp]
-  \subfloat[Fourth Scenario: Single Semi-Positive Definite Matrix$(\boldsymbol{S})$]{\input{./tikz/wf/wf_s_03_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Fifth Scenario: Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$]{\input{./tikz/wf/wf_s_04_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Sixth Scenario: Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$]{\input{./tikz/wf/wf_s_05_l_160_e_50_lr_0.001.tex}}\\
-  \caption{Training the \ac{WF} Algorithm in different Scenarios}
-  \label{fig:wf_training_wo_4_5_6_optuna}
-  \end{figure}
-%   \clearpage % End the page
-}
-\afterpage{%
-%   \clearpage % Start a new page
-\begin{figure}[!htbp]
-  \subfloat[Seventh Scenario: Different Matrices$(\boldsymbol{M}_k)$]{\input{./tikz/wf/wf_s_06_l_160_e_50_lr_0.001.tex}}\\  
-  \subfloat[Eighth Scenario: Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$]{\input{./tikz/wf/wf_s_07_l_160_e_50_lr_0.001.tex}}\\  
-  \caption{Training the \ac{WF} Algorithm in different Scenarios}
-  \label{fig:wf_training_wo_7_8_optuna}
-  \end{figure}
-%   \clearpage % End the page
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Training RWF Without Hyperparameter Optimization %%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-%   \clearpage % Start a new page
-\begin{figure}[!htbp]
-  \subfloat[First Scenario: Single Scalar$(\tau)$]{\input{./tikz/rwf/rwf_s_00_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Second Scenario: Different Scalars$(\tau_k)$]{\input{./tikz/rwf/rwf_s_01_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Third Scenario: Single Matrix$(\boldsymbol{M})$]{\input{./tikz/rwf/rwf_s_02_l_30_e_50_lr_0.001.tex}}\\  
-  \caption{Training the \ac{RWF} Algorithm in different Scenarios}
-  \label{fig:rwf_training_wo_1_2_3_optuna}
-  \end{figure}
-%   \clearpage % End the page
-}
-\afterpage{%
-%   \clearpage % Start a new page
-\begin{figure}[!htbp]
-  \subfloat[Fourth Scenario: Single Semi-Positive Definite Matrix$(\boldsymbol{S})$]{\input{./tikz/rwf/rwf_s_03_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Fifth Scenario: Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$]{\input{./tikz/rwf/rwf_s_04_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Sixth Scenario: Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$]{\input{./tikz/rwf/rwf_s_05_l_30_e_50_lr_0.001.tex}}\\
-  \caption{Training the \ac{RWF} Algorithm in different Scenarios}
-  \label{fig:rwf_training_wo_4_5_6_optuna}
-  \end{figure}
-%   \clearpage % End the page
-}
-\afterpage{%
-%   \clearpage % Start a new page
-\begin{figure}[!htbp]
-  \subfloat[Seventh Scenario: Different Matrices$(\boldsymbol{M}_k)$]{\input{./tikz/rwf/rwf_s_06_l_30_e_50_lr_0.001.tex}}\\  
-  \subfloat[Eighth Scenario: Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$]{\input{./tikz/rwf/rwf_s_07_l_30_e_50_lr_0.001.tex}}\\  
-  \caption{Training the \ac{RWF} Algorithm in different Scenarios}
-  \label{fig:rwf_training_wo_7_8_optuna}
-  \end{figure}
-%   \clearpage % End the page
-}
+

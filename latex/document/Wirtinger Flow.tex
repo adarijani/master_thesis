@@ -1,4 +1,37 @@
-\chapter{Wirtinger Flow}
+\chapter{Wirtinger Flow}\label{ch:wirtinger_flows}
+
+\ac{WF} variants emerged as a response to solve certain settings in \ac{PR} problems. As the same suggests \ac{PR} is the process of 
+determining the phase(up to a global phase) of an image simply because it contains information which is of interest depending on the context. 
+We first discuss why phase is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
+the variants where the \ac{WF} variants are based on. We give one application of the \ac{WF} variants which is used in imaging 
+to both motivate the reasoning behind considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
+natural images. The reason why the phase gets lost is out of the scope of the current work but 
+we encourage the reader to take a look at\cite{Shechtman2015}\cite{Griffiths2018}\cite{FranzSchwabl2007}.
+
+\section*{Importance of the Phase}
+
+The \ac{DFT} is bijective therefore taking the \ac{DFT} and the \ac{IDFT} in succession on an image will have no effect on the image.
+ As a synthetic example take the \ac{DFT} of two different natural images but before taking the \ac{IDFT} of the images; swap the phase and then perform the 
+ \ac{IDFT} to arrive at the two reconstructed images \cite{Oppenheim1979},\cite{Oppenheim1981},\cite{Shechtman2015}. 
+ As it can be seen in \cref{image:phase_swap} the images look like the image with the corresponding phase. Different settings were also investigated by \cite{Oppenheim1979}\cite{Oppenheim1981} by 
+ manipulating phase and amplitude of the \ac{DFT} and then performing the \ac{IDFT}. All of them suggested that the phase of the \ac{DFT} of an image 
+ is more important than the amplitude of the \ac{DFT} of an image.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Phase in Fourier Reconstruction %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  % \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
+    \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1979}\cite{Hayes1980}\cite{Oppenheim1981}\cite{Shechtman2015}}
+    \label{image:phase_swap}
+  \end{figure}
+  % \clearpage % End the page
+}   
+
 
 
 \begin{equation*}
@@ -18,10 +51,10 @@
   \end{equation*}
 
 
-The whole thing about \emph{\ac{WF}} variants started with the seminal work of \cite{Candes2014}.
+The whole thing about \ac{WF} variants started with the seminal work of \cite{Candes2014}.
 The most important improvements chronologically were done by \cite{Chen2015}, \cite{Kolte2016}, and\cite{Zhang2016}
 with the nicknames of \ac{TWF}, \ac{ITWF}, \ac{RWF}, \ac{IRWF}, and \ac{IMRWF}.
-For a quite extensive survey on \emph{\ac{WF}} variants please refer to Liu et al.\cite{Liu2019}. Chandra et al.\cite{Chandra2017} 
+For a quite extensive survey on \ac{WF} variants please refer to Liu et al.\cite{Liu2019}. Chandra et al.\cite{Chandra2017} 
 gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{\ac{WF}} variants in the MATLAB\textregistered\space 
 problem solving environment in a uniform manner.\\
 We quickly go over the problem formulation, difficulties, algorithms, and at the of the chapter we give some numerical experiments we are going
@@ -40,7 +73,7 @@ The summary for all the variants in terms of formulation is in table\ref{tab:for
 	\centering
 	\begin{tabular}{||c l c||} 
 	 \hline
-	 \emph{\ac{WF}} Variant & $\varphi$ 						& loss functions\\ [0.5ex] 
+	 \ac{WF} Variant & $\varphi$ 						& loss functions\\ [0.5ex] 
 	 \hline\hline
 	 \ac{WF}\index{WF}                & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
 	 \ac{TWF}\index{TWF}   & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
@@ -185,7 +218,7 @@ Consult a book on discrete probability on any other undergraduate level book on 
 
 
 \begin{Prop}
-	The Octanary Modulation setting is admissible according to \cite{Candes2014}. 
+	The Octanary Modulation setting is admissible by the criteria proposed by\cite{Candes2014}. 
 	
 \end{Prop}
 
