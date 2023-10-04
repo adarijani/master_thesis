@@ -137,6 +137,7 @@
         "presentation/**/*.xml": true,
         "presentation/**/*blx.bib": true,
         "presentation/**/.bak ": true,
-        "presentation/**/.mtc": true
+        "presentation/**/.mtc": true,
+        "document/thesis.bib.sav": true
     }
 }

@@ -1,6 +1,7 @@
 
 
 \documentclass{beamer}
+\usepackage{acro}
 \usepackage{amssymb,mathtools,amsthm}
 
 \usepackage{pgfplots}
@@ -69,6 +70,7 @@
 \newtheorem {Sch} [Thm]{Scheme}
 \newtheorem {Not} [Thm]{Notation}
 \usepackage{algorithm2e}
+\input{../document/acro.tex}
 \begin{document}
 \title[Deep Unfolding of Wirtinger Flow type Schemes]{Deep Unfolding of Wirtinger Flow type Schemes}
 \author[]{Ali Darijani\\ \href{mailto:ali.darijani.me@gmail.com}{ali.darijani.me@gmail.com}\newline
@@ -339,12 +341,39 @@ See also Ernest~T. Moynahan, 1957.
 
 \section{Proof}
 
+\section[Hyperparameter Optimization]{Hyperparameter Optimization}
+\begin{frame}
+  \frametitle{Hyperparameter Optimization}
+  The goal of \ac{HP} is to:
+  \begin{itemize}
+    \item Hopefully make your solver better 
+  \end{itemize}
+  and is different from:
+  \begin{itemize}
+    \item grid search
+    \item Brute Force method
+    \item \texttt{Bash} Script with nested loops and \texttt{awk} for bookkeeping
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{\texttt{Optuna} Pros}
+  Pros:
+  \begin{itemize}
+    \item Use of the latest technics in \ac{HP}\cite{Hutter2019}\cite{Akiba2019}.
+    \item It is quite lightweight.
+    \item Describing the parameter space is both easy and flexible.
+    \item Pruning capabilities for not-so-optimistic scenarios.
+    \item Distributed computing can be done using up to 6 computational nodes.
+    \item Usage of \ac{RDBMS} for bookkeeping, safekeeping(in case of crash or just rebooting) and handling of dead-locks associated with the distributed computing.
+    \item nice dashboard for better visualization and interpretation of the results.  
+  \end{itemize}
+\end{frame}
 
 
 
 \section[References]{References}
   \begin{frame}[allowframebreaks]
-  \frametitle{References}
+  \frametitle{backslash nocite lcurlybrace asterisks rcurlybrace}
   \nocite{*}
   % \nocite{Rudin1987}
   \printbibliography 

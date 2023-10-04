@@ -107,27 +107,62 @@
 \definecolor{backcolour}{RGB}{30,30,30}
 \definecolor{almostwhite}{RGB}{211,211,211}
 
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{white},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    % rulecolor=\color{almostwhite}
+% \lstdefinestyle{mystyle}{
+%     backgroundcolor=\color{white},   
+%     commentstyle=\color{codegreen},
+%     keywordstyle=\color{magenta},
+%     numberstyle=\tiny\color{codegray},
+%     stringstyle=\color{codepurple},
+%     % rulecolor=\color{almostwhite}
+%     basicstyle=\ttfamily\footnotesize,
+%     breakatwhitespace=false,         
+%     breaklines=true,                 
+%     captionpos=b,                    
+%     keepspaces=true,                 
+%     numbers=left,                    
+%     numbersep=5pt,                  
+%     showspaces=false,                
+%     showstringspaces=false,
+%     showtabs=false,                  
+%     tabsize=2
+% }
+% Python style for highlighting
+\lstdefinestyle{pythonMSIP}{
+    language=python,
+    showtabs=true,
+    tab=,
+    tabsize=2,
     basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    upquote=true,
+    stringstyle=\color{orange!80!black},
     showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+    morekeywords={as},
+    otherkeywords={\%, \}, \{, \&, \|},
+    keywordstyle=\color{magenta!70!black}\bfseries,
+    emph={and,break,class,continue,def,yield,del,elif ,else,%
+    except,exec,finally,for,from,global,if,import,in,%
+    lambda,not,or,pass,print,raise,return,try,while,assert,with},
+    emphstyle=\color{blue}\bfseries,
+    emph={[2]True, False, None, def, in, class},
+    emphstyle=[2]\color{blue!80!black},
+    emph={[3]object,type,astype,isinstance,copy,deepcopy,zip,enumerate,reversed,list,set,len,dict,tuple,xrange,append,execfile,real,imag,reduce,str,repr,range},
+    emphstyle=[3]\color{yellow!60!black},
+    emph={Exception,NameError,IndexError,SyntaxError,TypeError,ValueError,OverflowError,ZeroDivisionError},
+    emphstyle=\color{yellow!50!red}\bfseries,
+    morecomment=[s]{"""}{"""},
+    commentstyle=\color{green!50!black}\slshape,
+    emph={[4]ode, fsolve, sqrt, exp, sin, cos,arctan, arctan2, arccos, pi,  array, norm, solve, dot, arange, isscalar, max, sum, flatten, shape, reshape, find, any, all, abs, plot, linspace, legend, quad, polyval,polyfit, hstack, concatenate,vstack,column_stack,empty,zeros,ones,rand,vander,grid,pcolor,eig,eigs,eigvals,svd,qr,tan,det,logspace,roll,min,mean,cumsum,cumprod,diff,vectorize,lstsq,cla,eye,xlabel,ylabel,squeeze, floor, size, pad, meshgrid, tensordot, median, amin, amax},
+    emphstyle=[4]\color{blue!60!green},
+    emph={[5]__init__,__add__,__mul__,__div__,__sub__,__call__,__getitem__,__setitem__,__eq__,__ne__,__nonzero__,__rmul__,__radd__,__repr__,__str__,__get__,__truediv__,__pow__,__name__,__future__,__all__},
+    emphstyle=[5]\color{blue!50!white},
+    frame=trbl,
+    rulecolor=\color{black!40},
+    breakindent=.5\textwidth,frame=single,breaklines=true%
 }
 
-\lstset{style=mystyle}
+
+% \lstset{style=mystyle}
+\lstset{style=pythonMSIP}
 
 
 
@@ -154,18 +189,17 @@
 % \makeindex
 
 \includeonly{
-            %  frontmatter,
-            %  dedication,
-            %  abstract,
-            %  acknowledgements,
+             frontmatter,
+             dedication,
+             abstract,
+             acknowledgements,
             %  symbols,
             %  Mathematical Preliminaries,
             %  Introduction,
-             Wirtinger Flow,
+            %  Deep Unfolding of Wirtinger Flow,
             %  Deep Unfolding,
             %  Unfolded Wirtinger Flows,
             %  Results,
-            %  Images and Plots,
              }
 
 \input{acro.tex}
@@ -191,11 +225,11 @@
 \printunsrtglossary[type=symbols,style=long,title=Symbols and Conventions]
 \include{Mathematical Preliminaries}  
 \include{Introduction}
-\include{Wirtinger Flow} 
-\include{Deep Unfolding}
+\include{Deep Unfolding of Wirtinger Flow} 
+% \include{Deep Unfolding}
 \include{Unfolded Wirtinger Flows}   
 \include{Results}
-\include{Images and Plots} 
+% \include{Images and Plots} 
 \nocite{*}
 \backmatter
 \printindex

@@ -1,16 +1,18 @@
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}  
 
-Physical measurements in settings where light, electrons, and similar existences are involved will result in a phase loss in the
-mathematical formulation. The phenomenon is called \emph{Phase Problem} and the methods developed to tackle the said unpleasantness
-are called \emph{Phase Retrieval} methods. Due to its presence in a wide spectrum of applications ranging from X-ray crystallography, 
-transmission electron microscopy to quantum mechanics, the retrieval methods are highly investigated and coveted. One of the contemporary 
-breakthroughs are the \emph{\ac{WF}} variants which are nice and relatively easy algorithms with small memory footprints equipped with nice 
-guarantees on the solutions. \ac{WF} variants are derived from minimizing a certain functional and are of iterative nature. Like most 
-iterative approaches they are certain parameters that need to be fixed that greatly influence the convergence rate and stability. We aimed 
-to optimized these parameters using \emph{Deep Unfolding} which is an emerging technic from the data-driven side of approaches. Deep Unfolding 
-is basically unfolding an iterative algorithm finite times and putting it into a neural network to be trained. Anyone who has been exposed 
-to machine learning would realize that \emph{Hyperparameter} optimization must be done to close the study which is what we did.       
-
-
+Physical measurements in settings where light, electrons, and similar existences are involved will result in a phase 
+loss\cite{Shechtman2015} in the mathematical formulation. The phenomenon is called \ac{PP}\cite{Shechtman2015} 
+and the methods developed to tackle the said unpleasantness are called 
+\ac{PR}\cite{Jaganathan2015}\cite{Liu2019} methods. Due to its presence in a wide spectrum of 
+applications\cite{Shechtman2015}\cite{Candes2014} ranging from X-ray crystallography, transmission electron microscopy 
+to quantum mechanics, the retrieval methods are highly investigated and coveted\cite{Jaganathan2015}\cite{Liu2019}. 
+One of the contemporary breakthroughs are the \ac{WF}\cite{Candes2014}\cite{Liu2019} variants which are nice and relatively easy algorithms 
+with small memory footprints equipped with nice guarantees on the solutions. \ac{WF}\cite{Liu2019} variants are derived from minimizing a 
+certain functional and are of iterative nature. Like most iterative approaches they are certain parameters that need to be fixed which 
+greatly influence the convergence rate and stability of the algorithm. While analytical guarantees are nice to have, we aim 
+to investigate if it is possible for improvements of the model by altering these parameters using \ac{DU}/\ac{AU}\cite{Monga2019} 
+which is an emerging technic from the data-driven world. \ac{DU}/\ac{AU} is basically unfolding/unrolling an 
+iterative algorithm finite times and putting it into a neural network to be trained. \ac{ML}\ac{DL} studies are often accompanied 
+by \ac{HP} which is why we close the current work by exactly doing that.   
 \endinput

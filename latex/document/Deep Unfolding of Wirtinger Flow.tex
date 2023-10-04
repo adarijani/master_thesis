@@ -1,0 +1,858 @@
+\chapter{Deep Unfolding of Wirtinger Flow}\label{ch:deep_unfolding_of_wirtinger_flows}
+
+
+
+\section{Deep Unfolding}
+
+We give a story like introduction to \ac{DL} and by pointing out some \ac{DL} limitations motivate the use of \ac{DU}/\ac{AU} 
+which is \ac{DL} but with context inspired architecture.
+
+\subsection{Multi-Layer Perceptrons}
+Let $\boldsymbol{x} \in \mathbb{R}^n,\boldsymbol{y} \in \mathbb{R}^m, \boldsymbol{h}_l \in \mathbb{R}^{k_l}, \boldsymbol{W}^1 \in \mathbb{R}^{k_1 \times n}
+,\boldsymbol{W}^{N+1} \in \mathbb{R}^{m \times k_N},\boldsymbol{W}^{l+1} \in \mathbb{R}^{k_l \times k_{l+1}}$ where $m,n,l,k_l \in \mathbb{N}$ and $\varphi$ is a
+function from $\mathbb{R}$ to $\mathbb{R}$ with certain properties. 
+Consecutive mappings:
+\begin{equation}
+  \begin{split}
+    h_i^{1}   &= \sigma \left( \sum_{j}^{} W_{ij}^{1}x_j + b_i^{1} \right)\\ 
+              & \vdots\\
+    h_i^{l+1} &= \sigma \left( \sum_{j}^{} W_{ij}^{l+1}h_j^l + b_i^{l+1} \right)\\
+              & \vdots\\
+    y_i^{}    &= \sigma \left( \sum_{j}^{} W_{ij}^{N+1}h_j^N + b_i^{N+1} \right)
+  \end{split}
+  \end{equation}
+% \begin{equation*}
+  % x_i^{l+1} = \sigma \left( \sum_{j}^{} W_{ij}^{l+1}x_j^l + b_i^{l+1} \right)
+% \end{equation*}
+that take $\boldsymbol{x}$ to $\boldsymbol{y}$ is called a \ac{MLP} architecture.
+In the \ml jargon $\boldsymbol{x},\boldsymbol{y},\boldsymbol{h}^j,\boldsymbol{W}^j,\boldsymbol{b}^j,\varphi$ are called \emph{input}, \emph{output}, \emph{hidden variables},
+\emph{weight matrices}, \emph{biases}, and \emph{activation function}. \ac{MLP}s were designed to approximate outputs from inputs without knowing the the actual mapping and with observations and measurements. 
+It is worth noting that the existence of $\varphi$ is necessary otherwise the pairs $\boldsymbol{W}^j,\boldsymbol{b}^j$ would 
+just be an affine transformation and stacking multiple affine transformation would still be an affine transformation and stacking 
+such layers would be redundant. Not having an activation function also means the whole mapping would perform poorly when approximating 
+complex mappings that do not resemble affine transformation. The schematic involving only the input, output, and hidden variables can be seen 
+in \cref{fig:multi_layer_perceptron}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Multi-Layer Perceptron %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+  \centering
+  % \captionsetup{justification=centering}
+  \resizebox{0.7\textwidth}{!}{\input{./tikz/neural_networks/sample.tex}}
+  \caption{$\boldsymbol{x} =\text{input},\boldsymbol{h}^j=\text{hidden variables},\boldsymbol{y}=\text{output}$}
+  \label{fig:multi_layer_perceptron}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Deep Learning}
+The advancements in \ac{HPC}\cite{Meuer} in terms of both software\cite{Dagum1998}\cite{1993}\cite{Nvidia} and 
+hardware\cite{Patterson2014}\cite{Hennessy2019}\cite{Nvidia}, Mathematical Optimization\cite{Boyd2004}\cite{Nocedal2006}\cite{Sun2019}, 
+\ac{AD}\cite{Naumann2011}\cite{Griewank2008} combined with the abundance of data gathered during the Web $2.0$ era, 
+and finally complex approximation architectures gave birth to what is currently known as 
+\ac{DL}\cite{LeCun2015}\cite{Higham2018}\cite{Berner2021}. In the \ac{ML}/\ac{DL}/\ac{AI} folklore there were these two dark 
+periods known as the \emph{\ac{AI} winters} that meant the substantial reduction in \ac{ML}/\ac{DL}/\ac{AI} funding and 
+interest. In 2012 when Alex Krizhevsky's and his supervisors' \dl architecture \cite{Krizhevsky2017} decimated all other 
+competitors in the ImageNet \cite{SVLL2021} image classification challenge\cite{SVLL} he ended the second harsh winter 
+that the \ac{ML}/\ac{AI} scientists were experiencing. It was no fluke and at the time of writing the challenge is 
+always won by \ac{DL} architectures \cite{Szegedy2014}\cite{He2015}\cite{Simonyan2014} and alike and not carefully 
+handcrafted feature extraction modules. All and all \ac{DL} architectures had great success in a broad flavors of 
+problems ranging from single object image classification \cite{Rawat2017} to real-time multi-object classification and 
+tracking\cite{Luo2021}. \ac{DL} approach has pros:
+
+\begin{itemize}
+  \item can extract extremely complicated mappings or extremely subtle features(depending on the desired wording),
+  \item requires little to no knowledge about the exact internals of the problem(no need for handcrafted feature engineering),
+  \item currently can beat human level performance in lots of areas,
+\end{itemize}
+
+and cons:
+
+\begin{itemize}
+  \item requires large and high quality datasets\cite{SVLL2021} which are expensive to acquire and store,
+  \item requires tremendous raw computational power and storage which in turn would result in large electricity bills and expensive maintenance costs,
+  \item since mostly there is no interpretability associated with models, there will be no reasoning when a model gives objectively wrong answers. 
+\end{itemize}
+
+Due to the pros and cons tied to \ac{DL} what is getting a bit of traction at least in \ac{DSIP} and \ac{CV} is \ac{AU} or \ac{DU}. 
+\ac{DU}/\ac{AU} is the process of unfolding/unrolling an iterative algorithm finite times and training certain parameters in 
+the hopes of improving some metric by putting the unrolled algorithm in a model. It is best to look at the process in \cref{fig:deep_unfolding_unrolling} 
+to get a better feeling of what is being done. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% Deep Unfolding(Schematic Diagram) %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+  \centering
+	\captionsetup{justification=centering}
+  \resizebox{35em}{10em}{\input{./tikz/diagrams/unfolding.tex}}
+  \caption{The Schematic Unfolding/Unrolling of an Iterative Algorithm}
+  \label{fig:deep_unfolding_unrolling}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ac{DU}/\ac{AU} tries to bring the best of the both worlds(analytical approach and data driven approach) in one and reconcile the two. 
+It is worth noting that \ac{DU}\ac{AU} is not \ac{RNN}s\cite{Goodfellow2016}\cite{Salem2022}. \ac{DU}/\ac{AU} looks like \ac{RNN}\cite{Gregor2010} but a closer look will 
+result in a couple of subtleties between the two.  
+Since in the \ac{DU}/\ac{AU} you significantly reduce the number of parameters by using a context inspired model and not a full blown 
+general \ac{DL} architecture, the need for large datasets and computational power ceases to exist. initialization of the weights 
+and interpretation of the models become way easier which for some time were the center of attention in \ac{ML}/\ac{DL} community 
+\cite{Glorot2010}\cite{He2015a}. A nice review on the recent application of \ac{DU}/\ac{AU} in \ac{DSIP} is done by\cite{Monga2019}.
+
+
+
+
+
+
+
+problems by complex valued neural networks \cite{Bassey2021} \cite{Barrachina2023} \cite{CTOBYZDSSSJFSSMNRYBCP2017}
+
+
+\cite{Wirtinger1927} \cite{KreutzDelgado2009} \cite{Fischer2002}
+
+
+
+
+\ac{WF} variants emerged as a response to solve certain settings in \ac{PR} problems. As the same suggests \ac{PR} is the process of 
+determining the phase(up to a global phase) of an image simply because it contains information which is of interest depending on the context. 
+We first discuss why phase is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
+the variants where the \ac{WF} variants are based on. We give one application of the \ac{WF} variants which is used in imaging 
+to both motivate the reasoning behind considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
+natural images. The reason why the phase gets lost is out of the scope of the current work but 
+we encourage the reader to take a look at\cite{Shechtman2015}\cite{DGDS2018}\cite{FranzSchwabl2007}.
+
+\section{Importance of the Phase}
+
+The \ac{DFT} is bijective\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011} therefore taking the \ac{DFT} and the \ac{IDFT} in succession on an image will have no effect on the image.
+ As a synthetic example t show the importance of phase; take the \ac{DFT} of two different natural images but before taking the \ac{IDFT} of the images; swap the phase and then perform the 
+ \ac{IDFT} to arrive at the two reconstructed images \cite{Oppenheim1979},\cite{Oppenheim1981},\cite{Shechtman2015}. 
+ As it can be seen in \cref{image:phase_swap} the images look like the image with the corresponding phase. Different settings were also investigated by \cite{Oppenheim1979}\cite{Oppenheim1981} by 
+ manipulating phase and amplitude of the \ac{DFT} and then performing the \ac{IDFT}. To mention a few: 
+ \begin{itemize}
+	\item taking the \ac{DFT}, setting the phase to zero and then taking the \ac{IDFT}\cite{Oppenheim1981}
+	\item taking the \ac{DFT}, setting the amplitude to one and then taking the \ac{IDFT}\cite{Oppenheim1981}
+	\item taking the \ac{DFT}, setting a random amplitude and then taking the \ac{IDFT}\cite{Oppenheim1981}
+	\item taking the \ac{DFT}, setting the amplitude to the average of amplitudes of \ac{DFT}s of images of the same type\cite{Oppenheim1981}.
+ \end{itemize}. All of them suggested that the phase of the \ac{DFT} of an image 
+ is more important than the amplitude of the \ac{DFT} of an image\cite{Oppenheim1979}\cite{Oppenheim1981}.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Phase in Fourier Reconstruction %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  % \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
+    \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1979}\cite{Hayes1980}\cite{Oppenheim1981}\cite{Shechtman2015}}
+    \label{image:phase_swap}
+  \end{figure}
+  % \clearpage % End the page
+}   
+
+\section{Phase Retrieval}
+
+Let $\Omega \in \mathbb{R}^n$ and $\psi$ a mapping that takes $\Omega$ to $\mathbb{C}$. Mostly $\Omega$ is assumed to be a 
+$d$-dimensional cube which makes it easier to work with. The process of extracting $\psi$(up to a global phase) from:
+\begin{equation*}
+	E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{K} {\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X}^2}_{\coloneqq D(\psi)}+ R(\psi)
+  \end{equation*}
+  is called \ac{PR}(just a subclass of \ac{PR}) where:
+  \begin{itemize}
+	\item $E(\psi)$ the functional we are trying to minimize.
+	\item $D(\psi)$ the data term.
+	\item $R(\psi)$ the regularization term.
+	\item $\boldsymbol{A}_j$ the $j$-th sampler operator.
+	\item $G_j$ the $j$-th measurement.
+	\item $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}, z \rightarrow \left|z\right|_X \lor {\left|z\right|^2}_X$ 
+	is the function responsible for phase loss in the measurement process.
+  \end{itemize}
+
+Solving the \ac{PR} is not quite easy due to the non-convex, non-holomorphic and infinite-dimensional characteristics of the \ac{PR}. 
+In short the \ac{PR} can be solved by the iterative algorithm:
+  \begin{equation*}
+	\psi^{k+1} = \text{prox}_{\tau_{k}R}(\psi^k-\tau_k\nabla{D(\psi^k)})
+  \end{equation*}
+
+  where the gradient-like structure looks like: 
+  \begin{equation*}
+	\nabla{D(\psi^k)} = \frac{1}{KN} \sum_{j=1}^{K} \boldsymbol{A}_j^*\left(\varphi\left(\boldsymbol{A}_j\psi\right)-G_j\right)\odot \varphi'(\boldsymbol{A}_j\psi).
+  \end{equation*}
+
+  where:
+  \begin{itemize}
+	\item $\mathrm{prox}$ is the Proximal operator mostly used in non-differentiable but still convex setting \cite{Bredies2018}.
+	\item $\odot$ is the Hadamard product which becomes the usual element-wise product\cite{Horn2012}\cite{Hackbusch2019} when everything is discretized.
+	\item $\boldsymbol{A}^*_j$ is the $j$-th conjugate operator of the $j$-th sampler operator $\boldsymbol{A}_j$.
+	\item $\varphi'$ the first derivative of the $\varphi$ function.
+  \end{itemize}
+
+  A simpler variation of the above formulation were studied extensively and is at the core of \ac{WF} variants. 
+  From now on we consider the following as the \ac{PR} problem:
+
+  \begin{equation*}
+	\boldsymbol{y} = \varphi(\boldsymbol{A}\boldsymbol{x})
+  \end{equation*}
+  where $\boldsymbol{x} \in \mathbb{C}^{n \times 1}$ is the ray of interest, $\boldsymbol{A} \in \mathbb{C}^{m \times n}$ the sampler matrix,  
+  $\boldsymbol{y} \in \mathbb{R}^{m \times 1}$, and $\varphi$ the usual element-wise absolute value(or the squared absolute value) from 
+  $\mathbb{C}^{m \times 1}$ to $\mathbb{R}^{m \times 1}$ and destroys the information encoded in the phase. Since 
+  $\left|\boldsymbol{A}\boldsymbol{x}\mathrm{e}^{\mathrm{i}\theta}\right|_X = \left|\boldsymbol{A}\boldsymbol{x}\right|_X$, 
+  $\min \left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|_X$ was considered as the loss function throughout the \ac{WF} variants papers\cite{Candes2014}\cite{Chen2015}\cite{Kolte2016}\cite{Zhang2016} where $\boldsymbol{z}$ is the estimation of
+  $\boldsymbol{x}$ up to a global phase.
+
+
+
+
+
+
+	\begin{Prop}\label{theorem:min distance}
+		Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, where $(z,x)_X$ is 
+		the usual scalar product associated with such vector spaces, and $\left|\cdot\right|_X$ the induced norm using the scalar product on the vector space $X$, then the expression
+		\begin{equation*}
+			f(\varphi) \coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X
+		\end{equation*}
+		has a minimum and the minimum can be calculated in a closed form manner.
+		\end{Prop}
+		\begin{Proof}
+			$f(\varphi)$ is continuous and periodic therefore it will attain its minimum and maximum for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}\cite{Rudin1987}. 
+			Let $w \coloneqq (z,x)_X = \operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$
+			\begin{equation*}
+				\begin{split}
+				f(\varphi) &\coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X = 
+				\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\\
+						   &= \left(x,x\right)_X - \mathrm{e}^{\mathrm{i}\varphi}\left(x,z\right)_X-\mathrm{e}^{-\mathrm{i}\varphi}\left(z,x\right)_X+\left(z,z\right)_X \\
+                		   &= \left(x,x\right)_X - (\cos(\varphi)+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) -\mathrm{i}\operatorname{Im}(w)\right)\\
+						   &+ \left(z,z\right)_X - (\cos(\varphi)+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) +\mathrm{i}\operatorname{Im}(w)\right)\\
+						   &= \left(x,x\right)_X - 2\left(\cos\varphi\operatorname{Re}(w)+\sin\varphi\operatorname{Im}(w)\right)+ \left(z,z\right)_X
+				\end{split}
+			  \end{equation*}
+			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006}:
+			  \begin{equation*}
+				\begin{split}
+				\frac{\mathrm{d}f(\varphi)}{\mathrm{d}\varphi} &= - 2\left(-\sin\varphi\operatorname{Re}(w)+\cos\varphi\operatorname{Im}(w)\right) = 2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\sin(\varphi-\theta)\\ 
+				\end{split}
+			  \end{equation*}
+			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$.
+			  \begin{equation*}
+				\begin{split}
+				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &= - 2\left(-\cos\varphi\operatorname{Re}(w)-\sin\varphi\operatorname{Im}(w)\right) = -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
+				\end{split}
+			  \end{equation*}
+			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$. 
+			  For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique argument $\varphi^*$ corresponding to the minimum and the minimum itself \cite{Boyd2004}\cite{Nocedal2006}.
+		\end{Proof}
+
+
+  
+\section{Difficulties}
+
+The loss function is non-convex. Set $n=1$, $m=2$, $\boldsymbol{x}_1 = \begin{pmatrix}1+i\end{pmatrix}^{1 \times 1}$, 
+$\boldsymbol{x}_2 = \begin{pmatrix}-1-i\end{pmatrix}^{1 \times 1}$, $\boldsymbol{A}=\begin{pmatrix}1\\i \end{pmatrix}^{2 \times 1}$, 
+$\boldsymbol{y}=\begin{pmatrix}1\\2 \end{pmatrix}^{2 \times 1}$, and $\lambda=1/2$ to build a counterexample. Non-convexity is bad news for 
+optimization as most of the optimization methods are build on top of convexity \cite{Boyd2004}\cite{Nocedal2006}. To make the matter worse the loss function is not 
+holomorphic( it can be easily seen that Cauchy-Riemann equations\cite{Rudin1987}\cite{Stein2003} do not hold).
+
+\section{Motivating Application}
+
+Since introducing complex numbers introduced a couple of quite difficult obstacles in the math part and will introduce others in the implementation part 
+we think we owe it to the reader to motivate the assumption by giving one application which is imaging using \ac{CDP} coupled with \ac{WF} variants.
+
+\section{Diffracted Imaging}
+
+Without going too much into the Physics of it Consider a ray that is emitted onto an object of interest and the diffracted rays are collected and measured at some distance from the object. 
+The goal is reconstruct the image using the said measurements. If the distance between the sample and the detector is far enough(characterized by the Fraunhofer condition\cite{Lipson1995}) 
+then the solution of the diffraction problem is well approximated by the \ac{FT} of the emitted ray. Due to quantum mechanical effects and material limitations\cite{Shechtman2015}\cite{DGDS2018}\cite{FranzSchwabl2007} 
+the phase of the \ac{FT} can not be measured therefore we encounter the \ac{PR} problem. In summary in the discrete $1$-d case we have:
+\begin{equation}
+	y_k = \left| \sum_{t=0}^{n-1} x[t] e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega, \qquad \boldsymbol{x} \in \mathbb{C}^n , \qquad \boldsymbol{y} \in \mathbb{R}^m, \qquad m > n 
+\end{equation}
+where $\boldsymbol{x}$ is the emitted ray and $\boldsymbol{y}$ is the measurement. By some physics technics\cite{Loewen2018}\cite{Candes2011} you can modulate 
+the ray before it diffracts which in $1$-d discrete setting becomes:
+\begin{equation}\label{eq:modulation_effect}
+	y_k = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega
+\end{equation}
+
+If we do the process using $L$ different modulations/masks we would be having:
+\begin{equation}\label{eq:l_modulation_effect}
+	y_{l,k} = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \begin{split}
+	0 &\leq k \leq n-1\\
+	1 &\leq l \leq L
+	\end{split}
+  \end{equation}
+\cite{Candes2013} proved that if the number of modulations/masks $L$ is high enough, then the recovery of the ray is possible using \ac{PR} methods. 
+\cite{Gross2017} furthered improved the bounds in which the recovery is possible. The synthetic example would be to assume the ray to be a natural image and 
+apply \ac{WF} variants to get a better and natural feeling of \ac{PR} process. \ac{WF} vs \ac{TWF} can be seen in \cref{image:wf_vs_twf}, \ac{WF} vs \ac{RWF} in \cref{image:wf_vs_rwf}, and finally 
+\ac{TWF} vs \ac{RWF} in \cref{image:twf_vs_rwf}.
+
+There are however some restrictions regarding the $d[t]$ in \cref{eq:modulation_effect} and \cref{eq:l_modulation_effect}. \cite{Candes2013} proposed:
+\begin{equation}
+	\mathbb{E}\left[d\right] = 0, \qquad \mathbb{E}\left[d^2\right] = 0, \qquad\mathbb{E}\left[\left|d\right|^4\right] = 2\mathbb{E}\left[\left|d\right|^2\right]^2
+\end{equation}
+where $\mathbb{E}$ is the expectation value operator and $d$ the random variable, as the admissibility condition and proposed two settings where the conditions are met:
+\begin{itemize}
+	\item first setting nicknamed \emph{Ternary Modulation}
+	\begin{equation*}
+	  d =
+		  \begin{cases}
+			  +1 & \text{with prob.  $1/4$}\\
+			  0 & \text{with prob.  $1/2$}\\
+			  -i & \text{with prob.  $1/4$}
+		  \end{cases}  
+	\end{equation*}
+	\item second setting nicknamed \emph{Octanary Modulation}
+	\begin{equation*}
+		d = b_1b_2 \qquad \text{such that} \qquad
+	  b_1 =
+		  \begin{cases}
+			  +1 & \text{with prob.  $1/4$}\\
+			  -1 & \text{with prob.  $1/4$}\\
+			  -i & \text{with prob.  $1/4$}\\
+			  +i & \text{with prob.  $1/4$}\\
+	
+		  \end{cases}  
+		  \qquad \text{and} \qquad 
+	  b_2 
+		  \begin{cases}  
+			+\sqrt{2}/2 & \text{with prob.  $4/5$}\\
+			+\sqrt{3} & \text{with prob.  $1/5$}\\
+		\end{cases}   
+	\end{equation*}
+\end{itemize}
+
+As it is stated by \cite{Candes2013} different \ac{CDP} might be better suited for different applications. We provide a double checking of the \emph{Octanary Modulation} 
+in case the reader tries to come up their own setting and wants to check the admissibility conditions themselves. 
+
+		
+so the $E(d)$ part becomes trivial as $b_1$ is symmetrically distributed around zero or you can do it explicitly by expanding the terms. 
+
+
+
+\begin{Prop}
+	The Octanary Modulation setting is admissible by the criteria proposed by\cite{Candes2014}. 
+\end{Prop}
+
+\begin{Proof}
+	By using \cref{theorem:expectation_multiplication} and \cref{theorem:expectation_general} we have:
+	\begin{equation*}
+		\begin{split}
+		E(d) &= \left(+1 \times \frac{\sqrt{2}}{2}\right) \times \frac{4}{20} + \left(+1 \times \sqrt{3}\right) \times \frac{1}{20}+\left(-1 \times \frac{\sqrt{2}}{2}\right) \times \frac{4}{20}+\left(-1 \times \sqrt{3}\right) \times \frac{1}{20}\\
+		     &+ \left(+i \times \frac{\sqrt{2}}{2}\right) \times \frac{4}{20} + \left(+i \times \sqrt{3}\right) \times \frac{1}{20}+\left(-i \times \frac{\sqrt{2}}{2}\right) \times \frac{4}{20}+\left(-i \times \sqrt{3}\right) \times \frac{1}{20}\\ 
+			 &= 0
+		\end{split}
+	  \end{equation*}
+	  \begin{equation*}
+		\begin{split}
+		E(d^2) &= \left(+1 \times \frac{1}{2}\right) \times \frac{4}{20} + \left(+1 \times 3\right) \times \frac{1}{20}+\left(+1 \times \frac{1}{2}\right) \times \frac{4}{20}+\left(+1 \times 3\right) \times \frac{1}{20}\\
+		     &+ \left(-1 \times \frac{1}{2}\right) \times \frac{4}{20} + \left(-1 \times 3\right) \times \frac{1}{20}+\left(-1 \times \frac{1}{2}\right) \times \frac{4}{20}+\left(-1 \times 3\right) \times \frac{1}{20}\\ 
+			 &= 0
+		\end{split}
+	 \end{equation*}
+	 \begin{equation*}
+		\begin{split}
+		E(\left|d\right|^2) &= \left(\left|+1 \times \frac{\sqrt{2}}{2} \right|\right)^2\times \frac{4}{20} + \left(\left|+1 \times \sqrt{3}\right|\right)^2\times \frac{1}{20}\\
+		                    &+\left(\left|-1 \times \frac{\sqrt{2}}{2}\right|\right)^2\times \frac{4}{20}+\left(\left|-1 \times \sqrt{3}\right|\right)^2\times \frac{1}{20}\\
+		                    &+ \left(\left|+i \times \frac{\sqrt{2}}{2}\right|\right)^2\times \frac{4}{20} + \left(\left|+i \times \sqrt{3}\right|\right)^2\times \frac{1}{20}\\
+							&+\left(\left|-i \times \frac{\sqrt{2}}{2}\right|\right)^2\times \frac{4}{20}+\left(\left|-i \times \sqrt{3}\right|\right)^2\times \frac{1}{20}\\ 
+			 &= 1
+		\end{split}
+	  \end{equation*}
+	  \begin{equation*}
+		\begin{split}
+		E(\left|d\right|^4) &= \left(\left|+1 \times \frac{\sqrt{2}}{2}\right|\right)^4 \times \frac{4}{20} + \left(\left|+1 \times \sqrt{3}\right|\right)^4 \times \frac{1}{20}\\
+		                    &+\left(\left|-1 \times \frac{\sqrt{2}}{2}\right|\right)^4 \times \frac{4}{20}+\left(\left|-1 \times \sqrt{3}\right|\right)^4 \times \frac{1}{20}\\
+		                    &+ \left(\left|+i \times \frac{\sqrt{2}}{2}\right|\right)^4 \times \frac{4}{20} + \left(\left|+i \times \sqrt{3}\right|\right)^4 \times \frac{1}{20}\\
+							&+\left(\left|-i \times \frac{\sqrt{2}}{2}\right|\right)^4 \times \frac{4}{20}+\left(\left|-i \times \sqrt{3}\right|\right)^4 \times \frac{1}{20}\\ 
+			 &= 2
+		\end{split}
+	 \end{equation*}
+	 which closes the proof.
+\end{Proof}
+
+
+
+
+
+
+
+\cite{Candes2014} were the first to coin the term \ac{WF} paying homage to \emph{Wirtinger Derivative}. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% WF Variants CDP Reconstruction Comparison %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+    % \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{./images/cdp/out_wf_twf.png}
+  \caption{\ac{WF}(left) vs \ac{TWF}(right) Using Coded Diffraction Patterns for Retrieval of the Sat Phone Image from Top to Buttom: After Initialization, 
+	at Iteration $=120$, at Iteration $=350$ for \ac{WF} and at Iteration $=200$ for \ac{TWF}, and the Original Image}
+  \label{image:wf_vs_twf}
+  \end{figure}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+    % \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{./images/cdp/out_wf_rwf.png}
+  \caption{\ac{WF}(left) vs \ac{RWF}(right) Using Coded Diffraction Patterns for Retrieval of the Sat Phone Image from Top to Buttom: After Initialization, 
+	at Iteration $=120$, at Iteration $=350$ for \ac{WF} and at Iteration $=150$ for \ac{RWF}, and the Original Image}
+  \label{image:wf_vs_rwf}
+  \end{figure}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]
+    \centering
+    % \captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth]{./images/cdp/out_twf_rwf.png}
+  \caption{\ac{TWF}(left) vs \ac{RWF}(right) Using Coded Diffraction Patterns for Retrieval of the Sat Phone Image from Top to Buttom: After Initialization, 
+	at Iteration $=25$, at Iteration $=200$ for \ac{TWF} and at Iteration $=150$ for \ac{RWF}, and the Original Image}
+  \label{image:twf_vs_rwf}
+  \end{figure}
+  % \clearpage % End the page
+}
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% Summary of WF* variants %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+	\centering
+	\begin{tabular}{||c l c||} 
+	 \hline
+	 \ac{WF} Variant & $\varphi$ 						& loss functions\\ [0.5ex] 
+	 \hline\hline
+	 \ac{WF}\index{WF}                & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
+	 \ac{TWF}\index{TWF}   & $\left|\boldsymbol{z}\right|^2$ 	& quadratic 	\\
+	 \ac{ITWF}\index{ITWF}  & $\left|\boldsymbol{z}\right|^2$   & quadratic 	\\
+	 \ac{RWF}\index{RWF}  & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
+	 \ac{IRWF}\index{IRWF}   & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\
+	 \ac{IMRWF}\index{IMRWF}   & $\left|\boldsymbol{z}\right|$ 	& quadratic 	\\ [1ex]
+	 \hline
+	\end{tabular}
+	\caption{$\varphi$ and the loss function used in \cite{Candes2014}, \cite{Chen2015}, \cite{Kolte2016}, and \cite{Zhang2016}}
+	\label{tab:formulation}
+	\end{table}
+
+
+
+
+	The whole thing about \ac{WF} variants started with the seminal work of \cite{Candes2014}.
+	The most important improvements chronologically were done by \cite{Chen2015}, \cite{Kolte2016}, and\cite{Zhang2016}
+	with the nicknames of \ac{TWF}, \ac{ITWF}, \ac{RWF}, \ac{IRWF}, and \ac{IMRWF}.
+	For a quite extensive survey on \ac{WF} variants please refer to Liu et al.\cite{Liu2019}. Chandra et al.\cite{Chandra2017} 
+	gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{\ac{WF}} variants in the MATLAB\textregistered\space 
+	problem solving environment in a uniform manner.\\
+	We quickly go over the problem formulation, difficulties, algorithms, and at the of the chapter we give some numerical experiments we are going
+	to refer to in the subsequent chapters. Assume $\varphi$ to be squared element-wise absolute value and the loss function to be quadratic. 
+	The summary for all the variants in terms of formulation is in table\ref{tab:formulation}  
+	
+	
+	
+	
+	
+	
+	
+	\index{Scalar Product}
+	
+	
+
+
+
+
+\section{Implementation}
+
+As mentioned previously \ac{DU}\ac{AU} looks like \ac{RNN}s but it is not therefore it is not possible to use the higher level functions of the usual 
+\ac{ML}/\ac{DL} frameworks like \tensorflow\cite{Abadi2016}, \keras\cite{Chollet2023}, and \pytorch\cite{Paszke2019}. There is no:
+\begin{itemize}
+	\item real-time visualization of the epoch training
+	\item graph based visualization of the dependency of the parameters in pseudo layers
+	\item high level splitting and sampling mechanisms
+	\item automatic \ac{GPU} acceleration. 
+\end{itemize}
+
+There are also other difficulties coming from the numerics alone:
+\begin{itemize}
+	\item suggested learning rates are mostly safe to use with known architectures
+	\item when input and outputs are not normalized according to the common practices, training becomes more difficult(not possible to normalize them since they are coming from context inspired algorithms)
+	\item the introduction of \ac{CVNN}\cite{CTOBYZDSSSJFSSMNRYBCP2017}\cite{Bassey2021}\cite{Barrachina2023} hinders what is under the hood in the \ac{ML}/\ac{DL} frameworks(\tensorflow\cite{Abadi2016}, \keras\cite{Chollet2023}, and \pytorch\cite{Paszke2019}).
+\end{itemize}
+
+While writing the helping tools and even the \ac{GPU} acceleration is not that difficult and can be done single-handedly
+(Fran\c{c}ois Chollet wrote \keras\cite{Chollet2023} on top of \tensorflow\cite{Abadi2016} all be himself), the \ac{CVNN} is another beast. 
+One of the beating hearts of \ac{ML}/\ac{DL} frameworks is \ac{AD}/\ac{CD}. It is worth emphasizing that \ac{AD}/\ac{CD} is not symbolic differentiation and there are fundamental differences between the two \cite{Naumann2011}\cite{Griewank2008}. 
+The difficulty of \ac{CVNN}\cite{CTOBYZDSSSJFSSMNRYBCP2017}\cite{Bassey2021}\cite{Barrachina2023} is directly coming from the \ac{AD}/\ac{CD} part 
+that is used during backpropagation. The funny thing is that the general implementation of \ac{CVNN} requires the understanding of the 
+\emph{Wirtinger Derivatives}\cite{Wirtinger1927} which \cite{Candes2014} payed homage to by including the \ac{WF} name in the title of their paper\cite{Candes2014}. 
+For theory and implementation of \ac{CVNN} please refer to \cite{Wirtinger1927}\cite{KreutzDelgado2009}\cite{Bassey2021}\cite{Barrachina2023}\cite{CTOBYZDSSSJFSSMNRYBCP2017}. For this sole reason 
+we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \ac{CVNN} using \emph{Wirtinger Calculus}\cite{Fischer2002} and in turn 
+\emph{Wirtinger Derivatives}\cite{Wirtinger1927}.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% WF Variants Algorithms %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Wirtinger Flow %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}
+  \caption{\ac{WF}\index{WF} suggested by \cite{Candes2014}}\label{pseudocode:wf}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters}:  step size $\mu$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=\sqrt{n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_X^2}}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu_{t+1}}{\left|z_0\right|_X^2}\left(\frac{1}{m}\sum_{i=1}^{m}\left(\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X-y_i\right)\left(\boldsymbol{a}_i\boldsymbol{a}_i^*\right)\boldsymbol{z}^{(t)}\right).
+    \end{flalign}
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+  \lstinputlisting[language=Python]{./algorithms/wf.py}\index{WF}\label{code:wf}    
+\clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Truncated Wirtinger Flow %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}
+  \caption{\ac{TWF}\index{TWF} suggested by \cite{Chen2015}}\label{pseudocode:twf}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters}: step size $\mu$, and thresholds $\alpha_{z}^{lb},\alpha_{z}^{ub},\alpha_{h},\alpha_{y}$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{\left|y_i\right|_X\leq \frac{\alpha_{y}^2\sum_{i=1}^{m}y_i}{m}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=\sqrt{n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_X^2}}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \frac{\mu_{t+1}}{{\boldsymbol{z}^{(t)}}^*\boldsymbol{a}_i}\left(\frac{1}{m}\sum_{i=1}^{m}2\left(\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X^2-y_i\right)\boldsymbol{a}_i\boldsymbol{1}_{\mathcal{E}_1^i\cap\mathcal{E}_2^i}\right).
+    \end{flalign}
+    where
+    \begin{equation*}
+      \begin{split}
+        \mathcal{E}_1^i &\coloneqq \left\{  \alpha_z^{lb}  \leq \frac{\sqrt{n}\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X}{\left|\boldsymbol{a}_i\right|_X\left|\boldsymbol{z}^{(t)}\right|_X} \leq  \alpha_z^{ub}   \right\} \\
+        \mathcal{E}_2^i &\coloneqq \left\{ \left|y_i-\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X^2\right| \leq  \alpha_h{K_t}\frac{\sqrt{n}\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X}{\left|\boldsymbol{a}_i\right|_X\left|\boldsymbol{z}^{(t)}\right|_X}   \right\} \\
+        K_t             &\coloneqq \frac{1}{m}\sum_{j=1}^{m}\left|y_j-\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X^2\right|
+      \end{split}
+    \end{equation*}
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/twf.py}
+  \lstinputlisting[language=Python]{./algorithms/twf.py}\index{TWF}\label{code:twf}    
+\clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Reshaped Wirtinger Flow %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}
+  \caption{\ac{RWF}\index{RWF} suggested by \cite{Zhang2016}}\label{pseudocode:rwf}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{ \alpha_{l}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1} \leq \left|y_i\right|_X \alpha_{u}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu_{t+1}\left(\frac{1}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}-y_i\frac{\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}}{\left|\boldsymbol{a}_i^*\boldsymbol{z}^{(t)}\right|_X}\right)\boldsymbol{a}_i\right).
+    \end{flalign}
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/rwf.py}
+  \lstinputlisting[language=Python]{./algorithms/rwf.py}\index{RWF}\label{code:rwf}     
+\clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% Incrementally Reshaped Wirtinger Flow %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}
+  \caption{\ac{IRWF}\index{IRWF} suggested by \cite{Zhang2016}}\label{pseudocode:irwf}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{ \alpha_{l}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1} \leq \left|y_i\right|_X \alpha_{u}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu_{t+1}\left(\frac{1}{m}\sum_{i=1}^{m}\left(\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}-y_{i_t}\frac{\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}}{\left|\boldsymbol{a}_{i_t}^*\boldsymbol{z}^{(t)}\right|_X}\right)\boldsymbol{a}_i\right).
+    \end{flalign}
+    where $i_t$ is randomly selected from the set $\left\{1,\cdots,m\right\}$.\\
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible PyTorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+  \lstinputlisting[language=Python]{./algorithms/irwf.py}\index{IRWF}\label{code:irwf}    
+\clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Incrementally Mini-Batch Reshaped Wirtinger Flow %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+\clearpage % Start a new page
+\begin{algorithm}\label{pseudocode:imrwf}
+  \caption{\ac{IMRWF}\index{IMRWF} suggested by \cite{Zhang2016}}
+    \textbf{Input}: Let $\boldsymbol{y}=\{y_i\}_{i=1}^m$ and $\{\boldsymbol{a}_i\}_{i=1}^m$ be our measurements and sampling vectors; \\
+    \textbf{Parameters:}  step size $\mu$, and thresholds $\alpha_{l},\alpha_{u}$, batch size $k$;\\
+    \textbf{Initialization}: Let $\hat{\boldsymbol{z}}$, be the eigenvector corresponding to the largest eigenvalue of:
+    \begin{equation}
+      \boldsymbol{Y} \coloneqq \frac{1}{m}\sum_{i=1}^m y_i\boldsymbol{a}_i \boldsymbol{a}_i^*\boldsymbol{1}_{\left\{ \alpha_{l}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1} \leq \left|y_i\right|_X \alpha_{u}n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}\right\}}
+    \end{equation}
+    and find it using power iteration. Let also $\Lambda=n\sum_{i=1}^m \frac{y_i}{\|\boldsymbol{a}_i\|_1}$ to be the norm estimation of the signal of interest that we are trying to recover. 
+    Set $\boldsymbol{z}^{(0)}=\Lambda\hat{\boldsymbol{z}}$ for the initialization.\\
+    \textbf{Update loop}: for $t=0, \ldots ,t=T-1$ do the update as:
+    \begin{flalign}
+      \boldsymbol{z}^{(t+1)}=\boldsymbol{z}^{(t)}- \mu_{t+1}\boldsymbol{A}_{\Gamma_t}\left(\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}-\boldsymbol{y}_{\Gamma_t} \odot \frac{\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}}{\left|\boldsymbol{A}_{\Gamma_t}\boldsymbol{z}^{(t)}\right|_{e_X}}\right).
+    \end{flalign}
+    where $\Gamma_t$, the index vector, is randomly selected from the subsets of $\left\{1,\cdots,m\right\}$ that has $k$ members. $\boldsymbol{A}_{\Gamma_t}, \boldsymbol{y}_{\Gamma_t}$ 
+    correspond to the index vector taken from the original $\boldsymbol{A}$ and $\boldsymbol{y}$ \\
+    \textbf{Output}: $\boldsymbol{z}^{(T)}$.
+  \end{algorithm}
+  \begin{itemize}
+    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
+    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+    your analysis on the porting confirms it to be worthwhile.
+  \end{itemize}
+  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
+  \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}\label{code:imrwf}    
+\clearpage % End the page
+}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% WF vs TWF vs RWF vs IRWF vs IMRWF  %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+%   \clearpage % Start a new page
+  \begin{figure}[!htbp]
+    \centering
+	\captionsetup{justification=centering}
+  % \begin{turn}{-90}
+    \input{tikz/wf_variants.tex}
+  % \end{turn}
+  \caption{\ac{WF} vs \ac{TWF} vs \ac{RWF} vs \ac{IRWF} vs \ac{IMRWF}}
+    \label{fig:wf_variants}
+  \end{figure}
+%   \clearpage % End the page
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% CDPs on Fourier visualization %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]\label{image:cdp_effect_fourier_visual}
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/mask_effect/regular_fourier_vs_modulated.png}
+    \caption{effect of modulation on fourier visualization}
+  \end{figure}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}[!htbp]\label{image:cdp_effect_measurements_visual}
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_sat_phone/measurements.png}
+    \caption{Measurements on DC\textregistered\space Universe Characters Due to a Random Modulation Plate from Top to Buttom: 
+    Red Channel, Green Channel, Blue Channel, and Full RGB}
+  \end{figure}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this pages
+  \begin{figure}[!htbp]\label{image:cdp_effect_measurements_zoomed_visual}
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_zoomed_sat_phone/measurements.png}
+    \caption{Measurements on DC\textregistered\space Universe Characters Due to a Random Modulation Plate from Top to Buttom: 
+    Red Channel, Green Channel, Blue Channel, and Full RGB Zoomed Version}
+  \end{figure}
+  % \clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% WF, TWF, RWF for CDPs Retrieval of Natural Images %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+%   \clearpage % Start a new page
+  \begin{figure}[!htbp]\label{fig:cdp_wf_twf_rwf}
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}]{\input{./tikz/wf/wf_error_sat_phone_500_sat_phone.tex}}\\  
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{TWF}]{\input{./tikz/twf/twf_error_sat_phone_500_sat_phone.tex}}\\  
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{RWF}]{\input{./tikz/rwf/rwf_error_sat_phone_500_sat_phone.tex}}\\  
+  \caption{Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}, \ac{TWF}, and \ac{RWF}}
+  \end{figure}
+%   \clearpage % End the page
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% msip-Dell Specs %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \begin{table}[!htbp]
+    \centering
+    \begin{tabular}{||l l||} 
+     \hline
+     General 		                	&  						                                                             \\ [0.5ex] 
+     \hline\hline
+     Processor 	         		 			& Intel\textregistered \space Xeon\textregistered         	                 \\
+     Accelerator 			 	       		& NVIDIA\textregistered  	                                                 \\ 
+     Operating System   			    & GNU/Linux(Ubuntu\textregistered) 	                                    	 \\
+     Memory 	               			& 32617768 kB                                                              \\ [1ex] 
+     \hline
+     \hline
+     Processor Details 	      		&  						                                                             \\ [0.5ex] 
+     \hline\hline
+     Architecture     			 			& X86\_64                                               	                 \\ 
+     CPU op-mode(s)         			& 32-bit, 64-bit 	                                                         \\
+     Address sizes                & 46 bits physical, 48 bits virtual  		                                   \\
+     Byte Order                   & Little Endian  	                                                         \\ 
+     CPU(s):                      & 8 	 	                                                                   \\
+     On-line CPU(s) list:         & 0-7  	                                              	                   \\
+     Vendor ID:                   & GenuineIntel\textregistered 	                         	                 \\
+     Model name:                  & Intel\textregistered \space Xeon\textregistered CPU E5-1630 v3 at 3.70GHz \\
+     Thread(s) per core:          & 2                                                                        \\
+     Core(s) per socket:          & 4                                                   		                 \\
+     Socket(s):                   & 1 	                                                	                   \\
+     CPU max MHz:                 & 3800.0000 	                                         	                   \\
+     CPU min MHz:                 & 1200.0000                                         	  	                 \\
+     L1d Cache:                   & 128 KiB (4 instances)                           	    	                 \\
+     L1i Cache:                   & 128 KiB (4 instances) 	 	                                               \\
+     L2 Cache:                    & 1 MiB (4 instances) 	                                                   \\
+     L3 Cache:                    & 10 MiB (1 instance) 	 	                                                 \\
+     NUMA node(s):                & 1                                               	 	                     \\
+     Optimization Flags           & Please Refer to the Intel\textregistered \space Brochure for the Details  		   \\[1ex] 
+     \hline
+     \hline
+     Accelerator Details 			    &                                                                          \\[0.5ex] 
+     \hline\hline
+     Full Designation 	    			& NVIDIA\textregistered \space GeForce\textregistered \space RTX 2080 Ti 	               \\ 
+     Memory   	              		& 11264 MiB 	                                           	                 \\
+     CUDA Version:                & 12.2  	                                               	                 \\
+     width:                       & 64 bits                                                                  \\
+     clock:                       & 33 MHz 	                                                                 \\[1ex] 
+     \hline
+     \hline
+     Numerical Framework Details	&  				                                            		                 \\[0.5ex] 
+     \hline\hline
+     python                       & 3.10.12                                                                  \\
+     numpy                        & 1.25.2  		                                                             \\
+     scipy                        & 1.11.1  		                                                             \\
+     matplotlib                   & 3.7.2   		                                                             \\
+     scikit-learn                 & 1.3.0  		                                                               \\
+     scikit-image                 & 0.21.0  		                                                             \\
+     pytorch                      & 2.0.0			 			 	                                                       \\ 
+     pytorch-cuda                 & 11.7 	 	                                                                 \\
+     \LaTeX \space Distribution   & \TeX-Live			 			 	                                                     \\
+     \LaTeX \space Engine/Recipe  & Auto Recipe in VS-Code \LaTeX \space Extension		                       \\[1ex] 
+     \hline
+    \end{tabular}
+    \caption{Software and Hardware that were used on the second system}
+    \label{tab:system_specs}
+    \end{table}
+  % \clearpage % End the page
+}
+
+
+

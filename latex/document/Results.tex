@@ -1,12 +1,34 @@
 \chapter{Results}
 
-We took the \ac{UWF} and \ac{URWF}(Unfolded/Unrolled versions of the \ac{WF}/\ac{RWF}) while trying to improve the model by working on different scenarios 
-based the the associated parameters in the original \ac{WF} and \ac{RWF}. Let the update rule be of the form:
+First we explain the inspiration that put us on the path we took briefly and then explain the scenarios we considered. 
+Due to the time limit most of what we had in mind could not be explored so we succinctly mention them in the hope of another 
+brave soul picking up the torch and carrying on.  
+
+\section{Inspiration}
+
+The approach we took was inspired by \cite{Aberdam2020} and \cite{Gregor2010}. As stated before \ac{DU}\ac{AU}\cite{Monga2019} 
+tries to make some improvement on an existing iterative algorithm. The \emph{Dictionary Learning} was attracting so much 
+attention for some time in the \ac{DSIP} and it gave birth to the \ac{ISTA}\cite{Daubechies2003}\index{ISTA} algorithm. There were further 
+improvements on the \ac{ISTA}\cite{Daubechies2003}\index{ISTA} which led to the introduction of \ac{FISTA}\index{FISTA}. As both 
+\ac{ISTA}\cite{Daubechies2003}\index{ISTA} and \ac{FISTA}\cite{Beck2009}\index{FISTA} were both expensive for the then available hardware\cite{Gregor2010} 
+took the \ac{DU}/\ac{AU}\cite{Shechtman2015} approach which was successful and \ac{LISTA}\cite{Gregor2010}\index{LISTA} was born. 
+\ac{LISTA}\index{LISTA} tries to decrease the number of iteration required to get a satisfactory relative error by learning the 
+\emph{Soft Thresholding} operator. \emph{Soft Thresholding} operator basically acts as the step size in the usual gradient descent. 
+Due to the success of \ac{LISTA}\cite{Gregor2010}\index{LISTA}, \cite{Aberdam2020} followed its footstep(Learning Approach) and suggested 
+the \ac{Ada-LISTA}\index{Ada-LISTA} which further improved the original \ac{ISTA}\cite{Daubechies2003}\index{ISTA} algorithm.
+
+\section{Scenarios}
+
+We took the \ac{UWF}\cref{fig:uwf_training_01_02_03}, \ref{fig:uwf_training_04_05_06}, and \ref{fig:uwf_training_07_08_optuna} and 
+\ac{URWF}\cref{fig:urwf_training_01_02_03}, \ref{fig:urwf_training_04_05_06}, and \ref{fig:urwf_training_07_08_optuna}(Unfolded/Unrolled versions of the \ac{WF}\ref{pseudocode:wf}/\ac{RWF}\ref{pseudocode:rwf}) while trying to improve the model by working on different scenarios 
+based the the associated parameters in the original \ac{WF}\cite{Candes2014}\ref{pseudocode:wf} and 
+\ac{RWF}\cite{Zhang2016}\ref{pseudocode:rwf}. Let the update rule be of the form in any \ac{WF}\cite{Liu2019}\cite{Jaganathan2015} variant:
 \begin{equation*}
-  \boldsymbol{z}_{k+1} \leftarrow \boldsymbol{z}_k - \tau\boldsymbol{\theta}
+  \boldsymbol{z}_{k+1} \leftarrow \boldsymbol{z}_k - \tau\boldsymbol{\theta}\; \ref{pseudocode:wf}\;\ref{pseudocode:twf}\;\ref{pseudocode:rwf}\;\ref{pseudocode:irwf}\;\ref{pseudocode:imrwf}
 \end{equation*}
 
-where $\boldsymbol{\theta}$ is of the same size and structure as $\boldsymbol{z}$ and $\tau$ is the step size that was proposed by the respective algorithm. Assume that the algorithms are unfolded/unrolled $L$ times, then we considered the following 
+\noindent where $\boldsymbol{\theta}$ is of the same size and structure as $\boldsymbol{z}$ and $\tau$ is the step size that was 
+proposed by the respective algorithm. Assume that the algorithms are unfolded/unrolled $\mathrm{L}$ times, we considered the following 
 scenarios by substituting $\tau$ with:
 
 \begin{itemize}
@@ -16,25 +38,39 @@ scenarios by substituting $\tau$ with:
   \item Single Semi-Positive Definite Matrix $\boldsymbol{S}\in \mathbb{R}^{n\times n}$.
   \item Different Scalars $\tau_k \in \mathbb{R}$ multiply by a Single Matrix $\boldsymbol{M} \in \mathbb{R}^{n\times n}$.
   \item Different Scalars $\tau_k \in \mathbb{R}$ multiply by a Single Semi-Positive Definite Matrix $\boldsymbol{S} \in \mathbb{R}^{n\times n}$.
+  \item Different Matrices $\boldsymbol{M}_k\in \mathbb{R}^{n\times n}$.
   \item Different Semi-Positive Definite Matrices $\boldsymbol{S}_k\in \mathbb{R}^{n\times n}$.
   % \item Adjoint operator $\boldsymbol{A}_k^*$.  
 \end{itemize}
 
-We keep the hyperparameter $lr=1.000\times10^{-3}$(pseudo learning rate used in \ac{ML}/\ac{DL} optimizers\cite{Google2023}\cite{Chollet2023}\cite{LFMAI2023}\cite{Sun2019}) as it is natural in \ac{ML}/\ac{DL} settings as the starting point\cite{Google2023}\cite{Chollet2023}\cite{LFMAI2023}. 
-Results can be seen in \cref{fig:uwf_training_01_02_03}\cref{fig:uwf_training_04_05_06}\cref{fig:uwf_training_07_08_optuna} 
-for the \ac{UWF} and in \cref{fig:urwf_training_01_02_03}\cref{fig:urwf_training_04_05_06}\cref{fig:urwf_training_07_08_optuna} 
-for the \ac{URWF}. While the results look good it is still space for improvement using using \ac{HP}\cite{Hutter2019}. There are quite 
-a number of packages that can be used for \ac{HP} and we took the decision to go with Optuna\cite{Akiba2019}. Our reasons for using Optuna\cite{Akiba2019} include but not limited to:
+\noindent It is worth emphasizing that while from the parameter space point of view alone some scenarios are contained in others we explore them separately. 
+The reasons include:
+\begin{itemize}
+  \item not to burn too many \ac{FLOPS}\cite{Hager2010}\cite{Hennessy2019} needlessly.
+  \item not to confuse the optimizers unintentionally by introducing too many parameters\cite{Sun2019}.
+  \item not to overparameterize and in turn overfitting\cite{Bishop2006}\cite{Goodfellow2016}\cite{ShalevShwartz2014}.
+  \item to come up with a \emph{micro model}, which is one of the central ideas behind \ac{DU}/\ac{AU}\cite{Shechtman2015}, and not a full blown general \ac{ML}/\ac{DL} model.
+\end{itemize}
+
+We keep the hyperparameter $\mathrm{lr}=1.000\times10^{-3}$(pseudo learning rate used in \ac{ML}/\ac{DL} 
+optimizers\cite{Abadi2016}\cite{Chollet2023}\cite{Paszke2019}\cite{Sun2019}) as it is natural in \ac{ML}/\ac{DL} 
+settings as the starting point\cite{Abadi2016}\cite{Chollet2023}\cite{Paszke2019}. Results can be seen in 
+\cref{fig:uwf_training_01_02_03}, \ref{fig:uwf_training_04_05_06}, and \ref{fig:uwf_training_07_08_optuna} for the 
+\ac{UWF} and in \cref{fig:urwf_training_01_02_03}, \ref{fig:urwf_training_04_05_06}, and \ref{fig:urwf_training_07_08_optuna} 
+for the \ac{URWF}. While the results look good, there is still room for improvement using \ac{HP}\cite{Hutter2019}\cite{Akiba2019}. 
+There are quite a number of packages that can be used for \ac{HP}\cite{Hutter2019} and we took the decision to go with 
+\optuna\cite{Akiba2019}\index{\optuna}. Our reasons for using the \optuna\cite{Akiba2019}\index{\optuna} include but not limited to:
 \begin{itemize}
   \item Use of the latest technics in \ac{HP}\cite{Hutter2019}\cite{Akiba2019}.
   \item It is quite lightweight.
   \item Describing the parameter space is both easy and flexible.
+  \item Pruning capabilities for not-so-optimistic scenarios.
   \item Distributed computing can be done using up to 6 computational nodes.
-  \item Usage of \ac{RDBMS} for safekeeping(in case of crash or just rebooting) and handling of dead-locks associated with the distributed computing.
+  \item Usage of \ac{RDBMS} for bookkeeping, safekeeping(in case of crash or just rebooting) and handling of dead-locks associated with the distributed computing.
   \item nice dashboard for better visualization and interpretation of the results.  
 \end{itemize}
-After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final proposed best scenario for the \ac{UWF} in 
-\cref{fig:uwf_training_07_08_optuna} and the \ac{URWF} in \cref{fig:urwf_training_07_08_optuna}.
+After \ac{HP}\cite{Hutter2019}\cite{Akiba2019} while focusing on scenarios and $\mathrm{lr}$ we arrive at the final proposed best scenario for the \ac{UWF} in 
+\cref{fig:uwf_training_07_08_optuna} and for the \ac{URWF} in \cref{fig:urwf_training_07_08_optuna}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Training UWF Without Hyperparameter Optimization %%%%%%
@@ -42,10 +78,10 @@ After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final propos
 \afterpage{%
 %   \clearpage % Start a new page
 \begin{figure}[!htbp]
-  \subfloat[Single Scalar$(\tau)$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_00_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Different Scalars$(\tau_k)$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_01_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Single Matrix$(\boldsymbol{M})$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_02_l_160_e_50_lr_0.001.tex}}\\  
-  \caption{Training the \ac{UWF} Algorithm in different Scenarios Without Optuna\cite{Akiba2019}}
+  \subfloat[Single Scalar$(\tau)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_00_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Different Scalars$(\tau_k)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_01_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Single Matrix$(\boldsymbol{M})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_02_l_160_e_50_lr_0.001.tex}}\\  
+  \caption{\ac{UWF}\index{UWF} Training in Different Scenarios Without \optuna\cite{Akiba2019}}
   \label{fig:uwf_training_01_02_03}
   \end{figure}
 %   \clearpage % End the page
@@ -53,10 +89,10 @@ After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final propos
 \afterpage{%
 %   \clearpage % Start a new page
 \begin{figure}[!htbp]
-  \subfloat[Single Semi-Positive Definite Matrix$(\boldsymbol{S})$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_03_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_04_l_160_e_50_lr_0.001.tex}}\\
-  \subfloat[Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_05_l_160_e_50_lr_0.001.tex}}\\
-  \caption{Training the \ac{UWF} Algorithm in different Scenarios Without Optuna\cite{Akiba2019}}
+  \subfloat[Single Semi-Positive Definite Matrix$(\boldsymbol{S})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_03_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Different Scalars Multiplied by a Single Matrix$(\tau_k\boldsymbol{M})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_04_l_160_e_50_lr_0.001.tex}}\\
+  \subfloat[Different Scalars Multiplied a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_05_l_160_e_50_lr_0.001.tex}}\\
+  \caption{\ac{UWF}\index{UWF} Training in Different Scenarios Without \optuna\cite{Akiba2019}}
   \label{fig:uwf_training_04_05_06}
   \end{figure}
 %   \clearpage % End the page
@@ -65,10 +101,10 @@ After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final propos
 \afterpage{%
 %   \clearpage % Start a new page
 \begin{figure}[!htbp]
-  \subfloat[Different Matrices$(\boldsymbol{M}_k)$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_06_l_160_e_50_lr_0.001.tex}}\\  
-  \subfloat[Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$, $lr=1.000\times10^{-3}$]{\input{./tikz/wf/wf_s_07_l_160_e_50_lr_0.001.tex}}\\  
-  \subfloat[Proposed Scenario Using Optuna\cite{Akiba2019}: Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$, $lr=8.798\times10^{-3}$]{\input{./tikz/wf/optuna.tex}}\\  
-  \caption{Training the \ac{UWF} Algorithm in different Scenarios With and Without Optuna\cite{Akiba2019}}
+  \subfloat[Different Matrices$(\boldsymbol{M}_k)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_06_l_160_e_50_lr_0.001.tex}}\\  
+  \subfloat[Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/wf_s_07_l_160_e_50_lr_0.001.tex}}\\  
+  \subfloat[Proposed Scenario Using Optuna\cite{Akiba2019}: Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$, $\mathrm{lr}=8.798\times10^{-3}, \,\mathrm{L}=160$]{\input{./tikz/wf/optuna.tex}}\\  
+  \caption{\ac{UWF}\index{UWF} Training in Different Scenarios With and Without \optuna\cite{Akiba2019}}
   \label{fig:uwf_training_07_08_optuna}
   \end{figure}
 %   \clearpage % End the page
@@ -79,10 +115,10 @@ After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final propos
 \afterpage{%
 %   \clearpage % Start a new page
 \begin{figure}[!htbp]
-  \subfloat[Single Scalar$(\tau)$]{\input{./tikz/rwf/rwf_s_00_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Different Scalars$(\tau_k)$]{\input{./tikz/rwf/rwf_s_01_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Single Matrix$(\boldsymbol{M})$]{\input{./tikz/rwf/rwf_s_02_l_30_e_50_lr_0.001.tex}}\\  
-  \caption{Training the \ac{URWF} Algorithm in different Scenarios Without Optuna\cite{Akiba2019}}
+  \subfloat[Single Scalar$(\tau)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_00_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Different Scalars$(\tau_k)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_01_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Single Matrix$(\boldsymbol{M})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_02_l_30_e_50_lr_0.001.tex}}\\  
+  \caption{\ac{URWF}\index{URWF} Training in Different Scenarios Without \optuna\cite{Akiba2019}}
   \label{fig:urwf_training_01_02_03}
   \end{figure}
 %   \clearpage % End the page
@@ -90,10 +126,10 @@ After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final propos
 \afterpage{%
 %   \clearpage % Start a new page
 \begin{figure}[!htbp]
-  \subfloat[Single Semi-Positive Definite Matrix$(\boldsymbol{S})$]{\input{./tikz/rwf/rwf_s_03_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$]{\input{./tikz/rwf/rwf_s_04_l_30_e_50_lr_0.001.tex}}\\
-  \subfloat[Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$]{\input{./tikz/rwf/rwf_s_05_l_30_e_50_lr_0.001.tex}}\\
-  \caption{Training the \ac{URWF} Algorithm in different Scenarios Without Optuna\cite{Akiba2019}}
+  \subfloat[Single Semi-Positive Definite Matrix$(\boldsymbol{S})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_03_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Different Scalars Multiplied by a Single Matrix$(\tau_k\boldsymbol{M})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_04_l_30_e_50_lr_0.001.tex}}\\
+  \subfloat[Different Scalars Multiplied a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_05_l_30_e_50_lr_0.001.tex}}\\
+  \caption{\ac{URWF}\index{URWF} Training in Different Scenarios Without \optuna\cite{Akiba2019}}
   \label{fig:urwf_training_04_05_06}
   \end{figure}
 %   \clearpage % End the page
@@ -101,10 +137,10 @@ After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final propos
 \afterpage{%
 %   \clearpage % Start a new page
 \begin{figure}[!htbp]
-  \subfloat[Different Matrices$(\boldsymbol{M}_k)$]{\input{./tikz/rwf/rwf_s_06_l_30_e_50_lr_0.001.tex}}\\  
-  \subfloat[Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$]{\input{./tikz/rwf/rwf_s_07_l_30_e_50_lr_0.001.tex}}\\  
-  \subfloat[Proposed Scenario Using Optuna\cite{Akiba2019}: Different Scalars Plus a Single Semi-Positive Definite Matrix$(\tau_k\boldsymbol{S})$, $lr=7.622\times10^{-3}$]{\input{./tikz/rwf/optuna.tex}}\\  
-  \caption{Training the \ac{URWF} Algorithm in different Scenarios With and Without Optuna\cite{Akiba2019}}
+  \subfloat[Different Matrices$(\boldsymbol{M}_k)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_06_l_30_e_50_lr_0.001.tex}}\\  
+  \subfloat[Different Semi-Positive Definite Matrices$(\boldsymbol{S}_k)$, $\mathrm{lr}=1.000\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/rwf_s_07_l_30_e_50_lr_0.001.tex}}\\  
+  \subfloat[Proposed Scenario Using Optuna\cite{Akiba2019}: Different Scalars Plus a Single Matrix$(\tau_k\boldsymbol{M})$, $\mathrm{lr}=7.622\times10^{-3}, \,\mathrm{L}=30$]{\input{./tikz/rwf/optuna.tex}}\\  
+  \caption{\ac{URWF}\index{URWF} Training in Different Scenarios With and Without \optuna\cite{Akiba2019}}
   \label{fig:urwf_training_07_08_optuna}
   \end{figure}
 %   \clearpage % End the page
@@ -115,29 +151,36 @@ After \ac{HP} while focusing on scenarios and $lr$ we arrive at the final propos
 
 \section*{Ideas for Future Work}
 
-I can think of a couple of directions to go on from here and I would like to express them.
+We can think of a couple of directions to go on from here and we would like to propose them for future works that can be done within the scope of 
+the current work.
 
 \subsection*{Different Variants/Different Applications}
 
-There are many \ac{WF} variants out there and we can expect more to appear in the future. Currently \cite{Liu2019}\cite{Jaganathan2015} 
-give an overview of \ac{WF} variants and you might want to start from there for \ac{DU}/\ac{AU} on those variants. I for one would 
-love to see the result of fine tuning a \ac{DU}/\ac{AU} version of a \ac{WF} variant for a specific real world problem like\cite{Fogel2013}. 
+There are many \ac{WF}\cite{Jaganathan2015}\cite{Liu2019} variants out there and we can expect more to appear in the future. 
+Currently \cite{Jaganathan2015}\cite{Liu2019}\cite{Chandra2017} give an overview of \ac{WF} variants and you might want to start from there for 
+\ac{DU}/\ac{AU}\cite{Monga2019} on those variants. I for one would love to see the result of fine tuned 
+\ac{DU}/\ac{AU}\cite{Monga2019} version of a \ac{WF} variant for a specific real world problem like\cite{Fogel2013}. 
 
 \subsection*{Data}
 
-Having parsimonious data representation\cite{Foucart2013} and data with noise are worth looking into.
+Having parsimonious\index{parsimonious} data representation\cite{Foucart2013} and data with noise are worth looking into.
 
 \subsection*{Different Scenarios}
 
-Depending on the function we are trying to minimize and the iterative \ac{WF} variant algorithm we are unfolding/unrolling 
-it is possible to investigate other scenarios for parameter learning too. Possible candidate are but not limited to:
+Depending on the function we are trying to minimize and the iterative \ac{WF}\cite{Jaganathan2015}\cite{Liu2019} variant algorithm we are unfolding/unrolling 
+it is possible to investigate other scenarios for parameter learning too. Possible candidates are but not limited to:
 
 \begin{itemize}
-  \item conjugate operator $\boldsymbol{A}^*$,
+  \item Adjoint operator $\boldsymbol{A}^*$,
   % \item weights of the measurements $c_j$,
   \item Giving weights to the sampling operation by $\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X^2 \rightarrow \left|c_j \odot \left(\phi(\boldsymbol{A}_j\psi)-G_j\right)\right|_X^2$ and optimizing the $c_j$s.
   \item Regularizer's weight $\lambda$.
 \end{itemize}
+
+
+
+
+
 
 
 

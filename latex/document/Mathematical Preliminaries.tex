@@ -1,6 +1,35 @@
 \chapter{Mathematical Preliminaries}
 
 
+\section{Fourier Analysis}
+
+\begin{Thm}\label{theorem:euler formula}
+    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ with the usual field operations associated with the 
+	complex field. Then:
+	\begin{equation*}
+		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}
+	\end{equation*}
+	\end{Thm}
+	\begin{Proof}
+		For the first part expanding the $\exp$ function and separating the so-called Real and Imaginary part and convergence arguments 
+	on infinite series would confirm the claim\cite{Rudin1976}\cite{Rudin1987}\cite{Stein2005}\cite{Stein2003}. For the second part 
+	convergence of multiplication of infinite series is needed and the rest is like the first part \cite{Rudin1976}\cite{Rudin1987}\cite{Stein2005}\cite{Stein2003}. 
+	\end{Proof}
+	\begin{Cor}
+		Let $a$,$b$,$\theta$ $\in \mathbb{R}$ and $\sin$,$\cos$ the usual trigonometric sin and cos functions then:
+		\begin{equation*}
+			a\sin \theta+b\cos \theta  = \sqrt{a^2+b^2}\sin(\theta + \varphi)
+		\end{equation*}
+		such that:
+		\begin{equation*}
+			\sin\varphi=b, \qquad \cos\varphi = a
+		\end{equation*}
+		\end{Cor}
+	\begin{Proof}
+		Use \cref{theorem:euler formula}.
+	\end{Proof}
+
+
 \begin{Def}\label{def:1ddft}
     \emph{$1$D Discrete Fourier Transform}\\
     The \emph{$1$D Discrete Fourier Transform} of the $1$D array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
@@ -182,8 +211,30 @@ Fast Fourier Transform \cite{Cooley1965} \cite{Good1960} \cite{Frazier1999} \cit
 \end{Proof}
 
 
+\section{Probability Theory}
 
 
+\begin{Thm}\label{theorem:expectation_multiplication}
+	Let $X$ and $Y$ be independent discrete random variables. We would be having:
+	\begin{equation*}
+		E(XY) = E(X)(Y)
+	\end{equation*}
+\end{Thm}
+\begin{Proof}
+Consult a book on discrete probability on any other undergraduate level book on probability theory like \cite{Chung2003} or \cite{DasGupta2011}
+\end{Proof}
+
+\begin{Thm}\label{theorem:expectation_general}
+	Let $X$ and $Y$ be independent discrete random variables. For functions of our random variables we would be having:
+	\begin{equation*}
+		E(f(XY)) = \sum_{x}^{}\sum_{y}^{}f(x,y)P(x)P(Y)
+	\end{equation*}
+\end{Thm}
+\begin{Proof}
+	Consult a book on discrete probability on any other undergraduate level book on probability theory like \cite{DasGupta2011}.
+	The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
+	you will arrive at the conclusion.
+	\end{Proof}
 
 
 
