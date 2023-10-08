@@ -9,7 +9,7 @@
 \usepackage{acro}
 % \usepackage{minted}
 \usepackage{imakeidx}
-\makeindex[columns=3, title=Alphabetical Index, intoc]
+\makeindex[columns=3, title=Index, intoc]
 \usepackage{rotating}
 \usepackage[american]{babel}
 \usepackage{adjustbox}
@@ -27,6 +27,9 @@
 % \usepackage{xltxtra}  
 \usepackage{multirow}
 \usepackage{algorithm2e}
+\crefname{algocf}{Algorithm}{Algorithm}
+% {\usepackage[capitalise,noabbrev,ngerman]{cleveref}}
+% {\usepackage[capitalise,noabbrev]{cleveref}}
 \usepackage{nicefrac}
 \usepackage{afterpage}
 \usepackage{graphicx}
@@ -189,17 +192,16 @@
 % \makeindex
 
 \includeonly{
-             frontmatter,
-             dedication,
-             abstract,
-             acknowledgements,
+            %  frontmatter,
+            %  dedication,
+            %  abstract,
+            %  acknowledgements,
             %  symbols,
             %  Mathematical Preliminaries,
             %  Introduction,
             %  Deep Unfolding of Wirtinger Flow,
-            %  Deep Unfolding,
-            %  Unfolded Wirtinger Flows,
-            %  Results,
+             Results,
+             Conclusion,
              }
 
 \input{acro.tex}
@@ -226,10 +228,8 @@
 \include{Mathematical Preliminaries}  
 \include{Introduction}
 \include{Deep Unfolding of Wirtinger Flow} 
-% \include{Deep Unfolding}
-\include{Unfolded Wirtinger Flows}   
 \include{Results}
-% \include{Images and Plots} 
+\include{Conclusion}
 \nocite{*}
 \backmatter
 \printindex

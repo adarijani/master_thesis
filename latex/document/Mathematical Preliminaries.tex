@@ -1,13 +1,38 @@
 \chapter{Mathematical Preliminaries}
+\section{Basic Analysis}
+\begin{Prop}
+    For complex valued vectors $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^n$ the following is a proper scalar product\index{scalar product}
+    \begin{equation*}
+        \boldsymbol{x} = \left\{x_i\right\}_{i=1,\ldots,n-1}, \quad \boldsymbol{y} = \left\{y_i\right\}_{i=1,\ldots,n-1}
+    \end{equation*}
+    \begin{equation*}
+        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=0}^{n-1} x_i \overline{y_i} 
+    \end{equation*}
+\end{Prop}
+\begin{Proof}
+    You can consult \cite{Frazier1999}\cite{Horn2012} \cite{Hackbusch2019}.
+\end{Proof}
+\begin{Prop}
+    For complex valued second order tensors $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{m \times n}$ the following is a proper scalar product\index{scalar product}
+    \begin{equation*}
+        \boldsymbol{X} = \left\{X_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}, \quad \boldsymbol{Y} = \left\{Y_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}
+    \end{equation*}
+    \begin{equation*}
+        \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=0}^{n-1}\sum_{i=0}^{m-1} X_{i,j} \overline{Y_{i,j}} 
+    \end{equation*}
+\end{Prop}
 
+Which is also called the Frobenius scalar product\index{scalar product!Frobenius}, the Schur scalar product\index{scalar product!Schur} or 
+the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 
-\section{Fourier Analysis}
-
-\begin{Thm}\label{theorem:euler formula}
+\begin{Proof}
+    You can consult \cite{Frazier1999} or \cite{Horn2012} \cite{Hackbusch2019}
+\end{Proof}
+\begin{Thm}\label{theorem:euler_formula}
     Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ with the usual field operations associated with the 
 	complex field. Then:
 	\begin{equation*}
-		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}
+		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}\index{Euler formula}\index{Function!$\exp$}\index{Function!$\sin$}\index{Function!$\cos$}
 	\end{equation*}
 	\end{Thm}
 	\begin{Proof}
@@ -16,7 +41,7 @@
 	convergence of multiplication of infinite series is needed and the rest is like the first part \cite{Rudin1976}\cite{Rudin1987}\cite{Stein2005}\cite{Stein2003}. 
 	\end{Proof}
 	\begin{Cor}
-		Let $a$,$b$,$\theta$ $\in \mathbb{R}$ and $\sin$,$\cos$ the usual trigonometric sin and cos functions then:
+		Let $a$, $b$, $\theta$, and $\varphi$ $\in \mathbb{R}$ and $\sin$, $\cos$ the usual trigonometric functions derived from the $\exp$ function, then:
 		\begin{equation*}
 			a\sin \theta+b\cos \theta  = \sqrt{a^2+b^2}\sin(\theta + \varphi)
 		\end{equation*}
@@ -26,46 +51,29 @@
 		\end{equation*}
 		\end{Cor}
 	\begin{Proof}
-		Use \cref{theorem:euler formula}.
+		Use \cref{theorem:euler_formula}.
 	\end{Proof}
 
+\section{Discrete Fourier Transform}
+\ac{FT} and its discrete counterparts will play an important role in one of our examples and here we give a fast refresher on the basic properties of \ac{DFT} and \ac{IDFT}.
 
 \begin{Def}\label{def:1ddft}
-    \emph{$1$D Discrete Fourier Transform}\\
-    The \emph{$1$D Discrete Fourier Transform} of the $1$D array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
+    \emph{$1$-$d$ \ac{DFT}}\\
+    The \emph{$1$-$d$ \ac{DFT}} of the $1$-$d$ array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
     $\hat {\boldsymbol{X}} \in \mathbb{C}^{N}$ and is defined by
     \begin{equation}\label{eq:1ddft}
-        \{\hat {\boldsymbol{X}}\}_{k} \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n}\exp\left({\frac{-2\pi ink}{N}}\right)
+        \{\hat {\boldsymbol{X}}\}_{k} \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n}\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}
     \end{equation}
-    and to get back the original array one can use the inversion formula
+    and to get back the original array one can use the \ac{IDFT} 
     \begin{equation}\label{eq:1didft}
-        \{{\boldsymbol{X}}\}_{n} \coloneqq \sum_{k=0}^{N-1}\{\hat {\boldsymbol{X}}\}_{k}\exp\left({\frac{2\pi ink}{N}}\right)
+        \{{\boldsymbol{X}}\}_{n} \coloneqq \sum_{k=0}^{N-1}\{\hat {\boldsymbol{X}}\}_{k}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}
     \end{equation}    
 \end{Def}
 
-As it is evident from the formula the $1$D Discrete Fourier Transform is a linear transformation therefor 
-there a corresponding matrix and basis vectors. The matrix is dense matrix and due to computational efficiency 
-is almost never computed directly, however taking a closer look at the basis vectors would shed some light on 
-the nature of the said transform and is a time well spent.
-
-\begin{Prop}
-    For complex valued vectors $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^n$ the following is a proper scalar product
-    \begin{equation*}
-        \boldsymbol{x} = \left\{x_i\right\}_{i=1,\ldots,n-1}, \quad \boldsymbol{y} = \left\{y_i\right\}_{i=1,\ldots,n-1}
-    \end{equation*}
-    \begin{equation*}
-        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=0}^{n-1} x_i \overline{y_i} 
-    \end{equation*}
-\end{Prop}
-
-\begin{Proof}
-    You can consult \cite{Frazier1999} or \cite{Horn2012} \cite{Hackbusch2019}.
-\end{Proof}
-
-
-
-
-
+As it is evident from the formula the $1$-$d$ \ac{DFT} is a linear transformation therefore there a corresponding matrix 
+and a set of basis vectors. The matrix is a dense matrix\cite{Frazier1999}\cite{Cormen2022} and due to computational 
+efficiency\cite{Frazier1999}\cite{Cormen2022} is almost never computed directly, however taking a closer look at the 
+basis vectors would shed some light on the nature of the said transform and is a time well spent.
 
 \begin{Prop}\label{Prop:1ddftbasisvectors}
     The basis vectors
@@ -99,10 +107,10 @@ the nature of the said transform and is a time well spent.
 
 
 \begin{Rem}
-    Showing the Fourier transform by a matrix \cite{Frazier1999} \cite{Bredies2018} \cite{Damelin2011}.
-    Let $W_N$ be the matrix with $\left\{W_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$ 
+    As stated before it is possible to represent the \ac{DFT} with a matrix\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011}. 
+    Let $\boldsymbol{W}_N$ be the matrix with $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$ 
     \begin{equation*}
-        W_N \coloneqq 
+        \boldsymbol{W}_N \coloneqq 
         \begin{bmatrix}
             1     & 1                & 1                   & 1                   & \cdots & 1                      \\
             1     & \omega_{N}^{}    & \omega_{N}^{2}      & \omega_{N}^{3}      & \cdots & \omega_{N}^{N-1}       \\
@@ -113,7 +121,11 @@ the nature of the said transform and is a time well spent.
             1     & \omega_{N}^{N-1} & \omega_{N}^{2(N-1)} & \omega_{N}^{3(N-1)} & \cdots & \omega_{N}^{(N-1)(N-1)}
             \end{bmatrix}
     \end{equation*}
-    where $\omega_N = e^{-2\pi i/N}$ then $e^{-2\pi i/N} = \omega_N^{mn}$
+    where $\omega_N = e^{-2\pi i/N}$ then $e^{-2\pi imn/N} = \omega_N^{mn}$. Considering $\boldsymbol{X}$ 
+    and $\hat {\boldsymbol{X}}$ as column vectors we can rewrite the $1$-$d$ \ac{DFT} as:
+    \begin{equation*}
+        \hat {\boldsymbol{X}} \coloneqq \frac{1}{N}\boldsymbol{W}_N\boldsymbol{X}
+    \end{equation*}
 \end{Rem}
 
 
@@ -124,8 +136,8 @@ the nature of the said transform and is a time well spent.
 
 
 \begin{Def}\label{def:2ddft}
-    \emph{$2$D Discrete Fourier Transform}\\
-    The \emph{$2$D Discrete Fourier Transform} of the $2$D array $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
+    \emph{$2$-$d$ \ac{DFT}}\\
+    The \emph{$2$-$d$ \ac{DFT}} of the $2$-$d$ array $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
     $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by
     \begin{equation}\label{eq:2ddft}
         \{\hat {\boldsymbol{X}}\}_{k,l} \coloneqq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
@@ -143,22 +155,7 @@ the nature of the said transform and is a time well spent.
 
 
 
-\begin{Prop}
-    For complex valued second order tensors $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{m \times n}$ the following is a proper scalar product
-    \begin{equation*}
-        \boldsymbol{X} = \left\{X_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}, \quad \boldsymbol{Y} = \left\{Y_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}
-    \end{equation*}
-    \begin{equation*}
-        \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=0}^{n-1}\sum_{i=0}^{m-1} X_{i,j} \overline{Y_{i,j}} 
-    \end{equation*}
-\end{Prop}
 
-Which is also called the Frobenius scalar product\index{scalar product!Frobenius} or the Schur scalar product\index{scalar product!Schur} or 
-Hilbert-Schmidt scalar\index{scalar product!Hilbert-Schmidt}.\index{scalar product|textbf}
-
-\begin{Proof}
-    You can consult \cite{Frazier1999} or \cite{Horn2012} \cite{Hackbusch2019}
-\end{Proof}
 
 \begin{Prop}\label{Prop:2ddftbasisvectors}
     The basis vectors
@@ -211,30 +208,42 @@ Fast Fourier Transform \cite{Cooley1965} \cite{Good1960} \cite{Frazier1999} \cit
 \end{Proof}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Probability Theory}
-
-
-\begin{Thm}\label{theorem:expectation_multiplication}
-	Let $X$ and $Y$ be independent discrete random variables. We would be having:
-	\begin{equation*}
-		E(XY) = E(X)(Y)
-	\end{equation*}
-\end{Thm}
-\begin{Proof}
-Consult a book on discrete probability on any other undergraduate level book on probability theory like \cite{Chung2003} or \cite{DasGupta2011}
-\end{Proof}
-
 \begin{Thm}\label{theorem:expectation_general}
-	Let $X$ and $Y$ be independent discrete random variables. For functions of our random variables we would be having:
+    Let $X$ and $Y$ be independent discrete random variables. For functions of our random variables we would be having:
 	\begin{equation*}
 		E(f(XY)) = \sum_{x}^{}\sum_{y}^{}f(x,y)P(x)P(Y)
 	\end{equation*}
 \end{Thm}
 \begin{Proof}
-	Consult a book on discrete probability on any other undergraduate level book on probability theory like \cite{DasGupta2011}.
-	The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
-	you will arrive at the conclusion.
-	\end{Proof}
+    Consult a book on discrete probability on any other undergraduate level book on probability theory like \cite{DasGupta2011}.
+    The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
+    you will arrive at the conclusion.
+\end{Proof}
+\begin{Cor}\label{theorem:expectation_multiplication}
+	Let $X$ and $Y$ be independent discrete random variables. We would be having:
+	\begin{equation*}
+		E(XY) = E(X)(Y)
+	\end{equation*}
+\end{Cor}
+\begin{Proof}
+Use \cref{theorem:expectation_general}.
+\end{Proof}
+
 
 
 

@@ -1,30 +1,69 @@
 \chapter{Results}
 
-First we explain the inspiration that put us on the path we took briefly and then explain the scenarios we considered. 
-Due to the time limit most of what we had in mind could not be explored so we succinctly mention them in the hope of another 
-brave soul picking up the torch and carrying on.  
+First we explain the inspiration that put us on the path we took briefly and then explain the scenarios were considered. 
+Due to the time limit most of what we had in mind could not be explored so we succinctly touch upon them in the hope of another 
+brave soul picking up the torch and seeing them through.  
 
 \section{Inspiration}
 
-The approach we took was inspired by \cite{Aberdam2020} and \cite{Gregor2010}. As stated before \ac{DU}\ac{AU}\cite{Monga2019} 
-tries to make some improvement on an existing iterative algorithm. The \emph{Dictionary Learning} was attracting so much 
-attention for some time in the \ac{DSIP} and it gave birth to the \ac{ISTA}\cite{Daubechies2003}\index{ISTA} algorithm. There were further 
-improvements on the \ac{ISTA}\cite{Daubechies2003}\index{ISTA} which led to the introduction of \ac{FISTA}\index{FISTA}. As both 
-\ac{ISTA}\cite{Daubechies2003}\index{ISTA} and \ac{FISTA}\cite{Beck2009}\index{FISTA} were both expensive for the then available hardware\cite{Gregor2010} 
-took the \ac{DU}/\ac{AU}\cite{Shechtman2015} approach which was successful and \ac{LISTA}\cite{Gregor2010}\index{LISTA} was born. 
-\ac{LISTA}\index{LISTA} tries to decrease the number of iteration required to get a satisfactory relative error by learning the 
-\emph{Soft Thresholding} operator. \emph{Soft Thresholding} operator basically acts as the step size in the usual gradient descent. 
-Due to the success of \ac{LISTA}\cite{Gregor2010}\index{LISTA}, \cite{Aberdam2020} followed its footstep(Learning Approach) and suggested 
-the \ac{Ada-LISTA}\index{Ada-LISTA} which further improved the original \ac{ISTA}\cite{Daubechies2003}\index{ISTA} algorithm.
+The approach we took was inspired by \cite{Gregor2010} as it is possibly the earliest successful attempt at unfolding/unrolling 
+an iterative algorithm. The algorithm it unrolled is named \ac{ISTA}\cite{Daubechies2003} and was devised to solve \ac{SDL} 
+problem which is an \emph{inverse problem} in \emph{Computational Imaging}.
+
+\subsection{Sparse Dictionary Learning}
+
+Let $\boldsymbol{y} \in \mathbb{R}^m$ and $\boldsymbol{W} \in \mathbb{R}^{m \times n}$($n > m$, overdetermined/overcompleted system/dictionary)
+the \ac{SDL} problem is to find a sparse $\boldsymbol{x} \in \mathbb{R}^n$ in a way that satisfies $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$ or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$.
+The \ac{LASSO}\cite{Hastie2009} formulation of the problem will be:
+\begin{equation*}
+  \min_{\boldsymbol{x}} \frac{1}{2} \left|\left|\boldsymbol{y}-\boldsymbol{W}\boldsymbol{x}\right|\right|_2^2 + \lambda \left|\left|\boldsymbol{x}\right|\right|_1
+\end{equation*}
+where the $\left|\left|\boldsymbol{.}\right|\right|_1$ and $\left|\left|\boldsymbol{.}\right|\right|_2$ are the usual one norm\cite{Alt2016} and two norm\cite{alt} in the Euclidean space, and $\lambda$ is the amount of regularization\cite{Hastie2009}. 
+The \ac{ISTA}\cite{Daubechies2003} solves the \ac{LASSO} formulation by an iterative algorithm of the form:
+\begin{equation*}
+  \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\left(\mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}\right)\boldsymbol{x}_k+\frac{1}{\mu}\boldsymbol{W}^T\left(\boldsymbol{y}\right)\right)
+\end{equation*}
+Where $\mathcal{S}_\lambda$ is the elementwise soft thresholding operator given by:
+\begin{equation*}
+  \mathcal{S}_\lambda = \mathrm{sign}(\boldsymbol{z}) \boldsymbol{.} \max \left\{\left|\boldsymbol{z}\right|-\lambda,\boldsymbol{0}\right\}
+\end{equation*}
+where $\mathcal{I}$ is the second-order identity tensor, $\left|\boldsymbol{.}\right|$ the elementwise usual absolute value, 
+$\mathrm{sign}(\boldsymbol{.})$ the elementwise usual $\mathrm{sign}$ function, and $\mu$ the largest eigenvalue 
+ of $\boldsymbol{W}^T\boldsymbol{W}$ respectively.
+Let $\boldsymbol{W}_t \coloneqq \mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}$ and 
+$\boldsymbol{W}_e \coloneqq \frac{1}{\mu}\boldsymbol{W}_e\boldsymbol{y}$ to abstract away the details and have the iterative algorithm 
+as:
+\begin{equation*}
+  \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\boldsymbol{W}_t\boldsymbol{x}_{k}+\boldsymbol{W}_e\boldsymbol{y}\right)
+\end{equation*}
+which can be considered as a layer of a network. Stacking the layers $\mathrm{L}$ times would give the unfolded/unrolled version.
+
+\subsection{LISTA and Ada-LISTA}
+
+Quite naturally \cite{Gregor2010} went for training $\boldsymbol{W}_t$ and $\boldsymbol{W}_e$ to get some improvements 
+from the original \ac{ISTA} algorithm. What maybe was not so natural was that they replaced single $\lambda$ with a vector of $\lambda$s. 
+They reported having comparable errors to that of $20\mathrm{L}$ in the accelerated version of \ac{ISTA}(\ac{FISTA})
+when $\mathrm{L}$ is not too large. They got some other benefits in the rate of convergence too \cite{Daubechies2003}\cite{Beck2009}\cite{Gregor2010}. 
+
 
 \section{Scenarios}
 
-We took the \ac{UWF}\cref{fig:uwf_training_01_02_03}, \ref{fig:uwf_training_04_05_06}, and \ref{fig:uwf_training_07_08_optuna} and 
-\ac{URWF}\cref{fig:urwf_training_01_02_03}, \ref{fig:urwf_training_04_05_06}, and \ref{fig:urwf_training_07_08_optuna}(Unfolded/Unrolled versions of the \ac{WF}\ref{pseudocode:wf}/\ac{RWF}\ref{pseudocode:rwf}) while trying to improve the model by working on different scenarios 
-based the the associated parameters in the original \ac{WF}\cite{Candes2014}\ref{pseudocode:wf} and 
-\ac{RWF}\cite{Zhang2016}\ref{pseudocode:rwf}. Let the update rule be of the form in any \ac{WF}\cite{Liu2019}\cite{Jaganathan2015} variant:
+We took the \ac{WF} algorithm\ref{pseudocode:wf} and the \ac{RWF}\ref{pseudocode:rwf} algorithm and unfolded/unrolled them $L$ times($160$ times for the \ac{WF} 
+and $30$ times for the \ac{RWF}) to arrive at the \ac{UWF} and the \ac{URWF} which are basically just some \ac{NN} 
+with some special architecture. As it is evident from earlier examples \cref{image:wf_vs_rwf}, \ref{image:wf_vs_twf}, 
+and \ref{image:twf_vs_rwf} and their corresponding plots in \cref{fig:cdp_wf_twf_rwf} the relative error of $10^{-4}$ 
+makes at least natural images quite indistinguishable when compared to the original image to the naked eye. The 
+$\mathrm{L}=160$ and $\mathrm{L}=30$ are chosen with that incentive in mind. If by unfolding/unrolling we can make 
+the relative error some orders of magnitude smaller then the reconstructed images will become totally 
+indistinguishable from the original image. Relative error is not the only factor in image quality as it is clear 
+from \cref{image:twf_vs_rwf}. The reconstructed image using \ac{RWF} has lower relative error than the 
+reconstructed image using the \ac{TWF} after initialization but clearly the \ac{TWF} did a better job than the 
+\ac{RWF} at construction which further corroborates the phase importance \cite{Oppenheim1979}\cite{Oppenheim1981}\cite{Shechtman2015}. 
+On the shoulders of giants\cite{Gregor2010} we try to get the said couple of orders of magnitude reduction in the relative error by 
+tinkering with then step size\cite{Gregor2010}. Let the update rule in any 
+\ac{WF}\cite{Liu2019}\cite{Jaganathan2015} variant \cref{pseudocode:wf}, \ref{pseudocode:twf}, \ref{pseudocode:rwf}, \ref{pseudocode:irwf}, and \ref{pseudocode:imrwf} be of the form:
 \begin{equation*}
-  \boldsymbol{z}_{k+1} \leftarrow \boldsymbol{z}_k - \tau\boldsymbol{\theta}\; \ref{pseudocode:wf}\;\ref{pseudocode:twf}\;\ref{pseudocode:rwf}\;\ref{pseudocode:irwf}\;\ref{pseudocode:imrwf}
+  \boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]
 \end{equation*}
 
 \noindent where $\boldsymbol{\theta}$ is of the same size and structure as $\boldsymbol{z}$ and $\tau$ is the step size that was 
@@ -163,7 +202,9 @@ Currently \cite{Jaganathan2015}\cite{Liu2019}\cite{Chandra2017} give an overview
 
 \subsection*{Data}
 
-Having parsimonious\index{parsimonious} data representation\cite{Foucart2013} and data with noise are worth looking into.
+\cite{Daubechies2003} solved the \ac{SDL}, in which we have parsimonious\cite{Foucart2013}\index{parsimonious} data representation, 
+problem using \ac{ISTA} and \cite{Gregor2010} unfolded/unrolled it and made \ac{LISTA}. \cite{Aberdam2020} even considered the the presence of noise in the process and improved the work of \cite{Gregor2010}. 
+Entire studies can be done on sparsity and the presence of noise.
 
 \subsection*{Different Scenarios}
 
@@ -176,6 +217,8 @@ it is possible to investigate other scenarios for parameter learning too. Possib
   \item Giving weights to the sampling operation by $\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X^2 \rightarrow \left|c_j \odot \left(\phi(\boldsymbol{A}_j\psi)-G_j\right)\right|_X^2$ and optimizing the $c_j$s.
   \item Regularizer's weight $\lambda$.
 \end{itemize}
+
+
 
 
 
