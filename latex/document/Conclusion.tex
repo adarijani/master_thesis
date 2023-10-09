@@ -2,15 +2,16 @@
 
 We got almost $4$ orders of magnitude improvement in the relative error both in the \ac{UWF}\index{UWF} and the 
 \ac{URWF}\index{URWF} after performing \ac{HP}\cite{Hutter2019}\cite{Akiba2019}\index{\ac{HP}} compared to 
-the \ac{WF} and the \ac{RWF} using the same number of iteration which can be seen in 
-\cref{fig:uwf_training_07_08_optuna} and \ref{fig:urwf_training_07_08_optuna}. The model is still interpretable thanks 
-to the scenarios we considered. The datasets are very small(only $100$ sample points) compared to today's 
-\ac{ML}/\ac{DL}\cite{Goodfellow2016}\cite{LeCun2015} counterparts\cite{Krizhevsky2017}\cite{Szegedy2014}. In 
+the \ac{WF}\cite{Candes2014}\index{\ac{WF}} \cref{pseudocode:wf} and the 
+\ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} \cref{pseudocode:rwf} using the same number of iteration which can be seen 
+in \cref{fig:uwf_training_07_08_optuna} and \ref{fig:urwf_training_07_08_optuna}. The model is still interpretable thanks 
+to the scenarios we considered as we were focusing on tinkering with the step size. The datasets are very small(only $100$ sample points) compared to today's 
+\ac{ML}/\ac{DL}\cite{Goodfellow2016}\cite{LeCun2015} counterparts \cite{Krizhevsky2017}\cite{Szegedy2014}. In 
 the proposed winning scenarios, different scalars multiplied by a single matrix of the form $\tau_k\boldsymbol{M}$, 
 you only need to train $n^2+L$ parameters which tremendously reduces the required number of 
-\ac{FLOPS}\cite{Hager2010}\cite{Hennessy2019} and in turn training time to reach satisfactory relative errors both 
-on train and test data. To put that into perspective ImageNet\cite{SVLL2021} has around $14$ millions images and a 
-relatively new model like GoogleNet\cite{Szegedy2014}, depending on the instance that you use, has millions of 
+\ac{FLOPS}\cite{Hager2010}\cite{Hennessy2019}\index{\ac{FLOPS}} and in turn training time to reach satisfactory relative errors both 
+on the train and the test data. To put that into perspective, ImageNet\cite{SVLL2021}\index{ImageNet} has around $14$ millions images and a 
+relatively new model like GoogleNet\cite{Szegedy2014}\index{GoogleNet}, depending on the instance that you use, has millions of 
 parameters only to classify an image as one of the $1000$ classes. What got me very interested in taking 
 \ac{DU}/\ac{AU}\cite{Monga2019} as my thesis topic was to go for micro-models rather than the general direction 
 that is currently trending. If you are reading this, it is my hope that my work could somehow win you over and convince 
