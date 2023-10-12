@@ -41,21 +41,21 @@ while we are using \nns we did not use any of the usual activation functions ass
 In the usual \nns, activation functions are there to give flexibility to the affine transformation 
 and give them the ability to approximate more and more complex mappings, but in the \du/\au setting we have naturally occurring 
 nonlinearities(coming from the domain knowledge of the problem) that will serve as the activation 
-functions. Stacking the layers $L$ times would give the \emph{unfolded}/\emph{unrolled} version.
+functions. Stacking the layers $L$ times would give the \emph{unfolded}/\emph{unrolled} version\todo{This argument also applies to the structure of the network. This is inherited from the unrolled algorithm. In this case it is just not so obvious because we get the a very well known network structre here, a fully connected ANN.}\todo{Perhaps add a bridging sentence saying that this is still exactly the old algorithm, the addition of trainable parameters comes in the next section.}.
 
 \subsection{LISTA and Ada-LISTA}
 
 Quite naturally \cite{Gregor2010} went for training the $\boldsymbol{W}_t$ and the $\boldsymbol{W}_e$ to get some improvements 
 from the original \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} algorithm. It is natural as they kept the intrinsic 
-nonlinearities coming from the iterative solution(to benefit from the domain knowledge of the problem). 
-What maybe was not so natural was that they replaced single $\lambda$ with a vector of $\lambda$s. They reported having 
-comparable errors to that of $20L$ in the accelerated version of 
+nonlinearities coming from the iterative solution(to benefit from the domain knowledge of the problem)\todo{I would rather say that this is natural, because matrices and biases are exactly what you learn in an ANN}. 
+What maybe was not so natural was that they replaced single $\lambda$ with a vector of $\lambda$s\todo{Step sizes that wary with the iteration are actually a very common concept in iterative algorithms. From this perspective, this is a very natural way to extended the algorithm form a constant step size to a step depenent step size}. They reported having 
+comparable errors to that of $20L$ in the accelerated \todo{What is this accelarated version? Since you bring it up, you should at least hint what it does compared to the ISTA you formulated.} version of 
 \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}}(\ac{FISTA}\cite{Beck2009}\index{\ac{FISTA}})when $L$ is not too 
-large. Putting some level of restriction on the $L$ is necessary since large $L$ means you are already near the minimum 
+large\todo{What is ``too large'' here? Is there a rule of thumb? Does this depend on $n$ or not?}. Putting some level of restriction on the $L$ is necessary since large $L$ means you are already near the minimum 
 and there is not much to gain from \emph{unfolding}/\emph{unrolling}. Another reason for using quite small $L$ is to benefit 
 from not having too many iterations overall in the resulting model after the \emph{unfolded}/\emph{unrolled} model is 
 trained(smaller $L$ corresponds to small required \ac{FLOPS}\cite{Hager2010}\cite{Hennessy2019}\index{\ac{FLOPS}} to reach the solution). 
-\cite{Gregor2010} got some other benefits in the rate of convergence too 
+\todo{The following remarks are quite vague...}\cite{Gregor2010} got some other benefits in the rate of convergence too 
 \cite{Daubechies2003}\cite{Beck2009}\cite{Gregor2010}. \cite{Aberdam2020} further improved the solution(could overcome 
 the presence of noise) to the \ac{LASSO}\cite{Hastie2009}\index{\ac{LASSO}} problem using their 
 \emph{unfolding}/\emph{unrolling} method called \ac{Ada-LISTA}\index{\ac{Ada-LISTA}}.  
