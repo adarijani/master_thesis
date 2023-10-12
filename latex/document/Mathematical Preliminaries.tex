@@ -10,7 +10,7 @@
     \end{equation*}
 \end{Prop}
 \begin{Proof}
-    You can consult \cite{Frazier1999}\cite{Horn2012} \cite{Hackbusch2019}.
+    You can consult \cite{Frazier1999}\cite{Horn2012}\cite{Hackbusch2019}.
 \end{Proof}
 \begin{Prop}
     For complex valued second order tensors $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{m \times n}$ the following is a proper scalar product\index{scalar product}
@@ -26,7 +26,24 @@ Which is also called the Frobenius scalar product\index{scalar product!Frobenius
 the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 
 \begin{Proof}
-    You can consult \cite{Frazier1999} or \cite{Horn2012} \cite{Hackbusch2019}
+    You can consult \cite{Frazier1999}\cite{Horn2012}\cite{Hackbusch2019}
+\end{Proof}
+\begin{Prop}\label{def:p-norm}
+    Let $1 \leq p \leq \infty$, and $\boldsymbol{x} \in \mathbb{K}^n$ be the $n$-tuple vector on $\mathbb{K}$ which is either $\mathbb{R}$ or $\mathbb{C}$ then:
+    \begin{equation*}
+        \begin{split} 
+            \left|\left|\boldsymbol{x}\right|\right|_p \coloneqq    
+            \begin{cases}
+                \left(\sum_{i=1}^{n}\left|x_i\right|^p\right)^{\frac{1}{p}} & \text{for } 1 \leq p < \infty\\
+                \underset{{i=1,\dots,n}}{\max} \left|x_i\right| & \text{for } p = \infty,
+            \end{cases}
+        \end{split}
+    \end{equation*}
+    where $\left|\left|\boldsymbol{\cdot}\right|\right|$ is the absolute value on the $\mathbb{K}$ field,
+    is called the \textbf{p-norm} of the vector $\boldsymbol{x}$ and as the name implies is a proper norm.
+\end{Prop}
+\begin{Proof}
+    Step by step proof can be found in \cite{Alt2016}.
 \end{Proof}
 \begin{Thm}\label{theorem:euler_formula}
     Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ with the usual field operations associated with the 
@@ -34,6 +51,7 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 	\begin{equation*}
 		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}\index{Euler formula}\index{Function!$\exp$}\index{Function!$\sin$}\index{Function!$\cos$}
 	\end{equation*}
+    where $\sin$\index{Function!$\sin$} and $\cos$\index{Function!$\cos$} are the usual trigonometric functions but defined without the usual geometric arguments.
 	\end{Thm}
 	\begin{Proof}
 		For the first part expanding the $\exp$ function and separating the so-called Real and Imaginary part and convergence arguments 
@@ -41,7 +59,7 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 	convergence of multiplication of infinite series is needed and the rest is like the first part \cite{Rudin1976}\cite{Rudin1987}\cite{Stein2005}\cite{Stein2003}. 
 	\end{Proof}
 	\begin{Cor}
-		Let $a$, $b$, $\theta$, and $\varphi$ $\in \mathbb{R}$ and $\sin$, $\cos$ the usual trigonometric functions derived from the $\exp$ function, then:
+		Let $a$, $b$, $\theta$, and $\varphi$ $\in \mathbb{R}$ and $\sin$\index{Function!$\sin$}, $\cos$\index{Function!$\cos$} the usual trigonometric functions derived from the $\exp$ function, then:
 		\begin{equation*}
 			a\sin \theta+b\cos \theta  = \sqrt{a^2+b^2}\sin(\theta + \varphi)
 		\end{equation*}
@@ -53,6 +71,7 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 	\begin{Proof}
 		Use \cref{theorem:euler_formula}.
 	\end{Proof}
+
 
 \section{Discrete Fourier Transform}
 \ac{FT} and its discrete counterparts will play an important role in one of our examples and here we give a fast refresher on the basic properties of \ac{DFT} and \ac{IDFT}.
@@ -223,21 +242,22 @@ Fast Fourier Transform \cite{Cooley1965} \cite{Good1960} \cite{Frazier1999} \cit
 
 
 \section{Probability Theory}
+
 \begin{Thm}\label{theorem:expectation_general}
-    Let $X$ and $Y$ be independent discrete random variables. For functions of our random variables we would be having:
+    Let $X$ and $Y$ be independent discrete random variables. For expectation value of functions of our random variables we would be having:
 	\begin{equation*}
-		E(f(XY)) = \sum_{x}^{}\sum_{y}^{}f(x,y)P(x)P(Y)
+		\mathbb{E}(f(X,Y)) = \sum_{X=x}^{}\sum_{Y=y}^{}f(x,y)p(x)p(y)
 	\end{equation*}
+    where $p(x)$ and $p(y)$ are the probability of $x$ and $y$ being realized from the random variables $X$ and $Y$.
 \end{Thm}
 \begin{Proof}
-    Consult a book on discrete probability on any other undergraduate level book on probability theory like \cite{DasGupta2011}.
     The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
-    you will arrive at the conclusion.
+    you will arrive at the conclusion \cite{DasGupta2010}\cite{DasGupta2011}.
 \end{Proof}
 \begin{Cor}\label{theorem:expectation_multiplication}
 	Let $X$ and $Y$ be independent discrete random variables. We would be having:
 	\begin{equation*}
-		E(XY) = E(X)(Y)
+		\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)
 	\end{equation*}
 \end{Cor}
 \begin{Proof}

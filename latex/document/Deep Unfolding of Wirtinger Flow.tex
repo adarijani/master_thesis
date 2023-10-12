@@ -171,9 +171,9 @@ $d$-dimensional cube which makes it easier to work with. The process of extracti
 
 Solving the \ac{PR} is not quite easy due to the non-convex, non-holomorphic and infinite-dimensional characteristics of the \ac{PR}. 
 In short the \ac{PR} can be solved by the iterative algorithm:
-  \begin{equation*}
+  \begin{equation}\label{eq:pr_solution}
 	\psi^{k+1} = \text{prox}_{\tau_{k}R}(\psi^k-\tau_k\nabla{D(\psi^k)})
-  \end{equation*}
+  \end{equation}
 
   where the gradient-like structure looks like: 
   \begin{equation*}
@@ -280,12 +280,12 @@ If we do the process using $L$ different modulations/masks we would be having:
 	1 &\leq l \leq L
 	\end{split}
   \end{equation}
-\cite{Candes2013} proved that if the number of modulations/masks $L$ is high enough, then the recovery of the ray is possible using \ac{PR} methods. 
+\cite{ECXLMS2013} proved that if the number of modulations/masks $L$ is high enough, then the recovery of the ray is possible using \ac{PR} methods. 
 \cite{Gross2017} furthered improved the bounds in which the recovery is possible. The synthetic example would be to assume the ray to be a natural image and 
 apply \ac{WF} variants to get a better and natural feeling of \ac{PR} process. \ac{WF} vs \ac{TWF} can be seen in \cref{image:wf_vs_twf}, \ac{WF} vs \ac{RWF} in \cref{image:wf_vs_rwf}, and finally 
 \ac{TWF} vs \ac{RWF} in \cref{image:twf_vs_rwf}.
 
-There are however some restrictions regarding the $d[t]$ in \cref{eq:modulation_effect} and \cref{eq:l_modulation_effect}. \cite{Candes2013} proposed:
+There are however some restrictions regarding the $d[t]$ in \cref{eq:modulation_effect} and \cref{eq:l_modulation_effect}. \cite{ECXLMS2013} proposed:
 \begin{equation}
 	\mathbb{E}\left[d\right] = 0, \qquad \mathbb{E}\left[d^2\right] = 0, \qquad\mathbb{E}\left[\left|d\right|^4\right] = 2\mathbb{E}\left[\left|d\right|^2\right]^2
 \end{equation}
@@ -320,7 +320,7 @@ where $\mathbb{E}$ is the expectation value operator and $d$ the random variable
 	\end{equation*}
 \end{itemize}
 
-As it is stated by \cite{Candes2013} different \ac{CDP} might be better suited for different applications. We provide a double checking of the \emph{Octanary Modulation} 
+As it is stated by \cite{ECXLMS2013} different \ac{CDP} might be better suited for different applications. We provide a double checking of the \emph{Octanary Modulation} 
 in case the reader tries to come up their own setting and wants to check the admissibility conditions themselves. 
 
 		
