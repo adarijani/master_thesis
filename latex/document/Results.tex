@@ -7,36 +7,36 @@ brave soul picking up the torch and seeing them through.
 \section{Inspiration}
 
 The approach we took was inspired by \cite{Gregor2010} as it is possibly the earliest successful attempt at \emph{unfolding}/\emph{unrolling}\index{\emph{unfolding}}\index{\emph{unrolling}} 
-an iterative algorithm \cite{Monga2019}. The algorithm it \emph{unrolled} is named \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} and was devised to solve \sdl\index{\sdl} 
+an iterative algorithm \cite{Monga2019}. The algorithm it \emph{unrolled} is named \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} and was devised to solve \sdl\index{\sdl} \todo{ISTA is solving sparse recovey, not sparse dictionary learning, see also below} 
 problem which much like the \pr\cite{Shechtman2015}\cite{Jaganathan2015}\index{\pr} is an inverse problem\cite{Kirsch2021}\index{inverse problem} in computational imaging\index{computational imaging}\cite{Khare2023}.
 
 \subsection{Sparse Dictionary Learning}
 
-Let $\boldsymbol{y} \in \mathbb{R}^m$ and $\boldsymbol{W} \in \mathbb{R}^{m \times n}$($n > m$, overdetermined/overcompleted system/dictionary)
-the \sdl\index{\sdl} problem is to find a sparse $\boldsymbol{x} \in \mathbb{R}^n$ in a way that it satisfies either $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$ or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$.
+Let $\boldsymbol{y} \in \mathbb{R}^m$ and $\boldsymbol{W} \in \mathbb{R}^{m \times n}$($n > m$, overdetermined/overcompleted system/dictionary\todo{An explanation of one sentence of what this property means would be helpful})
+the \sdl\index{\sdl} problem is to find a sparse $\boldsymbol{x} \in \mathbb{R}^n$ \todo{Finding a sparse $\boldsymbol{x}$ for a fixed dictionary $\boldsymbol{W}$ is just called sparse recovery. Finding the dictionary $\boldsymbol{W}$ that allows for sparse $x$ if sparse dictionary learning.} in a way that it satisfies either $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$ or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$\todo{Why two cases? Usually, this differnce is noise-free or noisy data $\boldsymbol{y}$.}.
 The \ac{LASSO}\cite{Hastie2009}\index{\ac{LASSO}} formulation of the problem will be:
 \begin{equation*}
   \min_{\boldsymbol{x}} \frac{1}{2} \left|\left|\boldsymbol{y}-\boldsymbol{W}\boldsymbol{x}\right|\right|_2^2 + \lambda \left|\left|\boldsymbol{x}\right|\right|_1
 \end{equation*}
-where the $\left|\left|\boldsymbol{\cdot}\right|\right|_1$ and $\left|\left|\boldsymbol{\cdot}\right|\right|_2$ are the usual $1$-norm and the $2$-norm that were defined in \cref{def:p-norm}, and $\lambda$ is the amount of regularization\cite{Hastie2009}. 
+where the $\left|\left|\boldsymbol{\cdot}\right|\right|_1$ and $\left|\left|\boldsymbol{\cdot}\right|\right|_2$ are the usual $1$-norm and the $2$-norm that were defined in \cref{def:p-norm}\todo{I'm not sure if this is a broken reference. I assume these are defined in a Definition, not in a Proposition. In principle, \texttt{cref} should handle that automatically.}, and $\lambda$ is the amount of regularization\cite{Hastie2009}. 
 The \ac{ISTA}\cite{Daubechies2003}\index{ISTA} solves the \ac{LASSO}\cite{Hastie2009}\index{\ac{LASSO}} formulation by an iterative algorithm of the form:
 \begin{equation*}
   \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\left(\mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}\right)\boldsymbol{x}_k+\frac{1}{\mu}\boldsymbol{W}^T\left(\boldsymbol{y}\right)\right)
 \end{equation*}
-where $\mathcal{S}_\lambda$ is the elementwise soft thresholding operator(a manifestation of the $\mathrm{prox}$ operator in the presence of regularization in \cref{eq:pr_solution} given by:
+where $\mathcal{S}_\lambda$ is the elementwise soft thresholding operator(a manifestation of the $\mathrm{prox}$ operator \todo{Why is there a prox manifestation? The proximal gradient algorithm is applied to the LASSO formulation above, where the data term is handled with the explicit gradient step part of the algorithm while the regularizer is handled with the prox part of the algorithm. And the prox of the 1-norm is soft thresholding, the lambda comes from the factor in front of the 1-norm.} in the presence of regularization in \cref{eq:pr_solution} given by:
 \begin{equation*}
   \mathcal{S}_\lambda = \mathrm{sign}(\boldsymbol{z}) \boldsymbol{\cdot} \max \left\{\left|\boldsymbol{z}\right|-\lambda,\boldsymbol{0}\right\}
 \end{equation*}
-where $\mathcal{I}$ is the second-order identity tensor\cite{Hackbusch2019}, $\left|\boldsymbol{\cdot}\right|$ the elementwise usual absolute value, 
-$\mathrm{sign}(\boldsymbol{\cdot})$ the elementwise usual $\mathrm{sign}$ function, and $\mu$ the largest eigenvalue \cite{Hackbusch2019} 
- of $\boldsymbol{W}^T\boldsymbol{W}$ respectively.
+where $\mathcal{I}$ is the second-order identity tensor\todo{simlpy: The identity matrix. If you want to add details, you can say that it's of size $n\times n$.}\cite{Hackbusch2019}, $\left|\boldsymbol{\cdot}\right|$ the elementwise \todo{stressing that this is elementwise is extremely important, it's not visible from the notation} usual absolute value, 
+$\mathrm{sign}(\boldsymbol{\cdot})$ the elementwise usual $\mathrm{sign}$ function, and $\mu$ the largest eigenvalue \cite{Hackbusch2019} \todo{Is this supposed to be a refernce to the definition of an eigenvalue? If you think that the reader doesn't know what an eigenvalue is, the reference won't really help and you should define it instead. If you think the reader knows, there is no need for a reference.} 
+ of $\boldsymbol{W}^T\boldsymbol{W}$ respectively\todo{I think the ``respectively'' doesn't belong here.}.
 Let $\boldsymbol{W}_t \coloneqq \mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}$ and 
-$\boldsymbol{W}_e \coloneqq \frac{1}{\mu}\boldsymbol{W}\boldsymbol{y}$ to abstract away the details and have the iterative algorithm 
+$\boldsymbol{W}_e \coloneqq \frac{1}{\mu}\boldsymbol{W}\boldsymbol{y}$ to abstract away the details \todo{The main reason for this abstraction is that we see now clearly what the linear part (including the bias) of the network and the nonlinear part is.} and have the iterative algorithm 
 as:
 \begin{equation*}
   \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\boldsymbol{W}_t\boldsymbol{x}_{k}+\boldsymbol{W}_e\boldsymbol{y}\right)
 \end{equation*}
-which can be considered as a layer of a \nn. It is worth emphasizing that 
+which can be considered as a layer of a \nn\todo{It's important to make this interpretation explicit: $\boldsymbol{W}_t$ is the matrix of the linear part of a fully connected layer, $\boldsymbol{W}_e\boldsymbol{y}$ is the bias of that linear part and $\mathcal{S}_\lambda$ is the activation function. This fits exactly to a standard fully connected ANN.}. It is worth emphasizing that 
 while we are using \nns we did not use any of the usual activation functions associated with \ml/\dl.
 In the usual \nns, activation functions are there to give flexibility to the affine transformation 
 and give them the ability to approximate more and more complex mappings, but in the \du/\au setting we have naturally occurring 
