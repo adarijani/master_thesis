@@ -1,23 +1,26 @@
 \chapter{Conclusion}
 
+\todo{first finish the whole thesis, then the intro and then come back to rewrite the first sentence}
 We got almost $4$ orders of magnitude improvement in the relative error both in the \ac{UWF}\index{UWF}($n=64$, $m=640$, 
 and in the unfolded $L=160$ times) and the \ac{URWF}\index{URWF}($n=64$, $m=640$, and unfolded $L=30$ times) after performing 
 \ho \cite{Hutter2019}\cite{Akiba2019}\index{\hp} compared to the \ac{WF}\cite{Candes2014}\index{\ac{WF}} 
 \cref{pseudocode:wf} and the \ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} 
 \cref{pseudocode:rwf} using the same number of iteration which can be seen in 
-\cref{fig:proposed_winning_scenarios}, \ref{fig:uwf_training_07_08_optuna}(preview, full view) and 
-in \cref{fig:proposed_winning_scenarios}, \ref{fig:urwf_training_07_08_optuna}(preview, full view). The model is still 
+\cref{fig:proposed_winning_scenarios} which is a smaller sized version of \cref{fig:uwf_training_07_08_optuna} and 
+in \cref{fig:proposed_winning_scenarios} which is a smaller sized version of \cref{fig:urwf_training_07_08_optuna}. The model is still 
 interpretable thanks to the scenarios we considered as we were only focusing on tinkering with the step size and therefore 
-much of the structure of the iterative algorithm is intact(We did not change the innate nonlinearities associated with the algorithms). The datasets are very small(only $100$ samples, and increasing 
-them from $100$ to $500$ resulted in almost no improvement in the relative error) compared to today's 
-\ml/\dl \cite{Goodfellow2016}\cite{LeCun2015} counterparts \cite{Krizhevsky2017}\cite{Szegedy2014}. In the proposed winning 
-scenarios, different scalars multiplied by a single matrix of the form $\tau_k\boldsymbol{M}$, you only need to train 
-$n^2+L$ parameters which tremendously reduces the required number of 
+the total structure of the iterative algorithm is intact(We did not change the innate nonlinearities associated with the algorithms). 
+The datasets are very small(only $100$ samples) compared to today's \ml/\dl \cite{Goodfellow2016}\cite{LeCun2015} 
+counterparts' \cite{Krizhevsky2017}\cite{Szegedy2014} datasets(millions of samples). Increasing the the number of samples from $100$ to $500$ resulted in almost 
+no improvement in the relative error. In the proposed winning scenarios, different scalars multiplied by a single matrix of the form $\tau_k\boldsymbol{M}$, you only need to train 
+$n^2+L$(around $4100$ for both the \ac{UWF} and the \ac{URWF}) parameters which tremendously reduces the required number of 
 \ac{FLOPS}\cite{Hager2010}\cite{Hennessy2019}\index{\ac{FLOPS}} and in turn training time to reach satisfactory 
-relative errors both on the train and the test data. To put that into perspective, ImageNet\cite{SVLL2021}\index{ImageNet} 
-has around $14$ millions images and a relatively new model like GoogleNet\cite{Szegedy2014}\index{GoogleNet}, 
+relative errors both on the train and the test data. If we were to use a fully connected multi-perceptron \nn we would have 
+had, depending on the exact architecture, roughly $Lmn$(around $1.2$ million for the \ac{URWF} and around $6.5$ million for the \ac{UWF}) 
+As another example to show the sheer size of the general contemporary \ml/\dl models and put that into perspective, 
+ImageNet\cite{SVLL2021}\index{ImageNet} has around $14$ millions images and a relatively new model like GoogleNet\cite{Szegedy2014}\index{GoogleNet}, 
 depending on the instance that you use, has millions of parameters only to classify an image as one of the $1000$ 
-classes. What got me very interested in taking \du/\au\cite{Monga2019} as my thesis topic was to go for micro-models 
+classes. What got me very interested in taking \du/\au\cite{Monga2019} as my thesis topic was to go for \ml/\dl models with relatively few number of parameters 
 rather than the general direction that is currently trending. If you are reading this, it is my hope that my work could 
 somehow win you over and convince you that small does not always mean weak.
 

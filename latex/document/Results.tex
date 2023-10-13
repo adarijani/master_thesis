@@ -7,13 +7,12 @@ brave soul picking up the torch and seeing them through.
 \section{Inspiration}
 
 The approach we took was inspired by \cite{Gregor2010} as it is possibly the earliest successful attempt at \emph{unfolding}/\emph{unrolling}\index{\emph{unfolding}}\index{\emph{unrolling}} 
-an iterative algorithm \cite{Monga2019}. The algorithm it \emph{unrolled} is named \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} and was devised to solve \sdl\index{\sdl} \todo{ISTA is solving sparse recovey, not sparse dictionary learning, see also below} 
-problem which much like the \pr\cite{Shechtman2015}\cite{Jaganathan2015}\index{\pr} is an inverse problem\cite{Kirsch2021}\index{inverse problem} in computational imaging\index{computational imaging}\cite{Khare2023}.
+an iterative algorithm \cite{Monga2019}. The algorithm it \emph{unrolled} is named \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} and was devised to solve \srp\index{\srp} which much like the \pr\cite{Shechtman2015}\cite{Jaganathan2015}\index{\pr} is an inverse problem\cite{Kirsch2021}\index{inverse problem} in computational imaging\index{computational imaging}\cite{Khare2023}.
 
-\subsection{Sparse Dictionary Learning}
+\subsection{Sparse Recovery Problem}
 
 Let $\boldsymbol{y} \in \mathbb{R}^m$ and $\boldsymbol{W} \in \mathbb{R}^{m \times n}$($n > m$, overdetermined/overcompleted system/dictionary\todo{An explanation of one sentence of what this property means would be helpful})
-the \sdl\index{\sdl} problem is to find a sparse $\boldsymbol{x} \in \mathbb{R}^n$ \todo{Finding a sparse $\boldsymbol{x}$ for a fixed dictionary $\boldsymbol{W}$ is just called sparse recovery. Finding the dictionary $\boldsymbol{W}$ that allows for sparse $x$ if sparse dictionary learning.} in a way that it satisfies either $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$ or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$\todo{Why two cases? Usually, this differnce is noise-free or noisy data $\boldsymbol{y}$.}.
+the \srp\index{\srp} problem is to find a sparse $\boldsymbol{x} \in \mathbb{R}^n$ \todo{Finding a sparse $\boldsymbol{x}$ for a fixed dictionary $\boldsymbol{W}$ is just called sparse recovery. Finding the dictionary $\boldsymbol{W}$ that allows for sparse $x$ if sparse dictionary learning.} in a way that it satisfies either $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$ or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$\todo{Why two cases? Usually, this differnce is noise-free or noisy data $\boldsymbol{y}$.}.
 The \ac{LASSO}\cite{Hastie2009}\index{\ac{LASSO}} formulation of the problem will be:
 \begin{equation*}
   \min_{\boldsymbol{x}} \frac{1}{2} \left|\left|\boldsymbol{y}-\boldsymbol{W}\boldsymbol{x}\right|\right|_2^2 + \lambda \left|\left|\boldsymbol{x}\right|\right|_1
@@ -27,10 +26,8 @@ where $\mathcal{S}_\lambda$ is the elementwise soft thresholding operator(a mani
 \begin{equation*}
   \mathcal{S}_\lambda = \mathrm{sign}(\boldsymbol{z}) \boldsymbol{\cdot} \max \left\{\left|\boldsymbol{z}\right|-\lambda,\boldsymbol{0}\right\}
 \end{equation*}
-where $\mathcal{I}$ is the second-order identity tensor\todo{simlpy: The identity matrix. If you want to add details, you can say that it's of size $n\times n$.}\cite{Hackbusch2019}, $\left|\boldsymbol{\cdot}\right|$ the elementwise \todo{stressing that this is elementwise is extremely important, it's not visible from the notation} usual absolute value, 
-$\mathrm{sign}(\boldsymbol{\cdot})$ the elementwise usual $\mathrm{sign}$ function, and $\mu$ the largest eigenvalue \cite{Hackbusch2019} \todo{Is this supposed to be a refernce to the definition of an eigenvalue? If you think that the reader doesn't know what an eigenvalue is, the reference won't really help and you should define it instead. If you think the reader knows, there is no need for a reference.} 
- of $\boldsymbol{W}^T\boldsymbol{W}$ respectively\todo{I think the ``respectively'' doesn't belong here.}.
-Let $\boldsymbol{W}_t \coloneqq \mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}$ and 
+where $\mathcal{I}$ is the identity matrix of size $n \times n$, $\left|\boldsymbol{\cdot}\right|$ the \emph{elementwise} usual absolute value, 
+$\mathrm{sign}(\boldsymbol{\cdot})$ the \emph{elementwise} usual $\mathrm{sign}$ function, and $\mu$ the largest eigenvalue of $\boldsymbol{W}^T\boldsymbol{W}$. Let $\boldsymbol{W}_t \coloneqq \mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}$ and 
 $\boldsymbol{W}_e \coloneqq \frac{1}{\mu}\boldsymbol{W}\boldsymbol{y}$ to abstract away the details \todo{The main reason for this abstraction is that we see now clearly what the linear part (including the bias) of the network and the nonlinear part is.} and have the iterative algorithm 
 as:
 \begin{equation*}
@@ -158,7 +155,7 @@ using a domain specific package for the \ho\cite{Hutter2019}\cite{Akiba2019}\ind
   \item Usage of \ac{RDBMS} for bookkeeping, safekeeping(in case of crash or just rebooting) and handling of dead-locks associated with the distributed computing.
   \item Nice dashboard for better visualization and interpretation of the results.  
 \end{itemize}
-After \ho\cite{Hutter2019}\cite{Akiba2019}\index{\} while focusing on scenarios and $\mathrm{lr}$(the pseudo learning rate in \adam) we arrive at the final proposed best scenario for the \ac{UWF} in 
+After \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho} while focusing on scenarios and $\mathrm{lr}$(the pseudo learning rate in \adam) we arrive at the final proposed best scenario for the \ac{UWF} in 
 \cref{fig:uwf_training_07_08_optuna} and for the \ac{URWF} in \cref{fig:urwf_training_07_08_optuna}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -252,7 +249,7 @@ Currently \cite{Jaganathan2015}\cite{Liu2019}\cite{Chandra2017} give an overview
 
 \subsection*{Data}
 
-\cite{Daubechies2003} solved the \sdl\index{\sdl}, in which we have parsimonious 
+\cite{Daubechies2003} solved the \srp\index{\srp}, in which we have parsimonious 
 \cite{Foucart2013}\index{parsimonious} data representation, problem using \ac{ISTA}\index{\ac{ISTA}} and \cite{Gregor2010} 
 \emph{unfolded}/\emph{unrolled} it and made \ac{LISTA}\index{\ac{LISTA}}. 
 \cite{Aberdam2020} even considered the the presence of noise in the process and improved the work of \cite{Gregor2010}. 
