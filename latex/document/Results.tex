@@ -11,8 +11,11 @@ an iterative algorithm \cite{Monga2019}. The algorithm it \emph{unrolled} is nam
 
 \subsection{Sparse Recovery Problem}
 
-Let $\boldsymbol{y} \in \mathbb{R}^m$ and $\boldsymbol{W} \in \mathbb{R}^{m \times n}$($n > m$, overdetermined/overcompleted system/dictionary\todo{An explanation of one sentence of what this property means would be helpful})
-the \srp\index{\srp} problem is to find a sparse $\boldsymbol{x} \in \mathbb{R}^n$ in a way that it satisfies either $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$ or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$\todo{Why two cases? Usually, this differnce is noise-free or noisy data $\boldsymbol{y}$.}.
+Let $\boldsymbol{y} \in \mathbb{R}^m$ and $\boldsymbol{W} \in \mathbb{R}^{m \times n}$($n > m$, \emph{overcompleted dictionary}
+\footnote{In signal/image processing terms a \emph{dictionary} allows you to represent the desired signal/image as a linear combination of some basic elements which sometimes are also called \emph{atoms}.}
+the \srp\index{\srp} problem is to find a \emph{sparse}\footnote{A representation of a signal/image in a specific basis is said to be \emph{sparse} if 
+the vector representing the signal/image in the said basis has lots of \emph{zeros}.} 
+$\boldsymbol{x} \in \mathbb{R}^n$ in a way that it satisfies either $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$(noise free) or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$(noisy).
 The \ac{LASSO}\cite{Hastie2009}\index{\ac{LASSO}} formulation of the problem will be:
 \begin{equation*}
   \min_{\boldsymbol{x}} \frac{1}{2} \left|\left|\boldsymbol{y}-\boldsymbol{W}\boldsymbol{x}\right|\right|_2^2 + \lambda \left|\left|\boldsymbol{x}\right|\right|_1
@@ -22,23 +25,28 @@ The \ac{ISTA}\cite{Daubechies2003}\index{ISTA} solves the \ac{LASSO}\cite{Hastie
 \begin{equation*}
   \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\left(\mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}\right)\boldsymbol{x}_k+\frac{1}{\mu}\boldsymbol{W}^T\left(\boldsymbol{y}\right)\right)
 \end{equation*}
-where $\mathcal{S}_\lambda$ is the elementwise soft thresholding operator(a manifestation of the $\mathrm{prox}$ operator \todo{Why is there a prox manifestation? The proximal gradient algorithm is applied to the LASSO formulation above, where the data term is handled with the explicit gradient step part of the algorithm while the regularizer is handled with the prox part of the algorithm. And the prox of the 1-norm is soft thresholding, the lambda comes from the factor in front of the 1-norm.} in the presence of regularization in \cref{eq:pr_solution} given by:
+where $\mathcal{S}_\lambda$ is the elementwise soft thresholding operator, the manifestation of the $\mathrm{prox}$ operator in 
+the presence of the regularization term($\lambda\left|\left|\boldsymbol{.}\right|\right|_1$), in \cref{eq:pr_solution} given by:
 \begin{equation*}
   \mathcal{S}_\lambda = \mathrm{sign}(\boldsymbol{z}) \boldsymbol{\cdot} \max \left\{\left|\boldsymbol{z}\right|-\lambda,\boldsymbol{0}\right\}
 \end{equation*}
 where $\mathcal{I}$ is the identity matrix of size $n \times n$, $\left|\boldsymbol{\cdot}\right|$ the \emph{elementwise} usual absolute value, 
 $\mathrm{sign}(\boldsymbol{\cdot})$ the \emph{elementwise} usual $\mathrm{sign}$ function, and $\mu$ the largest eigenvalue of $\boldsymbol{W}^T\boldsymbol{W}$. Let $\boldsymbol{W}_t \coloneqq \mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}$ and 
-$\boldsymbol{W}_e \coloneqq \frac{1}{\mu}\boldsymbol{W}\boldsymbol{y}$ to abstract away the details \todo{The main reason for this abstraction is that we see now clearly what the linear part (including the bias) of the network and the nonlinear part is.} and have the iterative algorithm 
+$\boldsymbol{W}_e \coloneqq \frac{1}{\mu}\boldsymbol{W}\boldsymbol{y}$ to abstract away the details and more importantly give it the the general look of a \nn, representing the values of a layer with 
+some affine transformation of values in other layers combined with the usual activation functions in \nn, and have the iterative algorithm 
 as:
 \begin{equation*}
   \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\boldsymbol{W}_t\boldsymbol{x}_{k}+\boldsymbol{W}_e\boldsymbol{y}\right)
 \end{equation*}
-which can be considered as a layer of a \nn\todo{It's important to make this interpretation explicit: $\boldsymbol{W}_t$ is the matrix of the linear part of a fully connected layer, $\boldsymbol{W}_e\boldsymbol{y}$ is the bias of that linear part and $\mathcal{S}_\lambda$ is the activation function. This fits exactly to a standard fully connected ANN.}. It is worth emphasizing that 
-while we are using \nns we did not use any of the usual activation functions associated with \ml/\dl.
+which can be considered as a layer of a \nn. It is worth emphasizing that 
+while we are using \nns we did not use any of the usual activation functions associated with \ml/\dl. 
+It would be not overselling to say that the activation functions we used in the \srp(the elementwise soft thresholding operator) is so 
+specialized that it is next to impossible to come up with it out of thin air by just guessing and not closely analyzing the \srp.
 In the usual \nns, activation functions are there to give flexibility to the affine transformation 
 and give them the ability to approximate more and more complex mappings, but in the \du/\au setting we have naturally occurring 
 nonlinearities(coming from the domain knowledge of the problem) that will serve as the activation 
-functions. Stacking the layers $L$ times would give the \emph{unfolded}/\emph{unrolled} version\todo{This argument also applies to the structure of the network. This is inherited from the unrolled algorithm. In this case it is just not so obvious because we get the a very well known network structre here, a fully connected ANN.}\todo{Perhaps add a bridging sentence saying that this is still exactly the old algorithm, the addition of trainable parameters comes in the next section.}.
+functions. Stacking the layers $L$ times would give the \emph{unfolded}/\emph{unrolled} version which is exactly the original \ac{ISTA} algorithm but with 
+trainable parameters that can be \emph{learned} thanks to the \ml/\dl approaches.
 
 \subsection{LISTA and Ada-LISTA}
 
@@ -47,28 +55,36 @@ from the original \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} algorithm. It 
 nonlinearities coming from the iterative solution(to benefit from the domain knowledge of the problem). 
 They also replaced single $\lambda$ with a vector of $\lambda$s which can be interpreted as an adaptive gradient descent 
 much like the momentum based ones \cite{Boyd2004}\cite{Nocedal2006} or the Nesterov method \cite{Nesterov2004}\cite{Nesterov2018}. 
-They reported having comparable errors to that of $20L$ in the accelerated \todo{What is this accelarated version? Since you bring it up, you should at least hint what it does compared to the ISTA you formulated.} version of 
-\ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}}(\ac{FISTA}\cite{Beck2009}\index{\ac{FISTA}})when $L$ is large enough to have the error around $4$. 
-Putting some level of restriction on the $L$ is necessary since large $L$ means you are already near the minimum 
-and there is not much to gain from \emph{unfolding}/\emph{unrolling}. Another reason for using quite small $L$ is to benefit 
-from not having too many iterations overall in the resulting model after the \emph{unfolded}/\emph{unrolled} model is 
-trained(smaller $L$ corresponds to small required \ac{FLOPS}\cite{Hager2010}\cite{Hennessy2019}\index{\ac{FLOPS}} to reach the solution). 
-\cite{Chen2018} showed the linear convergence of the \ac{LISTA} while in \ac{ISTA} and \ac{FISTA} and in the general setting only sub linear convergence can be attained\cite{Daubechies2003}\cite{Beck2009}. 
-\cite{Aberdam2020} further improved the solutions using their method \ac{Ada-LISTA} which is robust in the presence of noise both in the dictionary and in the signal.
+They reported having comparable errors to that of $20L$ in the accelerated version of 
+\ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} called \ac{FISTA}\cite{Beck2009}\index{\ac{FISTA}}, which incorporated a modified Nesterov method 
+\cite{Nesterov2004}\cite{Nesterov2018} into \ac{ISTA}, when $L$ is large enough to have the error around $4$. Putting some level of 
+restriction on the $L$ is necessary since large $L$ means you are already near the minimum and there is not much to gain 
+from \emph{unfolding}/\emph{unrolling}. Another reason for using quite small $L$ is to benefit from not having too many iterations 
+overall in the resulting model after the \emph{unfolded}/\emph{unrolled} model is trained(smaller $L$ corresponds to 
+small required \ac{FLOPS}\index{\ac{FLOPS}} to reach the solution). \cite{Chen2018} showed the 
+linear convergence of the \ac{LISTA} while in \ac{ISTA} and \ac{FISTA} and in the general setting only sub linear convergence can be 
+attained \cite{Daubechies2003}\cite{Beck2009}. \cite{Aberdam2020} further improved the solutions using their method \ac{Ada-LISTA} which 
+is robust in the presence of noise both in the dictionary and in the signal.
 
 
 \section{Scenarios}
 
-We took the \ac{WF}\cite{Candes2014}\index{\ac{WF}} \cref{pseudocode:wf} and the \ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} \cref{pseudocode:rwf} \todo{Why these two?} and unfolded/unrolled them $L$ times($160$ times for the \ac{WF} 
-and $30$ times for the \ac{RWF}) to arrive at the \ac{UWF} and the \ac{URWF} which are basically just some \nn\cite{Goodfellow2016}\cite{Bishop2006}\index{\nn} 
-with some special architecture(innate nonlinearities replacing the usual activation functions)\todo{Also the structure is special. This is not a standard fully connected ANN anymore, but something you wouldn't get by just taking standard building blocks. This should be discussed more explicitly. It's important how the nonlinearities are connected and also that these are acting element-wise on complex values, where one of the nonlinearities maps to the real numbers and one to the complex numbers}. Data are synthetic and the assumptions to generate them are:
+As \ac{WF} is the original algorithm that started the whole \ac{WF} variants and \ac{RWF} is the one that substantially improved the \ac{WF} we chose the two 
+for our numerical experimentation in our \du/\au quest.We took the \ac{WF}\cite{Candes2014}\index{\ac{WF}} \cref{pseudocode:wf} and the 
+\ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} \cref{pseudocode:rwf} and unfolded/unrolled them $L$ times($160$ times for the \ac{WF} and $30$ times for 
+the \ac{RWF}) to arrive at the \ac{UWF} and the \ac{URWF} which are basically just some \nn\cite{Goodfellow2016}\cite{Bishop2006}\index{\nn} 
+with some special architecture(innate nonlinearities replacing the usual activation functions). The special architectures in the \ac{UWF} and the \ac{URWF} 
+just like \ac{LISTA} are due to the nonlinearities that could not have been guessed and are only available to us by close inspection of the gradient that make 
+the \ac{WF} and the \ac{RWF} tick in \cref{eq:gradient_pr_solution}. First nonlinearity is $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}$ and the second $\varphi' \colon \mathbb{C} \rightarrow \mathbb{C}$ both elementwise. 
+$\varphi$ and $\varphi'$ being elementwise is essential and Without it \ml/\dl can not be carried out. 
+Data are synthetic and the assumptions to generate them are:
 \begin{itemize}
   \item $\boldsymbol{x} \in \mathbb{C}^{n}, n=64$ and both the real and the complex components are drawn from the normal distribution 
   centered at zero with the standard deviation of one following the work of \cite{Naimipour2020}\cite{Naimipour2020a}.
   \item $\boldsymbol{A} \in \mathbb{C}^{m \times n}, n=64, m=640$ and both the real and the complex components are drawn from the normal distribution 
   centered at zero and with the standard deviation of one \cite{Naimipour2020}\cite{Naimipour2020a}.
   \item $\boldsymbol{y}= \left|\boldsymbol{A}\boldsymbol{x}\right|_{X} \in \mathbb{R}^m, m=640$ where $\left|\boldsymbol{.}\right|_X$ is the elementwise usual absolute value on the complex field.
-  \item $N=100$ for number of sample points.\todo{Make sure that the concept of sample points is discussed somewhere, i.e. you have $N$ output pairs and you are searching for network parameters that minimize the loss on those (I didn't check the other chapters).}
+  \item $N=100$ for number of sample points(pairs of $(\boldsymbol{x},\boldsymbol{y})$, for $\boldsymbol{x} \in \mathbb{C}^n$ and $\boldsymbol{y} \in \mathbb{R}^m$ ).
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,52 +106,77 @@ with some special architecture(innate nonlinearities replacing the usual activat
 
 
 
-On how the \ac{WF}\cite{Candes2014}\index{\ac{WF}} and the \ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} are set to retrieve $\boldsymbol{x}$ up to a global phase 
+On how the \ac{WF}\cite{Candes2014}\index{\ac{WF}} and the \ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} are set to retrieve $\boldsymbol{x} \in \mathbb{C}^n$ up to a global phase 
 please refer to \cref{pseudocode:wf} and \cref{pseudocode:rwf}. As it is evident from reconstruction of the sat phone image 
 using \ac{CDP}\index{\ac{CDP}} in \cref{image:relative_error_0.0001}, the relative reconstruction error of $10^{-4}$ 
-makes at least natural images quite indistinguishable when compared to the original image to the naked eye. The 
-$L=160$ and $L=30$ are chosen with that incentive in mind\todo{As we discussed this should be motivated a bit differently referring to future work that we don't want to go from good to perfect, but rather from not good to good.}. If by unfolding/unrolling we can make 
-the relative error some orders of magnitude smaller then the reconstructed images will become totally 
-indistinguishable from the original image. Relative error is not the only factor in image quality as it is clear 
-from \cref{image:twf_vs_rwf}\todo{I would rather avoid referencing figures from other chapters. You include that relative error is not the only thing in the original disucssion of the figures in their chapter and here just point to that observation and the discussion}. In \cref{image:twf_vs_rwf} The reconstructed image using \ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} has lower relative error than the 
-reconstructed image using the \ac{TWF}\cite{Chen2015}\index{\ac{TWF}} after initialization, but clearly the \ac{TWF}\cite{Chen2015}\index{\ac{TWF}} did a better job than the 
-\ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} at construction \todo{The entire training only looks at the relative reconstruction error though, right? This still somehow covers the phase, since the reconstruction works when we have a small reconstruction error. This sounds like a contradiction. This should be discussed in more detail.} which further corroborates the phase importance \cite{Oppenheim1979}\cite{Oppenheim1981}\cite{Shechtman2015}\ref{image:phase_swap}. 
-Standing on the shoulders of giants \cite{Gregor2010} we try to get the said couple of orders of magnitude reduction in the relative error by 
-tinkering with then step size \todo{not only the size, the matrix allows direction / legth measurement changes, cf. our discussion on gradient flows} \cite{Gregor2010}. The update rule in any \ac{WF}\cite{Liu2019}\cite{Jaganathan2015} variant in \cref{pseudocode:wf}, \ref{pseudocode:twf}, \ref{pseudocode:rwf}, \ref{pseudocode:irwf}, and \ref{pseudocode:imrwf} is of the form:
+makes at least natural images quite indistinguishable when compared to the original image to the naked eye. If by unfolding/unrolling we can make 
+the relative error some orders of magnitude smaller then the reconstructed images will become totally indistinguishable from the original image 
+and we would be having \emph{outstandingly good} reconstruction instead of the \emph{good enough} reconstruction. The 
+$L=160$ and $L=30$ are chosen with that incentive in mind(to have the relative error around $10^{-4}$ for the untrained \emph{unfolded}/\emph{unrolled} 
+algorithms). Standing on the shoulders of giants \cite{Gregor2010} we try to get the said couple of orders of magnitude reduction in the relative 
+error by tinkering with then update rule. 
+\cite{Gregor2010}. The update rule in any \ac{WF}\cite{Liu2019}\cite{Jaganathan2015} variant in \cref{pseudocode:wf}, \ref{pseudocode:twf}, \ref{pseudocode:rwf}, \ref{pseudocode:irwf}, and \ref{pseudocode:imrwf} is of the form:
 \begin{equation*}
   \boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]
 \end{equation*}
-where $\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ is a mapping that gives a vector as an output $\in\mathbb{C}^n$ and $\tau$ is the step size that was 
-proposed by the respective algorithm. Assume that the algorithms are unfolded/unrolled $L$ times, we considered the following 
-scenarios \todo{Now comes the part where we add trainable parameters to the algorithm. This needs to be discussed more explicitly, you shouldn't just hide it behind the word ``scenario''.} by substituting $\tau$ with:\todo{Describe more why these scenarios where introduced, that they are order by number of parameters, from few to many. Also describe what these changes mean from the perspective of the algorithm. This could be used to explain why you don't consider complex values here.}
+where $\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ is a mapping that gives a vector as an output 
+$\in\mathbb{C}^n$ and $\tau$ is the step size that was proposed by the respective algorithm. While just trying different mappings of the output vector might work 
+some are more backed by theory and are worth exploring first. Changing the weight of the descent direction, by multiplying it by a scalar, is what most first-order adaptive gradient descent are doing in order to 
+overcome the poor rate of convergence of the naive gradient descent. A linear transformation of the output vector by the means of a matrix-vector product is the next step 
+and is the equivalent of finding better \emph{descent directions} or faster route to reach the minimum through changing of the \emph{scalar product} that induces our distance.
+Assume that the algorithms are unfolded/unrolled $L$ times, 
+we considered the following changes to the update rule and learning the associated parameters: 
+
+\begin{enumerate}
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ 
+  and learning the single scalar $\tau \in \mathbb{R}$ as to try and find a better gradient descent with constant step size,
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau_k\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+  and learning $L$ scalars $\tau_k\in\mathbb{R}$ as to try and find a better adaptive gradient descent with large step sizes when possible 
+  and small step sizes while being in \emph{stiff} regions, 
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{S}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+  and learning a single semi-positive definite matrix $\boldsymbol{S}\in \mathbb{R}^{n\times n}$ as to try and find a better descent direction while 
+  ensuring being always on the descent direction by the semi-positive definite constraint,
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{M}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+  and learning a single general matrix $\boldsymbol{M}\in \mathbb{R}^{n\times n}$ as to try and find a better descent direction while 
+  while not forcing the semi-positive definite constraint and hoping for the best,
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau_k\boldsymbol{S}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+  and learning a single semi-positive definite matrix $\boldsymbol{S}\in \mathbb{R}^{n\times n}$ and $L$ scalars $\tau_k \in \mathbb{R}$ as to try and find a 
+  better descent direction with variable step sizes while \emph{trying} to ensure to be always on the descent direction by the semi-positive definite constraint(there is
+  the possibility that the optimizer goes for a negative step sizes $\tau_k \in \mathbb{R}$), 
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau_k\boldsymbol{M}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+  and learning a single general matrix $\boldsymbol{M}\in \mathbb{R}^{n\times n}$ and $L$ scalars $\tau_k \in \mathbb{R}$ as to try and find a 
+  better descent direction with variable step sizes while not forcing the semi-positive definite constraint and hoping for the best,
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{S}_k\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ 
+  and learning $L$ semi-positive definite matrices $\boldsymbol{S}\in \mathbb{R}^{n\times n}$ as to try and find a better descent direction while 
+  ensuring being always on the descent direction by the semi-positive definite constraint,
+  \item $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{M}_k\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ 
+  and learning $L$ general matrices $\boldsymbol{M}\in \mathbb{R}^{n\times n}$ as to try and find a better descent direction while 
+  while not forcing the semi-positive definite constraint and hoping for the best,
+\end{enumerate}
+and we call them \emph{scenarios}. It is worth emphasizing that while from the parameter space point of view alone some scenarios are 
+contained in others we explore them separately. The reasons include:
 
 \begin{itemize}
-  \item Single Scalar $\tau \in \mathbb{R}$(no change).
-  \item Different Scalars $\tau_k\in\mathbb{R}$.
-  \item Single Semi-Positive Definite Matrix $\boldsymbol{S}\in \mathbb{R}^{n\times n}$.
-  \item Single Matrix $\boldsymbol{M}\in \mathbb{R}^{n\times n}$.
-  \item Different Scalars $\tau_k \in \mathbb{R}$ multiplied by a Single Semi-Positive Definite Matrix $\boldsymbol{S} \in \mathbb{R}^{n\times n}$.
-  \item Different Scalars $\tau_k \in \mathbb{R}$ multiplied by a Single Matrix $\boldsymbol{M} \in \mathbb{R}^{n\times n}$.
-  \item Different Semi-Positive Definite Matrices $\boldsymbol{S}_k\in \mathbb{R}^{n\times n}$.
-  \item Different Matrices $\boldsymbol{M}_k\in \mathbb{R}^{n\times n}$.
-\end{itemize}
-\todo{How are the parameters initlialized? I guess in such a way that it correspond to the original algorithm. This needs to be discussed and also includes how exactly the step size is chosen (I didn't check if this is disuccsed in the previous chapter already. If it is, you can just refer to this. If not, you need to add this.).}%
-\noindent It is worth emphasizing that while from the parameter space point of view alone some scenarios are contained in others we explore them separately
-\todo{While the details below are correct and helpful, you should also mention, and perhaps 
-first, that one should not take more parameters than necessary. You only imply this between 
-the lines, but this is the main point and shoud be mentioned.}. 
-The reasons include:
-\begin{itemize}
-  \item not to burn too many \ac{FLOPS}\index{\ac{FLOPS}} needlessly.
-  \item not to confuse the optimizers unintentionally by introducing too many parameters \cite{Sankararaman2019}.
-  \item not to overparameterize and in turn introducing overfitting\cite{Bishop2006}\cite{Goodfellow2016}\cite{ShalevShwartz2014}.
   \item to come up with a model that has as few as possible parameters while still having 
   good performances on the train and the test data , which is one of the central ideas behind 
   \du/\au\cite{Shechtman2015}\index{\du}\index{\au}, and not a full blown general \ml/\dl model.
+  \item not to confuse the optimizers unintentionally by introducing too many parameters \cite{Sankararaman2019}.
+  \item not to overparameterize and in turn introducing overfitting\cite{Bishop2006}\cite{Goodfellow2016}\cite{ShalevShwartz2014}.
+  \item not to burn too many \ac{FLOPS}\index{\ac{FLOPS}} needlessly.
 \end{itemize}
+As to stress the first bullet point the scenarios were sorted in the ascending order in terms of trainable parameters as one of our \emph{main} goals 
+is to come up with a model with satisfactory improvement over the original algorithm by using as few as possible number of trainable parameters. 
+The practitioner that wants to replicate the current study(or any other in the realm of \du/\au for that matter) is strongly encouraged to bid 
+their time and start from scenario $1$ with $1$ trainable parameter and conclude with scenario $8$ with $Ln^2$ trainable parameters(or whatever 
+that applies in their context).
 
 During the training we go with the following setting:
 \begin{itemize}
+  \item initializing the trainable parameters in a way that at the beginning of the training the model coincides with the original iterative algorithm. 
+  This is very crucial as in realistic settings the convergence of the original algorithm that is being \emph{unfolded}/\emph{unrolled} has conditions and 
+  assumptions behind it which makes it is very dangerous to deviate from the proposed parameter setup. In fact during the prototyping phase of our own work 
+  we faced divergence in the error before we even reached $1$ epoch 
+  just because we forgot to act accordingly in the parameter setup that was proposed in the \ac{WF} and in the \ac{RWF}.    
   \item \adam\cite{Kingma2014}\index{\adam} as the optimizer with the starting 
   pseudo learning rate of $\mathrm{lr}=1.000\times10^{-3}$ which is 
   recommended\cite{Kingma2014}\cite{Sun2019}.
@@ -146,34 +187,50 @@ During the training we go with the following setting:
   of the \ml/\dl model \cite{Masters2018}.
   \item splitting the data into the train data and the test data with the ratio of $9$ to $1$ 
   in each epoch  not to overfit \cite{Goodfellow2016}\cite{Chollet2023}.
-  \item tracking the relative error of the original algorithm unfolded/unrolled $L$ times 
+  \item tracking the relative error of the original algorithm \emph{unfolded}/\emph{unrolled} $L$ times 
   and the being trained network on train and test data as to decide on the generalization ability of the model \cite{Goodfellow2016}\cite{Chollet2023}.
 \end{itemize}
-Results can be seen in \cref{fig:uwf_training_01_02_03}, \ref{fig:uwf_training_04_05_06}, and \ref{fig:uwf_training_07_08_optuna} for the 
-\ac{UWF}\index{\ac{UWF}} and in \cref{fig:urwf_training_01_02_03}, \ref{fig:urwf_training_04_05_06}, and \ref{fig:urwf_training_07_08_optuna} 
-for the \ac{URWF}\index{\ac{URWF}}. While the results look good, there is still room for improvement using \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho}\todo{ You can't throw pages full of plots at the reader and then discuss with one sentence. You need to discuss what you learn from the plots, which conclusions you drew, how they are grouped, what is even displayed, what should the reader look for, etc.}. 
-While a crude grid search in our case using the combination of \bash\cite{Ramey2022}\index{\bash} and \awk\cite{Robbins2023}\index{\awk} \todo{Why do we need awk?} could be used due to our small parameter space, we settled on 
-using a domain specific package for the \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho} part. There are quite a number of packages that can be used for \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho} and we took the decision to go with 
-\optuna\cite{Akiba2019}\index{\optuna}. Our reasons for using the \optuna\cite{Akiba2019}\index{\optuna} include but not limited to:\todo{The following level of detail would also be helpful for many of the other choices you made a long the way ;-).}
+
+The results of the training process for $50$ epochs for the first $3$ scenarios for the \ac{UWF} can be seen in \cref{fig:uwf_training_01_02_03}, the second $3$ scenarios in \cref{fig:uwf_training_04_05_06} and the 
+last $2$ scenarios in \cref{fig:uwf_training_07_08_optuna} while keeping the pseudo learning rate the recommended $\mathrm{lr}=10^{-3}$ \cite{Kingma2014}\cite{Sun2019}. 
+Similarly for the case of \ac{URWF} the results can be found in \cref{fig:urwf_training_01_02_03}, \cref{fig:urwf_training_04_05_06}, and \cref{fig:urwf_training_07_08_optuna}. 
+In these figures we are looking for a couple of orders of magnitude decrease in the error for the model that is being trained both on the train 
+and on the test data to ensure that our model has the much coveted \emph{generalizability} property. It can be seen some of the 
+scenarios performed poorly(first scenario for both the \ac{UWF} and the \ac{URWF}) while some others were quite decent. The questions remains whether it is possible 
+to get better results by changing the pseudo learning rate($\mathrm{lr}$) even for the case of the first scenario or more importantly 
+for which one of the scenarios and what pseudo learning rate($\mathrm{lr}$) can we achieve the best performance? The stated concerns to some extent can be answered by the means of a 
+\ho \cite{Hutter2019}\cite{Akiba2019} study. \HO studies help the \ml/\dl practitioners to fine-tune their models and come up with better and better set of 
+parameters. \HO relies on searching through a parameter space to look for a suitable set of parameters. A parameter space is basically the cartesian 
+products of the range of the parameters. Obviously the resulting set must be countable otherwise it would take infinite FLOPS and in turn infinite time to 
+reach the set of parameters for the best model. That is why when facing a continuous parameter like the pseudo learning rate($\mathrm{lr}$) 
+in our case the parameter must be discretized or sampled with a sampler. Discussion of the technics in the \ho realm is quite 
+involved, but it should be pointed out that the level of theory backing up the \ho is somewhere between brute force methods and mathematical optimization. 
+While a crude grid search and comparison in our case using the combination of \bash\cite{Ramey2022}\index{\bash}(looping over 
+the grid points) and \awk\cite{Robbins2023}\index{\awk}(lazy database management for bookkeeping) could be used due to our 
+small parameter space, we settled on using a domain specific package for the \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho} 
+part. There are quite a number of packages that can be used for \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho} and we took the decision to go with 
+\optuna\cite{Akiba2019}\index{\optuna}. Our reasons for using the \optuna\cite{Akiba2019}\index{\optuna} include but not limited to:
 \begin{itemize}
   \item Use of the latest technics in \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho}.
   \item It is quite lightweight.
   \item Describing the parameter space is both easy and flexible \cite{Akiba2019}.
-  \item Pruning capabilities for not-so-optimistic scenarios by implanting probes \todo{What does this mean?} \cite{Akiba2019}.
+  \item Pruning capabilities for not-so-optimistic scenarios by implanting probes(measuring some value to decide on early stopping) \cite{Akiba2019}.
   \item Distributed computing can be done thanks to the \ac{RDBMS}s. At the $2019$ \scipy conference, the \optuna team stated that their implementation can handle up to $6$ computational nodes in the case of distributed computing.
   \item Usage of \ac{RDBMS} for bookkeeping, safekeeping(in case of crash or just rebooting) and handling of dead-locks associated with the distributed computing.
   \item Nice dashboard for better visualization and interpretation of the results.  
 \end{itemize}
-After \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho} while focusing 
-\todo{What do you mean with focussing? What exactly are the hyperparameters you optimize 
-over? The chosen scenarios and the learning rate? Then state so. Also, you need to state 
-the parameters you optimize over before you can state ``After hyperparameter optimization''} 
-on scenarios and $\mathrm{lr}$(the pseudo learning rate in \adam) we arrive at the final 
-proposed best scenario for the \ac{UWF} in \cref{fig:uwf_training_07_08_optuna} and for 
-the \ac{URWF} in \cref{fig:urwf_training_07_08_optuna}\todo{This sounds like you do 
-separate hyperparameter optimization for UWF and URWF. explain why you separated them}.\todo{On which basis? Again, 
-you need to discuss the plots. I had a quick look and didn't really see what's going on. 
-Pepare the reader for what to expect on the plot paged and what to look for.}
+The range of scenarios is obvious but what about the pseudo learning rate($\mathrm{lr}$)? 
+During the prototyping we observed that the $\mathrm{lr}=10^{-2}$ would result in the error exploding and $\mathrm{lr}=10^{-4}$ would perform 
+inferior to the already observed $\mathrm{lr}=10^{-3}$ and that is why we set $\mathrm{lr}=10^{-4}$ and $\mathrm{lr}=10^{-2}$ 
+as the lower and upper bounds on the pseudo learning rate($\mathrm{lr}$). We chose the uniform sampler for discretization of the pseudo learning rate($\mathrm{lr}$). 
+Now comes the easy part where you can sit back and let the \optuna\cite{Akiba2019} go over the discrete grid at its own discretion(\ho technics \cite{Hutter2019}\cite{Akiba2019}).
+After \ho\cite{Hutter2019}\cite{Akiba2019}\index{\ho} while focusing on scenarios and the pseudo learning rate($\mathrm{lr}$) in \adam\cite{Kingma2014} 
+we arrive at the final proposed best scenario for the \ac{UWF} in the third subfigure of \cref{fig:uwf_training_07_08_optuna} and for the 
+\ac{URWF} in the third subfigure of \cref{fig:urwf_training_07_08_optuna}. It can be seen that we were successful to reduce the error both on the train and the test data and the decrease is better that the originally models trained with $\mathrm{lr}=10^{-3}$ 
+thanks to the \ho study. While it might sound like a contradiction that trained \emph{unfolded}/\emph{unrolled} supervisor \ac{RWF} algorithm
+is performing similarly to the trained \emph{unfolded}/\emph{unrolled} \ac{WF} algorithm the reader must recall that \ac{RWF} is only \emph{unfolded}/\emph{unrolled} $30$ times while 
+the \ac{WF} is \emph{unfolded}/\emph{unrolled} $160$ times. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% Training UWF Without Hyperparameter Optimization %%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -269,27 +326,23 @@ the homepage of Alexandre d'Aspremont contains the code and the necessary direct
 
 \subsection*{Data}
 
-\cite{Daubechies2003} solved the \srp\index{\srp}, in which we have parsimonious \todo{Do you think the readers will understand what this means?} 
-\cite{Foucart2013}\index{parsimonious} data representation, problem using \ac{ISTA}\index{\ac{ISTA}} and \cite{Gregor2010} 
-\emph{unfolded}/\emph{unrolled} it and made \ac{LISTA}\index{\ac{LISTA}}. 
-\cite{Aberdam2020} even considered the the presence of noise in the process and improved the work of \cite{Gregor2010}. 
-Entire studies can be done on sparsity\index{sparsity} and the presence of noise.
-\todo{So you mean to consider WF variants that promote sparsity? For instance by 
-including the 1-norm in the objective, then using a proximal gradient descent approach 
-instead of just a gradient descent, which would mean to add a soft thresholding 
-step after each iteration in the WF algorithms you looked at.}
+Whenever there is measurement, there is noise. \cite{Aberdam2020} considered the the presence of noise and showed that 
+their method \ac{Ada-LISTA} is robust in combating the noise to some extent therefore improving the work of \cite{Gregor2010}.
+The effectiveness of an \emph{unfolded}/\emph{unrolled} \ac{WF} variant in the face of different types of noise in the measurements or in the operator $\boldsymbol{A}$ 
+is worth exploring. 
 
-\subsection*{Different Scenarios}
+
+\subsection*{Different Algorithms/Parameters}
 
 Depending on the function we are trying to minimize and the iterative \ac{WF}\cite{Jaganathan2015}\cite{Liu2019} variant algorithm we are \emph{unfolding}/\emph{unrolling} 
 it is possible to investigate other scenarios for parameter learning too. Possible candidates are but not limited to:
 \begin{itemize}
-  \item Adjoint operator $\boldsymbol{A}^*$,
-  \item Giving weights to the sampling operation by introducing $\boldsymbol{C}\in \mathbb{C}^{K\times N}$ and $\left|\left|\phi(\boldsymbol{A}_j\psi)-\boldsymbol{G}_j\right|\right|_X^2 \rightarrow \left|\left|\boldsymbol{C}_j \odot \left(\phi(\boldsymbol{A}_j\psi)-\boldsymbol{G}_j\right)\right|\right|_X^2$ where $\boldsymbol{C}_j$s are the rows of the matrix $\boldsymbol{C}$.
-  %  and optimizing the $\boldsymbol{C}$ matrix.\todo{I coudln't check, but I assume this picks up exactly the notation you introduced the previous chapter and the only new thing here is $c_j$. Also, if you use a Hadarmard product, this means that $c_j$ must be a vector. State this.}
-  % \item Regularizer's weight $\lambda$.\todo{I didn't check, but this implies that you have discussed phase retrieval models with regulizers. This can be considered part of the sparsity direction you mentioned above, since this is linked to the addition of a regularizer.}
+  \item Adjoint operator $\boldsymbol{A}^*$(different parameters)
+  \item Giving weights to the sampling operation by introducing $\boldsymbol{C}\in \mathbb{C}^{K\times N}$ and 
+  $\left|\left|\phi(\boldsymbol{A}_j\psi)-\boldsymbol{G}_j\right|\right|_X^2 \rightarrow \left|\left|\boldsymbol{C}_j \odot \left(\phi(\boldsymbol{A}_j\psi)-\boldsymbol{G}_j\right)\right|\right|_X^2$ 
+  where $\boldsymbol{C}_j$s are the rows of the matrix $\boldsymbol{C}$(different parameters).
+  \item The presence of a regularizer to impose the desired conditions on the solutions(e.g. \emph{sparsity}) or to combat noise or overfitting(different algorithm).
 \end{itemize}
-
 
 
 
