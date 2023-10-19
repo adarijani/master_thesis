@@ -15,7 +15,7 @@
     You can consult \cite{Frazier1999}\cite{Horn2012}\cite{Hackbusch2019}.\todo{I would not use the proof enviroment / put a qed symbol, if you don't give the proof. Just say ``For a proof, we refer to ...'' or something along those lines. Also, you shouldn't put three different references for one simple proof. One reference would be appropriate.}
 \end{Proof}
 \begin{Prop}
-    For complex valued second order tensors $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{m \times n}$ the following is a proper scalar product\index{scalar product}
+    For complex valued second order tensors \todo{As mentioned before, unless you need the extra generality of tensors, I would just talk about matrices. Otherwise, you'd also have to argue why you call vectors vectors and not first order tensors ;-)} $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{m \times n}$ the following is a proper scalar product\index{scalar product}\todo{Same comments regarding the formulation as for the proposition above.}
     \begin{equation*}
         \boldsymbol{X} = \left\{X_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}, \quad \boldsymbol{Y} = \left\{Y_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}
     \end{equation*}
@@ -41,19 +41,19 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
             \end{cases}
         \end{split}
     \end{equation*}
-    where $\left|\left|\boldsymbol{\cdot}\right|\right|$ is the absolute value on the $\mathbb{K}$ field,
+    where $\left|\left|\boldsymbol{\cdot}\right|\right|$ \todo{Above the absolute value is $\left|\boldsymbol{\cdot}\right|$ not $\left|\left|\boldsymbol{\cdot}\right|\right|$} is the absolute value on the $\mathbb{K}$ field,
     is called the \textbf{p-norm} of the vector $\boldsymbol{x}$ and as the name implies is a proper norm.
 \end{Def}
 \begin{Proof}
-    Step by step proof can be found in \cite{Alt2016}.
+    Step by step proof can be found in \cite{Alt2016}.\todo{You cannot prove a definition. In addition to the definition of $\left|\left|\cdot\right|\right|_p$, you have a statement/proposition that this object is a norm. That is the thing that is proven.}
 \end{Proof}
 \begin{Thm}\label{theorem:euler_formula}
-    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ with the usual field operations associated with the 
+    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ \todo{This notation is unclear. Your $\mathbb{C}$ contains 2-vectors, not complex numbers? I think this would be rather unusual. If you want to introduce $i$, you could say it is the imaginary unit, i.e., defined by the property $i^2=-1$.} with the usual field operations associated with the 
 	complex field. Then:
 	\begin{equation*}
 		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}\index{Euler formula}\index{Function!$\exp$}\index{Function!$\sin$}\index{Function!$\cos$}
 	\end{equation*}
-    where $\sin$\index{Function!$\sin$} and $\cos$\index{Function!$\cos$} are the usual trigonometric functions but defined without the usual geometric arguments.
+    where $\sin$\index{Function!$\sin$} and $\cos$\index{Function!$\cos$} are the usual trigonometric functions but defined without the usual geometric arguments\todo{What does this mean? $\sin$ and $\cos$ are mappings $\mathbb{R}\to\mathbb{R}$. I don't see what you mean with ``geometric arguments'' in this context.}.
 	\end{Thm}
 	\begin{Proof}
 		For the first part expanding the $\exp$ function and separating the so-called Real and Imaginary part and convergence arguments 
