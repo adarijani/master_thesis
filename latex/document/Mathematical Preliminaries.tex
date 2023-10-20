@@ -1,87 +1,85 @@
 \chapter{Mathematical Preliminaries}
 \todo{A few words on what we are supposed to expect in this chapter would be helpful.}
 \section{Basic Analysis}
-\begin{Prop}
-    For complex valued \todo{I think the term ``complex valued vectors'' is not necessarily wrong, but I think it's more common to just call them ``complex vectors''.} vectors $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^n$ the following is a proper \todo{Is there an ``improper'' scalar product?} scalar product\index{scalar product}
-    \todo{Make more clear what you ``let'' and what you define. You actually define (or rather should define) a mappint from $\mathbb{C}^n\times \mathbb{C}^n\to\mathbb{C}$ and then say that this is a scalar product. Also, you also sneak in the definition of how you write vectors.}
-    \begin{equation*}
-        \boldsymbol{x} = \left\{x_i\right\}_{i=1,\ldots,n-1}, \quad \boldsymbol{y} = \left\{y_i\right\}_{i=1,\ldots,n-1}
-    \end{equation*}
-    \begin{equation*}
-        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=0}^{n-1} x_i \overline{y_i} 
-    \end{equation*}
-\end{Prop}
-\begin{Proof}
-    You can consult \cite{Frazier1999}\cite{Horn2012}\cite{Hackbusch2019}.\todo{I would not use the proof enviroment / put a qed symbol, if you don't give the proof. Just say ``For a proof, we refer to ...'' or something along those lines. Also, you shouldn't put three different references for one simple proof. One reference would be appropriate.}
-\end{Proof}
-\begin{Prop}
-    For complex valued second order tensors \todo{As mentioned before, unless you need the extra generality of tensors, I would just talk about matrices. Otherwise, you'd also have to argue why you call vectors vectors and not first order tensors ;-)} $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{m \times n}$ the following is a proper scalar product\index{scalar product}\todo{Same comments regarding the formulation as for the proposition above.}
-    \begin{equation*}
-        \boldsymbol{X} = \left\{X_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}, \quad \boldsymbol{Y} = \left\{Y_{i,j}\right\}_{\substack{i=0,\ldots,m-1\\ j=0,\ldots,n-1}}
-    \end{equation*}
-    \begin{equation*}
-        \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=0}^{n-1}\sum_{i=0}^{m-1} X_{i,j} \overline{Y_{i,j}} 
-    \end{equation*}
-\end{Prop}
+\begin{Def}\label{def:scalar_product_complex_vectors}
+    For the complex vectors $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^N$ the mapping  $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^N \times \mathbb{C}^N \to \mathbb{C}$ 
+    \begin{equation}
+        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=1}^{N} x_i \overline{y_i} 
+    \end{equation}
+    is the scalar product where
+    \begin{equation}
+        \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}, \quad \boldsymbol{y} = \left(y_i\right)_{i=1,\ldots,N}.
+    \end{equation}    
+\end{Def}
+\begin{Def}\label{def:scalar_product_induced_norm_complex_vectors}
+    For the complex vector $\boldsymbol{x} \in \mathbb{C}^N$ the mapping  $\left|\left|\boldsymbol{.}\right|\right| \colon \mathbb{C}^N \to [0,+\infty)$ 
+    \begin{equation}
+        \left|\left|\boldsymbol{x}\right|\right| \coloneqq  \sqrt{\langle\boldsymbol{x},\boldsymbol{x}\rangle}
+    \end{equation}
+    is the norm induced by the scalar product for complex vectors where
+    \begin{equation}
+        \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}.
+    \end{equation}    
+\end{Def}
+\begin{Def}
+    For the complex matrices $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{M \times N}$ the mapping $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^{M \times N} \times \mathbb{C}^{M \times N} \to \mathbb{C}$ 
+    \begin{equation}
+        \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=1}^{N}\sum_{i=1}^{M} X_{i,j} \overline{Y_{i,j}} 
+    \end{equation}
+    is the scalar product where
+    \begin{equation}
+        \boldsymbol{X} = \left(X_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}, \quad \boldsymbol{Y} = \left(Y_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}.
+    \end{equation}    
+\end{Def}
 
-Which is also called the Frobenius scalar product\index{scalar product!Frobenius}, the Schur scalar product\index{scalar product!Schur} or 
+\noindent This scalar product is also called the Frobenius scalar product\index{scalar product!Frobenius}, the Schur scalar product\index{scalar product!Schur} or 
 the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 
-\begin{Proof}
-    You can consult \cite{Frazier1999}\cite{Horn2012}\cite{Hackbusch2019}
-\end{Proof}
 \begin{Def}\label{def:p-norm}
-    Let $1 \leq p \leq \infty$, and $\boldsymbol{x} \in \mathbb{K}^n$ be the $n$-tuple vector on $\mathbb{K}$ which is either $\mathbb{R}$ or $\mathbb{C}$ then:
-    \begin{equation*}
+    Let $1 \leq p \leq \infty$, and $\boldsymbol{x} \in \mathbb{K}^N$ be a vector, while $\mathbb{K}$ can be either $\mathbb{R}$ or $\mathbb{C}$ then the mapping $\left|\left| \boldsymbol{.} \right|\right|_p \colon \mathbb{K}^N \to [0,+\infty)$
+    \begin{equation}
         \begin{split} 
             \left|\left|\boldsymbol{x}\right|\right|_p \coloneqq    
             \begin{cases}
-                \left(\sum_{i=1}^{n}\left|x_i\right|^p\right)^{\frac{1}{p}} & \text{for } 1 \leq p < \infty\\
-                \underset{{i=1,\dots,n}}{\max} \left|x_i\right| & \text{for } p = \infty,
+                \left(\sum_{i=1}^{N}\left|x_i\right|^p\right)^{\frac{1}{p}} & \text{for } 1 \leq p < \infty\\
+                \underset{{i=1,\dots,N}}{\max} \left|x_i\right| & \text{for } p = \infty,
             \end{cases}
         \end{split}
-    \end{equation*}
-    where $\left|\left|\boldsymbol{\cdot}\right|\right|$ \todo{Above the absolute value is $\left|\boldsymbol{\cdot}\right|$ not $\left|\left|\boldsymbol{\cdot}\right|\right|$} is the absolute value on the $\mathbb{K}$ field,
-    is called the \textbf{p-norm} of the vector $\boldsymbol{x}$ and as the name implies is a proper norm.
+    \end{equation}
+    where $\left|\boldsymbol{\cdot}\right|$ is the absolute value on the $\mathbb{K}$ field,
+    is called the \textbf{p-norm} of the vector $\boldsymbol{x}$.
 \end{Def}
-\begin{Proof}
-    Step by step proof can be found in \cite{Alt2016}.\todo{You cannot prove a definition. In addition to the definition of $\left|\left|\cdot\right|\right|_p$, you have a statement/proposition that this object is a norm. That is the thing that is proven.}
-\end{Proof}
 \begin{Thm}\label{theorem:euler_formula}
-    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i} \coloneqq (0,1) \in \mathbb{C}$ \todo{This notation is unclear. Your $\mathbb{C}$ contains 2-vectors, not complex numbers? I think this would be rather unusual. If you want to introduce $i$, you could say it is the imaginary unit, i.e., defined by the property $i^2=-1$.} with the usual field operations associated with the 
-	complex field. Then:
-	\begin{equation*}
+    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i}$ the imaginary unit associated with the complex numbers in $\mathbb{C}$ 
+    then we would be having:
+	\begin{equation}
 		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}\index{Euler formula}\index{Function!$\exp$}\index{Function!$\sin$}\index{Function!$\cos$}
-	\end{equation*}
-    where $\sin$\index{Function!$\sin$} and $\cos$\index{Function!$\cos$} are the usual trigonometric functions but defined without the usual geometric arguments\todo{What does this mean? $\sin$ and $\cos$ are mappings $\mathbb{R}\to\mathbb{R}$. I don't see what you mean with ``geometric arguments'' in this context.}.
+	\end{equation}
+    where $\sin$\index{Function!$\sin$} and $\cos$\index{Function!$\cos$} are the usual trigonometric functions.
 	\end{Thm}
-	\begin{Proof}
-        \todo{Either give the proof or don't. I don't think that a very vague discription on the proof techniques is helpful.}
-		For the first part expanding the $\exp$ function and separating the so-called Real and Imaginary part and convergence arguments 
-	on infinite series would confirm the claim\cite{Rudin1976}\cite{Rudin1987}\cite{Stein2005}\cite{Stein2003}. For the second part 
-	convergence of multiplication of infinite series is needed and the rest is like the first part \cite{Rudin1976}\cite{Rudin1987}\cite{Stein2005}\cite{Stein2003}\todo{Again, this are extremely well known properties. One reference for the proof is more than enough.}. 
-	\end{Proof}
-	\begin{Cor}
-		Let $a$, $b$, $\theta$, and $\varphi$ $\in \mathbb{R}$ and $\sin$\index{Function!$\sin$}, $\cos$\index{Function!$\cos$} \todo{You should not define $\sin$ and $\cos$ multiple times and in particular not differently in two consecutive statements.} the usual trigonometric functions derived from the $\exp$ function, then:
-		\begin{equation*}
+	\begin{Rem}
+	For the first part expanding the $\exp$ function and separating the so-called Real and Imaginary part and convergence arguments 
+	on infinite series would confirm the claim\cite{Rudin1976}For the second part 
+	convergence of multiplication of infinite series is needed.
+	\end{Rem}
+	\begin{Lem}
+		Let $a$, $b$, $\theta$, and $\varphi$ $\in \mathbb{R}$ and $\sin$\index{Function!$\sin$}, $\cos$\index{Function!$\cos$} 
+        the usual trigonometric functions then:
+		\begin{equation}
 			a\sin \theta+b\cos \theta  = \sqrt{a^2+b^2}\sin(\theta + \varphi)
-		\end{equation*}
+		\end{equation}
 		such that:
-		\begin{equation*}
-			\sin\varphi=b, \qquad \cos\varphi = a
-		\end{equation*}
-		\end{Cor}
-	\begin{Proof}
-		Use \cref{theorem:euler_formula}.\todo{This is not a proof. Also, I don't remember this particular trigonometric identity. If you need it, you should prove it. If you don't need it, I would drop it. Since this proposition doesn't have a label, I guess you don't reference / use it anywhere, but I didn't check.}
-	\end{Proof}
+		\begin{equation}
+			\sin\varphi=\frac{b}{\sqrt{a^2+b^2}}, \qquad \cos\varphi = \frac{a}{\sqrt{a^2+b^2}}
+		\end{equation}
+		\end{Lem}
 
 
 \section{Discrete Fourier Transform}
-\todo{The}\ac{FT} and its discrete counterparts \todo{counterpart} will play an important role in one of our examples and here we give a fast refresher on the basic properties of \ac{DFT} and \ac{IDFT}.
+The \ac{FT} and its discrete counterpart will play an important role in one of our examples and here we give a fast refresher on the basic properties of the \ac{DFT} and the \ac{IDFT}.
 
-\begin{Def}\label{def:1ddft}
-    \emph{$1$-$d$ \ac{DFT}}\\
-    The \emph{$1$-$d$ \ac{DFT}} \todo{I personally prefer 1D, but that is a matter of taste. In any case, I would not use an italic d. This is no variable where you insert something.} of the $1$-$d$ array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
+\begin{Def}[1D \ac{DFT}]\label{def:1ddft}
+    The 1D \ac{DFT}  of the 1D array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
     $\hat {\boldsymbol{X}} \in \mathbb{C}^{N}$ and is defined by
     \begin{equation}\label{eq:1ddft}
         \{\hat {\boldsymbol{X}}\}_{k} \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n}\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}

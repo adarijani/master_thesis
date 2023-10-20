@@ -4,8 +4,8 @@
 
 \section{Deep Unfolding}
 
-We give a story like introduction to \ac{DL} and by pointing out some \ac{DL} limitations motivate the use of \ac{DU}/\ac{AU} 
-which is \ac{DL} but with context inspired architecture.
+We give a story like introduction to \dl\cite{Goodfellow2016} and by pointing out some \dl limitations motivate the use of \du/\au\cite{Monga2019} 
+which is \dl like, but with context inspired architecture.
 
 \subsection{Multi-Layer Perceptrons}
 Let $\boldsymbol{x} \in \mathbb{R}^n,\boldsymbol{y} \in \mathbb{R}^m, \boldsymbol{h}_l \in \mathbb{R}^{k_l}, \boldsymbol{W}^1 \in \mathbb{R}^{k_1 \times n}
@@ -24,8 +24,8 @@ Consecutive mappings:
 % \begin{equation*}
   % x_i^{l+1} = \sigma \left( \sum_{j}^{} W_{ij}^{l+1}x_j^l + b_i^{l+1} \right)
 % \end{equation*}
-that take $\boldsymbol{x}$ to $\boldsymbol{y}$ is called a \ac{MLP} architecture.
-In the \ml jargon $\boldsymbol{x},\boldsymbol{y},\boldsymbol{h}^j,\boldsymbol{W}^j,\boldsymbol{b}^j,\varphi$ are called \emph{input}, \emph{output}, \emph{hidden variables},
+that take $\boldsymbol{x}$ to $\boldsymbol{y}$ is called a \ac{MLP}\cite{Bishop2006} architecture.
+In the \ml/\dl jargon \cite{Goodfellow2016}\cite{ShalevShwartz2014} $\boldsymbol{x},\boldsymbol{y},\boldsymbol{h}^j,\boldsymbol{W}^j,\boldsymbol{b}^j,\varphi$ are called \emph{input}, \emph{output}, \emph{hidden variables},
 \emph{weight matrices}, \emph{biases}, and \emph{activation function}. \ac{MLP}s were designed to approximate outputs from inputs without knowing the the actual mapping and with observations and measurements. 
 It is worth noting that the existence of $\varphi$ is necessary otherwise the pairs $\boldsymbol{W}^j,\boldsymbol{b}^j$ would 
 just be an affine transformation and stacking multiple affine transformation would still be an affine transformation and stacking 
@@ -48,17 +48,17 @@ in \cref{fig:multi_layer_perceptron}.
 \subsection{Deep Learning}
 The advancements in \ac{HPC}\cite{Meuer} in terms of both software\cite{Dagum1998}\cite{1993}\cite{Nvidia} and 
 hardware\cite{Patterson2014}\cite{Hennessy2019}\cite{Nvidia}, Mathematical Optimization\cite{Boyd2004}\cite{Nocedal2006}\cite{Sun2019}, 
-\ac{AD}\cite{Naumann2011}\cite{Griewank2008} combined with the abundance of data gathered during the Web $2.0$ era, 
+\ad\cite{Naumann2011}\cite{Griewank2008} combined with the abundance of data gathered during the Web $2.0$ era, 
 and finally complex approximation architectures gave birth to what is currently known as 
-\ac{DL}\cite{LeCun2015}\cite{Higham2018}\cite{Berner2021}. In the \ac{ML}/\ac{DL}/\ac{AI} folklore there were these two dark 
-periods known as the \emph{\ac{AI} winters} that meant the substantial reduction in \ac{ML}/\ac{DL}/\ac{AI} funding and 
-interest. In 2012 when Alex Krizhevsky's and his supervisors' \dl architecture \cite{Krizhevsky2017} decimated all other 
-competitors in the ImageNet \cite{SVLL2021} image classification challenge\cite{SVLL} he ended the second harsh winter 
-that the \ac{ML}/\ac{AI} scientists were experiencing. It was no fluke and at the time of writing the challenge is 
-always won by \ac{DL} architectures \cite{Szegedy2014}\cite{He2015}\cite{Simonyan2014} and alike and not carefully 
-handcrafted feature extraction modules. All and all \ac{DL} architectures had great success in a broad flavors of 
+\dl\cite{LeCun2015}\cite{Higham2018}\cite{Berner2021}. In the \ml/\dl/\ai folklore there were these two dark 
+periods known as the \emph{\ai winters} that meant the substantial reduction in \ml/\dl/\ai funding and 
+interest. In $2012$ when Alex Krizhevsky's and his supervisors' \dl architecture \cite{Krizhevsky2017} decimated all other 
+competitors in the ImageNet \cite{Deng2009} image classification challenge\cite{SVLL} he ended the second harsh winter 
+that the \ml/\ai scientists were experiencing. It was no fluke and at the time of writing the challenge is 
+always won by \dl architectures \cite{Szegedy2014}\cite{He2015}\cite{Simonyan2014} and alike and not carefully 
+handcrafted feature extraction modules. All and all \dl architectures had great success in a broad flavors of 
 problems ranging from single object image classification \cite{Rawat2017} to real-time multi-object classification and 
-tracking\cite{Luo2021}. \ac{DL} approach has pros:
+tracking\cite{Luo2021}. \DL approach has the following pros:
 
 \begin{itemize}
   \item can extract extremely complicated mappings or extremely subtle features(depending on the desired wording),
@@ -66,17 +66,19 @@ tracking\cite{Luo2021}. \ac{DL} approach has pros:
   \item currently can beat human level performance in lots of areas,
 \end{itemize}
 
-and cons:
+and the following cons:
 
 \begin{itemize}
-  \item requires large and high quality datasets\cite{SVLL2021} which are expensive to acquire and store,
-  \item requires tremendous raw computational power and storage which in turn would result in large electricity bills and expensive maintenance costs,
+  \item requires large and high quality datasets like the ImageNet\cite{Deng2009}, in the case of image classification, which are expensive to acquire and store,
+  \item requires tremendous raw computational power at the level of \cite{Meuer} and storage which in turn would result in large electricity bills
+  \footnote{in $2022$ Matthias M\"{u}ller, head of the \ac{HPC} center at RWTH Aachen University, explained his rule of thumb as  
+  one Megawatt costing them one million euros per year.} and expensive maintenance costs,
   \item since mostly there is no interpretability associated with models, there will be no reasoning when a model gives objectively wrong answers. 
 \end{itemize}
 
-Due to the pros and cons tied to \ac{DL} what is getting a bit of traction at least in \ac{DSIP} and \ac{CV} is \ac{AU} or \ac{DU}. 
-\ac{DU}/\ac{AU} is the process of unfolding/unrolling an iterative algorithm finite times and training certain parameters in 
-the hopes of improving some metric by putting the unrolled algorithm in a model. It is best to look at the process in \cref{fig:deep_unfolding_unrolling} 
+Due to the pros and cons tied to \dl what is getting a bit of traction at least in \dsip and \cv is \du or \au. 
+\du or \au is the process of \emph{unfolding}/\emph{unrolling} an iterative algorithm finite times and training certain parameters in 
+the hopes of improving some metric by putting the \emph{unrolled} algorithm in a model. It is best to look at the process in \cref{fig:deep_unfolding_unrolling} 
 to get a better feeling of what is being done. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% Deep Unfolding(Schematic Diagram) %%%%%%%%%%%%%%%
@@ -91,13 +93,15 @@ to get a better feeling of what is being done.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ac{DU}/\ac{AU} tries to bring the best of the both worlds(analytical approach and data driven approach) in one and reconcile the two. 
-It is worth noting that \ac{DU}\ac{AU} is not \ac{RNN}s\cite{Goodfellow2016}\cite{Salem2022}. \ac{DU}/\ac{AU} looks like \ac{RNN}\cite{Gregor2010} but a closer look will 
-result in a couple of subtleties between the two.  
-Since in the \ac{DU}/\ac{AU} you significantly reduce the number of parameters by using a context inspired model and not a full blown 
-general \ac{DL} architecture, the need for large datasets and computational power ceases to exist. initialization of the weights 
-and interpretation of the models become way easier which for some time were the center of attention in \ac{ML}/\ac{DL} community 
-\cite{Glorot2010}\cite{He2015a}. A nice review on the recent application of \ac{DU}/\ac{AU} in \ac{DSIP} is done by\cite{Monga2019}.
+\du/\au tries to bring the best of the both worlds(analytical approach and data driven approach) in one and reconcile the two. A word of 
+caution to the people who are more familiar with \ml/\dl is that \du/\au is not a \rnn\cite{Gregor2010}. \DU/\AU looks like a \rnn\cite{Gregor2010} but 
+a closer look will result in a couple of subtleties between the two. Since in the \du/\au you significantly reduce the number of 
+parameters by using a context inspired model and not a full blown general \ml/\dl architecture, the need for large 
+datasets and computational power ceases to exist\footnote{It is worthwhile to check the system we used for our 
+study in \cref{tab:system_specs} to the general systems\cite{Meuer} that are used in training large \ml/\dl models.}. Initialization 
+of the weights and interpretation of the models become way easier\footnote{You set them according to the original model that is being 
+\emph{unfolded}/\emph{unrolled}. We will explain this in more details when we are describing the training process of our \ml/\dl model in our study.} which for some time were the center of attention in \ml/\dl community \cite{Glorot2010}\cite{He2015a}. A 
+nice review on the recent application of \dl/\au in \dsip is done by \cite{Monga2019}.
 
 
 
@@ -133,7 +137,8 @@ The \ac{DFT} is bijective\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011} 
 	\item taking the \ac{DFT}, setting the amplitude to one and then taking the \ac{IDFT}\cite{Oppenheim1981}
 	\item taking the \ac{DFT}, setting a random amplitude and then taking the \ac{IDFT}\cite{Oppenheim1981}
 	\item taking the \ac{DFT}, setting the amplitude to the average of amplitudes of \ac{DFT}s of images of the same type\cite{Oppenheim1981}.
- \end{itemize}. All of them suggested that the phase of the \ac{DFT} of an image 
+ \end{itemize} 
+ All of them suggested that the phase of the \ac{DFT} of an image 
  is more important than the amplitude of the \ac{DFT} of an image\cite{Oppenheim1979}\cite{Oppenheim1981}.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% Phase in Fourier Reconstruction %%%%%%%%%%%%%%%%
