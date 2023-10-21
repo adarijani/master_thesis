@@ -58,9 +58,8 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
     where $\sin$\index{Function!$\sin$} and $\cos$\index{Function!$\cos$} are the usual trigonometric functions.
 	\end{Thm}
 	\begin{Rem}
-	For the first part expanding the $\exp$ function and separating the so-called Real and Imaginary part and convergence arguments 
-	on infinite series would confirm the claim\cite{Rudin1976}For the second part 
-	convergence of multiplication of infinite series is needed.
+	It is not so obvious why multiplication of two infinite series($\mathrm{e}^{\mathrm{i}\alpha}$ and $\mathrm{e}^{\mathrm{i}\beta}$) would converge, let alone to a specific function namely  $\mathrm{e}^{\mathrm{i}(\alpha+\beta)}$.
+    It is recommended for the curious reader to check out \emph{The Exponential and Logarithmic Functions} and \emph{The Trigonometric Functions} in Chapter 8 of \cite{Rudin1976}. 
 	\end{Rem}
 	\begin{Lem}
 		Let $a$, $b$, $\theta$, and $\varphi$ $\in \mathbb{R}$ and $\sin$\index{Function!$\sin$}, $\cos$\index{Function!$\cos$} 
@@ -79,26 +78,45 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 The \ac{FT} and its discrete counterpart will play an important role in one of our examples and here we give a fast refresher on the basic properties of the \ac{DFT} and the \ac{IDFT}.
 
 \begin{Def}[1D \ac{DFT}]\label{def:1ddft}
-    The 1D \ac{DFT}  of the 1D array $\boldsymbol{X} \in \mathbb{C}^{N}$ is denoted by 
-    $\hat {\boldsymbol{X}} \in \mathbb{C}^{N}$ and is defined by
+    The 1D \ac{DFT}  of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\hat {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by
     \begin{equation}\label{eq:1ddft}
-        \{\hat {\boldsymbol{X}}\}_{k} \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n}\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}
+        {\hat x}_k \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} x_n\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}
     \end{equation}
-    and to get back the original array one can use the \ac{IDFT} 
+    and to get back the original vector one can use the \ac{IDFT} 
     \begin{equation}\label{eq:1didft}
-        \{{\boldsymbol{X}}\}_{n} \coloneqq \sum_{k=0}^{N-1}\{\hat {\boldsymbol{X}}\}_{k}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}
+        x_n \coloneqq \sum_{k=0}^{N-1}\hat{x}_{k}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}
     \end{equation}    
 \end{Def}
 
-As it is evident from the formula the $1$-$d$ \ac{DFT} is a linear transformation therefore there a corresponding matrix 
-and a set of basis vectors. The matrix is a dense matrix\cite{Frazier1999}\cite{Cormen2022} and due to computational 
+\begin{Rem}
+As it is evident from the formula the 1D \ac{DFT} is a linear transformation therefore there is a corresponding matrix 
+and a set of basis vectors. Let $\boldsymbol{W}_N$ be the matrix with $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$ 
+\begin{equation}
+    \boldsymbol{W}_N \coloneqq 
+    \begin{bmatrix}
+        1     & 1                & 1                   & 1                   & \cdots & 1                      \\
+        1     & \omega_{N}^{}    & \omega_{N}^{2}      & \omega_{N}^{3}      & \cdots & \omega_{N}^{N-1}       \\
+        1     & \omega_{N}^{2}   & \omega_{N}^{4}      & \omega_{N}^{6}      & \cdots & \omega_{N}^{2(N-1)}    \\
+        1     & \omega_{N}^{3}   & \omega_{N}^{6}      & \omega_{N}^{9}      & \cdots & \omega_{N}^{3(N-1)}    \\
+        \cdot & \cdot            & \cdot               & \cdot               & \cdots & \cdot                  \\ 
+        \cdot & \cdot            & \cdot               & \cdot               & \cdots & \cdot                  \\ 
+        1     & \omega_{N}^{N-1} & \omega_{N}^{2(N-1)} & \omega_{N}^{3(N-1)} & \cdots & \omega_{N}^{(N-1)(N-1)}
+        \end{bmatrix}
+\end{equation}
+where $\omega_N = e^{-2\pi i/N}$ then $e^{-2\pi imn/N} = \omega_N^{mn}$. Considering $\boldsymbol{X}$ 
+and $\hat {\boldsymbol{X}}$ as column vectors we can rewrite the 1D \ac{DFT} as:
+\begin{equation}
+    \hat {\boldsymbol{X}} \coloneqq \frac{1}{N}\boldsymbol{W}_N\boldsymbol{X}
+\end{equation}
+ The matrix is a dense matrix\cite{Frazier1999}\cite{Cormen2022} and due to computational 
 efficiency\cite{Frazier1999}\cite{Cormen2022} is almost never computed directly, however taking a closer look at the 
 basis vectors would shed some light on the nature of the said transform and is a time well spent.
+\end{Rem}
 
 \begin{Prop}\label{Prop:1ddftbasisvectors}
     The basis vectors
     \begin{equation}\label{eq:1ddftbasisvectors}
-        \boldsymbol{g}^n = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\right\}_{k=0,\ldots,N-1}
+        \boldsymbol{g}^n = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\right)_{k=0,\ldots,N-1}
     \end{equation}
     are orthogonal to each other with respect to the usual inner product for complex valued vectors 
     with the normalization constant of $N$
@@ -108,10 +126,10 @@ basis vectors would shed some light on the nature of the said transform and is a
 \end{Prop}
 
 \begin{Proof}
-    \begin{equation*}
-        \boldsymbol{g}^n = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\right\}_{k=0,\ldots,N-1}, \quad \boldsymbol{g}^{n'} = \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\right\}_{k=0,\ldots,N-1}
-    \end{equation*}
-    \begin{equation*}
+    \begin{equation}
+        \boldsymbol{g}^n = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\right)_{k=0,\ldots,N-1}, \quad \boldsymbol{g}^{n'} = \left(\exp\left({\frac{-2\pi in'k}{N}}\right)\right)_{k=0,\ldots,N-1}
+    \end{equation}
+    \begin{equation}
     \begin{split} 
         \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)}
         = \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\\
@@ -121,61 +139,26 @@ basis vectors would shed some light on the nature of the said transform and is a
             0 & \text{when $n\neq n'$}\text{(using geometric sum formula)}.
         \end{cases}
     \end{split}
-\end{equation*}
-    
+\end{equation}    
 \end{Proof}
-
-
-\begin{Rem}
-    As stated before it is possible to represent the \ac{DFT} with a matrix\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011}. 
-    Let $\boldsymbol{W}_N$ be the matrix with $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$ 
-    \begin{equation*}
-        \boldsymbol{W}_N \coloneqq 
-        \begin{bmatrix}
-            1     & 1                & 1                   & 1                   & \cdots & 1                      \\
-            1     & \omega_{N}^{}    & \omega_{N}^{2}      & \omega_{N}^{3}      & \cdots & \omega_{N}^{N-1}       \\
-            1     & \omega_{N}^{2}   & \omega_{N}^{4}      & \omega_{N}^{6}      & \cdots & \omega_{N}^{2(N-1)}    \\
-            1     & \omega_{N}^{3}   & \omega_{N}^{6}      & \omega_{N}^{9}      & \cdots & \omega_{N}^{3(N-1)}    \\
-            \cdot & \cdot            & \cdot               & \cdot               & \cdots & \cdot                  \\ 
-            \cdot & \cdot            & \cdot               & \cdot               & \cdots & \cdot                  \\ 
-            1     & \omega_{N}^{N-1} & \omega_{N}^{2(N-1)} & \omega_{N}^{3(N-1)} & \cdots & \omega_{N}^{(N-1)(N-1)}
-            \end{bmatrix}
-    \end{equation*}
-    where $\omega_N = e^{-2\pi i/N}$ then $e^{-2\pi imn/N} = \omega_N^{mn}$. Considering $\boldsymbol{X}$ 
-    and $\hat {\boldsymbol{X}}$ as column vectors we can rewrite the $1$-$d$ \ac{DFT} as:
-    \begin{equation*}
-        \hat {\boldsymbol{X}} \coloneqq \frac{1}{N}\boldsymbol{W}_N\boldsymbol{X}
-    \end{equation*}
-\end{Rem}
-
-
-
-
-
-
-
-
-\begin{Def}\label{def:2ddft}
-    \emph{$2$-$d$ \ac{DFT}}\\
-    The \emph{$2$-$d$ \ac{DFT}} of the $2$-$d$ array $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
+\begin{Def}[2D \ac{DFT}]\label{def:2ddft}
+    The 2D \ac{DFT} of the matrix $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
     $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by
     \begin{equation}\label{eq:2ddft}
-        \{\hat {\boldsymbol{X}}\}_{k,l} \coloneqq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} \{{\boldsymbol{X}}\}_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
+        {\hat X}_{k,l} \coloneqq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} X_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
     \end{equation}
-    and to get back the original array one can use the inversion formula
+    and to get back the original matrix one can use the inversion formula
     \begin{equation}\label{eq:2didft}
-        \{{\boldsymbol{X}}\}_{n,m} \coloneqq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}\{\hat {\boldsymbol{X}}\}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
+        X_{n,m} \coloneqq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}{\hat X}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
     \end{equation}    
 \end{Def}
 
-As it is evident from the formula the $2$D Discrete Fourier Transform is a linear transformation therefor 
-there a corresponding matrix and basis vectors. The matrix is dense matrix and due to computational efficiency 
-is almost never computed directly, however taking a closer look at the basis vectors would shed some light on 
-the nature of the said transform and is a time well spent.
-
-
-
-
+\begin{Rem}
+Like the 1D \ac{DFT} it can be seen from the formula that the 2D \ac{DFT} is a linear transformation but unlike the 1D \ac{DFT}
+unless you reorder the matrix that you are taking the 2D \ac{DFT} of into a vector, The transformation \emph{can not} be described using a matrix. The transformation \emph{can be} described however using a 4th order tensor. 
+is denseness and computational efficiency still hold which is why we again take a closer look at the properties of the basis vectors in the hope gaining
+\todo{adding some stuff like all the linear mappings of the 2nd order tensors to 2nd tensor orders can be shown using 4th order tensor}
+\end{Rem}
 
 \begin{Prop}\label{Prop:2ddftbasisvectors}
     The basis vectors
@@ -190,11 +173,11 @@ the nature of the said transform and is a time well spent.
 \end{Prop}
 
 \begin{Proof}
-    \begin{align*} 
+    \begin{align} 
         \boldsymbol{g}^{n,m}    &= \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}\\
         \boldsymbol{g}^{n',m'}  &= \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
-    \end{align*}
-    \begin{equation*}
+    \end{align}
+    \begin{equation}
         \begin{split}  
             \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)}\\
             &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\exp\left({\frac{+2\pi im'l}{M}}\right)\\
@@ -206,26 +189,14 @@ the nature of the said transform and is a time well spent.
                 0 & \text{when $\neg(n = n' \wedge m=m')$}\text{(using geometric sum formula)}.
             \end{cases}    
         \end{split}
-    \end{equation*}
-    
-
-    
+    \end{equation}
 \end{Proof}
 
 
-
+\begin{Rem}
+    \todo{write some stuff about the FFT}
 Fast Fourier Transform \cite{Cooley1965} \cite{Good1960} \cite{Frazier1999} \cite{Cormen2022}
-
-
-
-
-\begin{Thm}\label{theorem:dft is unitary}
-    
-    Here goes the actual theorem description.
-\end{Thm}
-\begin{Proof}
-    
-\end{Proof}
+\end{Rem}
 
 
 
@@ -242,28 +213,13 @@ Fast Fourier Transform \cite{Cooley1965} \cite{Good1960} \cite{Frazier1999} \cit
 
 
 
-\section{Probability Theory}
 
-\begin{Thm}\label{theorem:expectation_general}
-    Let $X$ and $Y$ be independent discrete random variables. For expectation value of functions of our random variables we would be having:
-	\begin{equation*}
-		\mathbb{E}(f(X,Y)) = \sum_{X=x}^{}\sum_{Y=y}^{}f(x,y)p(x)p(y)
-	\end{equation*}
-    where $p(x)$ and $p(y)$ are the probability of $x$ and $y$ being realized from the random variables $X$ and $Y$.
-\end{Thm}
-\begin{Proof}
-    The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
-    you will arrive at the conclusion \cite{DasGupta2010}\cite{DasGupta2011}.
-\end{Proof}
-\begin{Cor}\label{theorem:expectation_multiplication}
-	Let $X$ and $Y$ be independent discrete random variables. We would be having:
-	\begin{equation*}
-		\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)
-	\end{equation*}
-\end{Cor}
-\begin{Proof}
-Use \cref{theorem:expectation_general}.
-\end{Proof}
+
+
+
+
+
+
 
 
 

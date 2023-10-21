@@ -332,6 +332,27 @@ in case the reader tries to come up their own setting and wants to check the adm
 so the $E(d)$ part becomes trivial as $b_1$ is symmetrically distributed around zero or you can do it explicitly by expanding the terms. 
 
 
+\begin{Thm}\label{theorem:expectation_general}
+  Let $X$ and $Y$ be independent discrete random variables. For expectation value of functions of our random variables we would be having:
+\begin{equation}
+  \mathbb{E}(f(X,Y)) = \sum_{X=x}^{}\sum_{Y=y}^{}f(x,y)p(x)p(y)
+\end{equation}
+  where $p(x)$ and $p(y)$ are the probability of $x$ and $y$ being realized from the random variables $X$ and $Y$.
+\end{Thm}
+\begin{Proof}
+  The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
+  you will arrive at the conclusion \cite{DasGupta2010}\cite{DasGupta2011}.
+\end{Proof}
+\begin{Cor}\label{theorem:expectation_multiplication}
+Let $X$ and $Y$ be independent discrete random variables. We would be having:
+\begin{equation}
+  \mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)
+\end{equation}
+\end{Cor}
+\begin{Proof}
+Use \cref{theorem:expectation_general}.
+\end{Proof}
+
 
 \begin{Prop}
 	The Octanary Modulation setting is admissible by the criteria proposed by\cite{Candes2014}. 
