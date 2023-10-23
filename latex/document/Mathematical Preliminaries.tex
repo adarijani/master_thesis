@@ -114,18 +114,18 @@ basis vectors would shed some light on the nature of the said transform and is a
 \end{Rem}
 
 \begin{Prop}\label{Prop:1ddftbasisvectors}
-    The basis vectors
+    The basis \todo{We don't know yet that these vectors form a basis. It would be better to just call them ``vectors''. From their orthononality, you can directly conclude that they form a basis.} vectors
     \begin{equation}\label{eq:1ddftbasisvectors}
         \boldsymbol{g}^n = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\right)_{k=0,\ldots,N-1}
     \end{equation}
-    are orthogonal to each other with respect to the usual inner product for complex valued vectors 
-    with the normalization constant of $N$
+    are orthogonal to each other with respect to the usual \todo{Don't say ``usual'', refer to your definition: \cref{def:scalar_product_induced_norm_complex_vectors}} inner product for complex valued vectors 
+    with the normalization constant \todo{I don't think that the concept of being ``orthogonal with a normalization constant'' is defined. It would be more clear to state that they are orthogonal and each of them has a norm of $\sqrt{N}$, which is what your formula says.} of $N$
     \begin{equation}
         \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle= N \delta_{n,n'}
     \end{equation}
 \end{Prop}
 
-\begin{Proof}
+\begin{Proof}\todo{Why do you put equations for $\boldsymbol{g}^n$ and $\boldsymbol{g}^{n'}$ that are identical to the one you just defined above? I think you just want to say ``Let $n,n'\in\{0,\ldots,N-1\}$''. Then, you can continue with $\langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle =...$.}
     \begin{equation}
         \boldsymbol{g}^n = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\right)_{k=0,\ldots,N-1}, \quad \boldsymbol{g}^{n'} = \left(\exp\left({\frac{-2\pi in'k}{N}}\right)\right)_{k=0,\ldots,N-1}
     \end{equation}
@@ -140,6 +140,7 @@ basis vectors would shed some light on the nature of the said transform and is a
         \end{cases}
     \end{split}
 \end{equation}    
+\todo{This is not really a proof. The non-trivial part happens in ``(using geometric sum formula)''. If you want to have the proof, you need to include this part, it's only one line anyway (the geometric sum formula you can use without proof). Otherwise, skip the proof and just reference a book for it. Since you need this again in the 2D case below, I would add this here.}
 \end{Proof}
 \begin{Def}[2D \ac{DFT}]\label{def:2ddft}
     The 2D \ac{DFT} of the matrix $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
