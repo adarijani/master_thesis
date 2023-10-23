@@ -82,7 +82,7 @@ The \ac{FT} and its discrete counterpart will play an important role in one of o
     \begin{equation}\label{eq:1ddft}
         {\hat x}_k \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} x_n\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}
     \end{equation}
-    and to get back the original vector one can use the \ac{IDFT}\todo{You cannot redfine $x_n$, this is just the $n$-component of the vector $\boldsymbol{x}$ you declared at the beginning of the statement. I guess you want to define the IDFT here and then have the statement (which is not a defnition) that $\boldsymbol{x}=IDFT(DFT(\boldsymbol{x}))$ holds.}
+    and to get back the original vector one can use the \ac{IDFT}\todo{You cannot redfine $x_n$, this is just the $n$-component of the vector $\boldsymbol{x}$ you declared at the beginning of the statement. I guess you want to define the IDFT here and then have the statement (which is not a definition) that $\boldsymbol{x}=IDFT(DFT(\boldsymbol{x}))$ holds.}
     \begin{equation}\label{eq:1didft}
         x_n \coloneqq \sum_{k=0}^{N-1}\hat{x}_{k}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}
     \end{equation}    
@@ -148,7 +148,7 @@ basis vectors would shed some light on the nature of the said transform and is a
     \begin{equation}\label{eq:2ddft}
         {\hat X}_{k,l} \coloneqq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} X_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
     \end{equation}
-    and to get back the original matrix one can use the inversion formula
+    and to get back the original matrix one can use the inversion formula\todo{As in the 1D case, you cannot redfine $X_{n,m}$, this is just the $n,n$-component of the matrix $\boldsymbol{X}$ you declared at the beginning of the statement. I guess you want to define the IDFT here and then have the statement (which is not a definition) that $\boldsymbol{X}=IDFT(DFT(\boldsymbol{X}))$ holds.}
     \begin{equation}\label{eq:2didft}
         X_{n,m} \coloneqq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}{\hat X}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
     \end{equation}    
