@@ -82,7 +82,7 @@ The \ac{FT} and its discrete counterpart will play an important role in one of o
     \begin{equation}\label{eq:1ddft}
         {\hat x}_k \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} x_n\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}
     \end{equation}
-    and to get back the original vector one can use the \ac{IDFT} 
+    and to get back the original vector one can use the \ac{IDFT}\todo{You cannot redfine $x_n$, this is just the $n$-component of the vector $\boldsymbol{x}$ you declared at the beginning of the statement. I guess you want to define the IDFT here and then have the statement (which is not a defnition) that $\boldsymbol{x}=IDFT(DFT(\boldsymbol{x}))$ holds.}
     \begin{equation}\label{eq:1didft}
         x_n \coloneqq \sum_{k=0}^{N-1}\hat{x}_{k}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}
     \end{equation}    
@@ -90,7 +90,7 @@ The \ac{FT} and its discrete counterpart will play an important role in one of o
 
 \begin{Rem}
 As it is evident from the formula the 1D \ac{DFT} is a linear transformation therefore there is a corresponding matrix 
-and a set of basis vectors. Let $\boldsymbol{W}_N$ be the matrix with $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$ 
+and a set of basis vectors\todo{Since we are talking about a linear mapping from $\mathbb{C}^{N}$ to $\mathbb{C}^{N}$, it would be natural to consider the corresponding matrix in $\mathbb{C}^{N\times N}$ without mentioning that there is a set of basis vectors and then not specifying them.}. Let $\boldsymbol{W}_N$ be the matrix with $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$\todo{Don't use curly braces to specify components. Also, I would just say $\boldsymbol{W}_N\in \mathbb{C}^{N\times N}$. You don't seem to need the notation $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$, which extracts all the entries of the matrix and then puts them into a matrix...} 
 \begin{equation}
     \boldsymbol{W}_N \coloneqq 
     \begin{bmatrix}
@@ -103,13 +103,13 @@ and a set of basis vectors. Let $\boldsymbol{W}_N$ be the matrix with $\left\{\b
         1     & \omega_{N}^{N-1} & \omega_{N}^{2(N-1)} & \omega_{N}^{3(N-1)} & \cdots & \omega_{N}^{(N-1)(N-1)}
         \end{bmatrix}
 \end{equation}
-where $\omega_N = e^{-2\pi i/N}$ then $e^{-2\pi imn/N} = \omega_N^{mn}$. Considering $\boldsymbol{X}$ 
-and $\hat {\boldsymbol{X}}$ as column vectors we can rewrite the 1D \ac{DFT} as:
+where $\omega_N = e^{-2\pi i/N}$ \todo{grammar} then $e^{-2\pi imn/N} = \omega_N^{mn}$. Considering $\boldsymbol{X}$ 
+and $\hat {\boldsymbol{X}}$ as column vectors we can rewrite the 1D \ac{DFT} as:\todo{There is no need to reinterpret the vectors $\boldsymbol{x}$ and $\boldsymbol{y}$ as column vectors. The product of a matrix and a vector is properly defined (if the sizes match). So, I think what you want to state here is that $\hat {\boldsymbol{x}} =\frac{1}{N}\boldsymbol{W}_N\boldsymbol{x}$. You are not redefining the Fourier transform, you are stating that one gets the transform you defined above with the matrix you just defined.}
 \begin{equation}
     \hat {\boldsymbol{X}} \coloneqq \frac{1}{N}\boldsymbol{W}_N\boldsymbol{X}
 \end{equation}
- The matrix is a dense matrix\cite{Frazier1999}\cite{Cormen2022} and due to computational 
-efficiency\cite{Frazier1999}\cite{Cormen2022} is almost never computed directly, however taking a closer look at the 
+ The matrix is a dense matrix\cite{Frazier1999}\cite{Cormen2022} \todo{As usual, only one reference for well known statements.} and due to computational 
+efficiency\todo{And computational efficiency here means both number of operations and memory use. The DFT is simpy not computed using this formulation of the sum directly, but using the FFT.}\cite{Frazier1999}\cite{Cormen2022} is almost never computed directly, however taking a closer look at the 
 basis vectors would shed some light on the nature of the said transform and is a time well spent.
 \end{Rem}
 
