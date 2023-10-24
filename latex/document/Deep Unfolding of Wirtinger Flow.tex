@@ -109,7 +109,7 @@ nice review on the recent application of \dl/\au in \dsip is done by \cite{Monga
 
 
 
-problems by complex valued neural networks \cite{Bassey2021} \cite{Barrachina2023} \cite{CTOBYZDSSSJFSSMNRYBCP2017}
+complex valued neural networks have other applications too \cite{Bassey2021} \cite{Barrachina2023} \cite{CTOBYZDSSSJFSSMNRYBCP2017}
 
 
 \cite{Wirtinger1927} \cite{KreutzDelgado2009} \cite{Fischer2002}
@@ -160,22 +160,23 @@ The \ac{DFT} is bijective\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011} 
 
 Let $\Omega \in \mathbb{R}^n$ and $\psi$ a mapping that takes $\Omega$ to $\mathbb{C}$. Mostly $\Omega$ is assumed to be a 
 $d$-dimensional cube which makes it easier to work with. The process of extracting $\psi$(up to a global phase) from:
-\begin{equation*}
+\begin{equation}
 	E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{K} {\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X}^2}_{\coloneqq D(\psi)}+ R(\psi)
-  \end{equation*}
-  is called \ac{PR}(just a subclass of \ac{PR}) where:
+  \end{equation}
+  is called \acl*{PR}(just a subclass of \acl*{PR}) where:
   \begin{itemize}
+  \item $\psi$ is the continuous variable that after the discretization is going to be $\in \mathbb{C}^N$
 	\item $E(\psi)$ the functional we are trying to minimize.
 	\item $D(\psi)$ the data term.
 	\item $R(\psi)$ the regularization term.
-	\item $\boldsymbol{A}_j$ the $j$-th sampler operator.
+	\item $\boldsymbol{A}_j$ the $j$-th linear sampler operator.
 	\item $G_j$ the $j$-th measurement.
-	\item $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}, z \rightarrow \left|z\right|_X \lor {\left|z\right|^2}_X$ 
-	is the function responsible for phase loss in the measurement process.
+	\item $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}$, 
+	is the function responsible for the phase loss(phase destruction) in the measurement process\footnote{the case of $z \rightarrow \left|z\right|_X \lor {\left|z\right|^2}_X$ are of great interest}
   \end{itemize}
 
-Solving the \ac{PR} is not quite easy due to the non-convex, non-holomorphic and infinite-dimensional characteristics of the \ac{PR}. 
-In short the \ac{PR} can be solved by the iterative algorithm:
+Solving the \acl*{PR} is not quite easy due to the non-convex, non-holomorphic and infinite-dimensional characteristics of the \acl*{PR}. 
+In short the \acl*{PR} can be solved by the iterative algorithm:
   \begin{equation}\label{eq:pr_solution}
 	\psi^{k+1} = \text{prox}_{\tau_{k}R}(\psi^k-\tau_k\nabla{D(\psi^k)})
   \end{equation}
@@ -193,17 +194,17 @@ In short the \ac{PR} can be solved by the iterative algorithm:
 	\item $\varphi'$ the first derivative of the $\varphi$ function.
   \end{itemize}
 
-  A simpler variation of the above formulation were studied extensively and is at the core of \ac{WF} variants. 
-  From now on we consider the following as the \ac{PR} problem:
+  A simpler variation of the above formulation were studied extensively and is at the core of the \ac{WF} variants. 
+  From now on we consider the following as the \acl*{PR} problem:
 
-  \begin{equation*}
+  \begin{equation}\label{eq:main_function}
 	\boldsymbol{y} = \varphi(\boldsymbol{A}\boldsymbol{x})
-  \end{equation*}
-  where $\boldsymbol{x} \in \mathbb{C}^{n \times 1}$ is the ray of interest, $\boldsymbol{A} \in \mathbb{C}^{m \times n}$ the sampler matrix,  
-  $\boldsymbol{y} \in \mathbb{R}^{m \times 1}$, and $\varphi$ the usual element-wise absolute value(or the squared absolute value) from 
-  $\mathbb{C}^{m \times 1}$ to $\mathbb{R}^{m \times 1}$ and destroys the information encoded in the phase. Since 
+  \end{equation}
+  where $\boldsymbol{x} \in \mathbb{C}^{n \times 1}$ is the vector of interest, $\boldsymbol{A} \in \mathbb{C}^{m \times n}$ the sampler matrix,  
+  $\boldsymbol{y} \in \mathbb{R}^{m \times 1}$ the measurements vector, and $\varphi$ the usual element-wise absolute value(or the squared absolute value) from 
+  $\mathbb{C}^{m \times 1}$ to $\mathbb{R}^{m \times 1}$ that destroys the information encoded in the phase. Since 
   $\left|\boldsymbol{A}\boldsymbol{x}\mathrm{e}^{\mathrm{i}\theta}\right|_X = \left|\boldsymbol{A}\boldsymbol{x}\right|_X$, 
-  $\min \left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|_X$ was considered as the loss function throughout the \ac{WF} variants papers\cite{Candes2014}\cite{Chen2015}\cite{Kolte2016}\cite{Zhang2016} where $\boldsymbol{z}$ is the estimation of
+  $\min \left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|_X$ was considered as the loss function throughout the \ac{WF} variants papers \cite{Candes2014}\cite{Chen2015}\cite{Kolte2016}\cite{Zhang2016} where $\boldsymbol{z}$ is the estimation of
   $\boldsymbol{x}$ up to a global phase.
 
 
@@ -214,15 +215,15 @@ In short the \ac{PR} can be solved by the iterative algorithm:
 	\begin{Prop}\label{theorem:min distance}
 		Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, where $(z,x)_X$ is 
 		the usual scalar product associated with such vector spaces, and $\left|\cdot\right|_X$ the induced norm using the scalar product on the vector space $X$, then the expression
-		\begin{equation*}
+		\begin{equation}\label{eq:loss_function}
 			f(\varphi) \coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X
-		\end{equation*}
+		\end{equation}
 		has a minimum and the minimum can be calculated in a closed form manner.
 		\end{Prop}
 		\begin{Proof}
-			$f(\varphi)$ is continuous and periodic therefore it will attain its minimum and maximum for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}\cite{Rudin1987}. 
+			$f(\varphi)$ is continuous and periodic therefore it will attain its minimum and maximum for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}. 
 			Let $w \coloneqq (z,x)_X = \operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$
-			\begin{equation*}
+			\begin{equation}
 				\begin{split}
 				f(\varphi) &\coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X = 
 				\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\\
@@ -231,39 +232,39 @@ In short the \ac{PR} can be solved by the iterative algorithm:
 						   &+ \left(z,z\right)_X - (\cos(\varphi)+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) +\mathrm{i}\operatorname{Im}(w)\right)\\
 						   &= \left(x,x\right)_X - 2\left(\cos\varphi\operatorname{Re}(w)+\sin\varphi\operatorname{Im}(w)\right)+ \left(z,z\right)_X
 				\end{split}
-			  \end{equation*}
-			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006}:
-			  \begin{equation*}
+			  \end{equation}
+			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006} and also \cref{lemma:inverse_sin_sum}:
+			  \begin{equation}
 				\begin{split}
 				\frac{\mathrm{d}f(\varphi)}{\mathrm{d}\varphi} &= - 2\left(-\sin\varphi\operatorname{Re}(w)+\cos\varphi\operatorname{Im}(w)\right) = 2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\sin(\varphi-\theta)\\ 
 				\end{split}
-			  \end{equation*}
+			  \end{equation}
 			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$.
-			  \begin{equation*}
+			  \begin{equation}
 				\begin{split}
 				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &= - 2\left(-\cos\varphi\operatorname{Re}(w)-\sin\varphi\operatorname{Im}(w)\right) = -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
 				\end{split}
-			  \end{equation*}
+			  \end{equation}
 			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$. 
-			  For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique argument $\varphi^*$ corresponding to the minimum and the minimum itself \cite{Boyd2004}\cite{Nocedal2006}.
+			  For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique $\arg\min$ $\varphi^*$ corresponding to the $\min$.
 		\end{Proof}
 
 
   
 \section{Difficulties}
 
-The loss function is non-convex. Set $n=1$, $m=2$, $\boldsymbol{x}_1 = \begin{pmatrix}1+i\end{pmatrix}^{1 \times 1}$, 
+The loss function in \cref{eq:loss_function} is non-convex \cite{Candes2014}. Set $n=1$, $m=2$, $\boldsymbol{x}_1 = \begin{pmatrix}1+i\end{pmatrix}^{1 \times 1}$, 
 $\boldsymbol{x}_2 = \begin{pmatrix}-1-i\end{pmatrix}^{1 \times 1}$, $\boldsymbol{A}=\begin{pmatrix}1\\i \end{pmatrix}^{2 \times 1}$, 
 $\boldsymbol{y}=\begin{pmatrix}1\\2 \end{pmatrix}^{2 \times 1}$, and $\lambda=1/2$ to build a counterexample. Non-convexity is bad news for 
 optimization as most of the optimization methods are build on top of convexity \cite{Boyd2004}\cite{Nocedal2006}. To make the matter worse the loss function is not 
-holomorphic( it can be easily seen that Cauchy-Riemann equations\cite{Rudin1987}\cite{Stein2003} do not hold).
+holomorphic\footnote{Cauchy-Riemann equations\cite{Rudin1987} do not hold}
 
 \section{Motivating Application}
 
 Since introducing complex numbers introduced a couple of quite difficult obstacles in the math part and will introduce others in the implementation part 
 we think we owe it to the reader to motivate the assumption by giving one application which is imaging using \ac{CDP} coupled with \ac{WF} variants.
 
-\section{Diffracted Imaging}
+\section{Diffracted Imaging}\label{sec:diffracted_imaging}
 
 Without going too much into the Physics of it Consider a ray that is emitted onto an object of interest and the diffracted rays are collected and measured at some distance from the object. 
 The goal is reconstruct the image using the said measurements. If the distance between the sample and the detector is far enough(characterized by the Fraunhofer condition\cite{Lipson1995}) 
@@ -339,19 +340,19 @@ so the $E(d)$ part becomes trivial as $b_1$ is symmetrically distributed around 
 \end{equation}
   where $p(x)$ and $p(y)$ are the probability of $x$ and $y$ being realized from the random variables $X$ and $Y$.
 \end{Thm}
-\begin{Proof}
-  The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
-  you will arrive at the conclusion \cite{DasGupta2010}\cite{DasGupta2011}.
-\end{Proof}
-\begin{Cor}\label{theorem:expectation_multiplication}
+% \begin{Proof}
+  % The general case where $X$ and $Y$ are not independent is usually discussed. Then by assuming an independent setting 
+  % you will arrive at the conclusion \cite{DasGupta2010}\cite{DasGupta2011}.
+% \end{Proof}
+\begin{Lem}\label{lemma:expectation_multiplication}
 Let $X$ and $Y$ be independent discrete random variables. We would be having:
 \begin{equation}
   \mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)
 \end{equation}
-\end{Cor}
-\begin{Proof}
-Use \cref{theorem:expectation_general}.
-\end{Proof}
+\end{Lem}
+% \begin{Proof}
+% Use \cref{theorem:expectation_general}.
+% \end{Proof}
 
 
 \begin{Prop}

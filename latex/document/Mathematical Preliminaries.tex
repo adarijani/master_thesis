@@ -21,7 +21,7 @@
         \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}.
     \end{equation}    
 \end{Def}
-\begin{Def}
+\begin{Def}\label{def:scalar_product_induced_norm_complex_matrices}
     For the complex matrices $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{M \times N}$ the mapping $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^{M \times N} \times \mathbb{C}^{M \times N} \to \mathbb{C}$ 
     \begin{equation}
         \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=1}^{N}\sum_{i=1}^{M} X_{i,j} \overline{Y_{i,j}} 
@@ -75,22 +75,25 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
 
 
 \section{Discrete Fourier Transform}
-The \ac{FT} and its discrete counterpart will play an important role in one of our examples and here we give a fast refresher on the basic properties of the \ac{DFT} and the \ac{IDFT}.
+The \ac{FT} and its discrete counterpart will play an important role in one of our motivating examples\cref{sec:diffracted_imaging} 
+for the \ac{WF} and here we give a fast refresher on the basic properties of the \ac{DFT} and the \ac{IDFT}.
 
-\begin{Def}[1D \ac{DFT}]\label{def:1ddft}
-    The 1D \ac{DFT}  of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\hat {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by
+\begin{Def}[1D \ac{DFT} and 1D \ac{IDFT}]\label{def:1ddft_1didft}
+    The 1D \ac{DFT}  of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\hat {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by:
     \begin{equation}\label{eq:1ddft}
-        {\hat x}_k \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} x_n\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}
+        {\hat x}_k \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} x_n\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}.
     \end{equation}
-    and to get back the original vector one can use the \ac{IDFT}\todo{You cannot redfine $x_n$, this is just the $n$-component of the vector $\boldsymbol{x}$ you declared at the beginning of the statement. I guess you want to define the IDFT here and then have the statement (which is not a definition) that $\boldsymbol{x}=IDFT(DFT(\boldsymbol{x}))$ holds.}
+    The 1D \ac{IDFT}  of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\check {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by:
     \begin{equation}\label{eq:1didft}
-        x_n \coloneqq \sum_{k=0}^{N-1}\hat{x}_{k}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}
+        \check {x}_k \coloneqq \sum_{k=0}^{N-1}x_{n}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}.
     \end{equation}    
 \end{Def}
 
 \begin{Rem}
 As it is evident from the formula the 1D \ac{DFT} is a linear transformation therefore there is a corresponding matrix 
-and a set of basis vectors\todo{Since we are talking about a linear mapping from $\mathbb{C}^{N}$ to $\mathbb{C}^{N}$, it would be natural to consider the corresponding matrix in $\mathbb{C}^{N\times N}$ without mentioning that there is a set of basis vectors and then not specifying them.}. Let $\boldsymbol{W}_N$ be the matrix with $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$\todo{Don't use curly braces to specify components. Also, I would just say $\boldsymbol{W}_N\in \mathbb{C}^{N\times N}$. You don't seem to need the notation $\left\{\boldsymbol{W}_N\right\}_{\substack{mn \\ 0 \leq m,n \leq N-1}}$, which extracts all the entries of the matrix and then puts them into a matrix...} 
+$\boldsymbol{W}_N \in \mathbb{C}^{N\times N}$ that takes $\boldsymbol{x} \in \mathbb{C}^N$ to $\boldsymbol{y} \in \mathbb{C}^N$. 
+The matrix $\boldsymbol{W}_N$ can be shown as:
+
 \begin{equation}
     \boldsymbol{W}_N \coloneqq 
     \begin{bmatrix}
@@ -103,103 +106,125 @@ and a set of basis vectors\todo{Since we are talking about a linear mapping from
         1     & \omega_{N}^{N-1} & \omega_{N}^{2(N-1)} & \omega_{N}^{3(N-1)} & \cdots & \omega_{N}^{(N-1)(N-1)}
         \end{bmatrix}
 \end{equation}
-where $\omega_N = e^{-2\pi i/N}$ \todo{grammar} then $e^{-2\pi imn/N} = \omega_N^{mn}$. Considering $\boldsymbol{X}$ 
-and $\hat {\boldsymbol{X}}$ as column vectors we can rewrite the 1D \ac{DFT} as:\todo{There is no need to reinterpret the vectors $\boldsymbol{x}$ and $\boldsymbol{y}$ as column vectors. The product of a matrix and a vector is properly defined (if the sizes match). So, I think what you want to state here is that $\hat {\boldsymbol{x}} =\frac{1}{N}\boldsymbol{W}_N\boldsymbol{x}$. You are not redefining the Fourier transform, you are stating that one gets the transform you defined above with the matrix you just defined.}
+where $\omega_N = e^{-2\pi i/N}$ and $\omega_N^{mn} = e^{-2\pi imn/N}$. Considering again the $\boldsymbol{x}$
+and the $\hat {\boldsymbol{x}}$ vectors we can rewrite the 1D \ac{DFT}:
 \begin{equation}
-    \hat {\boldsymbol{X}} \coloneqq \frac{1}{N}\boldsymbol{W}_N\boldsymbol{X}
+    \hat {\boldsymbol{x}} = \frac{1}{N}\boldsymbol{W}_N\boldsymbol{x}
 \end{equation}
- The matrix is a dense matrix\cite{Frazier1999}\cite{Cormen2022} \todo{As usual, only one reference for well known statements.} and due to computational 
-efficiency\todo{And computational efficiency here means both number of operations and memory use. The DFT is simpy not computed using this formulation of the sum directly, but using the FFT.}\cite{Frazier1999}\cite{Cormen2022} is almost never computed directly, however taking a closer look at the 
-basis vectors would shed some light on the nature of the said transform and is a time well spent.
+ The matrix is a dense matrix\cite{Frazier1999} and due to computational 
+efficiency\footnote{both in terms of number of FLOPS and memory footprint}\cite{Frazier1999} is almost never computed directly, 
+however taking a closer look at the basis vectors would shed some light on the nature of the said transform and is a 
+time well spent.
 \end{Rem}
-
-\begin{Prop}\label{Prop:1ddftbasisvectors}
-    The basis \todo{We don't know yet that these vectors form a basis. It would be better to just call them ``vectors''. From their orthononality, you can directly conclude that they form a basis.} vectors
-    \begin{equation}\label{eq:1ddftbasisvectors}
+\begin{Prop}\label{Prop:1ddft_vectors_orthononality}
+    The vectors 
+    \begin{equation}\label{eq:1ddft_vectors}
         \boldsymbol{g}^n = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\right)_{k=0,\ldots,N-1}
     \end{equation}
-    are orthogonal to each other with respect to the usual \todo{Don't say ``usual'', refer to your definition: \cref{def:scalar_product_induced_norm_complex_vectors}} inner product for complex valued vectors 
-    with the normalization constant \todo{I don't think that the concept of being ``orthogonal with a normalization constant'' is defined. It would be more clear to state that they are orthogonal and each of them has a norm of $\sqrt{N}$, which is what your formula says.} of $N$
+    are orthogonal to each other with respect to the scalar product in \cref{def:scalar_product_induced_norm_complex_vectors} and 
+    each of them has a norm, induced by the scalar product, of $\sqrt{N}$ which can be formulated as: 
     \begin{equation}
-        \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle= N \delta_{n,n'}
+        \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle= N \delta_{n,n'} \qquad n \land n'\in \left\{0,\ldots,N-1\right\}
     \end{equation}
 \end{Prop}
 
-\begin{Proof}\todo{Why do you put equations for $\boldsymbol{g}^n$ and $\boldsymbol{g}^{n'}$ that are identical to the one you just defined above? I think you just want to say ``Let $n,n'\in\{0,\ldots,N-1\}$''. Then, you can continue with $\langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle =...$.}
-    \begin{equation}
-        \boldsymbol{g}^n = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\right)_{k=0,\ldots,N-1}, \quad \boldsymbol{g}^{n'} = \left(\exp\left({\frac{-2\pi in'k}{N}}\right)\right)_{k=0,\ldots,N-1}
+\begin{Proof}\label{proof:1ddft_vectors_orthononality}
+    Recall that
+    \begin{equation}\label{eq:geometric_sum_formula}
+        \sum_{i=0}^{N-1} q^i = \frac{1-q^N}{1-q} \quad \forall q \in \mathbb{C}\backslash\left\{1\right\}
     \end{equation}
+    which is known as the geometric sum formula. 
     \begin{equation}
     \begin{split} 
         \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)}
         = \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\\
-        &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)=
+        &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\\
+        &=
         \begin{cases}
             N & \text{when $n = n'$}\text{(trivial)},\\
-            0 & \text{when $n\neq n'$}\text{(using geometric sum formula)}.
+            0 & \text{when $n\neq n'$}\text{(Eq. \ref{eq:geometric_sum_formula} for $q = \exp\left({\frac{-2\pi i(n'-n)}{N}}\right)$)}.
         \end{cases}
     \end{split}
-\end{equation}    
-\todo{This is not really a proof. The non-trivial part happens in ``(using geometric sum formula)''. If you want to have the proof, you need to include this part, it's only one line anyway (the geometric sum formula you can use without proof). Otherwise, skip the proof and just reference a book for it. Since you need this again in the 2D case below, I would add this here.}
+\end{equation}
 \end{Proof}
-\begin{Def}[2D \ac{DFT}]\label{def:2ddft}
+
+\begin{Prop}
+    The vectors in \cref{Prop:1ddft_vectors_orthononality} form a basis.
+\end{Prop}
+\begin{Def}[2D \ac{DFT} and 2D \ac{IDFT}]\label{def:2ddft_2didft}
     The 2D \ac{DFT} of the matrix $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
-    $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by
+    the matrix $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by:
     \begin{equation}\label{eq:2ddft}
-        {\hat X}_{k,l} \coloneqq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} X_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)
+        {\hat X}_{k,l} \coloneqq \frac{1}{MN}\sum_{m=0}^{M-1}\sum_{n=0}^{N-1} X_{n,m}\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right).
     \end{equation}
-    and to get back the original matrix one can use the inversion formula\todo{As in the 1D case, you cannot redfine $X_{n,m}$, this is just the $n,n$-component of the matrix $\boldsymbol{X}$ you declared at the beginning of the statement. I guess you want to define the IDFT here and then have the statement (which is not a definition) that $\boldsymbol{X}=IDFT(DFT(\boldsymbol{X}))$ holds.}
+    The 2D \ac{IDFT} of the matrix $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
+    the matrix $\check {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by:
     \begin{equation}\label{eq:2didft}
-        X_{n,m} \coloneqq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}{\hat X}_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
+        \check X_{n,m} \coloneqq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}X_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
     \end{equation}    
 \end{Def}
 
 \begin{Rem}
-Like the 1D \ac{DFT} it can be seen from the formula that the 2D \ac{DFT} is a linear transformation but unlike the 1D \ac{DFT}
-unless you reorder the matrix that you are taking the 2D \ac{DFT} of into a vector, The transformation \emph{can not} be described using a matrix\todo{I'm not sure what the point of this remark is. Every linear mapping between finte dimensional spaces can be described as matrix. For this one here, a fourth order tensor would just be a bit more convenient. Since we are not really using the tensor viewpoint, I don't see why it's helpful to discuss this direction. Something that would be much more relevant is that what the 2D DFT is doing, is actually first a 1D FFT of all rows, then a 1D FFT of all columns (or the other way around, this is equivalent).}. The transformation \emph{can be} described however using a 4th order tensor. 
-is denseness and computational efficiency still hold which is why we again take a closer look at the properties of the basis vectors in the hope gaining
-\todo{adding some stuff like all the linear mappings of the 2nd order tensors to 2nd tensor orders can be shown using 4th order tensor}
+Like the 1D \ac{DFT} it can be seen from the formula that the 2D \ac{DFT} is a linear transformation. 
+The interesting thing in the 2D case that it is basically 2 consecutive 1D \ac{DFT} on the rows and columns. 
+The order of the 1D \ac{DFT}s do not matter and you can take the 1D \ac{DFT} on the rows and then 1D 
+\ac{DFT} on the columns or vice versa. The denseness and computational efficiency still hold which is why 
+we again take a closer look at the properties of the matrices that were introduced in \cref{def:2ddft_2didft} in the hope gaining
+some insight into the 2D {DFT}.
 \end{Rem}
 
-\begin{Prop}\label{Prop:2ddftbasisvectors}
-    The basis \todo{same three comments as in the 1D proposition} vectors
-    \begin{equation}\label{eq:2ddftbasisvectors}
-        \boldsymbol{g}^{n,m} = \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
+\begin{Prop}\label{Prop:2ddft_matrices_orthogonality}
+    The matrices
+    \begin{equation}\label{eq:2ddft_matrices}
+        \boldsymbol{g}^{n,m} = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right)_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
     \end{equation}
-    are orthogonal to each other with respect to the usual inner product for complex valued vectors 
-    with the normalization constant of $MN$
+    are orthogonal to each other with respect to the scalar product in \cref{def:scalar_product_induced_norm_complex_matrices} and 
+    each of them has a norm, induced by the scalar product, of $\sqrt{MN}$ which can be formulated as:
     \begin{equation}
-        \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle= MN \delta_{n,n'}\delta_{m,m'}
+        \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle= MN \delta_{n,n'}\delta_{m,m'} \qquad (n \land n' \in \left\{0,\ldots,N-1\right\}) \land (m \land m' \in \left\{0,\ldots,M-1\right\})
     \end{equation}
 \end{Prop}
 
-\begin{Proof}\todo{same two comments as in the proof of the 1D proposition} vectors
-    \begin{align} 
-        \boldsymbol{g}^{n,m}    &= \left\{\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}\\
-        \boldsymbol{g}^{n',m'}  &= \left\{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)\right\}_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}
-    \end{align}
+\begin{Proof}
     \begin{equation}
         \begin{split}  
             \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\overline{\exp\left({\frac{-2\pi in'k}{N}}\right)\exp\left({\frac{-2\pi im'l}{M}}\right)}\\
             &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\exp\left({\frac{+2\pi in'k}{N}}\right)\exp\left({\frac{+2\pi im'l}{M}}\right)\\
             &= \sum_{l=0}^{M-1}\sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\exp\left({\frac{-2\pi i(m'-m)l}{M}}\right)\\
             &= \sum_{k=0}^{N-1} \exp\left({\frac{-2\pi i(n'-n)k}{N}}\right)\sum_{l=0}^{M-1} \exp\left({\frac{-2\pi i(m'-m)k}{M}}\right)\\
-            &= 
+            &=
             \begin{cases}
-                MN & \text{when $n = n' \wedge m=m'$}\text{(trivial)},\\
-                0 & \text{when $\neg(n = n' \wedge m=m')$}\text{(using geometric sum formula)}.
-            \end{cases}    
+                MN & \text{$n = n' \wedge m=m'$}\text{(trivial)},\\
+                0 & \text{$\neg(n = n' \wedge m=m')$}\text{(just like the 1D case in \cref{proof:1ddft_vectors_orthononality})}.
+            \end{cases}  
         \end{split}
-    \end{equation}
+    \end{equation}    
 \end{Proof}
-
+\begin{Prop}
+    The matrices in \cref{Prop:2ddft_matrices_orthogonality} form a basis.
+\end{Prop}
+\begin{Rem}
+Due to its wide range of applications the \ac{DFT} the \ac{IDFT} are ranked third in \cite{KARBBCJGPHKKDPWLPJSSWWKY2006}
+\footnote{This is a very important and highly cited paper due to its importance in the \ac{HPC}. Important numerical algorithms
+are referred to as \emph{dwarves} humorously. Dense Linear Algebra, Sparse Linear Algebra, 
+Discrete Fourier Transform are the first, the second and the third dwarf in the descending order of importance. 
+It is not dramatizing to say that the first three \emph{dwarves} stature in the numerical world 
+is the same as the three great Olympians(Zeus, Poseidon, Hades) in the Greek mythology.}, the first and the 
+second being dense linear algebra and sparse linear algebra. As you can imagine implementing your own library is not recommended due to the notoriously detailed implementation issue associated with the \ac{DFT} and the \ac{IDFT}. 
+The practitioner that need the \ac{FT} probably should look into specifically designed packages like \cite{KARBBCJGPHKKDPWLPJSSWWKY2006} orthogonality \cite{VGOHRCBPWBWBWMMNJKLCPFMVLPCHQHARPM2020}.
+\end{Rem}
+\begin{Prop}
+    The \ac{DFT} in both 1D and 2D is\footnote{Please note that the \begin{equation}
+        \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle= N \delta_{n,n'} \qquad n \land n'\in \left\{0,\ldots,N-1\right\}
+    \end{equation} and     \begin{equation}
+        \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle= MN \delta_{n,n'}\delta_{m,m'} \qquad (n \land n' \in \left\{0,\ldots,N-1\right\}) \land (m \land m' \in \left\{0,\ldots,M-1\right\})
+    \end{equation} which is why it is possible to normalize the formulas to get a unitary transformation. We are not going to 
+    do that to be consistent with the way the \ac{DFT} and the \ac{IDFT} are introduced in most of the literature.} an orthogonal transformation   
+\end{Prop}
 
 \begin{Rem}
-    \todo{write some stuff about the FFT}
-Fast Fourier Transform \cite{Cooley1965} \cite{Good1960} \cite{Frazier1999} \cite{Cormen2022}
+    The \ac{DFT} being orthogonal is a nice property and we are going to put that to use in \cref{sec:diffracted_imaging}. 
 \end{Rem}
-
-
 
 
 
