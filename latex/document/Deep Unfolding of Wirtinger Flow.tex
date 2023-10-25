@@ -160,7 +160,7 @@ The \ac{DFT} is bijective\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011} 
 
 Let $\Omega \in \mathbb{R}^n$ and $\psi$ a mapping that takes $\Omega$ to $\mathbb{C}$. Mostly $\Omega$ is assumed to be a 
 $d$-dimensional cube which makes it easier to work with. The process of extracting $\psi$(up to a global phase) from:
-\begin{equation}
+\begin{equation}\label{eq:pr_problem}
 	E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{K} {\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X}^2}_{\coloneqq D(\psi)}+ R(\psi)
   \end{equation}
   is called \acl*{PR}(just a subclass of \acl*{PR}) where:
@@ -189,9 +189,9 @@ In short the \acl*{PR} can be solved by the iterative algorithm:
   where:
   \begin{itemize}
 	\item $\mathrm{prox}$ is the Proximal operator mostly used in non-differentiable but still convex setting \cite{Bredies2018}.
-	\item $\odot$ is the Hadamard product which becomes the usual element-wise product\cite{Horn2012}\cite{Hackbusch2019} when everything is discretized.
-	\item $\boldsymbol{A}^*_j$ is the $j$-th conjugate operator of the $j$-th sampler operator $\boldsymbol{A}_j$.
-	\item $\varphi'$ the first derivative of the $\varphi$ function.
+	\item $\odot$ is the Hadamard product\cite{Hackbusch2019} which is simply the element-wise product between two multidimensional arrays and occurs naturally when $\psi$ and $\boldsymbol{A}_j$ in \cref{eq:pr_problem} are discretized.
+	\item $\boldsymbol{A}^*_j$ is the $j$-th conjugate operator of the $j$-th linear sampler operator $\boldsymbol{A}_j$.
+	\item $\varphi' \colon \mathbb{C} \to \mathbb{C}$ the first derivative of the $\varphi \colon \mathbb{C} \to \mathbb{R}$ function.
   \end{itemize}
 
   A simpler variation of the above formulation were studied extensively and is at the core of the \ac{WF} variants. 
@@ -233,7 +233,7 @@ In short the \acl*{PR} can be solved by the iterative algorithm:
 						   &= \left(x,x\right)_X - 2\left(\cos\varphi\operatorname{Re}(w)+\sin\varphi\operatorname{Im}(w)\right)+ \left(z,z\right)_X
 				\end{split}
 			  \end{equation}
-			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006} and also \cref{lemma:inverse_sin_sum}:
+			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006} and also \cref{lemma:inverse_a_sin_b_cos}:
 			  \begin{equation}
 				\begin{split}
 				\frac{\mathrm{d}f(\varphi)}{\mathrm{d}\varphi} &= - 2\left(-\sin\varphi\operatorname{Re}(w)+\cos\varphi\operatorname{Im}(w)\right) = 2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\sin(\varphi-\theta)\\ 
@@ -245,8 +245,7 @@ In short the \acl*{PR} can be solved by the iterative algorithm:
 				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &= - 2\left(-\cos\varphi\operatorname{Re}(w)-\sin\varphi\operatorname{Im}(w)\right) = -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
 				\end{split}
 			  \end{equation}
-			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$. 
-			  For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique $\arg\min$ $\varphi^*$ corresponding to the $\min$.
+        For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique $\arg\min$ $\varphi^*$ corresponding to the $\min$.
 		\end{Proof}
 
 
@@ -257,7 +256,8 @@ The loss function in \cref{eq:loss_function} is non-convex \cite{Candes2014}. Se
 $\boldsymbol{x}_2 = \begin{pmatrix}-1-i\end{pmatrix}^{1 \times 1}$, $\boldsymbol{A}=\begin{pmatrix}1\\i \end{pmatrix}^{2 \times 1}$, 
 $\boldsymbol{y}=\begin{pmatrix}1\\2 \end{pmatrix}^{2 \times 1}$, and $\lambda=1/2$ to build a counterexample. Non-convexity is bad news for 
 optimization as most of the optimization methods are build on top of convexity \cite{Boyd2004}\cite{Nocedal2006}. To make the matter worse the loss function is not 
-holomorphic\footnote{Cauchy-Riemann equations\cite{Rudin1987} do not hold}
+holomorphic\footnote{Cauchy-Riemann equations do not hold. You can take a look at the eleventh chapter of \cite{Rudin1987} for further details.} 
+which in turn makes arriving at the gradient descent like structure in \cref{eq:gradient_pr_solution} more involved.
 
 \section{Motivating Application}
 
@@ -267,28 +267,29 @@ we think we owe it to the reader to motivate the assumption by giving one applic
 \section{Diffracted Imaging}\label{sec:diffracted_imaging}
 
 Without going too much into the Physics of it Consider a ray that is emitted onto an object of interest and the diffracted rays are collected and measured at some distance from the object. 
-The goal is reconstruct the image using the said measurements. If the distance between the sample and the detector is far enough(characterized by the Fraunhofer condition\cite{Lipson1995}) 
-then the solution of the diffraction problem is well approximated by the \ac{FT} of the emitted ray. Due to quantum mechanical effects and material limitations\cite{Shechtman2015}\cite{DGDS2018}\cite{FranzSchwabl2007} 
-the phase of the \ac{FT} can not be measured therefore we encounter the \ac{PR} problem. In summary in the discrete $1$-d case we have:
+The goal is to reconstruct the image using the said measurements. If the distance between the sample and the detector is far enough, characterized by the Fraunhofer condition\cite{Lipson1995}, 
+then the solution of the diffraction problem is well approximated by the \ac{FT} of the emitted ray. Due to quantum mechanical effects\cite{DGDS2018}\cite{FranzSchwabl2007} and material limitations\cite{Shechtman2015} 
+the phase of the \ac{FT} can not be measured therefore we encounter the \acl*{PR} problem. In summary in the discrete 1D case we have:
 \begin{equation}
 	y_k = \left| \sum_{t=0}^{n-1} x[t] e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega, \qquad \boldsymbol{x} \in \mathbb{C}^n , \qquad \boldsymbol{y} \in \mathbb{R}^m, \qquad m > n 
 \end{equation}
 where $\boldsymbol{x}$ is the emitted ray and $\boldsymbol{y}$ is the measurement. By some physics technics\cite{Loewen2018}\cite{Candes2011} you can modulate 
-the ray before it diffracts which in $1$-d discrete setting becomes:
+the ray before it diffracts which in 1D discrete setting becomes:
 \begin{equation}\label{eq:modulation_effect}
 	y_k = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega
 \end{equation}
 
 If we do the process using $L$ different modulations/masks we would be having:
 \begin{equation}\label{eq:l_modulation_effect}
-	y_{l,k} = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \begin{split}
+	y_{l,k} = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 \quad \text{for} \quad \begin{split}
 	0 &\leq k \leq n-1\\
 	1 &\leq l \leq L
 	\end{split}
+  .
   \end{equation}
-\cite{ECXLMS2013} proved that if the number of modulations/masks $L$ is high enough, then the recovery of the ray is possible using \ac{PR} methods. 
+\cite{ECXLMS2013} proved that if the number of modulations/masks $L$ is high enough, then the recovery of the ray is possible using \acl*{PR} methods. 
 \cite{Gross2017} furthered improved the bounds in which the recovery is possible. The synthetic example would be to assume the ray to be a natural image and 
-apply \ac{WF} variants to get a better and natural feeling of \ac{PR} process. \ac{WF} vs \ac{TWF} can be seen in \cref{image:wf_vs_twf}, \ac{WF} vs \ac{RWF} in \cref{image:wf_vs_rwf}, and finally 
+apply \ac{WF} variants to get a better and natural feeling of \acl*{PR} process. The \ac{WF} vs the \ac{TWF} can be seen in \cref{image:wf_vs_twf}, \ac{WF} vs \ac{RWF} in \cref{image:wf_vs_rwf}, and finally 
 \ac{TWF} vs \ac{RWF} in \cref{image:twf_vs_rwf}.
 
 There are however some restrictions regarding the $d[t]$ in \cref{eq:modulation_effect} and \cref{eq:l_modulation_effect}. \cite{ECXLMS2013} proposed:
@@ -297,7 +298,7 @@ There are however some restrictions regarding the $d[t]$ in \cref{eq:modulation_
 \end{equation}
 where $\mathbb{E}$ is the expectation value operator and $d$ the random variable, as the admissibility condition and proposed two settings where the conditions are met:
 \begin{itemize}
-	\item first setting nicknamed \emph{Ternary Modulation}
+	\item first setting nicknamed \emph{Ternary Modulation}\footnote{as there are 3 different values(outcomes) for the random variable $d$}
 	\begin{equation*}
 	  d =
 		  \begin{cases}
@@ -306,7 +307,7 @@ where $\mathbb{E}$ is the expectation value operator and $d$ the random variable
 			  -i & \text{with prob.  $1/4$}
 		  \end{cases}  
 	\end{equation*}
-	\item second setting nicknamed \emph{Octanary Modulation}
+	\item second setting nicknamed \emph{Octanary Modulation}\footnote{as there are 8 different values(outcomes) for the random variable $d$}
 	\begin{equation*}
 		d = b_1b_2 \qquad \text{such that} \qquad
 	  b_1 =
@@ -326,12 +327,10 @@ where $\mathbb{E}$ is the expectation value operator and $d$ the random variable
 	\end{equation*}
 \end{itemize}
 
-As it is stated by \cite{ECXLMS2013} different \ac{CDP} might be better suited for different applications. We provide a double checking of the \emph{Octanary Modulation} 
-in case the reader tries to come up their own setting and wants to check the admissibility conditions themselves. 
-
-		
-so the $E(d)$ part becomes trivial as $b_1$ is symmetrically distributed around zero or you can do it explicitly by expanding the terms. 
-
+As it is stated by \cite{ECXLMS2013} different \acl*{CDP}s might be better suited for different applications so naturally 
+the possibility exists that the practitioners in their respective field want to experiment with different $d$s. Therefore 
+we provide the double checking of the admissibility conditions for the \emph{Octanary Modulation} proposed by \cite{Candes2014} 
+in case the reader is in fact one of those practitioners.
 
 \begin{Thm}\label{theorem:expectation_general}
   Let $X$ and $Y$ be independent discrete random variables. For expectation value of functions of our random variables we would be having:
@@ -350,17 +349,13 @@ Let $X$ and $Y$ be independent discrete random variables. We would be having:
   \mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y)
 \end{equation}
 \end{Lem}
-% \begin{Proof}
-% Use \cref{theorem:expectation_general}.
-% \end{Proof}
-
 
 \begin{Prop}
 	The Octanary Modulation setting is admissible by the criteria proposed by\cite{Candes2014}. 
 \end{Prop}
 
 \begin{Proof}
-	By using \cref{theorem:expectation_multiplication} and \cref{theorem:expectation_general} we have:
+	By using \cref{lemma:expectation_multiplication} and \cref{theorem:expectation_general} we have:
 	\begin{equation*}
 		\begin{split}
 		E(d) &= \left(+1 \times \frac{\sqrt{2}}{2}\right) \times \frac{4}{20} + \left(+1 \times \sqrt{3}\right) \times \frac{1}{20}+\left(-1 \times \frac{\sqrt{2}}{2}\right) \times \frac{4}{20}+\left(-1 \times \sqrt{3}\right) \times \frac{1}{20}\\
@@ -521,11 +516,14 @@ Let $X$ and $Y$ be independent discrete random variables. We would be having:
 
 \section{Implementation}
 
-As mentioned previously \ac{DU}\ac{AU} looks like \ac{RNN}s but it is not therefore it is not possible to use the higher level functions of the usual 
-\ac{ML}/\ac{DL} frameworks like \tensorflow\cite{Abadi2016}, \keras\cite{Chollet2023}, and \pytorch\cite{Paszke2019}. There is no:
+As mentioned previously \du/\au looks like the \rnns but it is not therefore it is not possible to use the higher level functions of the usual 
+\ml/\dl frameworks\footnote{At the time of writing \tensorflow\cite{Abadi2016}, \keras\cite{Chollet2023}, and \pytorch\cite{Paszke2019} are the 
+main players in the \ml/\dl world.}. To put it explicitly there is no:
 \begin{itemize}
-	\item real-time visualization of the epoch training
-	\item graph based visualization of the dependency of the parameters in pseudo layers
+	\item real-time visualization of the training process vs epochs\footnote{Which is very nice feature to have and makes it easy to stop the training process 
+  and save the 
+  model the moment you feel that the loss function on the train and the test data are deviating from each other}.
+	\item graph based visualization\footnote{\tensorflow accomplishes this for the already defined layers using the \graphviz package.} of the dependency of the parameters in the layers.
 	\item high level splitting and sampling mechanisms
 	\item automatic \ac{GPU} acceleration. 
 \end{itemize}
@@ -534,12 +532,12 @@ There are also other difficulties coming from the numerics alone:
 \begin{itemize}
 	\item suggested learning rates are mostly safe to use with known architectures
 	\item when input and outputs are not normalized according to the common practices, training becomes more difficult(not possible to normalize them since they are coming from context inspired algorithms)
-	\item the introduction of \ac{CVNN}\cite{CTOBYZDSSSJFSSMNRYBCP2017}\cite{Bassey2021}\cite{Barrachina2023} hinders what is under the hood in the \ac{ML}/\ac{DL} frameworks(\tensorflow\cite{Abadi2016}, \keras\cite{Chollet2023}, and \pytorch\cite{Paszke2019}).
+	\item the introduction of \ac{CVNN}\cite{CTOBYZDSSSJFSSMNRYBCP2017}\cite{Bassey2021}\cite{Barrachina2023} hinders what is under the hood in the \ml/\dl frameworks.
 \end{itemize}
 
 While writing the helping tools and even the \ac{GPU} acceleration is not that difficult and can be done single-handedly
-(Fran\c{c}ois Chollet wrote \keras\cite{Chollet2023} on top of \tensorflow\cite{Abadi2016} all be himself), the \ac{CVNN} is another beast. 
-One of the beating hearts of \ac{ML}/\ac{DL} frameworks is \ac{AD}/\ac{CD}. It is worth emphasizing that \ac{AD}/\ac{CD} is not symbolic differentiation and there are fundamental differences between the two \cite{Naumann2011}\cite{Griewank2008}. 
+\footnote{Fran\c{c}ois Chollet wrote \keras\cite{Chollet2023} on top of \tensorflow\cite{Abadi2016} all be himself which later was acquired by \google.}, the \ac{CVNN} is another beast. 
+One of the beating hearts of \ml/\dl frameworks is \ad/\cd. It is worth emphasizing that \ac{AD}/\ac{CD} is not symbolic differentiation and there are fundamental differences between the two \cite{Naumann2011}\cite{Griewank2008}. 
 The difficulty of \ac{CVNN}\cite{CTOBYZDSSSJFSSMNRYBCP2017}\cite{Bassey2021}\cite{Barrachina2023} is directly coming from the \ac{AD}/\ac{CD} part 
 that is used during backpropagation. The funny thing is that the general implementation of \ac{CVNN} requires the understanding of the 
 \emph{Wirtinger Derivatives}\cite{Wirtinger1927} which \cite{Candes2014} payed homage to by including the \ac{WF} name in the title of their paper\cite{Candes2014}. 
@@ -584,7 +582,7 @@ we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \a
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/wf.py}\index{WF}\label{code:wf}    
 \clearpage % End the page
@@ -626,7 +624,7 @@ we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \a
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/twf.py}
   \lstinputlisting[language=Python]{./algorithms/twf.py}\index{TWF}\label{code:twf}    
 \clearpage % End the page
@@ -660,7 +658,7 @@ we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \a
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/rwf.py}
   \lstinputlisting[language=Python]{./algorithms/rwf.py}\index{RWF}\label{code:rwf}     
 \clearpage % End the page
@@ -695,7 +693,7 @@ we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \a
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible PyTorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible PyTorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/irwf.py}\index{IRWF}\label{code:irwf}    
 \clearpage % End the page
@@ -731,7 +729,7 @@ we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \a
     \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
     your analysis on the porting confirms it to be worthwhile.
   \end{itemize}
-  A possible \pytorch\cite{Paszke2019} implementation using \ac{CUDA}\cite{Nvidia} is listed below as:
+  A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}\label{code:imrwf}    
 \clearpage % End the page
