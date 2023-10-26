@@ -1,4 +1,4 @@
-\chapter{Mathematical Preliminaries}
+\chapter{Mathematical Preliminaries}\label{ch:mathematical_preliminaries}
 \todo{A few words on what we are supposed to expect in this chapter would be helpful.}
 \section{Basic Analysis}
 \begin{Def}\label{def:scalar_product_complex_vectors}
@@ -116,7 +116,7 @@ efficiency\footnote{both in terms of number of FLOPS and memory footprint}\cite{
 however taking a closer look at the basis vectors would shed some light on the nature of the said transform and is a 
 time well spent.
 \end{Rem}
-\begin{Prop}\label{Prop:1ddft_vectors_orthononality}
+\begin{Prop}\label{prop:1ddft_vectors_orthononality}
     The vectors 
     \begin{equation}\label{eq:1ddft_vectors}
         \boldsymbol{g}^n = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\right)_{k=0,\ldots,N-1}
@@ -149,7 +149,7 @@ time well spent.
 \end{Proof}
 
 \begin{Prop}
-    The vectors in \cref{Prop:1ddft_vectors_orthononality} form a basis.
+    The vectors in \cref{prop:1ddft_vectors_orthononality} form a basis.
 \end{Prop}
 \begin{Def}[2D \ac{DFT} and 2D \ac{IDFT}]\label{def:2ddft_2didft}
     The 2D \ac{DFT} of the matrix $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
@@ -173,7 +173,7 @@ we again take a closer look at the properties of the matrices that were introduc
 some insight into the 2D {DFT}.
 \end{Rem}
 
-\begin{Prop}\label{Prop:2ddft_matrices_orthogonality}
+\begin{Prop}\label{prop:2ddft_matrices_orthogonality}
     The matrices
     \begin{equation}\label{eq:2ddft_matrices}
         \boldsymbol{g}^{n,m} = \left(\exp\left({\frac{-2\pi ink}{N}}\right)\exp\left({\frac{-2\pi iml}{M}}\right)\right)_{\substack{k=0,\ldots,N-1\\l=0,\ldots,M-1}}

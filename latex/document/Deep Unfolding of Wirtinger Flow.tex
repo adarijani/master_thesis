@@ -8,9 +8,10 @@ We give a story like introduction to \dl\cite{Goodfellow2016} and by pointing ou
 which is \dl like, but with context inspired architecture.
 
 \subsection{Multi-Layer Perceptrons}
-Let $\boldsymbol{x} \in \mathbb{R}^n,\boldsymbol{y} \in \mathbb{R}^m, \boldsymbol{h}_l \in \mathbb{R}^{k_l}, \boldsymbol{W}^1 \in \mathbb{R}^{k_1 \times n}
-,\boldsymbol{W}^{N+1} \in \mathbb{R}^{m \times k_N},\boldsymbol{W}^{l+1} \in \mathbb{R}^{k_l \times k_{l+1}}$ where $m,n,l,k_l \in \mathbb{N}$ \todo{You need $l$ from $1$ to $n$ for the $k_l$ and $l$ from $1$ to $n-1$ for the $\boldsymbol{W}^{l+1}$} and $\varphi$ is a
-function from $\mathbb{R}$ to $\mathbb{R}$ with certain properties\todo{Most import is that it's nonlinear. Otherwise, the whole network would be linear. You mention this further down}. 
+Let $\boldsymbol{x} \in \mathbb{R}^n,\boldsymbol{y} \in \mathbb{R}^m, \boldsymbol{h}^l \in \mathbb{R}^{k_l}, \boldsymbol{W}^1 \in \mathbb{R}^{k_1 \times n}
+, \boldsymbol{b}^1 \in \mathbb{R}^{k_1}, \boldsymbol{W}^{N+1} \in \mathbb{R}^{m \times k_N}, \mathbb{b}^m,\boldsymbol{W}^{l+1} \in \mathbb{R}^{k_l \times k_{l+1}}$ 
+where $m,n,l,k_{l\in \left\{0,\ldots,N-1\right\}} \in \mathbb{N}$ and $\varphi \colon \mathbb{R} \to \mathbb{R}$ is a 
+nonlinear function with certain properties. 
 Consecutive mappings:
 \begin{equation}
   \begin{split}
@@ -21,12 +22,24 @@ Consecutive mappings:
     y_i^{}    &= \sigma \left( \sum_{j}^{} W_{ij}^{N+1}h_j^N + b_i^{N+1} \right)
   \end{split}
   \end{equation}
-% \begin{equation*}
-  % x_i^{l+1} = \sigma \left( \sum_{j}^{} W_{ij}^{l+1}x_j^l + b_i^{l+1} \right)
-% \end{equation*}
 that take $\boldsymbol{x}$ to $\boldsymbol{y}$ is called a \ac{MLP}\cite{Bishop2006} architecture.
-In the \ml/\dl jargon \cite{Goodfellow2016}\cite{ShalevShwartz2014} $\boldsymbol{x},\boldsymbol{y},\boldsymbol{h}^j,\boldsymbol{W}^j,\boldsymbol{b}^j,\varphi$ are called \emph{input}, \emph{output}, \emph{hidden variables},
-\emph{weight matrices}, \emph{biases}, and \emph{activation function}. \ac{MLP}s were designed to approximate outputs from inputs without knowing the the actual mapping and with observations and measurements\todo{observations and measurements? You need input-output pairs (which you hint at the beginning of the line.). Or what do you }\todo{You need to mention/explain the concept of training.}.\todo{You need to explain somewhere what layers are.} 
+In the \ml/\dl jargon \cite{Goodfellow2016}\cite{ShalevShwartz2014} $\boldsymbol{x},\boldsymbol{y},\boldsymbol{h}^j,\boldsymbol{W}^j,\boldsymbol{b}^j,\varphi$ are called \emph{input}, \emph{output}, \emph{hidden variables/layers},
+\emph{weight matrices}, \emph{biases}, and \emph{activation function}. \ac{MLP} is one of the variation of a \nn and the \nn name itself is coming from a 
+time where scientists were trying sell their architecture as if they were working like the human brain and unfortunately the name stuck\footnote{
+  In older non-math books you can find phrases like ``neurons firing up and this is modeled by our activation function'' 
+  instead of the non-linearity argument we gave above. Just to be clear \nns do not work like the human brain.
+}.
+\ac{MLP}s were designed to approximate outputs from inputs without knowing the the actual mapping 
+and with just having $N$ pairs of $\left(\boldsymbol{x}^*,\boldsymbol{y}^*\right)$ (having $N$ sample points) through adjusting the \emph{weight matrices} and the \emph{biases} which is know as the \emph{training process}. 
+The main steps in the training process are:
+\begin{enumerate}
+  \item Initialize the \emph{weight matrices} and the \emph{biases} (mostly done randomly).
+  \item Predict $\boldsymbol{y}^*$s by giving your model $\boldsymbol{x}^*$s and call it $\boldsymbol{y}_e$.
+  \item Select a metric\cite{Alt2016} and and calculate the distance between $\boldsymbol{y}^*$ and $\boldsymbol{y}_e$. Easiest metric that 
+  you can come up with if you take the norm (like \cref{def:scalar_product_induced_norm_complex_matrices}, \cref{def:scalar_product_induced_norm_complex_matrices}, or \cref{def:p-norm}) 
+  of the difference, $\boldsymbol{y}^* - \boldsymbol{y}_e$, and call it a day.
+  \item Try to minimize the distance between your estimate $\boldsymbol{y}_e$ and your ground truth $\boldsymbol{y}^*$ using an optimizer like \adam\cite{Kingma2014}.
+\end{enumerate}  
 It is worth noting that the existence of $\varphi$ is necessary otherwise the pairs $\boldsymbol{W}^j,\boldsymbol{b}^j$ would 
 just be an affine transformation and stacking multiple affine transformation would still be an affine transformation and stacking 
 such layers would be redundant. Not having an activation function also means the whole mapping would perform poorly when approximating 
@@ -51,7 +64,7 @@ hardware\cite{Patterson2014}\cite{Hennessy2019}\cite{Nvidia}, Mathematical Optim
 \ad\cite{Naumann2011}\cite{Griewank2008} combined with the abundance of data gathered during the Web $2.0$ era, 
 and finally complex approximation architectures gave birth to what is currently known as 
 \dl\cite{LeCun2015}\cite{Higham2018}\cite{Berner2021}. In the \ml/\dl/\ai folklore there were these two dark 
-periods known as the \emph{\ai winters} \todo{Are the AI winters relevant for what you want to say? You only mention very few things, so I would make sure that you concentrate on things important for your work or the point you want to make} that meant the substantial reduction in \ml/\dl/\ai funding and 
+periods known as the \emph{\ai winters} that meant the substantial reduction in \ml/\dl/\ai funding and 
 interest. In $2012$ when Alex Krizhevsky's and his supervisors' \dl architecture \cite{Krizhevsky2017} decimated all other 
 competitors in the ImageNet \cite{Deng2009} image classification challenge\cite{SVLL} he ended the second harsh winter 
 that the \ml/\ai scientists were experiencing. It was no fluke and at the time of writing the challenge is 
@@ -61,25 +74,46 @@ problems ranging from single object image classification \cite{Rawat2017} to rea
 tracking\cite{Luo2021}. \DL approach has the following pros:
 
 \begin{itemize}
-  \item can extract extremely complicated mappings or extremely subtle features\todo{I would also put a space before an opening bracket}(depending on the desired wording),
-  \item requires little to no knowledge about the exact internals of the problem(no need for handcrafted feature engineering),
-  \item currently can beat human level performance in lots of areas,\todo{Better than humans in lots of areas? Then, please name a number of those areas.}
+  \item can extract extremely complicated mappings or extremely subtle features (depending on the desired wording),
+  \item requires little to no knowledge about the exact internals of the problem (no need for handcrafted feature engineering),
+  \item currently can beat human level performance in lots of areas; object detection (single and multi), 
+  object tracking(single and multi), anomaly detection, fraud detection, and strategical games (\cite{Silver2016} being the most astounding one) 
+  just to name a few.
 \end{itemize}
 
 and the following cons:
 
 \begin{itemize}
   \item requires large and high quality datasets like the ImageNet\cite{Deng2009}, in the case of image classification, which are expensive to acquire and store,
-  \item requires tremendous raw computational power at the level of \todo{I don't think this works gramatically.} \cite{Meuer} and storage which in turn would result in large electricity bills
-  \footnote{in $2022$ Matthias M\"{u}ller, head of the \ac{HPC} center at RWTH Aachen University, explained his rule of thumb as  
-  one Megawatt costing them one million euros per year.}\todo{You mean in a course? A random quote is not really a good reference...} and expensive maintenance costs,
+  \item requires tremendous raw computational power at the level of top 500 supercomputers listed in \cite{Meuer} and 
+  storage which in turn would result in large electricity bills
+  \footnote{In the $2022$ iteration of the \emph{Introduction to High-Performance Computing} course; Matthias M\"{u}ller, the head of 
+  the \ac{HPC} center at RWTH Aachen University, explained his rule of thumb as one Megawatt costing them one million 
+  euros per year.} and expensive maintenance costs,
   \item since mostly there is no interpretability associated with models, there will be no reasoning when a model gives objectively wrong answers. 
 \end{itemize}
 
-Due to the pros and cons tied to \dl what is getting a bit of traction at least in \dsip and \cv is \du or \au. 
-\du or \au \todo{Don't use these two terms together all the time. Introduce both, but then stick to one of them.} is the process of \emph{unfolding}/\emph{unrolling} an iterative algorithm finite times and training certain parameters in 
-the hopes of improving some metric by putting the \emph{unrolled} algorithm in a model\todo{What does putting the unrolled algorithm in a model mean? Is this meant to say that a fixed number of iterations of a given algorithm are re-intereted as a neural network? This is the point and must be made clear.}. It is best to look at the process in \cref{fig:deep_unfolding_unrolling} \todo{You need to properly explain this. This is a core concept of the thesis and needs to be made crystal clear. Iterations are converted to layers, linearities and nonlinearities need to be identified, only certain nonlinearities allow for the necessary reinterpretation.}
-to get a better feeling of what is being done. 
+Due to the pros and cons tied to \dl what is getting a bit of traction at least in \dsip and \cv is \du or \au. Using whether to use \du 
+or \au depends on the preference of the practitioner and most importantly their educational backgrounds. We go with \du as it is befitting ours from now on.
+\du is the process of \emph{unfolding} an iterative algorithm finite times, interpreting it as a \nn and 
+adjusting certain parameters in the hopes of improving some metric during the training process. \DU architectures are 
+different from other \nns in the following aspects:
+\begin{itemize}
+  \item In the context of the iterative algorithms we say the internal structure of the $k+1$-th iteration acted on the input values, $\boldsymbol{z}^k \in \mathbb{C}^N$, and gave $\boldsymbol{z}^{k+1} \in \mathbb{C}^N$ 
+  as the output values. In the \ml/\dl context we say values at layer $k$, $\boldsymbol{z}^k \in \mathbb{C}^N$, are mapped to values at layer $k+1$, $\boldsymbol{z}^{k+1} \in \mathbb{C}^N$.
+  \item The previous point is not just a reinterpretation as the internal structure of the iteration dictates the activation functions and the dependency graph. 
+  Most of the times the said activation functions and the dependency graphs are so sophisticated that it is next to impossible to guess them unlike the general \nns 
+  with their corresponding activation functions and mappings.
+  \item In general \nns we add more and more parameters in the hope of retrieving the complex mappings while in \dl we already know the mapping 
+  and even if we decide to make the \nn more complex or add more parameters we do it based on analytical arguments. This is in fact one of the most crucial points of 
+  \dl compared to general \nns as number of parameters have direct and substantial effects over datasets'
+   sizes, training runtimes, required computational powers and many more. 
+  \item Initialization of the weight matrices and biases are mostly done randomly for the case of general \nns while in the \du initialization is coming for the 
+  iterative algorithm which is mostly well thought and closely inspected.   
+\end{itemize}
+In short \du tries to bring the best of the both worlds(analytical approach and data driven approach) in one and reconcile the two. 
+While nothing beats an actual numerical experiment based on \du like what we did in \cref{ch:results} for now it is best to look at 
+the process in \cref{fig:deep_unfolding_unrolling} to get a better feeling of what is being done. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% Deep Unfolding(Schematic Diagram) %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -93,50 +127,50 @@ to get a better feeling of what is being done.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\du/\au tries to bring the best of the both worlds(analytical approach and data driven approach) in one and reconcile the two\todo{This needs to be explained more. By unrolling you get very specific network architectures and you usually have much fewer parameters than typically in deep learning.}. A word of 
-caution to the people who are more familiar with \ml/\dl is that \du/\au is not a \rnn\cite{Gregor2010}. \DU/\AU looks like a \rnn\cite{Gregor2010} but 
-a closer look will result in a couple of subtleties between the two\todo{I don't see how these things don't make it a RNN. Even if you reduce the number of parameters or have easy initialization, it is still an RNN, albeit a quite specific one. But is out structure actually recurrent? The structure you show in the unfolding figure looks uni-directional, i.e. like a feed forward network.}. Since in the \du/\au you significantly reduce the number of 
+
+A word of caution to the people who are more familiar with \ml/\dl is that \du/\au is not a \rnn\cite{Gregor2010}. \DU/\AU looks like a \rnn\cite{Gregor2010} but 
+a closer look will result in a couple of subtleties between the two
+
+\todo{I don't see how these things don't make it a RNN. Even if you reduce the number of parameters 
+or have easy initialization, it is still an RNN, albeit a quite specific one. But is out structure actually 
+recurrent? The structure you show in the unfolding figure looks uni-directional, i.e. 
+like a feed forward network.}. 
+
+
+Since in the \du/\au you significantly reduce the number of 
 parameters by using a context inspired model and not a full blown general \ml/\dl architecture, the need for large 
 datasets and computational power ceases to exist\footnote{It is worthwhile to check the system we used for our 
 study in \cref{tab:system_specs} to the general systems\cite{Meuer} that are used in training large \ml/\dl models.}. Initialization 
-of the weights and interpretation of the models become way easier\footnote{You set them according to the original model that is being 
-\emph{unfolded}/\emph{unrolled}. We will explain this in more details when we are describing the training process of our \ml/\dl model in our study.}\todo{This is essential, don't hide it in a footnote.} which for some time were the center of attention in \ml/\dl community \cite{Glorot2010}\cite{He2015a}. A 
-nice review on the recent application of \dl\todo{It this a typo? Do you mean deep unfolding?}/\au in \dsip is done by \cite{Monga2019}.
+of the weights, which for some time were the center of attention in \ml/\dl community \cite{Glorot2010}\cite{He2015a}, 
+and interpretation of the models become way easier. For initialization in the \du interpretation you basically set them according 
+to the original model that is being \emph{unfolded}/\emph{unrolled}. We will explain this in more details when we are describing the 
+training process of our \ml/\dl model in our study. A nice review on the recent application of \du in \dsip is done by \cite{Monga2019}.
 
 
 
 
 
 
-\todo{This is apparently just a fragment that it supposed to be extended. Note that we don't know yet (unless the introduction says this) that we need complex values in the network.}
-complex valued neural networks have other applications too \cite{Bassey2021} \cite{Barrachina2023} \cite{CTOBYZDSSSJFSSMNRYBCP2017}
-
-
-\cite{Wirtinger1927} \cite{KreutzDelgado2009} \cite{Fischer2002}
 
 
 
-\todo{We are in the middle of the deep learning section. You shouldn't jump to Wirting Flow here. Introducing this needs its own section. Above you introduced a tool that we want to use, now you start introducing a problem that we want to look at (phase retrieval) direction combined with a tool that is ofen used to solve it (Wirtinger flow). First, you should cleanly introduce the problem (peaking at what comes, you seem to (partially) do this in 3.3) and then describe how it is usually solved and then how deep funfolding comes in.}
-\ac{WF} variants emerged as a response to solve certain settings in \ac{PR} problems. As the same suggests \ac{PR} is the process of 
-determining the phase(up to a global phase) of an image simply because it contains information which is of interest depending on the context\todo{To understand what retrieving the phase means, you first need to have an idea from which data you start.}. 
-We first discuss why phase is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
-the variants where the \ac{WF} variants are based on. We give one application of the \ac{WF} variants which is used in imaging 
-to both motivate the reasoning behind considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
-natural images. The reason why the phase gets lost is out of the scope of the current work \todo{You at least need to describe our forward model, i.e., explain how we assume data to be obtained from the image we want to know. Then it's at least mathematically obvious why the phase is lost.} but 
-we encourage the reader to take a look at\cite{Shechtman2015}\cite{DGDS2018}\cite{FranzSchwabl2007}.
 
-\section{Importance of the Phase}
 
-The \ac{DFT} is bijective\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011} therefore taking the \ac{DFT} and the \ac{IDFT} in succession on an image will have no effect on the image.
- As a synthetic example t show the importance of phase; take the \ac{DFT} of two different natural images but before taking the \ac{IDFT} of the images; swap the phase and then perform the 
- \ac{IDFT} to arrive at the two reconstructed images \cite{Oppenheim1979},\cite{Oppenheim1981},\cite{Shechtman2015}. 
- As it can be seen in \cref{image:phase_swap} the images look like the image with the corresponding phase. Different settings were also investigated by \cite{Oppenheim1979}\cite{Oppenheim1981} by 
- manipulating phase and amplitude of the \ac{DFT} and then performing the \ac{IDFT}. To mention a few: 
+\section{Importance of the Phase}\label{sec:phase_importance}
+
+In this section by signal we mean speech wave and by image we mean 2D rectangular natural image. The \ac{DFT} (both 1D and 2D) is bijective\cite{Damelin2011} (also hinted at by \cref{prop:1ddft_vectors_orthononality} and 
+\cref{prop:2ddft_matrices_orthogonality}) therefore taking the \ac{DFT} and the \ac{IDFT} in succession on a/an signal/image will have no effect on the signal/image.
+ As a synthetic example to show the importance of phase; take the \ac{DFT} of two different images but before taking the \ac{IDFT} of the images; 
+ swap the phase and then perform the \ac{IDFT} to arrive at the two reconstructed images. This was done by \cite{Oppenheim1981} to show the importance of 
+ phase in signals and images. As it can be seen in \cref{image:phase_swap} the images \emph{look like} the image with the corresponding phase. As signals must 
+ be heard but images can be shown we chose to do the synthetic example on images rather signals, but if had 
+ done that the results would have been the same. Different manipulations on the amplitude and the phase of the \ac{FT} during the reconstructed process 
+ were also investigated by \cite{Oppenheim1979}\cite{Oppenheim1981} which in short are: 
  \begin{itemize}
-	\item taking the \ac{DFT}, setting the phase to zero and then taking the \ac{IDFT}\cite{Oppenheim1981}
-	\item taking the \ac{DFT}, setting the amplitude to one and then taking the \ac{IDFT}\cite{Oppenheim1981}
-	\item taking the \ac{DFT}, setting a random amplitude and then taking the \ac{IDFT}\cite{Oppenheim1981}
-	\item taking the \ac{DFT}, setting the amplitude to the average of amplitudes of \ac{DFT}s of images of the same type\cite{Oppenheim1981}.
+	\item taking the \ac{DFT}, setting the phase to zero and then reconstructing the image\cite{Oppenheim1981}.
+	\item taking the \ac{DFT}, setting the amplitude to one and then reconstructing the image\cite{Oppenheim1981}
+	\item taking the \ac{DFT}, setting a random amplitude and then reconstructing the image\cite{Oppenheim1981}
+	\item taking the \ac{DFT}, setting the amplitude to the average of amplitudes of \ac{DFT}s of images of the same type and then reconstructing the image\cite{Oppenheim1981}.
  \end{itemize} 
  All of them suggested that the phase of the \ac{DFT} of an image 
  is more important than the amplitude of the \ac{DFT} of an image\cite{Oppenheim1979}\cite{Oppenheim1981}.  
@@ -156,6 +190,26 @@ The \ac{DFT} is bijective\cite{Frazier1999}\cite{Bredies2018}\cite{Damelin2011} 
   % \clearpage % End the page
 }   
 
+\section{Phase Problem}
+Sometimes the precious and coveted phase we talked about in \cref{sec:phase_importance} or other forms of it gets lost during a process. The reader must recognize 
+that by phase we do not always mean the phase of the \ac{FT} and the name \emph{phase} has a very broad meaning. The physics behind the phase loss is beyond the 
+scope of the current work, but in \cref{sec:motivating_application} we give a mathematical formula that explicitly shows the destruction of the phase 
+during a process for a specific real world setting. For the case where material limitations and quantum mechanical effects are responsible for the phase loss we invite 
+the intrigued party to take a look at \cite{Shechtman2015} (material limitations) and \cite{DGDS2018}\cite{FranzSchwabl2007} (quantum mechanical effects). 
+Mathematically the phase problem can be stated as:
+\begin{Pro}[Phase Problem]\label{pro:phase_problem}
+Find $\psi \in \mathbb{C}^N$ such that $G_j = \varphi(\boldsymbol{A}_j\psi)$ or $G_j \approx \varphi(\boldsymbol{A}_j\psi)$ where 
+$\boldsymbol{A}_j$s for $j \in \left\{1,\ldots,K\right\}$ are linear operators and $\varphi$ is a function with 
+phase corrupting capability (something that is not bijective) $\varphi \colon \mathbb{C} \to \mathbb{C}$ or phase destruction capability 
+$\varphi \colon \mathbb{C} \to \mathbb{R}$\footnote{the case of $z \rightarrow \left|z\right| \lor {\left|z\right|^2}$ 
+are of great interest}.
+\end{Pro} 
+
+
+
+
+
+
 \section{Phase Retrieval}
 
 Let $\Omega \in \mathbb{R}^n$ and $\psi$ a mapping that takes $\Omega$ to $\mathbb{C}$. Mostly $\Omega$ is assumed to be a 
@@ -172,7 +226,7 @@ $d$-dimensional cube which makes it easier to work with. The process of extracti
 	\item $\boldsymbol{A}_j$ the $j$-th linear sampler operator.
 	\item $G_j$ the $j$-th measurement.
 	\item $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}$, 
-	is the function responsible for the phase loss(phase destruction) in the measurement process\footnote{the case of $z \rightarrow \left|z\right|_X \lor {\left|z\right|^2}_X$ are of great interest}
+	is the function responsible for the phase loss(phase destruction) in the measurement process\footnote{the case of $z \rightarrow \left|z\right| \lor {\left|z\right|^2}$ are of great interest}
   \end{itemize}
 
 Solving the \acl*{PR} is not quite easy due to the non-convex, non-holomorphic and infinite-dimensional characteristics of the \acl*{PR}. 
@@ -259,17 +313,22 @@ optimization as most of the optimization methods are build on top of convexity \
 holomorphic\footnote{Cauchy-Riemann equations do not hold. You can take a look at the eleventh chapter of \cite{Rudin1987} for further details.} 
 which in turn makes arriving at the gradient descent like structure in \cref{eq:gradient_pr_solution} more involved.
 
-\section{Motivating Application}
+\section{Motivating Application}\label{sec:motivating_application}
 
 Since introducing complex numbers introduced a couple of quite difficult obstacles in the math part and will introduce others in the implementation part 
 we think we owe it to the reader to motivate the assumption by giving one application which is imaging using \ac{CDP} coupled with \ac{WF} variants.
 
 \section{Diffracted Imaging}\label{sec:diffracted_imaging}
 
-Without going too much into the Physics of it Consider a ray that is emitted onto an object of interest and the diffracted rays are collected and measured at some distance from the object. 
-The goal is to reconstruct the image using the said measurements. If the distance between the sample and the detector is far enough, characterized by the Fraunhofer condition\cite{Lipson1995}, 
-then the solution of the diffraction problem is well approximated by the \ac{FT} of the emitted ray. Due to quantum mechanical effects\cite{DGDS2018}\cite{FranzSchwabl2007} and material limitations\cite{Shechtman2015} 
-the phase of the \ac{FT} can not be measured therefore we encounter the \acl*{PR} problem. In summary in the discrete 1D case we have:
+\todo{You at least need to describe our forward model, i.e., explain how we assume data to be obtained from the image
+ we want to know. Then it's at least mathematically obvious why the phase is lost.} 
+
+
+Without going too much into the Physics of it Consider a ray that is emitted onto an object of interest and the diffracted rays are collected and 
+measured at some distance from the object. The goal is to reconstruct the image using the said measurements. If the distance between 
+the sample and the detector is far enough, characterized by the Fraunhofer condition\cite{Lipson1995}, then the solution of the diffraction 
+problem is well approximated by the \ac{FT} of the emitted ray. Due to quantum mechanical effects\cite{DGDS2018}\cite{FranzSchwabl2007} and material limitations\cite{Shechtman2015} 
+the phase of the \ac{FT} can not be measured (we can only measure the amplitude of the \ac{FT}) therefore we encounter the \pp problem. In summary in the discrete 1D case we have:
 \begin{equation}
 	y_k = \left| \sum_{t=0}^{n-1} x[t] e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega, \qquad \boldsymbol{x} \in \mathbb{C}^n , \qquad \boldsymbol{y} \in \mathbb{R}^m, \qquad m > n 
 \end{equation}
@@ -393,6 +452,21 @@ Let $X$ and $Y$ be independent discrete random variables. We would be having:
 
 
 
+
+
+\section{Wirtinger FLow Variants}
+\ac{WF} variants emerged as a response to solve certain settings in \ac{PR} problems. As the same suggests \ac{PR} is the process of 
+determining the phase(up to a global phase) of an image simply because it contains information which is of interest depending on the context
+
+ 
+
+We first discuss why phase is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
+the variants where the \ac{WF} variants are based on. We give one application of the \ac{WF} variants which is used in imaging 
+to both motivate the reasoning behind considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
+natural images. 
+
+
+ 
 
 
 
@@ -546,6 +620,14 @@ we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \a
 \emph{Wirtinger Derivatives}\cite{Wirtinger1927}.
 
 
+\todo{This is apparently just a fragment that it supposed to be extended. Note that we don't know yet 
+(unless the introduction says this) that we need complex values in the network.}
+
+
+complex valued neural networks have other applications too \cite{Bassey2021} \cite{Barrachina2023} \cite{CTOBYZDSSSJFSSMNRYBCP2017}
+
+
+\cite{Wirtinger1927} \cite{KreutzDelgado2009} \cite{Fischer2002}
 
 
 
