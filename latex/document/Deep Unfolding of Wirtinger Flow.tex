@@ -214,11 +214,12 @@ are of great interest}.
 
 \section{Phase Retrieval}
 
-Let $\Omega \in \mathbb{R}^n$ and $\psi$ a mapping that takes $\Omega$ to $\mathbb{C}$. Mostly $\Omega$ is assumed to be a 
+\todo{Don't start a new section. Below you formulate one way to (approximately) solve the problem you just set up. You also need all elements you formulated for the problem, to formulate the soltion.}Let $\Omega \in \mathbb{R}^n$ and $\psi$ \todo{This is not a mapping, but a vector (The $N$ below comes from the discretization and should be the length of $G_j$). You don't have any $\Omega$ here or ever used an $\Omega$ before in this thesis.} a mapping that takes $\Omega$ to $\mathbb{C}$. Mostly $\Omega$ is assumed to be a 
 $d$-dimensional cube which makes it easier to work with. The process of extracting $\psi$(up to a global phase) from:
 \begin{equation}\label{eq:pr_problem}
 	E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{K} {\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X}^2}_{\coloneqq D(\psi)}+ R(\psi)
   \end{equation}
+  \todo{$\left|\cdot\right|_X$ above needs to be replaced with the Euclidean norm in $\mathbb{R}^N$, assuming $N$ denotes the number of elements of $G_j$.}
   is called \acl*{PR}(just a subclass of \acl*{PR}) where:
   \begin{itemize}
   \item $\psi$ is the continuous variable that after the discretization is going to be $\in \mathbb{C}^N$
