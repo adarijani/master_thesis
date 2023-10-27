@@ -270,39 +270,44 @@ In short the \acl*{PR} can be solved by the iterative algorithm:
 
 
 	\begin{Prop}\label{theorem:min distance}
-		Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, where $(z,x)_X$ is 
+		Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, where $(z,x)_X$ \todo{As discussed, use \cref{def:scalar_product_complex_vectors} as scalar product and \cref{def:scalar_product_induced_norm_complex_vectors} as norm. I will check the proof assuming that it is using this scalar product.} is 
 		the usual scalar product associated with such vector spaces, and $\left|\cdot\right|_X$ the induced norm using the scalar product on the vector space $X$, then the expression
 		\begin{equation}\label{eq:loss_function}
 			f(\varphi) \coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X
 		\end{equation}
-		has a minimum and the minimum can be calculated in a closed form manner.
+		has a minimum \todo{A minimum for a function is always associated to a domain / an admissible set. I would say you consider the function $f:\mathbb{R}\to\mathbb{R}, \varphi\mapsto \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X$ and that this function has a minimum.} and the minimum can be calculated in a closed form manner.\todo{The closed form solution should be part of the statement.}
 		\end{Prop}
 		\begin{Proof}
-			$f(\varphi)$ is continuous and periodic therefore it will attain its minimum and maximum for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}. 
-			Let $w \coloneqq (z,x)_X = \operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$
+			$f(\varphi)$ \todo{$f$ is continuous, $f(\varphi)$ is just a real number.} is continuous and periodic \todo{``with period $2\pi$''. Without the period, you can't know to which interval you can restrict the search for a minimum.} therefore it will attain its minimum and maximum \todo{This is correct and uses the fact that a continuous function on a compact interval attains minimum and maximum.} for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}. 
+			Let $w \coloneqq (z,x)_X = \operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$\todo{These is technically correct, but does not follow the train of thought, i.e., you have $w \coloneqq (z,x)_X $ and obviously $w=\operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$. The equation $\operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$ follows from the two before.}
+      \todo{Don't write $f(\varphi) \coloneqq $ below ($f$ is already defined, you don't redefine it.). Instead start with $f(\varphi) = $}
 			\begin{equation}
 				\begin{split}
 				f(\varphi) &\coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X = 
 				\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\\
+        &\textcolor{red}{\text{Above should be: }\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z,x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\text{ and the correct scalar product of course}}\\
 						   &= \left(x,x\right)_X - \mathrm{e}^{\mathrm{i}\varphi}\left(x,z\right)_X-\mathrm{e}^{-\mathrm{i}\varphi}\left(z,x\right)_X+\left(z,z\right)_X \\
                 		   &= \left(x,x\right)_X - (\cos(\varphi)+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) -\mathrm{i}\operatorname{Im}(w)\right)\\
-						   &+ \left(z,z\right)_X - (\cos(\varphi)+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) +\mathrm{i}\operatorname{Im}(w)\right)\\
+        &\textcolor{red}{\text{I would align the $+$ right of the $=$}}\\
+						   &+ \left(z,z\right)_X - (\cos(\varphi)\textcolor{red}{\text{This should be $-$}}+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) +\mathrm{i}\operatorname{Im}(w)\right)\\
+               &\textcolor{red}{\text{Either write $\cos\varphi$ or $\cos(\varphi)$ (same for $\sin$). Don't mix both notations in one proof.}}\\
 						   &= \left(x,x\right)_X - 2\left(\cos\varphi\operatorname{Re}(w)+\sin\varphi\operatorname{Im}(w)\right)+ \left(z,z\right)_X
 				\end{split}
 			  \end{equation}
-			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006} and also \cref{lemma:inverse_a_sin_b_cos}:
+			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006} and also \cref{lemma:inverse_a_sin_b_cos}:\todo{The following is correct, but the formulation of \cref{lemma:inverse_a_sin_b_cos} makes this tedious to check. One has to use $\theta=-\varphi$, $\varphi=\theta$ and $\sin(-\varphi)=-\sin(\varphi)$. I would definitely change the notation of the Lemma, by switching the symbold $\theta$ and $\varphi$.}
 			  \begin{equation}
 				\begin{split}
 				\frac{\mathrm{d}f(\varphi)}{\mathrm{d}\varphi} &= - 2\left(-\sin\varphi\operatorname{Re}(w)+\cos\varphi\operatorname{Im}(w)\right) = 2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\sin(\varphi-\theta)\\ 
 				\end{split}
 			  \end{equation}
 			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$.
+        \todo{Why do you need two formulations of the second dervative? Isn't the formulation on the very right what you need?}
 			  \begin{equation}
 				\begin{split}
 				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &= - 2\left(-\cos\varphi\operatorname{Re}(w)-\sin\varphi\operatorname{Im}(w)\right) = -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
 				\end{split}
 			  \end{equation}
-        For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique $\arg\min$ $\varphi^*$ corresponding to the $\min$.
+        For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ \todo{What does this mean? There is no $\varphi$ from which you can construct the $\varphi^*$. You need to specify $\varphi^*$ where the minimum is attained. I guess you want to do that by specifiying all zeros of the first derivative on $[0,2\pi)$, then checking the sign of the second derivative, finding out that only one of the zeros of the first deriviate has positive sign, concluding that this is a local minium. Thus, there is only one local minimum in $[0,2\pi)$ and since you know that the minimum is attained from the beginning of the proof, this local minimum must be a global minimum, which is what you wanted. If you fill in the gaps, you also get the explicit formula for the minimum.} and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique $\arg\min$ $\varphi^*$ corresponding to the $\min$.
 		\end{Proof}
 
 
