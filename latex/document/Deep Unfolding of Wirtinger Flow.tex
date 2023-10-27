@@ -157,17 +157,17 @@ training process of our \ml/\dl model in our study. A nice review on the recent 
 
 
 \section{Importance of the Phase}\label{sec:phase_importance}
-
-In this section by signal we mean speech wave and by image we mean 2D rectangular natural image. The \ac{DFT} (both 1D and 2D) is bijective\cite{Damelin2011} (also hinted at by \cref{prop:1ddft_vectors_orthononality} and 
-\cref{prop:2ddft_matrices_orthogonality}) therefore taking the \ac{DFT} and the \ac{IDFT} in succession on a/an signal/image will have no effect on the signal/image.
+\todo{It is unclear why you talk about the phase here. Sounds like a random new topic, we just heard about unfolding. Also, make sure that the term phase is defined. So far, this term is not mentioned in Cahpter 2 or in the part of Chapter 3 above.}
+In this section by signal we mean speech wave \todo{I think this is the only time the word speach (and perhaps also wave) appears. Is that relevant for your point?} and by image we mean 2D rectangular natural image. The \ac{DFT} (both 1D and 2D) is bijective\cite{Damelin2011} (also hinted \todo{Why ``also hinted''? This statements essentially proof the invertability of the 1D and 2D transform respectively.} at by \cref{prop:1ddft_vectors_orthononality} and 
+\cref{prop:2ddft_matrices_orthogonality}) therefore \todo{This is a consequence of the propositions, not of the fact that the DFT is invertible. In other words, the fact that the DFT is invertible, does not say that the IDFT, as you defined it, is the inverse.} taking the \ac{DFT} and the \ac{IDFT} in succession on a/an signal/image will have no effect on the signal/image.
  As a synthetic example to show the importance of phase; take the \ac{DFT} of two different images but before taking the \ac{IDFT} of the images; 
  swap the phase and then perform the \ac{IDFT} to arrive at the two reconstructed images. This was done by \cite{Oppenheim1981} to show the importance of 
- phase in signals and images. As it can be seen in \cref{image:phase_swap} the images \emph{look like} the image with the corresponding phase. As signals must 
+ phase in signals and images. As it can be seen in \cref{image:phase_swap} \todo{You need to more clearly describe what is shown in the figure. I assume first and third row are the input images, and second and fourth are images with phase swap. But is the second row the phase of the first with the amplitude of the third? Same question for the fourth row.} the images \emph{look like} the image with the corresponding phase. As signals must 
  be heard but images can be shown we chose to do the synthetic example on images rather signals, but if had 
  done that the results would have been the same. Different manipulations on the amplitude and the phase of the \ac{FT} during the reconstructed process 
- were also investigated by \cite{Oppenheim1979}\cite{Oppenheim1981} which in short are: 
+ were also investigated by \cite{Oppenheim1979}\cite{Oppenheim1981} which in short are:\todo{Since you are mentioning all of these, the reader would also wonder how these things look... Your one experiment only shows part of the picture.}
  \begin{itemize}
-	\item taking the \ac{DFT}, setting the phase to zero and then reconstructing the image\cite{Oppenheim1981}.
+	\item taking the \ac{DFT}, setting the phase to zero and then reconstructing the image\cite{Oppenheim1981}\todo{You have the reference above, there is no need to restarte the reference in every line about that reference.}.
 	\item taking the \ac{DFT}, setting the amplitude to one and then reconstructing the image\cite{Oppenheim1981}
 	\item taking the \ac{DFT}, setting a random amplitude and then reconstructing the image\cite{Oppenheim1981}
 	\item taking the \ac{DFT}, setting the amplitude to the average of amplitudes of \ac{DFT}s of images of the same type and then reconstructing the image\cite{Oppenheim1981}.
@@ -185,6 +185,7 @@ In this section by signal we mean speech wave and by image we mean 2D rectangula
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
     \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1979}\cite{Hayes1980}\cite{Oppenheim1981}\cite{Shechtman2015}}
+    \todo[inline]{Why are there four references for a single, simple figure where you took/computed all images yourself?}
     \label{image:phase_swap}
   \end{figure}
   % \clearpage % End the page
