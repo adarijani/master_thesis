@@ -193,15 +193,16 @@ In this section by signal we mean speech wave \todo{I think this is the only tim
 
 \section{Phase Problem}
 Sometimes the precious and coveted phase we talked about in \cref{sec:phase_importance} or other forms of it gets lost during a process. The reader must recognize 
-that by phase we do not always mean the phase of the \ac{FT} and the name \emph{phase} has a very broad meaning. The physics behind the phase loss is beyond the 
-scope of the current work, but in \cref{sec:motivating_application} we give a mathematical formula that explicitly shows the destruction of the phase 
+that by phase we do not always mean the phase of the \ac{FT} and the name \emph{phase} has a very broad meaning\todo{I would say we always mean exactly the phase of complex numbers. Just where these complex numbers come from differs.}. The physics behind the phase loss is beyond the 
+scope of the current work, but in \cref{sec:motivating_application} we give a mathematical formula \todo{\cref{pro:phase_problem} is already a very specific mathematical formulation} that explicitly shows the destruction of the phase 
 during a process for a specific real world setting. For the case where material limitations and quantum mechanical effects are responsible for the phase loss we invite 
 the intrigued party to take a look at \cite{Shechtman2015} (material limitations) and \cite{DGDS2018}\cite{FranzSchwabl2007} (quantum mechanical effects). 
 Mathematically the phase problem can be stated as:
 \begin{Pro}[Phase Problem]\label{pro:phase_problem}
+\todo{Be more clear: You are given the $G_j$ and then the task is to find a $\psi$ that fulfills $G_j = \varphi(\boldsymbol{A}_j\psi)$ or $G_j \approx \varphi(\boldsymbol{A}_j\psi)$.}
 Find $\psi \in \mathbb{C}^N$ such that $G_j = \varphi(\boldsymbol{A}_j\psi)$ or $G_j \approx \varphi(\boldsymbol{A}_j\psi)$ where 
-$\boldsymbol{A}_j$s for $j \in \left\{1,\ldots,K\right\}$ are linear operators and $\varphi$ is a function with 
-phase corrupting capability (something that is not bijective) $\varphi \colon \mathbb{C} \to \mathbb{C}$ or phase destruction capability 
+$\boldsymbol{A}_j$s for $j \in \left\{1,\ldots,K\right\}$ are linear operators \todo{This is finite dimensional, so this are just matrices. Also specify their sizes and the sizes of the $G_j$} and $\varphi$ is a function with 
+phase corrupting capability (something that is not bijective) \todo{I would just consider $\varphi \colon \mathbb{C} \to \mathbb{R}$, allowing the two choices of $\varphi$ you mention in the footnote and then call this phase retrieval.} $\varphi \colon \mathbb{C} \to \mathbb{C}$ or phase destruction capability 
 $\varphi \colon \mathbb{C} \to \mathbb{R}$\footnote{the case of $z \rightarrow \left|z\right| \lor {\left|z\right|^2}$ 
 are of great interest}.
 \end{Pro} 
