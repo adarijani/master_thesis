@@ -1,12 +1,23 @@
 \chapter{Mathematical Preliminaries}\label{ch:mathematical_preliminaries}
-\todo{A few words on what we are supposed to expect in this chapter would be helpful.}
+The aim of this chapter is to give a refresher on a couple of definitions, propositions which we would later use. 
+For some of them we give explicit proofs and for some others we just state them. If you are not coming from a math 
+background(just like me), had difficulty skimming through, and wanted a more thorough exposition 
+I would like to propose:
+\begin{itemize}
+    \item \cite{Rudin1976} for the basic analysis in a professional ``theorem-proof'' style. This book is coming from a time 
+    where they were not trying to water down math. It is considered modern in the sense that it uses topology but not so modern 
+    to be called ``real analysis''. 
+    \item \cite{Frazier1999} for a blend of \ac{DFT}, \emph{Wavelets} and linear algebra. Has a nice prologue that contains a nice true story which acts as the
+     motivation behind why the book has been written the way it is. 
+\end{itemize}
+
 \section{Basic Analysis}
 \begin{Def}\label{def:scalar_product_complex_vectors}
-    For the complex vectors $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^N$ the mapping  $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^N \times \mathbb{C}^N \to \mathbb{C}$ 
+    For the complex vectors\index{complex vectors} $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^N$ the mapping  $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^N \times \mathbb{C}^N \to \mathbb{C}$ 
     \begin{equation}
         \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=1}^{N} x_i \overline{y_i} 
     \end{equation}
-    is the scalar product where
+    is the scalar product\index{scalar product!complex vectors} where
     \begin{equation}
         \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}, \quad \boldsymbol{y} = \left(y_i\right)_{i=1,\ldots,N}.
     \end{equation}    
@@ -16,17 +27,17 @@
     \begin{equation}
         \left|\left|\boldsymbol{x}\right|\right| \coloneqq  \sqrt{\langle\boldsymbol{x},\boldsymbol{x}\rangle}
     \end{equation}
-    is the norm induced by the scalar product for complex vectors where
+    is the norm\index{norm!complex vectors} induced by the scalar product for complex vectors where
     \begin{equation}
         \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}.
     \end{equation}    
 \end{Def}
 \begin{Def}\label{def:scalar_product_induced_norm_complex_matrices}
-    For the complex matrices $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{M \times N}$ the mapping $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^{M \times N} \times \mathbb{C}^{M \times N} \to \mathbb{C}$ 
+    For the complex matrices\index{complex matrices} $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{M \times N}$ the mapping $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^{M \times N} \times \mathbb{C}^{M \times N} \to \mathbb{C}$ 
     \begin{equation}
         \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=1}^{N}\sum_{i=1}^{M} X_{i,j} \overline{Y_{i,j}} 
     \end{equation}
-    is the scalar product where
+    is the scalar product\index{scalar product!complex matrices} where
     \begin{equation}
         \boldsymbol{X} = \left(X_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}, \quad \boldsymbol{Y} = \left(Y_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}.
     \end{equation}    
@@ -47,10 +58,10 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
         \end{split}
     \end{equation}
     where $\left|\boldsymbol{\cdot}\right|$ is the absolute value on the $\mathbb{K}$ field,
-    is called the \textbf{p-norm} of the vector $\boldsymbol{x}$.
+    is called the \textbf{p-norm}\index{norm!p-norm} of the complex vector $\boldsymbol{x}$.
 \end{Def}
-\begin{Thm}\label{theorem:euler_formula}
-    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i}$ the imaginary unit associated with the complex numbers in $\mathbb{C}$ 
+\begin{Thm}\label{theorem:euler_formula}\index{Euler formula}
+    Let $\alpha,\beta,\theta, \in \mathbb{R}$ and $\mathrm{i}$ the imaginary unit\index{imaginary unit} associated with the complex numbers in $\mathbb{C}$ 
     then we would be having:
 	\begin{equation}
 		\mathrm{e}^{\mathrm{i}\theta} = \cos \theta +  \mathrm{i}\sin \theta \qquad  \mathrm{e}^{\mathrm{i}(\alpha+\beta)} = \mathrm{e}^{\mathrm{i}\alpha}\mathrm{e}^{\mathrm{i}\beta}\index{Euler formula}\index{Function!$\exp$}\index{Function!$\sin$}\index{Function!$\cos$}
@@ -62,31 +73,39 @@ the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
     It is recommended for the curious reader to check out \emph{The Exponential and Logarithmic Functions} and \emph{The Trigonometric Functions} in Chapter 8 of \cite{Rudin1976}. 
 	\end{Rem}
 	\begin{Lem}\label{lemma:inverse_a_sin_b_cos}
-		Let $a$, $b$, $\theta$, and $\varphi$ $\in \mathbb{R}$ and $\sin$\index{Function!$\sin$}, $\cos$\index{Function!$\cos$} 
+		Let $a$, $b$, $\varphi$, and $\theta$ $\in \mathbb{R}$ and $\sin$\index{Function!$\sin$}, $\cos$\index{Function!$\cos$} 
         the usual trigonometric functions then:
 		\begin{equation}
-			a\sin \theta+b\cos \theta  = \sqrt{a^2+b^2}\sin(\theta + \varphi)
+			a\sin \varphi - b\cos \varphi  = \sqrt{a^2+b^2}\sin(\varphi - \theta)
 		\end{equation}
 		such that:
 		\begin{equation}
-			\sin\varphi=\frac{b}{\sqrt{a^2+b^2}}, \qquad \cos\varphi = \frac{a}{\sqrt{a^2+b^2}}
+			\sin\theta=\frac{b}{\sqrt{a^2+b^2}}, \qquad \cos\theta = \frac{a}{\sqrt{a^2+b^2}}
 		\end{equation}
 		\end{Lem}
 
 
 \section{Discrete Fourier Transform}
-The \ac{FT} and its discrete counterpart will play an important role in one of our motivating examples\cref{sec:diffracted_imaging} 
+The \ac{FT}\index{\ac{FT}} and its discrete counterpart will play an important role in one of our motivating examples\cref{sec:diffraction_imaging} 
 for the \ac{WF} and here we give a fast refresher on the basic properties of the \ac{DFT} and the \ac{IDFT}.
 
-\begin{Def}[1D \ac{DFT} and 1D \ac{IDFT}]\label{def:1ddft_1didft}
-    The 1D \ac{DFT}  of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\hat {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by:
+\begin{Def}[1D \ac{DFT} and 1D \ac{IDFT}]\label{def:1ddft_1didft}\index{1D \ac{DFT}}\index{1D \ac{IDFT}}
+    The 1D \ac{DFT} of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\hat {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by:
     \begin{equation}\label{eq:1ddft}
-        {\hat x}_k \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} x_n\exp\left({\frac{-2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{DFT}}.
+        {\hat x}_k \coloneqq \frac{1}{N}\sum_{n=0}^{N-1} x_n\exp\left({\frac{-2\pi ink}{N}}\right).
     \end{equation}
-    The 1D \ac{IDFT}  of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\check {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by:
+    The 1D \ac{IDFT} of the vector $\boldsymbol{x} \in \mathbb{C}^{N}$ is denoted by the vector $\check {\boldsymbol{x}} \in \mathbb{C}^{N}$ and is defined by:
     \begin{equation}\label{eq:1didft}
-        \check {x}_k \coloneqq \sum_{k=0}^{N-1}x_{n}\exp\left({\frac{2\pi ink}{N}}\right)\index{\ac{FT}!$1$-$d$ \ac{IDFT}}.
-    \end{equation}    
+        \check {x}_k \coloneqq \sum_{k=0}^{N-1}x_{n}\exp\left({\frac{2\pi ink}{N}}\right).
+    \end{equation}   
+    We show the 1D \ac{DFT} mapping by:
+    \begin{equation}
+        \hat f \colon \mathbb{C}^N \to \mathbb{C}^N , \quad \boldsymbol{x} \to \hat{\boldsymbol{x}}
+    \end{equation} 
+    and the 1D \ac{IDFT} mapping by:
+    \begin{equation}
+        \check f \colon \mathbb{C}^N \to \mathbb{C}^N , \quad \boldsymbol{x} \to \check{\boldsymbol{x}}
+    \end{equation} 
 \end{Def}
 
 \begin{Rem}
@@ -151,7 +170,7 @@ time well spent.
 \begin{Prop}
     The vectors in \cref{prop:1ddft_vectors_orthononality} form a basis.
 \end{Prop}
-\begin{Def}[2D \ac{DFT} and 2D \ac{IDFT}]\label{def:2ddft_2didft}
+\begin{Def}[2D \ac{DFT} and 2D \ac{IDFT}]\label{def:2ddft_2didft}\index{2D \ac{DFT}}\index{2D \ac{IDFT}}
     The 2D \ac{DFT} of the matrix $\boldsymbol{X} \in \mathbb{C}^{N \times M}$ is denoted by 
     the matrix $\hat {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by:
     \begin{equation}\label{eq:2ddft}
@@ -161,7 +180,15 @@ time well spent.
     the matrix $\check {\boldsymbol{X}} \in \mathbb{C}^{N \times M}$ and is defined by:
     \begin{equation}\label{eq:2didft}
         \check X_{n,m} \coloneqq \sum_{k=0}^{N-1}\sum_{l=0}^{M-1}X_{k,l}\exp\left({\frac{2\pi ink}{N}}\right)\exp\left({\frac{2\pi iml}{M}}\right)
-    \end{equation}    
+    \end{equation}   
+    We show the 2D \ac{DFT} mapping by:
+    \begin{equation}
+        \hat f \colon \mathbb{C}^{N \times M} \to \mathbb{C}^{N \times M} , \quad \boldsymbol{X} \to \hat{\boldsymbol{X}}
+    \end{equation} 
+    and the 2D \ac{IDFT} mapping by:
+    \begin{equation}
+        \check f \colon \mathbb{C}^{N \times M} \to \mathbb{C}^{N \times M} , \quad \boldsymbol{X} \to \check{\boldsymbol{X}}
+    \end{equation}
 \end{Def}
 
 \begin{Rem}
@@ -169,7 +196,7 @@ Like the 1D \ac{DFT} it can be seen from the formula that the 2D \ac{DFT} is a l
 The interesting thing in the 2D case that it is basically 2 consecutive 1D \ac{DFT} on the rows and columns. 
 The order of the 1D \ac{DFT}s do not matter and you can take the 1D \ac{DFT} on the rows and then 1D 
 \ac{DFT} on the columns or vice versa. The denseness and computational efficiency still hold which is why 
-we again take a closer look at the properties of the matrices that were introduced in \cref{def:2ddft_2didft} in the hope gaining
+we again take a closer look at the properties of the matrices that were introduced in \cref{def:2ddft_2didft} in the hope of gaining
 some insight into the 2D {DFT}.
 \end{Rem}
 
@@ -201,7 +228,7 @@ some insight into the 2D {DFT}.
     \end{equation}    
 \end{Proof}
 \begin{Prop}
-    The matrices in \cref{Prop:2ddft_matrices_orthogonality} form a basis.
+    The matrices in \cref{prop:2ddft_matrices_orthogonality} form a basis.
 \end{Prop}
 \begin{Rem}
 Due to its wide range of applications the \ac{DFT} the \ac{IDFT} are ranked third in \cite{KARBBCJGPHKKDPWLPJSSWWKY2006}
@@ -209,21 +236,26 @@ Due to its wide range of applications the \ac{DFT} the \ac{IDFT} are ranked thir
 are referred to as \emph{dwarves} humorously. Dense Linear Algebra, Sparse Linear Algebra, 
 Discrete Fourier Transform are the first, the second and the third dwarf in the descending order of importance. 
 It is not dramatizing to say that the first three \emph{dwarves} stature in the numerical world 
-is the same as the three great Olympians(Zeus, Poseidon, Hades) in the Greek mythology.}, the first and the 
+is the same as the three great Olympians (Zeus, Poseidon, Hades) in the Greek mythology.}, the first and the 
 second being dense linear algebra and sparse linear algebra. As you can imagine implementing your own library is not recommended due to the notoriously detailed implementation issue associated with the \ac{DFT} and the \ac{IDFT}. 
 The practitioner that need the \ac{FT} probably should look into specifically designed packages like \cite{KARBBCJGPHKKDPWLPJSSWWKY2006} orthogonality \cite{VGOHRCBPWBWBWMMNJKLCPFMVLPCHQHARPM2020}.
 \end{Rem}
 \begin{Prop}
-    The \ac{DFT} in both 1D and 2D is\footnote{Please note that the \begin{equation}
+    The \ac{DFT} in both 1D and 2D is\footnote{Please note that \begin{equation}
         \langle\boldsymbol{g}^n,\boldsymbol{g}^{n'}\rangle= N \delta_{n,n'} \qquad n \land n'\in \left\{0,\ldots,N-1\right\}
-    \end{equation} and     \begin{equation}
+    \end{equation} and   \begin{equation}
         \langle\boldsymbol{g}^{n,m},\boldsymbol{g}^{n',m'}\rangle= MN \delta_{n,n'}\delta_{m,m'} \qquad (n \land n' \in \left\{0,\ldots,N-1\right\}) \land (m \land m' \in \left\{0,\ldots,M-1\right\})
     \end{equation} which is why it is possible to normalize the formulas to get a unitary transformation. We are not going to 
     do that to be consistent with the way the \ac{DFT} and the \ac{IDFT} are introduced in most of the literature.} an orthogonal transformation   
 \end{Prop}
-
+\begin{Thm}\label{theorem:dft_idft_inverse}
+    The \ac{DFT} and \ac{IDFT} are inverse to each other in both 1D in \cref{def:1ddft_1didft} and 2D in \cref{def:2ddft_2didft}  and we have:
+    \begin{equation}
+        \check f  \circ \hat f \boldsymbol{x} = \boldsymbol{x}, \quad \hat f  \circ \check f \hat {\boldsymbol{x}} = \hat {\boldsymbol{x}}, \quad \check f  \circ \hat f \boldsymbol{X} = \boldsymbol{X}, \quad \hat f  \circ \check f \hat {\boldsymbol{X}} = \hat {\boldsymbol{X}}
+    \end{equation}
+\end{Thm}
 \begin{Rem}
-    The \ac{DFT} being orthogonal is a nice property and we are going to put that to use in \cref{sec:diffracted_imaging}. 
+    The \ac{DFT} being orthogonal and bijective is a nice property and we are going to put that to use in \cref{sec:diffraction_imaging}. 
 \end{Rem}
 
 

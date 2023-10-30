@@ -6,9 +6,10 @@ brave soul picking up the torch and seeing them through.
 
 \section{Inspiration}
 
-The approach we took was inspired by \cite{Gregor2010} as it is possibly the earliest successful attempt at \emph{unfolding}/\emph{unrolling}\index{\emph{unfolding}}\index{\emph{unrolling}} 
-an iterative algorithm \cite{Monga2019}. The algorithm it \emph{unrolled} is named \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} and was devised to solve \srp\index{\srp} which much like the \pr\cite{Shechtman2015}\cite{Jaganathan2015}\index{\pr} is an inverse problem\cite{Kirsch2021}\index{inverse problem} in computational imaging\index{computational imaging}\cite{Khare2023}.
-
+The approach we took was inspired by \cite{Gregor2010} as it is possibly the earliest successful attempt at \emph{unfolding}\index{\emph{unfolding}}
+an iterative algorithm \cite{Monga2019}. The algorithm it \emph{unfolded} is named \ac{ISTA}\cite{Daubechies2003}\index{\ac{ISTA}} and 
+was devised to solve \srp\index{\srp} which much like the \pr\cite{Shechtman2015}\cite{Jaganathan2015}\index{\pr} is an 
+inverse problem\cite{Kirsch2021}\index{inverse problem} in computational imaging\index{computational imaging}\cite{Khare2023}.
 \subsection{Sparse Recovery Problem}
 
 Let $\boldsymbol{y} \in \mathbb{R}^m$ and $\boldsymbol{W} \in \mathbb{R}^{m \times n}$($n > m$, \emph{overcompleted dictionary}
@@ -17,36 +18,36 @@ the \srp\index{\srp} problem is to find a \emph{sparse}\footnote{A representatio
 the vector representing the signal/image in the said basis has lots of \emph{zeros}.} 
 $\boldsymbol{x} \in \mathbb{R}^n$ in a way that it satisfies either $\boldsymbol{y} = \boldsymbol{W}\boldsymbol{x}$(noise free) or $\boldsymbol{y} \approx \boldsymbol{W}\boldsymbol{x}$(noisy).
 The \ac{LASSO}\cite{Hastie2009}\index{\ac{LASSO}} formulation of the problem will be:
-\begin{equation*}
+\begin{equation}
   \min_{\boldsymbol{x}} \frac{1}{2} \left|\left|\boldsymbol{y}-\boldsymbol{W}\boldsymbol{x}\right|\right|_2^2 + \lambda \left|\left|\boldsymbol{x}\right|\right|_1
-\end{equation*}
+\end{equation}
 where the $\left|\left|\boldsymbol{\cdot}\right|\right|_1$ and $\left|\left|\boldsymbol{\cdot}\right|\right|_2$ are the usual $1$-norm and the $2$-norm that were defined in \cref{def:p-norm}, and $\lambda$ is the amount of regularization\cite{Hastie2009}. 
 The \ac{ISTA}\cite{Daubechies2003}\index{ISTA} solves the \ac{LASSO}\cite{Hastie2009}\index{\ac{LASSO}} formulation by an iterative algorithm of the form:
-\begin{equation*}
+\begin{equation}
   \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\left(\mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}\right)\boldsymbol{x}_k+\frac{1}{\mu}\boldsymbol{W}^T\left(\boldsymbol{y}\right)\right)
-\end{equation*}
+\end{equation}
 where $\mathcal{S}_\lambda$ is the elementwise soft thresholding operator, the manifestation of the $\mathrm{prox}$ operator in 
 the presence of the regularization term($\lambda\left|\left|\boldsymbol{.}\right|\right|_1$), in \cref{eq:pr_solution} given by:
-\begin{equation*}
+\begin{equation}
   \mathcal{S}_\lambda = \mathrm{sign}(\boldsymbol{z}) \boldsymbol{\cdot} \max \left\{\left|\boldsymbol{z}\right|-\lambda,\boldsymbol{0}\right\}
-\end{equation*}
+\end{equation}
 where $\mathcal{I}$ is the identity matrix of size $n \times n$, $\left|\boldsymbol{\cdot}\right|$ the \emph{elementwise} usual absolute value, 
 $\mathrm{sign}(\boldsymbol{\cdot})$ the \emph{elementwise} usual $\mathrm{sign}$ function, and $\mu$ the largest eigenvalue of $\boldsymbol{W}^T\boldsymbol{W}$. Let $\boldsymbol{W}_t \coloneqq \mathcal{I}-\frac{1}{\mu}\boldsymbol{W}^T\boldsymbol{W}$ and 
 $\boldsymbol{W}_e \coloneqq \frac{1}{\mu}\boldsymbol{W}\boldsymbol{y}$ to abstract away the details and more importantly give it the the general look of a \nn, representing the values of a layer with 
 some affine transformation of values in other layers combined with the usual activation functions in \nn, and have the iterative algorithm 
 as:
-\begin{equation*}
+\begin{equation}
   \boldsymbol{x}_{k+1} = \mathcal{S}_\lambda\left(\boldsymbol{W}_t\boldsymbol{x}_{k}+\boldsymbol{W}_e\boldsymbol{y}\right)
-\end{equation*}
+\end{equation}
 which can be considered as a layer of a \nn. It is worth emphasizing that 
 while we are using \nns we did not use any of the usual activation functions associated with \ml/\dl. 
-It would be not overselling to say that the activation functions we used in the \srp(the elementwise soft thresholding operator) is so 
+It would be not overselling to say that the activation functions we used in the \srp(the elementwise soft thresholding operator)\index{the elementwise soft thresholding operator} is so 
 specialized that it is next to impossible to come up with it out of thin air by just guessing and not closely analyzing the \srp.
 In the usual \nns, activation functions are there to give flexibility to the affine transformation 
 and give them the ability to approximate more and more complex mappings, but in the \du/\au setting we have naturally occurring 
 nonlinearities(coming from the domain knowledge of the problem) that will serve as the activation 
-functions. Stacking the layers $L$ times would give the \emph{unfolded}/\emph{unrolled} version which is exactly the original \ac{ISTA} algorithm but with 
-trainable parameters that can be \emph{learned} thanks to the \ml/\dl approaches.
+functions. Stacking the layers $L$ times would give the \emph{unfolded} version which is exactly the original \ac{ISTA} 
+algorithm but with trainable parameters that can be \emph{learned} thanks to the \ml/\dl approaches.
 
 \subsection{LISTA and Ada-LISTA}
 
@@ -60,19 +61,22 @@ They reported having comparable errors to that of $20L$ in the accelerated versi
 \cite{Nesterov2004}\cite{Nesterov2018} into \ac{ISTA}, when $L$ is large enough to have the error around $4$. Putting some level of 
 restriction on the $L$ is necessary since large $L$ means you are already near the minimum and there is not much to gain 
 from \emph{unfolding}/\emph{unrolling}. Another reason for using quite small $L$ is to benefit from not having too many iterations 
-overall in the resulting model after the \emph{unfolded}/\emph{unrolled} model is trained(smaller $L$ corresponds to 
+overall in the resulting model after the \emph{unfolded} model is trained(smaller $L$ corresponds to 
 small required \ac{FLOPS}\index{\ac{FLOPS}} to reach the solution). \cite{Chen2018} showed the 
-linear convergence of the \ac{LISTA} while in \ac{ISTA} and \ac{FISTA} and in the general setting only sub linear convergence can be 
-attained \cite{Daubechies2003}\cite{Beck2009}. \cite{Aberdam2020} further improved the solutions using their method \ac{Ada-LISTA} which 
-is robust in the presence of noise both in the dictionary and in the signal.
+linear convergence of the \ac{LISTA}\index{\ac{LISTA}} while in \ac{ISTA}\index{\ac{ISTA}} and \ac{FISTA}\index{\ac{FISTA}} 
+and in the general setting only sub linear convergence can be attained \cite{Daubechies2003}\cite{Beck2009}. \cite{Aberdam2020} further 
+improved the solutions using their method \ac{Ada-LISTA} which is robust in the presence of noise both 
+in the dictionary and in the signal.
 
 
 \section{Scenarios}
 
-As \ac{WF} is the original algorithm that started the whole \ac{WF} variants and \ac{RWF} is the one that substantially improved the \ac{WF} we chose the two 
-for our numerical experimentation in our \du/\au quest.We took the \ac{WF}\cite{Candes2014}\index{\ac{WF}} \cref{pseudocode:wf} and the 
-\ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} \cref{pseudocode:rwf} and unfolded/unrolled them $L$ times($160$ times for the \ac{WF} and $30$ times for 
-the \ac{RWF}) to arrive at the \ac{UWF} and the \ac{URWF} which are basically just some \nn\cite{Goodfellow2016}\cite{Bishop2006}\index{\nn} 
+As \ac{WF}\index{\ac{WF}} is the original algorithm that started the whole \ac{WF} variants and \ac{RWF} is the one that substantially 
+improved the \ac{WF} we chose the two for our numerical experimentation in our \du quest. We took the \ac{WF}\cite{Candes2014}\index{\ac{WF}} 
+\cref{pseudocode:wf} and the \ac{RWF}\cite{Zhang2016}\index{\ac{RWF}} 
+\cref{pseudocode:rwf} and unfolded them $L$ times($160$ times for the \ac{WF} and $30$ times for 
+the \ac{RWF}) to arrive at the \ac{UWF}\index{\ac{UWF}} and the \ac{URWF}\index{\ac{URWF}} which are basically 
+just some \nn\cite{Goodfellow2016}\cite{Bishop2006}\index{\nn} 
 with some special architecture(innate nonlinearities replacing the usual activation functions). The special architectures in the \ac{UWF} and the \ac{URWF} 
 just like \ac{LISTA} are due to the nonlinearities that could not have been guessed and are only available to us by close inspection of the gradient that make 
 the \ac{WF} and the \ac{RWF} tick in \cref{eq:gradient_pr_solution}. First nonlinearity is $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}$ and the second $\varphi' \colon \mathbb{C} \rightarrow \mathbb{C}$ both elementwise. 

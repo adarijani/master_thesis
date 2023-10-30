@@ -128,18 +128,13 @@ the process in \cref{fig:deep_unfolding_unrolling} to get a better feeling of wh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-A word of caution to the people who are more familiar with \ml/\dl is that \du/\au is not a \rnn\cite{Gregor2010}. \DU/\AU looks like a \rnn\cite{Gregor2010} but 
-a closer look will result in a couple of subtleties between the two
-
-\todo{I don't see how these things don't make it a RNN. Even if you reduce the number of parameters 
-or have easy initialization, it is still an RNN, albeit a quite specific one. But is out structure actually 
-recurrent? The structure you show in the unfolding figure looks uni-directional, i.e. 
-like a feed forward network.}. 
-
-
-Since in the \du/\au you significantly reduce the number of 
-parameters by using a context inspired model and not a full blown general \ml/\dl architecture, the need for large 
-datasets and computational power ceases to exist\footnote{It is worthwhile to check the system we used for our 
+A word of caution to the people who are more familiar with \ml/\dl is that \du is not a \rnn\cite{Gregor2010}. \DU looks like a \rnn\cite{Gregor2010} but 
+a closer look will result in a couple of subtleties between the two. The first one is that \rnns need time-series like data meaning we need all the intermediate 
+values of an iterative algorithm to train an \rnn while in \du we only need the value that goes in and the value that comes out of an iterative algorithm. The second is that if 
+you decide to copy the structure of an iteration and interpret it as a layer but then change some of the parameters while keeping the rest the same then 
+the resulting \nn can not be reinterpreted as a \rnn as the layers are completely distinct and there is no \emph{reentry}. Since in the \du
+ you significantly reduce the number of parameters by using a context inspired model and not a full blown general \ml/\dl architecture, 
+ the need for large datasets and computational power ceases to exist\footnote{It is worthwhile to check the system we used for our 
 study in \cref{tab:system_specs} to the general systems\cite{Meuer} that are used in training large \ml/\dl models.}. Initialization 
 of the weights, which for some time were the center of attention in \ml/\dl community \cite{Glorot2010}\cite{He2015a}, 
 and interpretation of the models become way easier. For initialization in the \du interpretation you basically set them according 
@@ -151,29 +146,60 @@ training process of our \ml/\dl model in our study. A nice review on the recent 
 
 
 
+\section{Wirtinger FLow Variants}
+\todo{give fast intro to wf then say phase retrieval and phase importance and explain the we are going to explain the pahse in a section}
+\ac{WF} variants emerged as a response to solve certain settings in \ac{PR} problems. As the same suggests \ac{PR} is the process of 
+determining the phase(up to a global phase) of an image simply because it contains information which is of interest depending on the context
+
+ 
+
+We first discuss why phase is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
+the variants where the \ac{WF} variants are based on. We give one application of the \ac{WF} variants which is used in imaging 
+to both motivate the reasoning behind considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
+natural images. 
+
+
+ 
 
 
 
 
+\cite{Candes2014} were the first to coin the term \ac{WF} paying homage to \emph{Wirtinger Derivative}. 
 
-\section{Importance of the Phase}\label{sec:phase_importance}
-\todo{It is unclear why you talk about the phase here. Sounds like a random new topic, we just heard about unfolding. Also, make sure that the term phase is defined. So far, this term is not mentioned in Cahpter 2 or in the part of Chapter 3 above.}
-In this section by signal we mean speech wave \todo{I think this is the only time the word speach (and perhaps also wave) appears. Is that relevant for your point?} and by image we mean 2D rectangular natural image. The \ac{DFT} (both 1D and 2D) is bijective\cite{Damelin2011} (also hinted \todo{Why ``also hinted''? This statements essentially proof the invertability of the 1D and 2D transform respectively.} at by \cref{prop:1ddft_vectors_orthononality} and 
-\cref{prop:2ddft_matrices_orthogonality}) therefore \todo{This is a consequence of the propositions, not of the fact that the DFT is invertible. In other words, the fact that the DFT is invertible, does not say that the IDFT, as you defined it, is the inverse.} taking the \ac{DFT} and the \ac{IDFT} in succession on a/an signal/image will have no effect on the signal/image.
- As a synthetic example to show the importance of phase; take the \ac{DFT} of two different images but before taking the \ac{IDFT} of the images; 
- swap the phase and then perform the \ac{IDFT} to arrive at the two reconstructed images. This was done by \cite{Oppenheim1981} to show the importance of 
- phase in signals and images. As it can be seen in \cref{image:phase_swap} \todo{You need to more clearly describe what is shown in the figure. I assume first and third row are the input images, and second and fourth are images with phase swap. But is the second row the phase of the first with the amplitude of the third? Same question for the fourth row.} the images \emph{look like} the image with the corresponding phase. As signals must 
- be heard but images can be shown we chose to do the synthetic example on images rather signals, but if had 
- done that the results would have been the same. Different manipulations on the amplitude and the phase of the \ac{FT} during the reconstructed process 
- were also investigated by \cite{Oppenheim1979}\cite{Oppenheim1981} which in short are:\todo{Since you are mentioning all of these, the reader would also wonder how these things look... Your one experiment only shows part of the picture.}
+
+
+
+\subsection{Phase and Its Importance}\label{sec:phase_importance}
+
+Consider  $z= \operatorname{Re}(z)+\operatorname{Im}(z) \in \mathbb{C}$ that is written as:
+\begin{equation}\label{eq:complex_polar_form}
+  z = r \mathrm{e}^ {\mathrm{i}\theta}
+\end{equation}
+where $r = \sqrt{\operatorname{Re}(z)^2+\operatorname{Im}(z)^2}$ and $\theta \in [0,2\pi)$ is chosen in a way that 
+$\cos \theta = \frac{\operatorname{Re}(z)}{\sqrt{\operatorname{Re}(z)^2+\operatorname{Im}(z)^2}}$ and 
+$\sin = \theta \frac{\operatorname{Im}(z)}{\sqrt{\operatorname{Re}(z)^2+\operatorname{Im}(z)^2}}$ 
+which is doable due to \cref{theorem:euler_formula} and a couple of elementary arithmetics. $\theta$, $r$ in \cref{eq:complex_polar_form} are called 
+argument, absolute value of $z$ in math and phase, amplitude of $z$ in physics. Depending on the quantity of interest the phase of an object 
+might contain valuable information. Here we would like to give a synthetic example to show the importance of the phase. In \cref{theorem:dft_idft_inverse} 
+we pointed that The \ac{DFT} and the \ac{IDFT} (both 1D and 2D) are inverse to each other therefore taking the \ac{DFT} and then the \ac{IDFT} in 
+succession on a 1D/2D signal theoretically must have no effect on the signal. Now take the 2D \ac{DFT} of two different natural images but 
+before taking the 2D \ac{IDFT} of the natural images; swap the phase and then perform the 2D \ac{IDFT} to arrive at the two reconstructed images. This 
+was done by \cite{Oppenheim1981} to show the importance of phase in signals. The result of the phase swap can be seen in \cref{image:phase_swap}. 
+The first and the third images are the original images which from now on we call \textsc{Image1} and \textsc{Image2}. 
+The second image is reconstructed using amplitude of the \textsc{Image2} and the phase of the \textsc{Image1} and the fourth image is reconstructed using 
+the amplitude of the \textsc{Image1} and the phase of the \textsc{Image2} just so that there is no confusion of what is what. The images 
+\emph{look like} the image with the corresponding phase which in way shows that phase is more important than the amplitude . Different manipulations 
+on the amplitude and the phase of the \ac{FT} during the reconstructed process 
+ were also investigated by \cite{Oppenheim1981}. The reconstruction process is not always as easy as just taking the \ac{IDFT} and 
+ is explained in more detail in \cite{Oppenheim1979} which in short is similar to the Gerchberg-Saxton algorithm\cite{Gerchberg1972}. 
+ Other manipulations and and their effects on the reconstructed images were also conducted by \cite{Oppenheim1981} which are:
  \begin{itemize}
-	\item taking the \ac{DFT}, setting the phase to zero and then reconstructing the image\cite{Oppenheim1981}\todo{You have the reference above, there is no need to restarte the reference in every line about that reference.}.
-	\item taking the \ac{DFT}, setting the amplitude to one and then reconstructing the image\cite{Oppenheim1981}
-	\item taking the \ac{DFT}, setting a random amplitude and then reconstructing the image\cite{Oppenheim1981}
-	\item taking the \ac{DFT}, setting the amplitude to the average of amplitudes of \ac{DFT}s of images of the same type and then reconstructing the image\cite{Oppenheim1981}.
+	\item taking the \ac{DFT}, setting the phase to zero and then reconstructing the image
+  \item taking the \ac{DFT}, setting the amplitude to one and then reconstructing the image
+	\item taking the \ac{DFT}, setting a random amplitude and then reconstructing the image
+	\item taking the \ac{DFT}, setting the amplitude to the average of amplitudes of images of the same type and then reconstructing the image.
  \end{itemize} 
- All of them suggested that the phase of the \ac{DFT} of an image 
- is more important than the amplitude of the \ac{DFT} of an image\cite{Oppenheim1979}\cite{Oppenheim1981}.  
+ All of them suggested that if you have the right phase then the reconstructed image have some level of resemblance to the original image \cite{Oppenheim1981}   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% Phase in Fourier Reconstruction %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -184,61 +210,53 @@ In this section by signal we mean speech wave \todo{I think this is the only tim
     \centering
 	\captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth,height=65em]{./images/phase_importance/phase_importance_comparison.png}
-    \caption{The Importance of Phase in Fourier Reconstruction \cite{Oppenheim1979}\cite{Hayes1980}\cite{Oppenheim1981}\cite{Shechtman2015}}
-    \todo[inline]{Why are there four references for a single, simple figure where you took/computed all images yourself?}
+    \caption{The Importance of Phase in Fourier Reconstruction which was inspired by \cite{Oppenheim1981}}
     \label{image:phase_swap}
   \end{figure}
   % \clearpage % End the page
 }   
 
-\section{Phase Problem}
-Sometimes the precious and coveted phase we talked about in \cref{sec:phase_importance} or other forms of it gets lost during a process. The reader must recognize 
-that by phase we do not always mean the phase of the \ac{FT} and the name \emph{phase} has a very broad meaning\todo{I would say we always mean exactly the phase of complex numbers. Just where these complex numbers come from differs.}. The physics behind the phase loss is beyond the 
-scope of the current work, but in \cref{sec:motivating_application} we give a mathematical formula \todo{\cref{pro:phase_problem} is already a very specific mathematical formulation} that explicitly shows the destruction of the phase 
-during a process for a specific real world setting. For the case where material limitations and quantum mechanical effects are responsible for the phase loss we invite 
+\subsection{Phase Problem and Its Solution}
+Sometimes the precious and coveted phase we talked about in \cref{sec:phase_importance} or other forms of it gets lost during a process. 
+
+
+
+
+The physics behind the phase loss is beyond the scope of the current work, but 
+in \cref{pro:phase_problem} we give a mathematical formula that explicitly shows the destruction of the phase. 
+For the case where material limitations and quantum mechanical effects are responsible for the phase loss we invite 
 the intrigued party to take a look at \cite{Shechtman2015} (material limitations) and \cite{DGDS2018}\cite{FranzSchwabl2007} (quantum mechanical effects). 
 Mathematically the phase problem can be stated as:
-\begin{Pro}[Phase Problem]\label{pro:phase_problem}
-\todo{Be more clear: You are given the $G_j$ and then the task is to find a $\psi$ that fulfills $G_j = \varphi(\boldsymbol{A}_j\psi)$ or $G_j \approx \varphi(\boldsymbol{A}_j\psi)$.}
-Find $\psi \in \mathbb{C}^N$ such that $G_j = \varphi(\boldsymbol{A}_j\psi)$ or $G_j \approx \varphi(\boldsymbol{A}_j\psi)$ where 
-$\boldsymbol{A}_j$s for $j \in \left\{1,\ldots,K\right\}$ are linear operators \todo{This is finite dimensional, so this are just matrices. Also specify their sizes and the sizes of the $G_j$} and $\varphi$ is a function with 
-phase corrupting capability (something that is not bijective) \todo{I would just consider $\varphi \colon \mathbb{C} \to \mathbb{R}$, allowing the two choices of $\varphi$ you mention in the footnote and then call this phase retrieval.} $\varphi \colon \mathbb{C} \to \mathbb{C}$ or phase destruction capability 
-$\varphi \colon \mathbb{C} \to \mathbb{R}$\footnote{the case of $z \rightarrow \left|z\right| \lor {\left|z\right|^2}$ 
-are of great interest}.
+\begin{Pro}[Phase Problem]\label{pro:phase_problem} For $G_j \in \mathbb{R}^M$ and matrices 
+  $\boldsymbol{A}_j \in \mathbb{C}^{M \times N}$ for $j \in \left\{1,\ldots,K\right\}$, find 
+$\psi \in \mathbb{C}^N$ such that either $G_j = \varphi(\boldsymbol{A}_j\psi)$ or $G_j \approx \varphi(\boldsymbol{A}_j\psi)$ where 
+$\varphi \colon \mathbb{C} \to \mathbb{R}$ is a function with the phase destruction 
+capability\footnote{Or in the more general case something that is not bijective and would result in phase corruption $\varphi \colon \mathbb{C} \to \mathbb{C}$ 
+that partially destroys the information encoded in the phase.} like $z \rightarrow \left|z\right| \lor {\left|z\right|^2}$. 
 \end{Pro} 
 
-
-
-
-
-
-\section{Phase Retrieval}
-
-\todo{Don't start a new section. Below you formulate one way to (approximately) solve the problem you just set up. You also need all elements you formulated for the problem, to formulate the soltion.}Let $\Omega \in \mathbb{R}^n$ and $\psi$ \todo{This is not a mapping, but a vector (The $N$ below comes from the discretization and should be the length of $G_j$). You don't have any $\Omega$ here or ever used an $\Omega$ before in this thesis.} a mapping that takes $\Omega$ to $\mathbb{C}$. Mostly $\Omega$ is assumed to be a 
-$d$-dimensional cube which makes it easier to work with. The process of extracting $\psi$(up to a global phase) from:
-\begin{equation}\label{eq:pr_problem}
-	E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{K} {\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|_X}^2}_{\coloneqq D(\psi)}+ R(\psi)
-  \end{equation}
-  \todo{$\left|\cdot\right|_X$ above needs to be replaced with the Euclidean norm in $\mathbb{R}^N$, assuming $N$ denotes the number of elements of $G_j$.}
-  is called \acl*{PR}(just a subclass of \acl*{PR}) where:
+\noindent One way to approximately find the solution is to formulate it like:
+\begin{Pro}[Phase Retrieval Problem]\label{pro:phase_retrieval_problem} For $G_j \in \mathbb{R}^M$ and matrices 
+  $\boldsymbol{A}_j \in \mathbb{C}^{M \times N}$ for $j \in \left\{1,\ldots,K\right\}$, and 
+  $\varphi \colon \mathbb{C} \to \mathbb{R}$ is a function with the phase destruction capability, then minimize:
+  \begin{equation}\label{eq:phase_retrieval_problem}
+    E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{K} {\left|\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|\right|}^2}_{\coloneqq D(\psi)}+ R(\psi)
+    \end{equation}
+    where:
   \begin{itemize}
-  \item $\psi$ is the continuous variable that after the discretization is going to be $\in \mathbb{C}^N$
-	\item $E(\psi)$ the functional we are trying to minimize.
-	\item $D(\psi)$ the data term.
-	\item $R(\psi)$ the regularization term.
-	\item $\boldsymbol{A}_j$ the $j$-th linear sampler operator.
-	\item $G_j$ the $j$-th measurement.
-	\item $\varphi \colon \mathbb{C} \rightarrow \mathbb{R}$, 
-	is the function responsible for the phase loss(phase destruction) in the measurement process\footnote{the case of $z \rightarrow \left|z\right| \lor {\left|z\right|^2}$ are of great interest}
-  \end{itemize}
+    \item $D(\psi)$ is the data term,
+    \item $R(\psi)$ is the regularization term,
+    \item $G_j$ is the $j$-th measurement.
+    \end{itemize}
+\end{Pro}
 
-Solving the \acl*{PR} is not quite easy due to the non-convex, non-holomorphic and infinite-dimensional characteristics of the \acl*{PR}. 
+\noindent Solving the \acl*{PR} is not quite easy due to the non-convex and non-holomorphic characteristics of the \acl*{PR}. 
 In short the \acl*{PR} can be solved by the iterative algorithm:
   \begin{equation}\label{eq:pr_solution}
 	\psi^{k+1} = \text{prox}_{\tau_{k}R}(\psi^k-\tau_k\nabla{D(\psi^k)})
   \end{equation}
 
-  where the gradient-like structure looks like: 
+  with the gradient-like structure looks like: 
   \begin{equation}\label{eq:gradient_pr_solution}
 	\nabla{D(\psi^k)} = \frac{1}{KN} \sum_{j=1}^{K} \boldsymbol{A}_j^*\left(\varphi\left(\boldsymbol{A}_j\psi\right)-G_j\right)\odot \varphi'(\boldsymbol{A}_j\psi).
   \end{equation}
@@ -247,22 +265,39 @@ In short the \acl*{PR} can be solved by the iterative algorithm:
   \begin{itemize}
 	\item $\mathrm{prox}$ is the Proximal operator mostly used in non-differentiable but still convex setting \cite{Bredies2018}.
 	\item $\odot$ is the Hadamard product\cite{Hackbusch2019} which is simply the element-wise product between two multidimensional arrays and occurs naturally when $\psi$ and $\boldsymbol{A}_j$ in \cref{eq:pr_problem} are discretized.
-	\item $\boldsymbol{A}^*_j$ is the $j$-th conjugate operator of the $j$-th linear sampler operator $\boldsymbol{A}_j$.
-	\item $\varphi' \colon \mathbb{C} \to \mathbb{C}$ the first derivative of the $\varphi \colon \mathbb{C} \to \mathbb{R}$ function.
+	\item $\boldsymbol{A}^*_j$ is the $j$-th conjugate matrix of the $j$-th matrix $\boldsymbol{A}_j$.
+	\item $\varphi' \colon \mathbb{C} \to \mathbb{C}$ is the first derivative of the $\varphi \colon \mathbb{C} \to \mathbb{R}$ function.
   \end{itemize}
 
   A simpler variation of the above formulation were studied extensively and is at the core of the \ac{WF} variants. 
   From now on we consider the following as the \acl*{PR} problem:
 
-  \begin{equation}\label{eq:main_function}
-	\boldsymbol{y} = \varphi(\boldsymbol{A}\boldsymbol{x})
-  \end{equation}
-  where $\boldsymbol{x} \in \mathbb{C}^{n \times 1}$ is the vector of interest, $\boldsymbol{A} \in \mathbb{C}^{m \times n}$ the sampler matrix,  
-  $\boldsymbol{y} \in \mathbb{R}^{m \times 1}$ the measurements vector, and $\varphi$ the usual element-wise absolute value(or the squared absolute value) from 
-  $\mathbb{C}^{m \times 1}$ to $\mathbb{R}^{m \times 1}$ that destroys the information encoded in the phase. Since 
-  $\left|\boldsymbol{A}\boldsymbol{x}\mathrm{e}^{\mathrm{i}\theta}\right|_X = \left|\boldsymbol{A}\boldsymbol{x}\right|_X$, 
-  $\min \left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|_X$ was considered as the loss function throughout the \ac{WF} variants papers \cite{Candes2014}\cite{Chen2015}\cite{Kolte2016}\cite{Zhang2016} where $\boldsymbol{z}$ is the estimation of
-  $\boldsymbol{x}$ up to a global phase.
+  \begin{Pro}\label{pro:phase_retrieval_simple}
+    Given $\boldsymbol{y} \in \mathbb{R}^M$ the measurement vector and $\boldsymbol{A} \in \mathbb{C}^{M \times N}$ the sampler matrix, 
+    and the phase destroyer $\varphi \colon \mathbb{C} \to \mathbb{R}$; find $\boldsymbol{x} \in \mathbb{C}^N$ up to a global phase 
+    by minimizing $ \left|\left|\varphi(\boldsymbol{A}\boldsymbol{x})-\boldsymbol{y}\right|\right|$.
+  \end{Pro}
+  \begin{Rem}
+The function we are trying to minimize in \cref{pro:phase_retrieval_simple} is non-convex \cite{Candes2014}. Set $n=1$, $m=2$, $\boldsymbol{x}_1 = \begin{pmatrix}1+i\end{pmatrix}^{1 \times 1}$, 
+$\boldsymbol{x}_2 = \begin{pmatrix}-1-i\end{pmatrix}^{1 \times 1}$, $\boldsymbol{A}=\begin{pmatrix}1\\i \end{pmatrix}^{2 \times 1}$, 
+$\boldsymbol{y}=\begin{pmatrix}1\\2 \end{pmatrix}^{2 \times 1}$, and $\lambda=1/2$ to build a counterexample. Non-convexity is bad news for 
+optimization as most of the optimization methods are build on top of convexity \cite{Boyd2004}\cite{Nocedal2006}.
+  \end{Rem}
+  \begin{Rem}
+    The function we are trying to minimize is not holomorphic\footnote{Cauchy-Riemann equations do not hold. 
+    You can take a look at the eleventh chapter of \cite{Rudin1987} for further details.} which in turn makes arriving at the 
+    gradient descent like structure in \cref{eq:gradient_pr_solution} more involved.
+  \end{Rem}
+  \begin{Rem} 
+    $\min \left|\left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|\right|^2$ is chosen as the difference between the 
+    true signal and the approximated one and the reason is:
+    \begin{equation}
+      \left|\boldsymbol{A}\boldsymbol{x}\mathrm{e}^{\mathrm{i}\theta}\right| = \left|\boldsymbol{A}\boldsymbol{x}\right|
+    \end{equation}
+    where $\left|\boldsymbol{.}\right|$ is the absolute value applied element-wise. This would be the expression you encounter throughout the \ac{WF} variant papers \cite{Candes2014}\cite{Chen2015}\cite{Zhang2016}. 
+    This remark is also important because in the training process of the \du you have to use this costume loss function which is why we give the explicit formulation 
+    for finding $\min \left|\left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|\right|^2$.
+  \end{Rem}
 
 
 
@@ -270,112 +305,137 @@ In short the \acl*{PR} can be solved by the iterative algorithm:
 
 
 	\begin{Prop}\label{theorem:min distance}
-		Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, where $(z,x)_X$ \todo{As discussed, use \cref{def:scalar_product_complex_vectors} as scalar product and \cref{def:scalar_product_induced_norm_complex_vectors} as norm. I will check the proof assuming that it is using this scalar product.} is 
-		the usual scalar product associated with such vector spaces, and $\left|\cdot\right|_X$ the induced norm using the scalar product on the vector space $X$, then the expression
+		Let $\varphi, \theta \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, $w \coloneqq \langle z,x \rangle$ such that 
+    $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$;  where the scalar product $\langle z,x \rangle$ is the same as the one in \cref{def:scalar_product_complex_vectors} 
+    and would induce the norm $\left|\left|\cdot\right|\right|$ as in \cref{def:scalar_product_induced_norm_complex_vectors}; then the function:
 		\begin{equation}\label{eq:loss_function}
-			f(\varphi) \coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X
+			f \colon \mathbb{R}\to\mathbb{R} \qquad , \qquad \varphi\mapsto \left|\left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|\right|^2
 		\end{equation}
-		has a minimum \todo{A minimum for a function is always associated to a domain / an admissible set. I would say you consider the function $f:\mathbb{R}\to\mathbb{R}, \varphi\mapsto \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X$ and that this function has a minimum.} and the minimum can be calculated in a closed form manner.\todo{The closed form solution should be part of the statement.}
-		\end{Prop}
+		has a minimum of $\left|\left|x-\mathrm{e}^{-\mathrm{i}\varphi^*}z\right|\right|^2$ where:
+    \begin{equation}
+      \varphi* =
+      \begin{cases}
+			  \theta + \pi & 0   \leq \theta <  \pi\\
+			  \theta - \pi & \pi \leq \theta < 2\pi\\
+		  \end{cases}
+    \end{equation}
+  \end{Prop}
 		\begin{Proof}
-			$f(\varphi)$ \todo{$f$ is continuous, $f(\varphi)$ is just a real number.} is continuous and periodic \todo{``with period $2\pi$''. Without the period, you can't know to which interval you can restrict the search for a minimum.} therefore it will attain its minimum and maximum \todo{This is correct and uses the fact that a continuous function on a compact interval attains minimum and maximum.} for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}. 
-			Let $w \coloneqq (z,x)_X = \operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$\todo{These is technically correct, but does not follow the train of thought, i.e., you have $w \coloneqq (z,x)_X $ and obviously $w=\operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$. The equation $\operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)$ follows from the two before.}
-      \todo{Don't write $f(\varphi) \coloneqq $ below ($f$ is already defined, you don't redefine it.). Instead start with $f(\varphi) = $}
+			$f$ is continuous and periodic with the period of $2\pi$ therefore it will attain its minimum and maximum 
+      for $\varphi^\ast \in [0,2\pi)$\cite{Rudin1976}. 
+			
+      
+      
+
+      
+      
+      
+      
+      
 			\begin{equation}
 				\begin{split}
-				f(\varphi) &\coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X = 
-				\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\\
-        &\textcolor{red}{\text{Above should be: }\left(x-\mathrm{e}^{-\mathrm{i}\varphi}z,x-\mathrm{e}^{-\mathrm{i}\varphi}z\right)_X\text{ and the correct scalar product of course}}\\
-						   &= \left(x,x\right)_X - \mathrm{e}^{\mathrm{i}\varphi}\left(x,z\right)_X-\mathrm{e}^{-\mathrm{i}\varphi}\left(z,x\right)_X+\left(z,z\right)_X \\
-                		   &= \left(x,x\right)_X - (\cos(\varphi)+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) -\mathrm{i}\operatorname{Im}(w)\right)\\
-        &\textcolor{red}{\text{I would align the $+$ right of the $=$}}\\
-						   &+ \left(z,z\right)_X - (\cos(\varphi)\textcolor{red}{\text{This should be $-$}}+\mathrm{i}\sin(\varphi))\left(\operatorname{Re}(w) +\mathrm{i}\operatorname{Im}(w)\right)\\
-               &\textcolor{red}{\text{Either write $\cos\varphi$ or $\cos(\varphi)$ (same for $\sin$). Don't mix both notations in one proof.}}\\
-						   &= \left(x,x\right)_X - 2\left(\cos\varphi\operatorname{Re}(w)+\sin\varphi\operatorname{Im}(w)\right)+ \left(z,z\right)_X
+				f(\varphi) &= \left|\left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|\right|^2 = 
+				\langle x-\mathrm{e}^{-\mathrm{i}\varphi}z,x-\mathrm{e}^{-\mathrm{i}\varphi}z \rangle\\
+						   &= \langle x,x \rangle - \mathrm{e}^{\mathrm{i}\varphi}\langle x,z \rangle-\mathrm{e}^{-\mathrm{i}\varphi}\langle z,x \rangle+\langle z,z \rangle \\
+               &= \langle x,x \rangle - (\cos\varphi+\mathrm{i}\sin\varphi)\left(\operatorname{Re}(w) -\mathrm{i}\operatorname{Im}(w)\right)\\
+						   &\;\;\;\;\; + \langle z,z \rangle - (\cos(\varphi)-\mathrm{i}\sin\varphi)\left(\operatorname{Re}(w)+\mathrm{i}\operatorname{Im}(w)\right)\\
+						   &= \langle x,x \rangle - 2\left(\cos\varphi\operatorname{Re}(w)+\sin\varphi\operatorname{Im}(w)\right)+ \langle z,z \rangle
 				\end{split}
 			  \end{equation}
-			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006} and also \cref{lemma:inverse_a_sin_b_cos}:\todo{The following is correct, but the formulation of \cref{lemma:inverse_a_sin_b_cos} makes this tedious to check. One has to use $\theta=-\varphi$, $\varphi=\theta$ and $\sin(-\varphi)=-\sin(\varphi)$. I would definitely change the notation of the Lemma, by switching the symbold $\theta$ and $\varphi$.}
+			  Utilizing optimization methods for continuous and differentiable $\mathbb{R} \rightarrow \mathbb{R}$ functions \cite{Boyd2004}\cite{Nocedal2006} and also \cref{lemma:inverse_a_sin_b_cos}:
 			  \begin{equation}
 				\begin{split}
 				\frac{\mathrm{d}f(\varphi)}{\mathrm{d}\varphi} &= - 2\left(-\sin\varphi\operatorname{Re}(w)+\cos\varphi\operatorname{Im}(w)\right) = 2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\sin(\varphi-\theta)\\ 
 				\end{split}
 			  \end{equation}
-			  where $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$.
-        \todo{Why do you need two formulations of the second dervative? Isn't the formulation on the very right what you need?}
 			  \begin{equation}
 				\begin{split}
-				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &= - 2\left(-\cos\varphi\operatorname{Re}(w)-\sin\varphi\operatorname{Im}(w)\right) = -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
+				\frac{\mathrm{d}^2f(\varphi)}{\mathrm{d}\varphi^2} &= -2\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}\cos(\varphi-\theta)\\ 
 				\end{split}
 			  \end{equation}
-        For $\varphi^\ast-\varphi = (2k+1)\pi, k \in \mathbb{Z}$ \todo{What does this mean? There is no $\varphi$ from which you can construct the $\varphi^*$. You need to specify $\varphi^*$ where the minimum is attained. I guess you want to do that by specifiying all zeros of the first derivative on $[0,2\pi)$, then checking the sign of the second derivative, finding out that only one of the zeros of the first deriviate has positive sign, concluding that this is a local minium. Thus, there is only one local minimum in $[0,2\pi)$ and since you know that the minimum is attained from the beginning of the proof, this local minimum must be a global minimum, which is what you wanted. If you fill in the gaps, you also get the explicit formula for the minimum.} and restricting ourselves to $\varphi \in [0,2\pi)$ we would arrive at the unique $\arg\min$ $\varphi^*$ corresponding to the $\min$.
+        We look for the points where the first derivative is zero which translates into:
+        \begin{equation}
+          \varphi^* - \theta = k\pi \quad , \quad k \in \mathbb{Z} 
+        \end{equation}
+        and the second derivative is positive which translates into:
+        \begin{equation}
+         2k\pi + \frac{\pi}{2} \leq \varphi^* - \theta \leq 2k\pi + \frac{3\pi}{2} \quad , \quad k \in \mathbb{Z}
+        \end{equation}
+        combining the two would give:
+        \begin{equation}
+          \varphi^* -\theta = (2k+1)\pi, k \in \mathbb{Z}
+        \end{equation}
+        for $0   \leq \theta <  \pi$, $k=0$ would place $\varphi*$ in $[0,2\pi)$ and for  $\pi \leq \theta < 2\pi$, 
+        $k=-1$ would place $\varphi*$ in $[0,2\pi)$ and to summarize minimum will be attained by:
+        \begin{equation}
+          \varphi* =
+          \begin{cases}
+            \theta + \pi & 0   \leq \theta <  \pi\\
+            \theta - \pi & \pi \leq \theta < 2\pi.\\
+          \end{cases}
+        \end{equation}
+        Since we could only find one local minimum and we already know there exist a global minumum therefore this local minimum is in fact the global minimum.
 		\end{Proof}
 
 
   
-\section{Difficulties}
 
-The loss function in \cref{eq:loss_function} is non-convex \cite{Candes2014}. Set $n=1$, $m=2$, $\boldsymbol{x}_1 = \begin{pmatrix}1+i\end{pmatrix}^{1 \times 1}$, 
-$\boldsymbol{x}_2 = \begin{pmatrix}-1-i\end{pmatrix}^{1 \times 1}$, $\boldsymbol{A}=\begin{pmatrix}1\\i \end{pmatrix}^{2 \times 1}$, 
-$\boldsymbol{y}=\begin{pmatrix}1\\2 \end{pmatrix}^{2 \times 1}$, and $\lambda=1/2$ to build a counterexample. Non-convexity is bad news for 
-optimization as most of the optimization methods are build on top of convexity \cite{Boyd2004}\cite{Nocedal2006}. To make the matter worse the loss function is not 
-holomorphic\footnote{Cauchy-Riemann equations do not hold. You can take a look at the eleventh chapter of \cite{Rudin1987} for further details.} 
-which in turn makes arriving at the gradient descent like structure in \cref{eq:gradient_pr_solution} more involved.
+
+
 
 \section{Motivating Application}\label{sec:motivating_application}
 
 Since introducing complex numbers introduced a couple of quite difficult obstacles in the math part and will introduce others in the implementation part 
-we think we owe it to the reader to motivate the assumption by giving one application which is imaging using \ac{CDP} coupled with \ac{WF} variants.
-
-\section{Diffracted Imaging}\label{sec:diffracted_imaging}
+we think we owe it to the reader to motivate this particular assumption by giving one application which is imaging using \ac{CDP} coupled with \ac{WF} variants.
 
 \todo{You at least need to describe our forward model, i.e., explain how we assume data to be obtained from the image
- we want to know. Then it's at least mathematically obvious why the phase is lost.} 
+ we want to know. Then it's at least mathematically obvious why the phase is lost.}
 
+\subsection{Diffraction Imaging}\label{sec:diffraction_imaging}
 
 Without going too much into the Physics of it Consider a ray that is emitted onto an object of interest and the diffracted rays are collected and 
 measured at some distance from the object. The goal is to reconstruct the image using the said measurements. If the distance between 
 the sample and the detector is far enough, characterized by the Fraunhofer condition\cite{Lipson1995}, then the solution of the diffraction 
 problem is well approximated by the \ac{FT} of the emitted ray. Due to quantum mechanical effects\cite{DGDS2018}\cite{FranzSchwabl2007} and material limitations\cite{Shechtman2015} 
-the phase of the \ac{FT} can not be measured (we can only measure the amplitude of the \ac{FT}) therefore we encounter the \pp problem. In summary in the discrete 1D case we have:
+the phase of the \ac{FT} can not be measured (we can only measure the amplitude of the \ac{FT}) therefore we encounter the \pp problem in \cref{pro:phase_problem}. 
+In summary in the discrete 1D case we have:
 \begin{equation}
-	y_k = \left| \sum_{t=0}^{n-1} x[t] e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega, \qquad \boldsymbol{x} \in \mathbb{C}^n , \qquad \boldsymbol{y} \in \mathbb{R}^m, \qquad m > n 
+	y_k = \left| \frac{1}{N}\sum_{n=0}^{N-1} x_n e^{-2\pi\mathrm{i}nk} \right|^2 , \quad \boldsymbol{x} \in \mathbb{C}^N , \quad \boldsymbol{y} \in \mathbb{R}^M, \quad M > N 
 \end{equation}
-where $\boldsymbol{x}$ is the emitted ray and $\boldsymbol{y}$ is the measurement. By some physics technics\cite{Loewen2018}\cite{Candes2011} you can modulate 
+where $\boldsymbol{x} \in \mathbb{C}^N$ is the emitted ray and $\boldsymbol{y} \in \mathbb{R}^M$ represent the measurements. By some physics technics\cite{Loewen2018}\cite{Candes2011} you can modulate 
 the ray before it diffracts which in 1D discrete setting becomes:
 \begin{equation}\label{eq:modulation_effect}
-	y_k = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 , \qquad \omega_k \in \Omega
+	y_k = \left| \frac{1}{N}\sum_{n=0}^{N-1} x_n\overline{d_n} e^{-2\pi\mathrm{i}nk} \right|^2 , \quad \boldsymbol{x}, \boldsymbol{d} \in \mathbb{C}^N , \quad \boldsymbol{y} \in \mathbb{R}^M, \quad M > N 
 \end{equation}
 
 If we do the process using $L$ different modulations/masks we would be having:
 \begin{equation}\label{eq:l_modulation_effect}
-	y_{l,k} = \left| \sum_{t=0}^{n-1} x[t]\overline{d[t]} e^{-i2\pi\omega_kt} \right|^2 \quad \text{for} \quad \begin{split}
-	0 &\leq k \leq n-1\\
+	y_{l,k} = \left| \frac{1}{N}\sum_{n=0}^{N-1} x_n\overline{d_n} e^{-2\pi\mathrm{i}nk} \right|^2, \quad \begin{split}
+	0 &\leq k \leq N-1\\
 	1 &\leq l \leq L
 	\end{split}
+  , \quad \boldsymbol{x}, \boldsymbol{d} \in \mathbb{C}^N , \quad \boldsymbol{y} \in \mathbb{R}^M, \quad M > N 
   .
   \end{equation}
 \cite{ECXLMS2013} proved that if the number of modulations/masks $L$ is high enough, then the recovery of the ray is possible using \acl*{PR} methods. 
-\cite{Gross2017} furthered improved the bounds in which the recovery is possible. The synthetic example would be to assume the ray to be a natural image and 
-apply \ac{WF} variants to get a better and natural feeling of \acl*{PR} process. The \ac{WF} vs the \ac{TWF} can be seen in \cref{image:wf_vs_twf}, \ac{WF} vs \ac{RWF} in \cref{image:wf_vs_rwf}, and finally 
-\ac{TWF} vs \ac{RWF} in \cref{image:twf_vs_rwf}.
-
-There are however some restrictions regarding the $d[t]$ in \cref{eq:modulation_effect} and \cref{eq:l_modulation_effect}. \cite{ECXLMS2013} proposed:
+\cite{Gross2017} furthered improved the bounds in which the recovery is possible.
+There are however some restrictions regarding the $\boldsymbol{d} \in \mathbb{C}^N$ in \cref{eq:modulation_effect} and \cref{eq:l_modulation_effect}. \cite{ECXLMS2013} proposed:
 \begin{equation}
 	\mathbb{E}\left[d\right] = 0, \qquad \mathbb{E}\left[d^2\right] = 0, \qquad\mathbb{E}\left[\left|d\right|^4\right] = 2\mathbb{E}\left[\left|d\right|^2\right]^2
 \end{equation}
 where $\mathbb{E}$ is the expectation value operator and $d$ the random variable, as the admissibility condition and proposed two settings where the conditions are met:
 \begin{itemize}
-	\item first setting nicknamed \emph{Ternary Modulation}\footnote{as there are 3 different values(outcomes) for the random variable $d$}
-	\begin{equation*}
+	\item first setting nicknamed \emph{Ternary Modulation} as there are 3 different values(outcomes) for the random variable $d$ which are:
+	\begin{equation}
 	  d =
 		  \begin{cases}
 			  +1 & \text{with prob.  $1/4$}\\
 			  0 & \text{with prob.  $1/2$}\\
 			  -i & \text{with prob.  $1/4$}
 		  \end{cases}  
-	\end{equation*}
-	\item second setting nicknamed \emph{Octanary Modulation}\footnote{as there are 8 different values(outcomes) for the random variable $d$}
-	\begin{equation*}
+	\end{equation}
+	\item second setting nicknamed \emph{Octanary Modulation} as there are 8 different values(outcomes) for the random variable $d$ which are:
+	\begin{equation}\label{eq:octanary_modulation}
 		d = b_1b_2 \qquad \text{such that} \qquad
 	  b_1 =
 		  \begin{cases}
@@ -391,13 +451,15 @@ where $\mathbb{E}$ is the expectation value operator and $d$ the random variable
 			+\sqrt{2}/2 & \text{with prob.  $4/5$}\\
 			+\sqrt{3} & \text{with prob.  $1/5$}\\
 		\end{cases}   
-	\end{equation*}
+	\end{equation}
 \end{itemize}
 
-As it is stated by \cite{ECXLMS2013} different \acl*{CDP}s might be better suited for different applications so naturally 
+\begin{Rem}
+It is stated by \cite{ECXLMS2013} different \acl*{CDP}s might be better suited for different applications so naturally 
 the possibility exists that the practitioners in their respective field want to experiment with different $d$s. Therefore 
 we provide the double checking of the admissibility conditions for the \emph{Octanary Modulation} proposed by \cite{Candes2014} 
 in case the reader is in fact one of those practitioners.
+\end{Rem}
 
 \begin{Thm}\label{theorem:expectation_general}
   Let $X$ and $Y$ be independent discrete random variables. For expectation value of functions of our random variables we would be having:
@@ -418,7 +480,7 @@ Let $X$ and $Y$ be independent discrete random variables. We would be having:
 \end{Lem}
 
 \begin{Prop}
-	The Octanary Modulation setting is admissible by the criteria proposed by\cite{Candes2014}. 
+	The Octanary Modulation setting in \cref{eq:octanary_modulation} is admissible by the criteria proposed by \cite{Candes2014}. 
 \end{Prop}
 
 \begin{Proof}
@@ -458,44 +520,78 @@ Let $X$ and $Y$ be independent discrete random variables. We would be having:
 	 which closes the proof.
 \end{Proof}
 
+\subsection{Synthetic Example}
+If you want to take a natural image you just pick up your digital camera and take a picture but for the sake of the argument assume that is not possible to do so. 
+Assume the scenery you want to take an image of has to be handled by diffraction imaging and inverse methods. Prepare $L$ different masks using the criteria in \cref{eq:octanary_modulation}, 
+apply them to your natural digital image that you have according to the \cref{eq:l_modulation_effect} to arrive at the synthetic measurements. In our case where our image 
+is $1,000 \times 553$ we used $20$ masks for retrieving the original image from the measurements. We retrieved the original image using three different \ac{WF} variants namely 
+the original \ac{WF}, the \ac{TWF}, and the \ac{RWF} for demonstration purposes. The relative error in different color channels during the retrieval process is 
+depicted in \cref{fig:cdp_wf_twf_rwf}. What is quite interesting is that the measurements induced by only one mask shows almost nothing that can resemble the characteristics 
+of the original image but when $L$ masks are applied somehow magically you can now retrieve the original image quite perfectly. 
+\cref{image:cdp_effect_fourier_visual} shows that when a mask is applied the usual star like pattern that can be seen in the spectral visualization of the 
+\ac{FT} of an image is completely destroyed. \cref{image:cdp_effect_measurements_zoomed_visual} shows a zoomed version to have a closer 
+look at the structure after the mask is applied which again shows no apparent pattern. During the reconstruction process we saved all reconstructed images at each iteration, but 
+obviously it is not possible to look at all of them within the current document. It is however informative to have a couple of them to both have a sense 
+of the iteration process and also compare the three algorithms side by side visually. The \ac{WF} vs the \ac{TWF} can be seen in \cref{image:wf_vs_twf}. It can be 
+easily be seen that the \ac{TWF} is a superior algorithm both at the initialization and also is better at reconstructing the image at equal iteration number. For 
+the \ac{WF} vs \ac{RWF} in \cref{image:wf_vs_rwf} both seen to be equal when it comes to initialization step but the \ac{RWF} quickly starts to reconstruct better 
+images compared to the \ac{WF}. The case of \ac{TWF} vs \ac{RWF} in \cref{image:twf_vs_rwf} is more interesting as at first \ac{TWF} is in the lead regarding the 
+quality of the reconstructed image at the initialization step but the \ac{RWF} manages to reconstruct almost the perfect, relative error of $10^{-16}$, image at only $150$ iteration 
+while it take the \ac{TWF} $200$ iterations. A a side not each iteration approximately is the equivalent of two \textsc{FFT}s on a grid of $1,000 \times 553$ for each color channel which is a lot. 
+That shows the importance of looking for better and better algorithms in our case and in the general case of \acl*{PR}.
 
-
-
-
-\section{Wirtinger FLow Variants}
-\ac{WF} variants emerged as a response to solve certain settings in \ac{PR} problems. As the same suggests \ac{PR} is the process of 
-determining the phase(up to a global phase) of an image simply because it contains information which is of interest depending on the context
-
- 
-
-We first discuss why phase is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
-the variants where the \ac{WF} variants are based on. We give one application of the \ac{WF} variants which is used in imaging 
-to both motivate the reasoning behind considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
-natural images. 
-
-
- 
-
-
-
-
-\cite{Candes2014} were the first to coin the term \ac{WF} paying homage to \emph{Wirtinger Derivative}. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% WF, TWF, RWF for CDPs Retrieval of Natural Images %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+%   \clearpage % Start a new page
+  \begin{figure}
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}]{\input{./tikz/wf/wf_error_sat_phone_500_sat_phone.tex}}\\  
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{TWF}]{\input{./tikz/twf/twf_error_sat_phone_500_sat_phone.tex}}\\  
+    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{RWF}]{\input{./tikz/rwf/rwf_error_sat_phone_500_sat_phone.tex}}\\  
+  \caption{Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}, \ac{TWF}, and \ac{RWF}}\label{fig:cdp_wf_twf_rwf}
+  \end{figure}
+%   \clearpage % End the page
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% CDPs on Fourier visualization %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/mask_effect/regular_fourier_vs_modulated.png}
+    \caption{Effect of Modulation Due to a Random Mask on Specteral Visualization of the Sat Phone Image from Top to Buttom: 
+    Red Channel, Green Channel, Blue Channel, and Full RGB}\label{image:cdp_effect_fourier_visual}
+  \end{figure}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this page
+  \begin{figure}
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_sat_phone/measurements.png}
+    \caption{Measurements in Diffractive Imaging Resulted from the Sat Phone Image Due to a Random Modulation Plate from Top to Buttom: 
+    Red Channel, Green Channel, Blue Channel, and Full RGB}\label{image:cdp_effect_measurements_visual}
+  \end{figure}
+  % \clearpage % End the page
+}
+\afterpage{%
+  % \clearpage % Start a new page
+  \thispagestyle{empty} % No header/footer on this pages
+  \begin{figure}
+    \centering
+	\captionsetup{justification=centering}
+    \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_zoomed_sat_phone/measurements.png}
+    \caption{Measurements in Diffractive Imaging Resulted from the Sat Phone Image Due to a Random Modulation Plate from Top to Buttom: 
+    Red Channel, Green Channel, Blue Channel, and Full RGB Zoomed Version}\label{image:cdp_effect_measurements_zoomed_visual}
+  \end{figure}
+  % \clearpage % End the page
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% WF Variants CDP Reconstruction Comparison %%%%%%%%%
@@ -503,7 +599,7 @@ natural images.
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}
     \centering
     % \captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth]{./images/cdp/out_wf_twf.png}
@@ -516,7 +612,7 @@ natural images.
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}
     \centering
     % \captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth]{./images/cdp/out_wf_rwf.png}
@@ -529,7 +625,7 @@ natural images.
 \afterpage{%
   % \clearpage % Start a new page
   \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]
+  \begin{figure}
     \centering
     % \captionsetup{justification=centering}
     \includegraphics[width=1.0\textwidth]{./images/cdp/out_twf_rwf.png}
@@ -540,9 +636,45 @@ natural images.
   % \clearpage % End the page
 }
 
+\section{Wirtinger Flow}
 
+The whole thing about \ac{WF} variants started with the seminal work of \cite{Candes2014}. They were designed to solve the \cref{pro:phase_retrieval_simple}. 
+\cite{Candes2014} coined the the term \ac{WF} due to the use of \emph{Wirtinger Derivatives}\cite{Wirtinger1927} to reach \cref{eq:pr_solution} from \cref{eq:phase_retrieval_problem}. They 
+also put some assumptions on $\boldsymbol{x} \in \mathbb{C}^N$, and $\boldsymbol{A} \in \mathbb{C}^{M \times N}$ so that they can 
+come up with guarantees on the convergence. Due to their small memory footprint and easy implementation they are currently the center of attention as one of the 
+most important method for phase retrieval.   
+The \ac{WF} variants have two stages:
+\begin{itemize}
+  \item Initialization in order to try and be where the loss function is convex.
+  \item Iteration loop that uses the gradient like structure in \cref{eq:gradient_pr_solution} to get a reduction in the 
+  loss function and hopefully converge to the desired solution. 
+\end{itemize}
 
+Checking the guarantees and the theoretical results is involved and also not the center of the current study but they can be found in their respective papers. 
+The most important improvements on the \ac{WF} were done chronologically by \cite{Chen2015}, \cite{Kolte2016}, and \cite{Zhang2016}
+with the nicknames of \ac{TWF}, \ac{ITWF}, \ac{RWF}, \ac{IRWF}, and \ac{IMRWF}. To get the feeling of their performance compared to each other we implemented 
+all of them and tested them on $\boldsymbol{x} \in \mathbb{C}^N$, and $\boldsymbol{A} \in \mathbb{C}^{M \times N}$ 
+where $N = 64, M = 640$ and the samples were taken from the normal distribution cent.ered at zero with the standard deviation of one. 
+The results can be seen in \cref{fig:wf_variants}. For a quite extensive survey on \ac{WF} variants please refer to \cite{Liu2019}. \cite{Chandra2017} 
+gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{\ac{WF}} variants in the MATLAB\textregistered\space 
+problem solving environment in a uniform manner. The summary for all the variants in terms of formulation is in table\ref{tab:formulation}  
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% WF vs TWF vs RWF vs IRWF vs IMRWF  %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \afterpage{%
+%   \clearpage % Start a new page
+\begin{figure}
+  \centering
+\captionsetup{justification=centering}
+% \begin{turn}{-90}
+  \input{tikz/wf_variants.tex}
+% \end{turn}
+\caption{\ac{WF} vs \ac{TWF} vs \ac{RWF} vs \ac{IRWF} vs \ac{IMRWF}}
+  \label{fig:wf_variants}
+\end{figure}
+%   \clearpage % End the page
+% }
 
 
 
@@ -571,40 +703,16 @@ natural images.
 	\end{table}
 
 
-
-
-	The whole thing about \ac{WF} variants started with the seminal work of \cite{Candes2014}.
-	The most important improvements chronologically were done by \cite{Chen2015}, \cite{Kolte2016}, and\cite{Zhang2016}
-	with the nicknames of \ac{TWF}, \ac{ITWF}, \ac{RWF}, \ac{IRWF}, and \ac{IMRWF}.
-	For a quite extensive survey on \ac{WF} variants please refer to Liu et al.\cite{Liu2019}. Chandra et al.\cite{Chandra2017} 
-	gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{\ac{WF}} variants in the MATLAB\textregistered\space 
-	problem solving environment in a uniform manner.\\
-	We quickly go over the problem formulation, difficulties, algorithms, and at the of the chapter we give some numerical experiments we are going
-	to refer to in the subsequent chapters. Assume $\varphi$ to be squared element-wise absolute value and the loss function to be quadratic. 
-	The summary for all the variants in terms of formulation is in table\ref{tab:formulation}  
-	
-	
-	
-	
-	
-	
-	
-	\index{Scalar Product}
-	
-	
-
-
-
-
 \section{Implementation}
 
-As mentioned previously \du/\au looks like the \rnns but it is not therefore it is not possible to use the higher level functions of the usual 
+As mentioned previously \du looks like the \rnns but it is not therefore it is not possible to use the higher level functions of the usual 
 \ml/\dl frameworks\footnote{At the time of writing \tensorflow\cite{Abadi2016}, \keras\cite{Chollet2023}, and \pytorch\cite{Paszke2019} are the 
 main players in the \ml/\dl world.}. To put it explicitly there is no:
 \begin{itemize}
 	\item real-time visualization of the training process vs epochs\footnote{Which is very nice feature to have and makes it easy to stop the training process 
   and save the 
   model the moment you feel that the loss function on the train and the test data are deviating from each other}.
+  \item summary of trainable/non-trainable parameters
 	\item graph based visualization\footnote{\tensorflow accomplishes this for the already defined layers using the \graphviz package.} of the dependency of the parameters in the layers.
 	\item high level splitting and sampling mechanisms
 	\item automatic \ac{GPU} acceleration. 
@@ -613,30 +721,34 @@ main players in the \ml/\dl world.}. To put it explicitly there is no:
 There are also other difficulties coming from the numerics alone:
 \begin{itemize}
 	\item suggested learning rates are mostly safe to use with known architectures
-	\item when input and outputs are not normalized according to the common practices, training becomes more difficult(not possible to normalize them since they are coming from context inspired algorithms)
+	\item when input and outputs are not normalized according to the common practices, tuning the learning rate and in turn training becomes more difficult and it is not possible to normalize them since they are coming from context inspired algorithms.
 	\item the introduction of \ac{CVNN}\cite{CTOBYZDSSSJFSSMNRYBCP2017}\cite{Bassey2021}\cite{Barrachina2023} hinders what is under the hood in the \ml/\dl frameworks.
 \end{itemize}
 
-While writing the helping tools and even the \ac{GPU} acceleration is not that difficult and can be done single-handedly
+While both tuning the pseudo learning rate is possible through more trial and error compared to the known architectures and 
+writing the helping tools and even the \ac{GPU} acceleration is not that difficult and can be done single-handedly
 \footnote{Fran\c{c}ois Chollet wrote \keras\cite{Chollet2023} on top of \tensorflow\cite{Abadi2016} all be himself which later was acquired by \google.}, the \ac{CVNN} is another beast. 
 One of the beating hearts of \ml/\dl frameworks is \ad/\cd. It is worth emphasizing that \ac{AD}/\ac{CD} is not symbolic differentiation and there are fundamental differences between the two \cite{Naumann2011}\cite{Griewank2008}. 
 The difficulty of \ac{CVNN}\cite{CTOBYZDSSSJFSSMNRYBCP2017}\cite{Bassey2021}\cite{Barrachina2023} is directly coming from the \ac{AD}/\ac{CD} part 
 that is used during backpropagation. The funny thing is that the general implementation of \ac{CVNN} requires the understanding of the 
-\emph{Wirtinger Derivatives}\cite{Wirtinger1927} which \cite{Candes2014} payed homage to by including the \ac{WF} name in the title of their paper\cite{Candes2014}. 
-For theory and implementation of \ac{CVNN} please refer to \cite{Wirtinger1927}\cite{KreutzDelgado2009}\cite{Bassey2021}\cite{Barrachina2023}\cite{CTOBYZDSSSJFSSMNRYBCP2017}. For this sole reason 
-we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \ac{CVNN} using \emph{Wirtinger Calculus}\cite{Fischer2002} and in turn 
-\emph{Wirtinger Derivatives}\cite{Wirtinger1927}.
+\emph{Wirtinger Derivatives}\cite{Wirtinger1927} which \cite{Candes2014} payed homage to by including the \ac{WF} name in the title of their paper \cite{Candes2014}. 
+For theory and implementation of \ac{CVNN} please refer to \cite{Wirtinger1927}\cite{KreutzDelgado2009}. For this sole reason 
+we used \pytorch\cite{Paszke2019} as our frameworks as it seamlessly supports \ac{CVNN} using its flexible \textsc{Autograd}\cite{Paszke2019}. For our final remarks 
+on implementation we would like to give some tips that might come in handy:
+\begin{itemize}
+  \item In the initialization of the \ac{WF} calculating the biggest eigenvalue is part of the process. That is usually done using the Power iteration which is 
+  described in almost any standard numerical linear algebra book like \cite{Trefethen2022}. 
+  \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
+  numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
+  computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
+  \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
+  your analysis on the porting confirms it to be worthwhile.
+\end{itemize}
 
-
-\todo{This is apparently just a fragment that it supposed to be extended. Note that we don't know yet 
-(unless the introduction says this) that we need complex values in the network.}
-
-
-complex valued neural networks have other applications too \cite{Bassey2021} \cite{Barrachina2023} \cite{CTOBYZDSSSJFSSMNRYBCP2017}
-
-
-\cite{Wirtinger1927} \cite{KreutzDelgado2009} \cite{Fischer2002}
-
+We give the algorithms and the code that is typesetted directly from the source code as to minimize the chance of mistake and give you a head start in case you wanted to do some experiments yourself. 
+The algorithms/codes for the \ac{WF}, the \ac{TWF}, the \ac{RWF}, the \ac{IRWF}, and the \ac{IMRWF} are given in \cref{pseudocode:wf}/\cref{code:wf}, \cref{pseudocode:twf}/\cref{code:twf}, 
+\cref{pseudocode:rwf}/\cref{code:rwf}, \cref{pseudocode:irwf}/\cref{code:irwf}, and \cref{pseudocode:imrwf}/\cref{code:imrwf} respectively. For the rest that 
+goes into making a \ml/\dl and training process with \pytorch we recommend \pytorch documentation as it is rich in content with an active forum. 
 
 
 
@@ -664,14 +776,6 @@ complex valued neural networks have other applications too \cite{Bassey2021} \ci
     \end{flalign}
     \textbf{Output}: $\boldsymbol{z}^{(T)}$.
   \end{algorithm}
-  \begin{itemize}
-    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
-    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
-    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
-    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
-    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
-    your analysis on the porting confirms it to be worthwhile.
-  \end{itemize}
   A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/wf.py}\index{WF}\label{code:wf}    
@@ -706,14 +810,6 @@ complex valued neural networks have other applications too \cite{Bassey2021} \ci
     \end{equation*}
     \textbf{Output}: $\boldsymbol{z}^{(T)}$.
   \end{algorithm}
-  \begin{itemize}
-    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
-    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
-    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
-    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
-    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
-    your analysis on the porting confirms it to be worthwhile.
-  \end{itemize}
   A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/twf.py}
   \lstinputlisting[language=Python]{./algorithms/twf.py}\index{TWF}\label{code:twf}    
@@ -740,14 +836,6 @@ complex valued neural networks have other applications too \cite{Bassey2021} \ci
     \end{flalign}
     \textbf{Output}: $\boldsymbol{z}^{(T)}$.
   \end{algorithm}
-  \begin{itemize}
-    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
-    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
-    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
-    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
-    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
-    your analysis on the porting confirms it to be worthwhile.
-  \end{itemize}
   A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/rwf.py}
   \lstinputlisting[language=Python]{./algorithms/rwf.py}\index{RWF}\label{code:rwf}     
@@ -775,14 +863,6 @@ complex valued neural networks have other applications too \cite{Bassey2021} \ci
     where $i_t$ is randomly selected from the set $\left\{1,\cdots,m\right\}$.\\
     \textbf{Output}: $\boldsymbol{z}^{(T)}$.
   \end{algorithm}
-  \begin{itemize}
-    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
-    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
-    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
-    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
-    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
-    your analysis on the porting confirms it to be worthwhile.
-  \end{itemize}
   A possible PyTorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/irwf.py}\index{IRWF}\label{code:irwf}    
@@ -811,94 +891,11 @@ complex valued neural networks have other applications too \cite{Bassey2021} \ci
     correspond to the index vector taken from the original $\boldsymbol{A}$ and $\boldsymbol{y}$ \\
     \textbf{Output}: $\boldsymbol{z}^{(T)}$.
   \end{algorithm}
-  \begin{itemize}
-    \item Power iteration is described in almost any standard numerical linear algebra book like \cite{Trefethen2022}\cite{Demmel1997}\cite{Golub2013}. 
-    \item If vectorized operations are still a thing in the future, try to formulate the algorithm in the most vectorized form possible in whatever 
-    numerical framework you are using. For a first exposure to vectorized operations you can have a look at \cite{Hager2010}. For in depth understanding of 
-    computer architecture that leads to the vectorized operations please refer to either \cite{Patterson2014} or \cite{Hennessy2019}.
-    \item Try to port as much as computation possible from \ac{CPU} to accelerators like \ac{GPU}s and \ac{TPU}s if 
-    your analysis on the porting confirms it to be worthwhile.
-  \end{itemize}
   A possible \pytorch\cite{Paszke2019} implementation with \ac{CUDA}\cite{Nvidia} acceleration is listed below as:
   % \lstinputlisting[language=Python, firstline=1,lastline=20]{./algorithms/wf.py}
   \lstinputlisting[language=Python]{./algorithms/imrwf.py}\index{IMRWF}\label{code:imrwf}    
 \clearpage % End the page
 }
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%% WF vs TWF vs RWF vs IRWF vs IMRWF  %%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-%   \clearpage % Start a new page
-  \begin{figure}[!htbp]
-    \centering
-	\captionsetup{justification=centering}
-  % \begin{turn}{-90}
-    \input{tikz/wf_variants.tex}
-  % \end{turn}
-  \caption{\ac{WF} vs \ac{TWF} vs \ac{RWF} vs \ac{IRWF} vs \ac{IMRWF}}
-    \label{fig:wf_variants}
-  \end{figure}
-%   \clearpage % End the page
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% CDPs on Fourier visualization %%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:cdp_effect_fourier_visual}
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/mask_effect/regular_fourier_vs_modulated.png}
-    \caption{effect of modulation on fourier visualization}
-  \end{figure}
-  % \clearpage % End the page
-}
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this page
-  \begin{figure}[!htbp]\label{image:cdp_effect_measurements_visual}
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_sat_phone/measurements.png}
-    \caption{Measurements on DC\textregistered\space Universe Characters Due to a Random Modulation Plate from Top to Buttom: 
-    Red Channel, Green Channel, Blue Channel, and Full RGB}
-  \end{figure}
-  % \clearpage % End the page
-}
-\afterpage{%
-  % \clearpage % Start a new page
-  \thispagestyle{empty} % No header/footer on this pages
-  \begin{figure}[!htbp]\label{image:cdp_effect_measurements_zoomed_visual}
-    \centering
-	\captionsetup{justification=centering}
-    \includegraphics[width=1.0\textwidth,height=65em]{./images/coded_diffractions_measurements_zoomed_sat_phone/measurements.png}
-    \caption{Measurements on DC\textregistered\space Universe Characters Due to a Random Modulation Plate from Top to Buttom: 
-    Red Channel, Green Channel, Blue Channel, and Full RGB Zoomed Version}
-  \end{figure}
-  % \clearpage % End the page
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% WF, TWF, RWF for CDPs Retrieval of Natural Images %%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\afterpage{%
-%   \clearpage % Start a new page
-  \begin{figure}[!htbp]\label{fig:cdp_wf_twf_rwf}
-    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}]{\input{./tikz/wf/wf_error_sat_phone_500_sat_phone.tex}}\\  
-    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{TWF}]{\input{./tikz/twf/twf_error_sat_phone_500_sat_phone.tex}}\\  
-    \subfloat[Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{RWF}]{\input{./tikz/rwf/rwf_error_sat_phone_500_sat_phone.tex}}\\  
-  \caption{Natural Image Retrieval Using  \ac{CDP}s Combined with \ac{WF}, \ac{TWF}, and \ac{RWF}}
-  \end{figure}
-%   \clearpage % End the page
-}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%% msip-Dell Specs %%%%%%%%%%%%%%%%%%%%%%%
