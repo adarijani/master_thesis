@@ -30,7 +30,7 @@ time where scientists were trying sell their architecture as if they were workin
   instead of the non-linearity argument we gave above. Just to be clear \nns do not work like the human brain.
 }.
 \ac{MLP}s were designed to approximate outputs from inputs without knowing the the actual mapping 
-and with just having $N$ pairs of $\left(\boldsymbol{x}^*,\boldsymbol{y}^*\right)$ (having $N$ sample points) through adjusting the \emph{weight matrices} and the \emph{biases} which is know as the \emph{training process}. 
+and with just having $P$ pairs of $\left(\boldsymbol{x}^*,\boldsymbol{y}^*\right)$ (having $P$ sample points) through adjusting the \emph{weight matrices} and the \emph{biases} which is know as the \emph{training process}. 
 The main steps in the training process are:
 \begin{enumerate}
   \item Initialize the \emph{weight matrices} and the \emph{biases} (mostly done randomly).
@@ -94,8 +94,8 @@ and the following cons:
 \end{itemize}
 
 Due to the pros and cons tied to \dl what is getting a bit of traction at least in \dsip and \cv is \du or \au. Using whether to use \du 
-or \au depends on the preference of the practitioner and most importantly their educational backgrounds. We go with \du as it is befitting ours from now on.
-\du is the process of \emph{unfolding} an iterative algorithm finite times, interpreting it as a \nn and 
+or \au depends on the preference of the practitioner and most importantly their educational backgrounds. We go with \du as it is befitting ours from now on. \du is 
+the process of \emph{unfolding} an iterative algorithm finite times, interpreting it as a \nn and 
 adjusting certain parameters in the hopes of improving some metric during the training process. \DU architectures are 
 different from other \nns in the following aspects:
 \begin{itemize}
@@ -106,14 +106,26 @@ different from other \nns in the following aspects:
   with their corresponding activation functions and mappings.
   \item In general \nns we add more and more parameters in the hope of retrieving the complex mappings while in \dl we already know the mapping 
   and even if we decide to make the \nn more complex or add more parameters we do it based on analytical arguments. This is in fact one of the most crucial points of 
-  \dl compared to general \nns as number of parameters have direct and substantial effects over datasets'
+  \du compared to general \nns as number of parameters have direct and substantial effects over datasets'
    sizes, training runtimes, required computational powers and many more. 
   \item Initialization of the weight matrices and biases are mostly done randomly for the case of general \nns while in the \du initialization is coming for the 
   iterative algorithm which is mostly well thought and closely inspected.   
 \end{itemize}
-In short \du tries to bring the best of the both worlds(analytical approach and data driven approach) in one and reconcile the two. 
+In short \du tries to bring the best of the both worlds (analytical approach and data driven approach) in one and reconcile the two. 
 While nothing beats an actual numerical experiment based on \du like what we did in \cref{ch:results} for now it is best to look at 
-the process in \cref{fig:deep_unfolding_unrolling} to get a better feeling of what is being done. 
+the process in \cref{fig:deep_unfolding_unrolling} to get a better feeling of what is being done. A word of caution to the people who are more familiar with \ml/\dl is that \du is not a \rnn\cite{Gregor2010}. \DU looks like a \rnn\cite{Gregor2010} but 
+a closer look will result in a couple of subtleties between the two. The first one is that \rnns need time-series like data meaning we need all 
+the intermediate values of an iterative algorithm to train a \rnn while in \du we only need the value that goes in and the value that comes out of an iterative algorithm. The second is that if 
+you decide to copy the structure of an iteration and interpret it as a layer but then change some of the parameters while keeping the rest the same then 
+the resulting \nn can not be reinterpreted as a \rnn as the layers are completely distinct and there is no \emph{reentry}. Since in the \du
+ you significantly reduce the number of parameters by using a context inspired model and not a full blown general \ml/\dl architecture, 
+ the need for large datasets and computational power ceases to exist\footnote{It is worthwhile to check the system we used for our 
+study in \cref{tab:system_specs} to the general systems\cite{Meuer} that are used in training large \ml/\dl models.}. Initialization 
+of the weights, which for some time were the center of attention in \ml/\dl community \cite{Glorot2010}\cite{He2015a}, 
+and interpretation of the models become way easier. For initialization in the \du interpretation you basically set them according 
+to the original model that is being \emph{unfolded}. We will explain this in more details when we are describing the 
+training process of our \ml/\dl model in our study. A nice review on the recent application of \du in \dsip is done by \cite{Monga2019}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% Deep Unfolding(Schematic Diagram) %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,47 +140,21 @@ the process in \cref{fig:deep_unfolding_unrolling} to get a better feeling of wh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-A word of caution to the people who are more familiar with \ml/\dl is that \du is not a \rnn\cite{Gregor2010}. \DU looks like a \rnn\cite{Gregor2010} but 
-a closer look will result in a couple of subtleties between the two. The first one is that \rnns need time-series like data meaning we need all the intermediate 
-values of an iterative algorithm to train an \rnn while in \du we only need the value that goes in and the value that comes out of an iterative algorithm. The second is that if 
-you decide to copy the structure of an iteration and interpret it as a layer but then change some of the parameters while keeping the rest the same then 
-the resulting \nn can not be reinterpreted as a \rnn as the layers are completely distinct and there is no \emph{reentry}. Since in the \du
- you significantly reduce the number of parameters by using a context inspired model and not a full blown general \ml/\dl architecture, 
- the need for large datasets and computational power ceases to exist\footnote{It is worthwhile to check the system we used for our 
-study in \cref{tab:system_specs} to the general systems\cite{Meuer} that are used in training large \ml/\dl models.}. Initialization 
-of the weights, which for some time were the center of attention in \ml/\dl community \cite{Glorot2010}\cite{He2015a}, 
-and interpretation of the models become way easier. For initialization in the \du interpretation you basically set them according 
-to the original model that is being \emph{unfolded}/\emph{unrolled}. We will explain this in more details when we are describing the 
-training process of our \ml/\dl model in our study. A nice review on the recent application of \du in \dsip is done by \cite{Monga2019}.
 
 
 
 
 
 
-\section{Wirtinger FLow Variants}
-\todo{give fast intro to wf then say phase retrieval and phase importance and explain the we are going to explain the pahse in a section}
-\ac{WF} variants emerged as a response to solve certain settings in \ac{PR} problems. As the same suggests \ac{PR} is the process of 
-determining the phase(up to a global phase) of an image simply because it contains information which is of interest depending on the context
 
- 
-
-We first discuss why phase is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
-the variants where the \ac{WF} variants are based on. We give one application of the \ac{WF} variants which is used in imaging 
-to both motivate the reasoning behind considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
+\section{Wirtinger Flow Variants}
+\ac{WF} variants emerged as a response to solve certain settings in \acl*{PR} problems. As the same suggests \acl*{PR} is the process of 
+determining the phase (up to a global phase) of an image simply because it contains information which is of interest depending on the context. We first explain 
+what phase is and why it is important by giving a synthetic example. Then we proceed to formulate mathematical formulation and in quick succession 
+the variant where the \ac{WF} variants are based on. We also briefly explain the difficulties associated with the \acl*{PR} problems. 
+ One application of the \ac{WF} variants is given which is used in imaging to both motivate the reasoning behind 
+ considering complex numbers in our formulation and motivate the reader by giving a synthetic example based on 
 natural images. 
-
-
- 
-
-
-
-
-\cite{Candes2014} were the first to coin the term \ac{WF} paying homage to \emph{Wirtinger Derivative}. 
-
-
-
-
 \subsection{Phase and Its Importance}\label{sec:phase_importance}
 
 Consider  $z= \operatorname{Re}(z)+\operatorname{Im}(z) \in \mathbb{C}$ that is written as:
@@ -188,7 +174,7 @@ was done by \cite{Oppenheim1981} to show the importance of phase in signals. The
 The first and the third images are the original images which from now on we call \textsc{Image1} and \textsc{Image2}. 
 The second image is reconstructed using amplitude of the \textsc{Image2} and the phase of the \textsc{Image1} and the fourth image is reconstructed using 
 the amplitude of the \textsc{Image1} and the phase of the \textsc{Image2} just so that there is no confusion of what is what. The images 
-\emph{look like} the image with the corresponding phase which in way shows that phase is more important than the amplitude . Different manipulations 
+\emph{look like} the image with the corresponding phase which in a way shows that phase is more important than the amplitude. Different manipulations 
 on the amplitude and the phase of the \ac{FT} during the reconstructed process 
  were also investigated by \cite{Oppenheim1981}. The reconstruction process is not always as easy as just taking the \ac{IDFT} and 
  is explained in more detail in \cite{Oppenheim1979} which in short is similar to the Gerchberg-Saxton algorithm\cite{Gerchberg1972}. 
@@ -217,12 +203,7 @@ on the amplitude and the phase of the \ac{FT} during the reconstructed process
 }   
 
 \subsection{Phase Problem and Its Solution}
-Sometimes the precious and coveted phase we talked about in \cref{sec:phase_importance} or other forms of it gets lost during a process. 
-
-
-
-
-The physics behind the phase loss is beyond the scope of the current work, but 
+Sometimes the precious and coveted phase we talked about in \cref{sec:phase_importance} or other forms of it gets lost during a process. The physics behind the phase loss is beyond the scope of the current work, but 
 in \cref{pro:phase_problem} we give a mathematical formula that explicitly shows the destruction of the phase. 
 For the case where material limitations and quantum mechanical effects are responsible for the phase loss we invite 
 the intrigued party to take a look at \cite{Shechtman2015} (material limitations) and \cite{DGDS2018}\cite{FranzSchwabl2007} (quantum mechanical effects). 
@@ -264,7 +245,7 @@ In short the \acl*{PR} can be solved by the iterative algorithm:
   where:
   \begin{itemize}
 	\item $\mathrm{prox}$ is the Proximal operator mostly used in non-differentiable but still convex setting \cite{Bredies2018}.
-	\item $\odot$ is the Hadamard product\cite{Hackbusch2019} which is simply the element-wise product between two multidimensional arrays and occurs naturally when $\psi$ and $\boldsymbol{A}_j$ in \cref{eq:pr_problem} are discretized.
+	\item $\odot$ is the Hadamard product\cite{Hackbusch2019} which is simply the element-wise product between two multidimensional arrays.
 	\item $\boldsymbol{A}^*_j$ is the $j$-th conjugate matrix of the $j$-th matrix $\boldsymbol{A}_j$.
 	\item $\varphi' \colon \mathbb{C} \to \mathbb{C}$ is the first derivative of the $\varphi \colon \mathbb{C} \to \mathbb{R}$ function.
   \end{itemize}
@@ -383,15 +364,12 @@ optimization as most of the optimization methods are build on top of convexity \
 
 
 
-\section{Motivating Application}\label{sec:motivating_application}
+\subsection{Motivating Application}\label{sec:motivating_application}
 
 Since introducing complex numbers introduced a couple of quite difficult obstacles in the math part and will introduce others in the implementation part 
 we think we owe it to the reader to motivate this particular assumption by giving one application which is imaging using \ac{CDP} coupled with \ac{WF} variants.
 
-\todo{You at least need to describe our forward model, i.e., explain how we assume data to be obtained from the image
- we want to know. Then it's at least mathematically obvious why the phase is lost.}
-
-\subsection{Diffraction Imaging}\label{sec:diffraction_imaging}
+\subsubsection{Diffraction Imaging}\label{sec:diffraction_imaging}
 
 Without going too much into the Physics of it Consider a ray that is emitted onto an object of interest and the diffracted rays are collected and 
 measured at some distance from the object. The goal is to reconstruct the image using the said measurements. If the distance between 
@@ -520,7 +498,7 @@ Let $X$ and $Y$ be independent discrete random variables. We would be having:
 	 which closes the proof.
 \end{Proof}
 
-\subsection{Synthetic Example}
+\subsubsection{Synthetic Example}
 If you want to take a natural image you just pick up your digital camera and take a picture but for the sake of the argument assume that is not possible to do so. 
 Assume the scenery you want to take an image of has to be handled by diffraction imaging and inverse methods. Prepare $L$ different masks using the criteria in \cref{eq:octanary_modulation}, 
 apply them to your natural digital image that you have according to the \cref{eq:l_modulation_effect} to arrive at the synthetic measurements. In our case where our image 
@@ -636,7 +614,7 @@ That shows the importance of looking for better and better algorithms in our cas
   % \clearpage % End the page
 }
 
-\section{Wirtinger Flow}
+\subsection{Wirtinger Flow}
 
 The whole thing about \ac{WF} variants started with the seminal work of \cite{Candes2014}. They were designed to solve the \cref{pro:phase_retrieval_simple}. 
 \cite{Candes2014} coined the the term \ac{WF} due to the use of \emph{Wirtinger Derivatives}\cite{Wirtinger1927} to reach \cref{eq:pr_solution} from \cref{eq:phase_retrieval_problem}. They 
@@ -654,7 +632,7 @@ Checking the guarantees and the theoretical results is involved and also not the
 The most important improvements on the \ac{WF} were done chronologically by \cite{Chen2015}, \cite{Kolte2016}, and \cite{Zhang2016}
 with the nicknames of \ac{TWF}, \ac{ITWF}, \ac{RWF}, \ac{IRWF}, and \ac{IMRWF}. To get the feeling of their performance compared to each other we implemented 
 all of them and tested them on $\boldsymbol{x} \in \mathbb{C}^N$, and $\boldsymbol{A} \in \mathbb{C}^{M \times N}$ 
-where $N = 64, M = 640$ and the samples were taken from the normal distribution cent.ered at zero with the standard deviation of one. 
+where $N = 64, M = 640$ and the samples were taken from the normal distribution centered at zero with the standard deviation of one. 
 The results can be seen in \cref{fig:wf_variants}. For a quite extensive survey on \ac{WF} variants please refer to \cite{Liu2019}. \cite{Chandra2017} 
 gathered quite number of \emph{Phase Retrieval} methods including a couple of \emph{\ac{WF}} variants in the MATLAB\textregistered\space 
 problem solving environment in a uniform manner. The summary for all the variants in terms of formulation is in table\ref{tab:formulation}  
