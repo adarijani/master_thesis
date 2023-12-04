@@ -1,22 +1,26 @@
 
-
 \documentclass{beamer}
 \usepackage{acro}
+\usepackage{xstring}
+\usepackage{svg}
 \usepackage{amssymb,mathtools,amsthm}
-
+% \usepackage{hyperref}
+% \usepackage{cleveref}
 \usepackage{pgfplots}
 % \DeclareUnicodeCharacter{2212}{−}
 \usepgfplotslibrary{groupplots,dateplot}
 \usetikzlibrary{patterns,shapes.arrows}
 \usetikzlibrary{arrows}
-
 \usetikzlibrary{positioning}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{shapes}
 \usetikzlibrary{graphs}
 \usetikzlibrary{quotes}
-\usetikzlibrary {shapes.arrows} 
+\usetikzlibrary{shapes.arrows} 
 \pgfplotsset{compat=newest}
+\usetikzlibrary{
+  pgfplots.colorbrewer,
+}
 \usepackage{tikz}
 %\usepackage{etoolbox} % for \ifthen
 \usepackage{listofitems} % for \readlist to create arrays
@@ -46,7 +50,7 @@
   node 3/.style={node out},
 }
 \def\nstyle{int(\lay<\Nnodlen?min(2,\lay):3)} % map layer number onto 1, 2, or 3
-\usetheme{Berkeley}
+% \usetheme{Berkeley}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[backend=biber]{biblatex}
@@ -71,6 +75,7 @@
 \newtheorem {Not} [Thm]{Notation}
 \usepackage{algorithm2e}
 \input{../document/acro.tex}
+\input{../document/commands.tex}
 \begin{document}
 \title[Deep Unfolding of Wirtinger Flow type Schemes]{Deep Unfolding of Wirtinger Flow type Schemes}
 \author[]{Ali Darijani\\ \href{mailto:ali.darijani.me@gmail.com}{ali.darijani.me@gmail.com}\newline
@@ -92,19 +97,272 @@
 % \tableofcontents
 \end{frame}
 
-\section{Phase Problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% ML When It was Called Empirics %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[ML When It was Called Empirics]{ML When It was Called Empirics}
 
 \begin{frame}
-\frametitle{Phase Problem}
-
-In this note, we prove the following result:
-
-\begin{theorem} 
-There exists an infinite complete distributive 
-lattice~$K$ with only the two trivial complete 
-congruence relations.
-\end{theorem}
+\frametitle{A Man of Focus, Commitment and Sheer Freaking Will}
+  \begin{figure}[!htbp]
+    \centering
+    % \captionsetup{justification=centering}
+    \includegraphics[width=0.5\textwidth]{./data/image/kepler.png}
+  \caption{Johannes Kepler(1571--1630)}
+  \label{image:kepler}
+  \end{figure}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Kepler's Laws of Planetary Motion}
+  \pause
+  After working with Tycho Brahe's(1546--1601) data for around 8--9 years in 1609 Kepler publishes the first two laws as:
+  \pause
+  \begin{itemize}[<+->]
+    \item The orbit of a planet is an ellipse with the Sun at one of the two foci.
+    \item A line segment joining a planet and the Sun sweeps out equal areas during equal intervals of time.
+  \end{itemize}
+  \pause
+    \begin{figure}
+      \centering
+      % \captionsetup{justification=centering}
+      \includegraphics[width=0.35\textwidth]{./data/image/kepler_laws_diagram.pdf}
+    \caption{Visualization of The Kepler's Laws}
+    % \label{image:kepleanetary}
+    \end{figure}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Kepler's Luck and Years of Perseverance}
+    Kepler got lucky by reading John Napier(1550--1617) paper on logarithm and after a ``mere'' 10 years of 
+    excruciating pain came up with:
+    \pause
+    \begin{itemize}[<+->]
+      \item The square of a planet's orbital period is proportional to the cube of the length of the semi-major axis of its orbit.
+    \end{itemize}
+    \pause
+      \begin{figure}
+        \centering
+        % \captionsetup{justification=centering}
+        \includegraphics[width=0.35\textwidth]{./data/image/kepler_laws_diagram.pdf}
+      \caption{Visualization of The Kepler's Laws}
+      \label{image:kepler_luck_napier}
+      \end{figure}
+    \end{frame}
+  \begin{frame}
+    \frametitle{Flash Forward to Modern }
+    \begin{tikzpicture}
+      \begin{axis}[
+        legend style={fill=none},
+        line width=1.5pt,
+        % style sheet=vary hue,
+          axis lines = left,
+          xlabel = \(R\),
+          ylabel = {\(T\)},
+      ]
+      %Below the red parabola is defined
+      \addplot [
+          domain=0:10, 
+          samples=100, 
+          color=red,
+      ]
+      {x^(3/2)};
+      \addlegendentry{\(T = R^\frac{3}{2}\)}
+      %Here the blue parabola is defined
+      \addplot [
+          domain=0:10, 
+          samples=100, 
+          color=blue,
+          ]
+          {3*tanh(x)};
+      \addlegendentry{\(T = 3\tanh(R)\)}
+      \addplot [
+        domain=0:10, 
+        samples=100, 
+        color=violet,
+        ]
+        {max(0,x)};
+    \addlegendentry{\(T = \max(x,0)\)}
+    \addplot [
+      domain=0:10, 
+      samples=100, 
+      color=cyan,
+      ]
+      {min(max(x,0),6)};
+  \addlegendentry{\(T = \min(\max(x,0),6)\)}
+  \addplot [
+    domain=0:10, 
+    samples=100, 
+    color=green,
+    ]
+    { 1/(1+exp(-x)) };
+\addlegendentry{\(T = \frac{1}{1+\exp(-x)}\)}
+      \end{axis}
+  \end{tikzpicture}
+    \end{frame}
+
+
+    \begin{frame}
+      \frametitle{3D}
+      \begin{tikzpicture}
+        \begin{axis}
+        \addplot3[
+          domain= 0:4,
+            surf,
+        ]
+        {x^3/y^2};
+        \end{axis}
+        \end{tikzpicture}
+      \end{frame}
+
+
+
+
+  \begin{frame}
+    \frametitle{Kepler's Laws of Planetary Motion}
+    And Finally in 1619
+    \pause
+    \begin{itemize}[<+->]
+      \item The square of a planet's orbital period is proportional to the cube of the length of the semi-major axis of its orbit.
+    \end{itemize}
+    % \pause
+      \begin{figure}
+        \centering
+        % \captionsetup{justification=centering}
+        \includegraphics[width=0.35\textwidth]{./data/image/kepler_laws_diagram.pdf}
+      \caption{Visualization of The Kepler's Laws}
+      \label{image:kepler_law_planetary}
+      \end{figure}
+    \end{frame}
+
+  \begin{frame}
+    \frametitle{Kepler Doing Pseudo Linear Regression}
+    \begin{Pro}
+    If $T$ is the period of a planet in the solar system orbiting around the sun in earth-days and 
+    $R$ is the average distance of earth to sun then find a $c$ that more or less explains 
+    the observations below by the relation $T=cR^{3/2}$.
+      
+    \end{Pro}
+    \begin{tabular}{|c|r|p{1.3cm}|p{2cm}|p{2cm}|p{2cm}|}
+      \hline
+      \multicolumn{4}{|c|}{Data used by Kepler} \\
+      \hline
+      Planet & Mean Distance to Sun (AU) & Period (days) &$\frac{R^3}{T^2}(10^{-6}\frac{\text{AU}^3}{\text{day}^2})$\\
+      \hline
+      Mercury   & 0.389   & 87.77    & 7.64 \\
+      Venus     &   0.724 & 224.70   & 7.52 \\
+      Earth     & 1.000   & 365.25   & 7.50 \\
+      Mars      & 1.524   & 686.95   & 7.49 \\
+      Jupiter   &   5.200 & 4332.65  & 7.49 \\
+      Saturn    & 9.510   & 10759.20 & 7.43 \\
+      \hline
+     \end{tabular}\label{tab:kepler_tycho_data}
+    \end{frame}
+
+
+
+
+        \begin{frame}
+          \frametitle{Two-Body Problem AKA Different Planetary Systems}
+          \begin{tikzpicture}
+            \begin{axis}[
+                title={Contours of $\frac{R^3}{T^2}$},
+                axis lines = left,
+                line width=1.5pt,
+                xlabel = \(R\),
+                ylabel = {\(T\)},
+                domain=1:4,
+                enlargelimits,
+                view={0}{90},
+            ]
+                \addplot3 [
+                     contour lua={levels={2,4,7.50,20}},
+                    %  thick,
+                ] {x^3/y^2};
+            \end{axis}
+            \end{tikzpicture} 
+          \end{frame}
+
+\section[Mathematical Preliminaries]{Mathematical Preliminaries}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Scalar Product for Complex Vectors %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Scalar Product for Complex Vectors}
+  \begin{Def}\label{def:scalar_product_complex_vectors}
+    For the complex vectors\index{complex vectors} $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^N$ the mapping  $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^N \times \mathbb{C}^N \to \mathbb{C}$ 
+    \begin{equation}
+        \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=1}^{N} x_i \overline{y_i} 
+    \end{equation}
+    is the scalar product\index{scalar product!complex vectors} where
+    \begin{equation}
+        \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}, \quad \boldsymbol{y} = \left(y_i\right)_{i=1,\ldots,N}.
+    \end{equation}    
+\end{Def}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Scalar Product Induced Norm for Complex Vectors %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Scalar Product Induced Norm for Complex Vectors}
+  \begin{Def}\label{def:scalar_product_induced_norm_complex_vectors}
+    For the complex vector $\boldsymbol{x} \in \mathbb{C}^N$ the mapping  $\left|\left|\boldsymbol{.}\right|\right| \colon \mathbb{C}^N \to [0,+\infty)$ 
+    \begin{equation}
+        \left|\left|\boldsymbol{x}\right|\right| \coloneqq  \sqrt{\langle\boldsymbol{x},\boldsymbol{x}\rangle}
+    \end{equation}
+    is the norm\index{norm!complex vectors} induced by the scalar product for complex vectors where
+    \begin{equation}
+        \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}.
+    \end{equation}    
+\end{Def}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Scalar Product for Complex Matrices %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Scalar Product for Complex Matrices}
+\begin{Def}\label{def:scalar_product_induced_norm_complex_matrices}
+    For the complex matrices\index{complex matrices} $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{M \times N}$ the mapping $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^{M \times N} \times \mathbb{C}^{M \times N} \to \mathbb{C}$ 
+    \begin{equation}
+        \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=1}^{N}\sum_{i=1}^{M} X_{i,j} \overline{Y_{i,j}} 
+    \end{equation}
+    is the scalar product\index{scalar product!complex matrices} where
+    \begin{equation}
+        \boldsymbol{X} = \left(X_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}, \quad \boldsymbol{Y} = \left(Y_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}.
+    \end{equation}    
+\end{Def}
+\noindent This scalar product is also called the Frobenius scalar product\index{scalar product!Frobenius}, the Schur scalar product\index{scalar product!Schur} or 
+the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% p-norm %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{$p$-norm}
+  \begin{Def}\label{def:p-norm}
+    Let $1 \leq p \leq \infty$, and $\boldsymbol{x} \in \mathbb{K}^N$ be a vector, while $\mathbb{K}$ can be either $\mathbb{R}$ or $\mathbb{C}$ then the mapping $\left|\left| \boldsymbol{.} \right|\right|_p \colon \mathbb{K}^N \to [0,+\infty)$
+    \begin{equation}
+        \begin{split} 
+            \left|\left|\boldsymbol{x}\right|\right|_p \coloneqq    
+            \begin{cases}
+                \left(\sum_{i=1}^{N}\left|x_i\right|^p\right)^{\frac{1}{p}} & \text{for } 1 \leq p < \infty\\
+                \underset{{i=1,\dots,N}}{\max} \left|x_i\right| & \text{for } p = \infty,
+            \end{cases}
+        \end{split}
+    \end{equation}
+    where $\left|\boldsymbol{\cdot}\right|$ is the absolute value on the $\mathbb{K}$ field,
+    is called the \textbf{p-norm}\index{norm!p-norm} of the complex vector $\boldsymbol{x}$.
+\end{Def}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Deep Unfolding %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -121,6 +379,7 @@ congruence relations.
     \label{fig:multi_layer_perceptron}
   \end{figure}
 \end{frame}
+
 
 \begin{frame}
   \begin{figure}
@@ -139,7 +398,7 @@ congruence relations.
 \section[WF* Algorithms]{WF* Algorithms}
 \begin{frame}
   \frametitle{WF}
-sdjv
+
 
 \end{frame}
 
@@ -149,41 +408,41 @@ sdjv
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WF* on CDPs %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[WF* Using CDPs]{Wirtinger Flow Variants on Coded Diffraction Pattern Scenario}
+% \section[WF* Using CDPs]{Wirtinger Flow Variants on Coded Diffraction Pattern Scenario}
 
 
 
-\begin{frame}
-\frametitle{WF(Left) vs RWF(Right)}
-  \begin{figure}[!htbp]
-    \centering
-    % \captionsetup{justification=centering}
-    \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_wf_rwf.png}
-%   \caption{{WF}(left) vs {RWF}(right)}
-  \label{image:wf_vs_rwf}
-  \end{figure}
-\end{frame}
+% \begin{frame}
+% \frametitle{WF(Left) vs RWF(Right)}
+%   \begin{figure}[!htbp]
+%     \centering
+%     % \captionsetup{justification=centering}
+%     \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_wf_rwf.png}
+% %   \caption{{WF}(left) vs {RWF}(right)}
+%   \label{image:wf_vs_rwf}
+%   \end{figure}
+% \end{frame}
 
-\begin{frame}
-   \frametitle{WF(Left) vs TWF(Right)}
-     \begin{figure}[!htbp]
-       \centering
-       % \captionsetup{justification=centering}
-       \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_wf_twf.png}
-   %   \caption{{WF}(left) vs {RWF}(right)}
-     \label{images:wf_vs_twf_cdp}
-     \end{figure}
-   \end{frame}
-\begin{frame}
-\frametitle{RWF(Left) vs TWF(Right)}
-  \begin{figure}[!htbp]
-    \centering
-    % \captionsetup{justification=centering}
-    \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_twf_rwf.png}
-%   \caption{{WF}(left) vs {RWF}(right)}
-  \label{image:twf_vs_rwf_cdp}
-  \end{figure}
-\end{frame}
+% \begin{frame}
+%    \frametitle{WF(Left) vs TWF(Right)}
+%      \begin{figure}[!htbp]
+%        \centering
+%        % \captionsetup{justification=centering}
+%        \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_wf_twf.png}
+%    %   \caption{{WF}(left) vs {RWF}(right)}
+%      \label{images:wf_vs_twf_cdp}
+%      \end{figure}
+%    \end{frame}
+% \begin{frame}
+% \frametitle{RWF(Left) vs TWF(Right)}
+%   \begin{figure}[!htbp]
+%     \centering
+%     % \captionsetup{justification=centering}
+%     \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_twf_rwf.png}
+% %   \caption{{WF}(left) vs {RWF}(right)}
+%   \label{image:twf_vs_rwf_cdp}
+%   \end{figure}
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% AU of WF*%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,7 +460,7 @@ sdjv
   % where $\boldsymbol{\theta}$ is of the same size and structure as $\boldsymbol{z}$ and $\tau$ is the step size that was proposed by the respective algorithm. Assume that the algorithms are unfolded/unrolled $L$ times, then we considered the following 
   % scenarios by substituting $\tau$ with:
   
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Single Scalar $\tau \in \mathbb{R}$(no change).
     \item Different Scalars $\tau_k\in\mathbb{R}$.
     \item Single Matrix $\boldsymbol{M}\in \mathbb{R}^{n\times n}$.
@@ -311,54 +570,80 @@ sdjv
 \frametitle{Illustrating the construction}
 \end{frame}
 
+
+
+\section[The Custom Loss Function]{The Custom Loss Function}
 \begin{frame}
-\frametitle{Notation}
-
-If $i \in I$ and $d \in D_{i}^{-}$, then
-\[
-  \langle \ldots, 0, \ldots, d, \ldots, 0, \ldots \rangle
-\]
-is the element of $\Pi^{*} ( D_{i} \mid i \in I )$ whose 
-$i$-th component is $d$ and all the other components 
-are $0$.
-
-See also Ernest~T. Moynahan, 1957.
+  \frametitle{The Need for a Custom Loss Function?}
+  \begin{Rem} 
+    $\min \left|\left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|\right|^2$ is chosen as the difference between the 
+    true signal and the approximated one and the reason is:
+    \begin{equation}
+      \left|\boldsymbol{A}\boldsymbol{x}\mathrm{e}^{\mathrm{i}\theta}\right| = \left|\boldsymbol{A}\boldsymbol{x}\right|
+    \end{equation}
+    where $\left|\boldsymbol{.}\right|$ is the absolute value applied element-wise. This would be the expression you encounter throughout the \ac{WF} variant papers \cite{Candes2014}\cite{Chen2015}\cite{Zhang2016}. 
+    This remark is also important because in the training process of the \du you have to use this costume loss function which is why we give the explicit formulation 
+    for finding $\min \left|\left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|\right|^2$.
+  \end{Rem}
 \end{frame}
-
-\section[Second result]{The second result}
-
 \begin{frame}
 \frametitle{The Loss Function}
-\begin{Prop}\label{theorem:min distance}
-  Let $\varphi \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, where $(z,x)_X$ is 
-  the usual scalar product associated with such vector spaces, and $\left|\cdot\right|_X$ the induced norm using the scalar product on the vector space $X$, then the expression
-  \begin{equation*}
-    f(\varphi) \coloneqq \left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|^2_X
-  \end{equation*}
-  has a minimum and the minimum can be calculated in a closed form manner.
-  \end{Prop}
+% \begin{Prop}\label{theorem:min distance}
+%   Let $\varphi, \theta \in \mathbb{R}$, $x,z \in \mathbb{C}^n$, $w \coloneqq \langle z,x \rangle$ such that 
+%   $\cos\theta = \frac{\operatorname{Re}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)}}$ and $\sin\theta = \frac{\operatorname{Im}(w)}{\sqrt{\operatorname{Re}(w)^2+\operatorname{Im}(w)^2}}$;  where the scalar product $\langle z,x \rangle$ is the same as the one in \cref{def:scalar_product_complex_vectors} 
+%   and would induce the norm $\left|\left|\cdot\right|\right|$ as in \cref{def:scalar_product_induced_norm_complex_vectors}; then the function:
+%   \begin{equation}\label{eq:loss_function}
+%     f \colon \mathbb{R}\to\mathbb{R} \qquad , \qquad \varphi\mapsto \left|\left|x-\mathrm{e}^{-\mathrm{i}\varphi}z\right|\right|^2
+%   \end{equation}
+%   has a minimum of $\left|\left|x-\mathrm{e}^{-\mathrm{i}\varphi^*}z\right|\right|^2$ where:
+%   \begin{equation}
+%     \varphi* =
+%     \begin{cases}
+%       \theta + \pi & 0   \leq \theta <  \pi\\
+%       \theta - \pi & \pi \leq \theta < 2\pi\\
+%     \end{cases}
+%   \end{equation}
+% \end{Prop}
 \end{frame}
 
-\section{Proof}
 
 \section[Hyperparameter Optimization]{Hyperparameter Optimization}
+
 \begin{frame}
-  \frametitle{Hyperparameter Optimization}
-  The goal of \ac{HP} is to:
-  \begin{itemize}
-    \item Hopefully make your solver better 
-  \end{itemize}
-  and is different from:
-  \begin{itemize}
-    \item grid search
-    \item Brute Force method
-    \item \texttt{Bash} Script with nested loops and \texttt{awk} for bookkeeping
-  \end{itemize}
+  \frametitle{What is a Hyperparameter?}
+  \pause
+  We call any parameter that has to be set for the solver/model to work a \emph{Hyperparameter}.
+  \newline
+  \newline
+  
+\pause  
+Examples of Hyperparameters in Deep Learning:
+\pause
+\begin{itemize}[<+->]
+  \item Name of the Architecture   
+  \item Pseudo Learning Rate
+  \item Batch Size for SGD-like Optimizers
+  \item Number of Epochs
+\end{itemize}
 \end{frame}
 \begin{frame}
-  \frametitle{\texttt{Optuna} Pros}
+  \frametitle{Hyperparameter Optimization}
+  \begin{Rem}
+    Mathematically Speaking, Sophisticated Hyperparameter Optimizations are Different From:
+    \pause
+    \begin{itemize}[<+->]
+      \item Grid Search
+      \item Brute Force Method
+    \end{itemize}
+    and the pckages that do \ho are not \bash Script With Nested Loops and \awk for Bookkeeping
+  \end{Rem}
+  
+\end{frame}
+\begin{frame}
+  \frametitle{\optuna Pros}
+  \pause
   Pros:
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Use of the latest technics in \ac{HP}\cite{Hutter2019}\cite{Akiba2019}.
     \item It is quite lightweight.
     \item Describing the parameter space is both easy and flexible.
@@ -371,9 +656,9 @@ See also Ernest~T. Moynahan, 1957.
 
 
 
-\section[References]{References}
+% \section[References]{References}
   \begin{frame}[allowframebreaks]
-  \frametitle{backslash nocite lcurlybrace asterisks rcurlybrace}
+  \frametitle{backslash notice lcurlybrace asterisks rcurlybrace}
   \nocite{*}
   % \nocite{Rudin1987}
   \printbibliography 
