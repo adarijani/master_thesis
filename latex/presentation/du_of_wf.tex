@@ -1,0 +1,195 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DU of WF*%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[DU/AU of WF*]{Deep Unfolding of Wirtinger Flow Variants}
+\begin{frame}
+  \frametitle{The Gist of Most WF Algorithms Algoritmically}
+  Let the update rule be of the form:
+  \begin{equation}
+    \boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]
+  \end{equation}
+  where $\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ is a mapping that gives a vector as an output 
+  $\in\mathbb{C}^N$ and $\tau$ is the step size that was proposed by the respective algorithm.
+
+  % and Unrolled/Unfolded $L$ times
+  
+  % where $\boldsymbol{\theta}$ is of the same size and structure as $\boldsymbol{z}$ and $\tau$ is the step size that was proposed by the respective algorithm. Assume that the algorithms are unfolded/unrolled $L$ times, then we considered the following 
+  % scenarios by substituting $\tau$ with:
+  
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{First Scenario}
+    \begin{center}
+      $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ 
+      and learning the single scalar $\tau \in \mathbb{R}$ as to try and find a better gradient descent with constant step size,  
+    \end{center}    
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\tau,L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_00_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_00_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Second Scenario}
+  \begin{center}
+    $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau_k\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+    and learning $L$ scalars $\tau_k\in\mathbb{R}$ as to try and find a better adaptive gradient descent with large step sizes when possible 
+    and small step sizes while being in \emph{stiff} regions, 
+  \end{center}
+  
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\tau_k,L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_01_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_01_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Third Scenario}
+  \begin{center}
+    $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{S}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+    and learning a single semi-positive definite matrix $\boldsymbol{S}\in \mathbb{R}^{N \times N}$ as to try and find a better descent direction while 
+    ensuring being always on the descent direction by the semi-positive definite constraint,
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\boldsymbol{S},L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_03_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_03_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Fourth Scenario}
+  \begin{center}
+    $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{M}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+    and learning a single general matrix $\boldsymbol{M}\in \mathbb{R}^{N \times N}$ as to try and find a better descent direction while 
+    while not forcing the semi-positive definite constraint and hoping for the best,
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\boldsymbol{M},L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_02_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_02_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{Fifth Scenario}
+  \begin{center}
+    $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau_k\boldsymbol{S}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+    and learning a single semi-positive definite matrix $\boldsymbol{S}\in \mathbb{R}^{N \times N}$ and $L$ scalars $\tau_k \in \mathbb{R}$ as to try and find a 
+    better descent direction with variable step sizes while \emph{trying} to ensure to be always on the descent direction by the 
+    semi-positive definite constraint (there is the possibility that the optimizer goes for a negative step sizes $\tau_k \in \mathbb{R}$), 
+  \end{center}  
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\tau_k\boldsymbol{S},L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_05_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_05_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{Sixth Scenario}
+  \begin{center}
+    $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau_k\boldsymbol{M}\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$
+    and learning a single general matrix $\boldsymbol{M}\in \mathbb{R}^{N \times N}$ and $L$ scalars $\tau_k \in \mathbb{R}$ as to try and find a 
+    better descent direction with variable step sizes while not forcing the semi-positive definite constraint and hoping for the best, 
+  \end{center}
+  
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\tau_{k}\boldsymbol{M},L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_04_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_04_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{Seventh Scenario}
+  \begin{center}
+    $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{S}_k\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ 
+    and learning $L$ semi-positive definite matrices $\boldsymbol{S}\in \mathbb{R}^{N \times N}$ as to try and find a better descent direction while 
+    ensuring being always on the descent direction by the semi-positive definite constraint,
+  \end{center}
+  
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\boldsymbol{S}_k,L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_07_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_07_l_30_lr_0.001}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Eighth Scenario}
+  \begin{center}
+    $\boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \boldsymbol{M}_k\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]$ 
+    and learning $L$ general matrices $\boldsymbol{M}\in \mathbb{R}^{N \times N}$ as to try and find a better descent direction while 
+    while not forcing the semi-positive definite constraint and hoping for the best,
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}
+    \frametitle{URWF, $\boldsymbol{M}_k,L=30,lr=0.001$}
+    \centering
+    % \captionsetup{justification=centering}
+    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/rwf_s_06_l_30_e_50_lr_0.001.tex}}
+    % \caption{The Schematic Unfolding of an Iterative Algorithm}
+    \label{fig:rwf_s_06_l_30_lr_0.001}
+  \end{figure}
+\end{frame}

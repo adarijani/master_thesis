@@ -1,0 +1,116 @@
+%%%%%%%%%%%%% Phase Problem Definition and Solution %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{Phase Problem Definition}
+  \pause
+  Mathematically the phase problem can be stated as:
+  \pause
+  \begin{Pro}[Phase Problem]\label{pro:phase_problem} For $G_j \in \mathbb{R}^M$ and matrices 
+    $\boldsymbol{A}_j \in \mathbb{C}^{M \times N}$ for $j \in \left\{1,\ldots,K\right\}$, find 
+  $\psi \in \mathbb{C}^N$ such that either $G_j = \varphi(\boldsymbol{A}_j\psi)$ or $G_j \approx \varphi(\boldsymbol{A}_j\psi)$ where 
+  $\varphi \colon \mathbb{C} \to \mathbb{R}$ is a function with the phase destruction 
+  capability like $z \rightarrow \left|z\right| \lor {\left|z\right|^2}$. 
+  \end{Pro}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%% Phase Problem Formulation %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{Formulation of The Phase Problem}
+    \pause
+    One way to approximately find the solution is to formulate it like:
+    \pause
+    \begin{Pro}[Phase Retrieval Problem]\label{pro:phase_retrieval_problem} For $G_j \in \mathbb{R}^M$ and matrices 
+        $\boldsymbol{A}_j \in \mathbb{C}^{M \times N}$ for $j \in \left\{1,\ldots,K\right\}$, and 
+        $\varphi \colon \mathbb{C} \to \mathbb{R}$ is a function with the phase destruction capability, then minimize:
+        \begin{equation}\label{eq:phase_retrieval_problem}
+        E(\psi) = \underbrace{\frac{1}{2KN} \sum_{j=1}^{K} {\left|\left|\phi(\boldsymbol{A}_j\psi)-G_j\right|\right|}^2}_{\coloneqq D(\psi)}+ R(\psi)
+        \end{equation}
+        where:
+        \begin{itemize}
+        \item $D(\psi)$ is the data term,
+        \item $R(\psi)$ is the regularization term,
+        \item $G_j$ is the $j$-th measurement.
+        \end{itemize}
+    \end{Pro}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%% Difficulties %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{Difficulty I}
+    \pause
+    \begin{Pro}\label{pro:phase_retrieval_simple}
+        Given $\boldsymbol{y} \in \mathbb{R}^M$ the measurement vector and $\boldsymbol{A} \in \mathbb{C}^{M \times N}$ the sampler matrix, 
+        and the phase destroyer $\varphi \colon \mathbb{C} \to \mathbb{R}$ that does the
+         $z \mapsto \left|z\right|$ mapping find $\boldsymbol{x} \in \mathbb{C}^N$ up to a global phase 
+        by minimizing $ \left|\left|\varphi(\boldsymbol{A}\boldsymbol{x})-\boldsymbol{y}\right|\right|$.
+      \end{Pro}
+    \pause
+      \begin{Rem}
+    The function we are trying to minimize is non-convex \cite{Candes2014}. Set $n=1$, $m=2$, $\boldsymbol{x}_1 = \begin{pmatrix}1+i\end{pmatrix}^{1 \times 1}$, 
+    $\boldsymbol{x}_2 = \begin{pmatrix}-1-i\end{pmatrix}^{1 \times 1}$, $\boldsymbol{A}=\begin{pmatrix}1\\i \end{pmatrix}^{2 \times 1}$, 
+    $\boldsymbol{y}=\begin{pmatrix}1\\2 \end{pmatrix}^{2 \times 1}$, and $\lambda=1/2$ to build a counterexample.
+      \end{Rem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Difficulty II}
+    % \pause
+    \begin{Pro}
+        Given $\boldsymbol{y} \in \mathbb{R}^M$ the measurement vector and $\boldsymbol{A} \in \mathbb{C}^{M \times N}$ the sampler matrix, 
+        and the phase destroyer $\varphi \colon \mathbb{C} \to \mathbb{R}$ that does the
+         $z \mapsto \left|z\right|$ mapping find $\boldsymbol{x} \in \mathbb{C}^N$ up to a global phase 
+        by minimizing $ \left|\left|\varphi(\boldsymbol{A}\boldsymbol{x})-\boldsymbol{y}\right|\right|$.
+      \end{Pro}
+    \pause
+      \begin{Rem}
+        The function we are trying to minimize is not holomorphic which in turn makes arriving at the 
+        gradient descent like structure for the sake of first-order optimization more involved.
+      \end{Rem}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+    \frametitle{Difficulty III}
+    % \pause
+    \begin{Pro}
+        Given $\boldsymbol{y} \in \mathbb{R}^M$ the measurement vector and $\boldsymbol{A} \in \mathbb{C}^{M \times N}$ the sampler matrix, 
+        and the phase destroyer $\varphi \colon \mathbb{C} \to \mathbb{R}$ that does the
+         $z \mapsto \left|z\right|$ mapping find $\boldsymbol{x} \in \mathbb{C}^N$ up to a global phase 
+        by minimizing $ \left|\left|\varphi(\boldsymbol{A}\boldsymbol{x})-\boldsymbol{y}\right|\right|$.
+      \end{Pro}
+    \pause
+    \begin{Rem} 
+        $\min \left|\left|\boldsymbol{x}-\boldsymbol{z}\mathrm{e}^{-\mathrm{i}\theta}\right|\right|^2$ is chosen as the difference between the 
+        true signal and the approximated one and the reason is:
+        \begin{equation}
+          \left|\boldsymbol{A}\boldsymbol{x}\mathrm{e}^{\mathrm{i}\theta}\right| = \left|\boldsymbol{A}\boldsymbol{x}\right|
+        \end{equation}
+      \end{Rem}
+
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Solution to Phase Problem Using Wirtinger Flow}
+    \pause
+    In short the \acl*{PR} can be solved by the iterative algorithm:
+    \pause
+      \begin{equation}\label{eq:pr_solution}
+        \psi^{k+1} = \text{prox}_{\tau_{k}R}(\psi^k-\tau_k\nabla{D(\psi^k)})
+      \end{equation}
+\pause
+      with the gradient-like structure looks like: 
+      \begin{equation}\label{eq:gradient_pr_solution}
+        \nabla{D(\psi^k)} = \frac{1}{KN} \sum_{j=1}^{K} \boldsymbol{A}_j^*\left(\varphi\left(\boldsymbol{A}_j\psi\right)-G_j\right)\odot \varphi'(\boldsymbol{A}_j\psi).
+      \end{equation}
+
+\end{frame}
+
+

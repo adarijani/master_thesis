@@ -1,0 +1,77 @@
+
+\begin{frame}
+    \frametitle{Scalar Product for Complex Vectors}
+    \begin{Def}\label{def:scalar_product_complex_vectors}
+      For the complex vectors\index{complex vectors} $\boldsymbol{x},\boldsymbol{y} \in \mathbb{C}^N$ the mapping  $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^N \times \mathbb{C}^N \to \mathbb{C}$ 
+      \begin{equation}
+          \langle\boldsymbol{x},\boldsymbol{y}\rangle \coloneqq \sum_{i=1}^{N} x_i \overline{y_i} 
+      \end{equation}
+      is the scalar product\index{scalar product!complex vectors} where
+      \begin{equation}
+          \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}, \quad \boldsymbol{y} = \left(y_i\right)_{i=1,\ldots,N}.
+      \end{equation}    
+  \end{Def}
+  \end{frame}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%% Scalar Product Induced Norm for Complex Vectors %%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \begin{frame}
+    \frametitle{Scalar Product Induced Norm for Complex Vectors}
+    \begin{Def}\label{def:scalar_product_induced_norm_complex_vectors}
+      For the complex vector $\boldsymbol{x} \in \mathbb{C}^N$ the mapping  $\left|\left|\boldsymbol{.}\right|\right| \colon \mathbb{C}^N \to [0,+\infty)$ 
+      \begin{equation}
+          \left|\left|\boldsymbol{x}\right|\right| \coloneqq  \sqrt{\langle\boldsymbol{x},\boldsymbol{x}\rangle}
+      \end{equation}
+      is the norm\index{norm!complex vectors} induced by the scalar product for complex vectors where
+      \begin{equation}
+          \boldsymbol{x} = \left(x_i\right)_{i=1,\ldots,N}.
+      \end{equation}    
+  \end{Def}
+  \end{frame}
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%% Scalar Product for Complex Matrices %%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \begin{frame}
+    \frametitle{Scalar Product for Complex Matrices}
+  \begin{Def}\label{def:scalar_product_induced_norm_complex_matrices}
+      For the complex matrices\index{complex matrices} $\boldsymbol{X},\boldsymbol{Y} \in \mathbb{C}^{M \times N}$ the mapping $\langle\boldsymbol{.},\boldsymbol{.}\rangle \colon \mathbb{C}^{M \times N} \times \mathbb{C}^{M \times N} \to \mathbb{C}$ 
+      \begin{equation}
+          \langle\boldsymbol{X},\boldsymbol{Y}\rangle \coloneqq \sum_{j=1}^{N}\sum_{i=1}^{M} X_{i,j} \overline{Y_{i,j}} 
+      \end{equation}
+      is the scalar product\index{scalar product!complex matrices} where
+      \begin{equation}
+          \boldsymbol{X} = \left(X_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}, \quad \boldsymbol{Y} = \left(Y_{i,j}\right)_{\substack{i=1,\ldots,M\\ j=1,\ldots,N}}.
+      \end{equation}    
+  \end{Def}
+  \noindent This scalar product is also called the Frobenius scalar product\index{scalar product!Frobenius}, the Schur scalar product\index{scalar product!Schur} or 
+  the Hilbert-Schmidt scalar product\index{scalar product!Hilbert-Schmidt}.
+  
+  \end{frame}
+  
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%% p-norm %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  \begin{frame}
+    \frametitle{$p$-norm}
+    \begin{Def}\label{def:p-norm}
+      Let $1 \leq p \leq \infty$, and $\boldsymbol{x} \in \mathbb{K}^N$ be a vector, while $\mathbb{K}$ can be either $\mathbb{R}$ or $\mathbb{C}$ then the mapping $\left|\left| \boldsymbol{.} \right|\right|_p \colon \mathbb{K}^N \to [0,+\infty)$
+      \begin{equation}
+          \begin{split} 
+              \left|\left|\boldsymbol{x}\right|\right|_p \coloneqq    
+              \begin{cases}
+                  \left(\sum_{i=1}^{N}\left|x_i\right|^p\right)^{\frac{1}{p}} & \text{for } 1 \leq p < \infty\\
+                  \underset{{i=1,\dots,N}}{\max} \left|x_i\right| & \text{for } p = \infty,
+              \end{cases}
+          \end{split}
+      \end{equation}
+      where $\left|\boldsymbol{\cdot}\right|$ is the absolute value on the $\mathbb{K}$ field,
+      is called the \textbf{p-norm}\index{norm!p-norm} of the complex vector $\boldsymbol{x}$.
+  \end{Def}
+  
+  \end{frame}
+  
