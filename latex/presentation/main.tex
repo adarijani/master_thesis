@@ -98,6 +98,7 @@
 
 %%%%%%%%%%%%%%%%%%% Mathematical Preliminaries %%%%%%%%%%%%%%%%%
 \section[Mathematical Preliminaries]{Mathematical Preliminaries}
+\input{math.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% WF* Algorithms %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -111,160 +112,18 @@
 \input{deep_unfolding.tex}
 \input{du_of_wf.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%% Hyperparameter Optimization %%%%%%%%%%%%%%%%%%%%%%%
+\section[Hyperparameter Optimization]{Hyperparameter Optimization}
+\input{ho.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Hyperparameter Optimization %%%%%%%%%%%%%%%%%%%%%%%
+\section[Conclusion and Future Work]{Conclusion and Future Work}
+\input{conclusion.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WF* on CDPs %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[WF* Using CDPs]{Wirtinger Flow Variants on Coded Diffraction Pattern Scenario}
-
-
-
-\begin{frame}
-\frametitle{WF(Left) vs RWF(Right)}
-  \begin{figure}[!htbp]
-    \centering
-    % \captionsetup{justification=centering}
-    \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_wf_rwf.png}
-%   \caption{{WF}(left) vs {RWF}(right)}
-  \label{image:wf_vs_rwf}
-  \end{figure}
-\end{frame}
-
-\begin{frame}
-   \frametitle{WF(Left) vs TWF(Right)}
-     \begin{figure}[!htbp]
-       \centering
-       % \captionsetup{justification=centering}
-       \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_wf_twf.png}
-   %   \caption{{WF}(left) vs {RWF}(right)}
-     \label{images:wf_vs_twf_cdp}
-     \end{figure}
-   \end{frame}
-\begin{frame}
-\frametitle{RWF(Left) vs TWF(Right)}
-  \begin{figure}[!htbp]
-    \centering
-    % \captionsetup{justification=centering}
-    \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_twf_rwf.png}
-%   \caption{{WF}(left) vs {RWF}(right)}
-  \label{image:twf_vs_rwf_cdp}
-  \end{figure}
-\end{frame}
-
-
-
-
-
-
-
-% \section[Hyperparameter Optimization]{Hyperparameter Optimization}
-
-\begin{frame}
-  \frametitle{What is a Hyperparameter?}
-  \pause
-  We call any parameter that has to be set for the solver/model to work a \emph{Hyperparameter}.
-  \newline
-  \newline
-\pause  
-Examples of Hyperparameters in Deep Learning:
-\begin{itemize}
-  \pause  
-  \item Name of the Architecture   
-  \pause  
-  \item Pseudo Learning Rate
-  \pause  
-  \item Batch Size for SGD-like Optimizers
-  \pause  
-  \item Number of Epochs
-\end{itemize}
-\end{frame}
-\begin{frame}
-  \frametitle{Hyperparameter Optimization}
-  \pause
-  \begin{Rem}
-    \pause
-    Mathematically Speaking, Sophisticated Hyperparameter Optimizations are Different From:
-    \begin{itemize}
-      \pause
-      \item Grid Search
-      \pause
-      \item Brute Force Method
-    \end{itemize}    
-  \end{Rem}
-  % \begin{Rem}
-    \pause
-    Therefore do not mistake the packages that do \ho for wrapped up \bash Script With Nested Loops and
-    \awk for Bookkeeping
-  % \end{Rem}  
-\end{frame}
-
-\begin{frame}
-  \frametitle{\optuna Pros}
-  \pause
-  Pros:
-  \begin{itemize}
-    \pause
-    \item Use of the latest technics in \ac{HP}\cite{Hutter2019}\cite{Akiba2019}.
-    \pause
-    \item It is quite lightweight.
-    \pause
-    \item Describing the parameter space is both easy and flexible.
-    \pause
-    \item Pruning capabilities for not-so-optimistic scenarios.
-    \pause
-    \item Distributed computing can be done using up to 6 computational nodes.
-    \pause
-    \item Usage of \ac{RDBMS} for bookkeeping, safekeeping(in case of crash or just rebooting) and handling of dead-locks associated with the distributed computing.
-    \pause
-    \item nice dashboard for better visualization and interpretation of the results.  
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \begin{figure}
-    \frametitle{Optuna on URWF, $\tau_k\boldsymbol{M},L=30,lr=0.007622$}
-    \centering
-    % \captionsetup{justification=centering}
-    \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/optuna.tex}}
-    % \caption{The Schematic Unfolding of an Iterative Algorithm}
-    \label{fig:urwf_optuna}
-  \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Ideas for Future Work}
-  % \pause
-  % time limit
-  \begin{itemize}
-      \pause
-      \item Different algorithms to unfold \cite{Monga2019}
-      \pause
-      \item Different \ac{WF} variants \cite{Jaganathan2015}\cite{Liu2019}\cite{Chandra2017}
-      \pause
-      \item Improving specific application of phase retrieval e.g. \cite{Fogel2013} using deep unfolding of \ac{WF} type schemes
-      \pause
-      \item Inclusion of noise in the data/operator
-      \pause
-      \item Presence of a regularizer
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{}
-  \pause
-  \begin{center}
-    \Huge{fortes fortuna adiuvat}  
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WF* on CDPs %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[References]{References}
+% \section[References]{References}
   \begin{frame}[allowframebreaks]
-  \frametitle{backslash noicte lcurlybrace asterisks rcurlybrace}
+  \frametitle{backslash nocite lcurlybrace asterisks rcurlybrace}
   \nocite{*}
   \printbibliography 
   \end{frame}

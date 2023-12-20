@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[DU/AU of WF*]{Deep Unfolding of Wirtinger Flow Variants}
 \begin{frame}
-  \frametitle{The Gist of Most WF Algorithms Algoritmically}
+  \frametitle{The Gist of Most WF Algorithms Algorithmically}
   Let the update rule be of the form:
   \begin{equation}
     \boldsymbol{z}_{k+1} = \boldsymbol{z}_k - \tau\boldsymbol{\theta}[\boldsymbol{z}_k,\boldsymbol{A},\boldsymbol{A^*},\varphi]
@@ -18,6 +18,71 @@
   
 \end{frame}
 
+
+
+% \begin{frame}
+%   \frametitle{Application of RWF in Diffracted Imaging}
+%     \begin{figure}[!htbp]
+%       \centering
+%       % \captionsetup{justification=centering}
+%       \includegraphics[width=0.30\textwidth]{../document/images/rwf_sat_phone/000_025_32_original.png}
+%   %   \caption{{WF}(left) vs {RWF}(right)}
+%     \label{image:rwf}
+%     \end{figure}
+%   \end{frame}
+
+% \begin{frame}
+%   \frametitle{WF(Left) vs TWF(Right)}
+%     \begin{figure}[!htbp]
+%       \centering
+%       % \captionsetup{justification=centering}
+%       \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_wf_twf.png}
+%   %   \caption{{WF}(left) vs {RWF}(right)}
+%     \label{images:wf_vs_twf_cdp}
+%     \end{figure}
+%   \end{frame}
+% \begin{frame}
+% \frametitle{RWF(Left) vs TWF(Right)}
+%  \begin{figure}[!htbp]
+%    \centering
+%    % \captionsetup{justification=centering}
+%    \includegraphics[width=0.5\textwidth]{../document/images/cdp/out_twf_rwf.png}
+% %   \caption{{WF}(left) vs {RWF}(right)}
+%  \label{image:twf_vs_rwf_cdp}
+%  \end{figure}
+% \end{frame}
+
+\begin{frame}
+    \frametitle{What Are We Trying to Do?}
+    \begin{center}
+      \Large{We try to gain some kind of improvements in the original algorithms by either optimizing Some parameters
+      or by changing the Iteration a bit while not destroying the innate nonlinearities.}  
+    \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Machine Learning Setup}
+  \begin{itemize}
+    \pause
+    \item RWF as the algorithm to unfold.
+    \pause
+    \item Unfold the RWF 30 times and name it URWF.
+    \pause
+    \item 100 input-output as a synthetic dataset.
+    \pause 
+    \item Usual tricks not to end up with a dictionary
+    \pause 
+    \item Using $10^{-3}$ as the pseudo learning rate
+    \pause 
+    \item Using 2 as the mini-batch SGD size
+    \pause 
+    \item Passing the whole dataset 50 times through your model.
+    \pause 
+    \item Track the RWF/URWF error on train and test data. 
+    \pause 
+    \item Eyeball the finished plots.
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
     \frametitle{First Scenario}

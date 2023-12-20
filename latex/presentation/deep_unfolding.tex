@@ -6,12 +6,11 @@
   \frametitle{Review of Deep Learning Pros}
   \begin{itemize}
     \pause
-    \item can extract extremely complicated mappings or extremely subtle features
+    \item can extract extremely complicated mappings
     \pause
-    \item requires little to no knowledge about the exact internals of the problem
+    \item requires little to no domain knowledge
     \pause
-    \item currently can beat human level performance in lots of areas; object 
-    detection (single and multi), object tracking(single and multi), anomaly detection, fraud detection, and strategical games just to name a few.
+    \item forth runner in some analytically intractable problems
   \end{itemize}
 \end{frame}
 
@@ -19,11 +18,11 @@
   \frametitle{Review of Deep Learning Cons}
   \begin{itemize}
     \pause
-    \item requires large and high quality datasets like the ImageNet\cite{SVLL}, in the case of image classification, which are expensive to acquire and store,
+    \item requires large and high quality datasets
     \pause
-    \item requires tremendous raw computational power at the level of top 500 supercomputers and storage which in turn would result in large electricity bills and expensive maintenance costs,
+    \item requires tremendous raw computational power
     \pause
-    \item since mostly there is no interpretability associated with models, there will be no reasoning when a model gives objectively wrong answers.
+    \item there is no interpretability most of the times
   \end{itemize}
 \end{frame}
 
@@ -31,7 +30,7 @@
   \frametitle{Deep Unfolding}
   \pause
   Deep Unfolding is a new approach in the explainable/model-based Artificial Intelligence 
-  that geared towards the iterative solutions.
+  that is geared towards the iterative solutions.
 \end{frame}
 
 \begin{frame}
@@ -49,14 +48,14 @@
   \frametitle{Deep Unfolding}
   \begin{itemize}
     \pause
-    \item We interpret an iteration in the form of a mapping between two layers. 
+    \item interpreting an iteration in the form of a mapping between two layers. 
     \pause
-    \item Domain knowledge is required otherwise the nonlinearity associated with the layer is most likely can not be found by luck.
+    \item nonlinearities are based on domain knowledge.
     \pause
-    \item In \nns we add parameters mostly haphazardly while in \du we do it based on analytical arguments.
+    \item parameters have meanings.
     \pause
-    \item Compared to general \nns we have smaller datasets and the perks that come with it.
+    \item smaller datasets and the perks that come with it.
     \pause
-    \item Initialization of the weight matrices and biases are easier due to domain knowledge in the training.
+    \item easier initialization of the parameters.
   \end{itemize}
 \end{frame}

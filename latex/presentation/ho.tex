@@ -1,0 +1,101 @@
+\begin{frame}
+  \frametitle{}
+    \begin{itemize}
+      % \pause
+      \item Am I Finished?
+      \pause \\No
+      \item Can We Do Better?
+      \pause \\Probably
+    \end{itemize}
+
+\end{frame}
+\begin{frame}
+    \frametitle{What is a Hyperparameter?}
+    \pause
+    We call any parameter that has to be set for the solver/model to work a \emph{Hyperparameter}.
+    \newline
+    \newline
+  \pause  
+  Examples of Hyperparameters in Deep Learning:
+  \begin{itemize}
+    \pause  
+    \item Name of the Architecture   
+    \pause  
+    \item Pseudo Learning Rate
+    \pause  
+    \item Batch Size for SGD-like Optimizers
+    \pause  
+    \item Number of Epochs
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Hyperparameter Optimization}
+    \pause
+    \begin{Rem}
+      \pause
+      Mathematically Speaking, Sophisticated Hyperparameter Optimizations are Different From:
+      \begin{itemize}
+        \pause
+        \item Grid Search
+        \pause
+        \item Brute Force Method
+      \end{itemize}    
+    \end{Rem}
+    % \begin{Rem}
+      \pause
+      Therefore do not mistake the packages that do \ho for wrapped up \bash Script With Nested Loops and
+      \awk for Bookkeeping
+      \begin{itemize}
+        \pause
+        \item We Chose Optuna to Perform \ho. 
+      \end{itemize}
+    % \end{Rem}  
+  \end{frame}
+  
+  \begin{frame}
+    \frametitle{\optuna Pros}
+    \pause
+    Pros:
+    \begin{itemize}
+      \pause
+      \item Use of the latest technics in \ac{HP}\cite{Hutter2019}\cite{Akiba2019}.
+      \pause
+      \item It is quite lightweight.
+      \pause
+      \item Describing the parameter space is both easy and flexible.
+      \pause
+      \item Pruning capabilities for not-so-optimistic scenarios.
+      \pause
+      \item Distributed computing can be done using up to 6 computational nodes.
+      \pause
+      \item Usage of \ac{RDBMS} for bookkeeping, safekeeping(in case of crash or just rebooting) and handling of dead-locks associated with the distributed computing.
+      \pause
+      \item nice dashboard for better visualization and interpretation of the results.  
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{\optuna setup}
+    \begin{itemize}
+      \pause
+      \item pseudo learning rate and the scenarios are our study parameters
+      \pause
+      \item scenarios are categorical and trivial
+      \pause
+      \item pseudo learning rate is sampled in $\left[10^{-4},10^{-3}\right] \subset \mathbb{R}$ with a uniform distribution sampler
+    \end{itemize}
+  \end{frame}
+
+
+  
+  \begin{frame}
+    \begin{figure}
+      \frametitle{Optuna on URWF, $\tau_k\boldsymbol{M},L=30,lr=0.007622$}
+      \centering
+      % \captionsetup{justification=centering}
+      \resizebox{0.9\textwidth}{!}{\input{../document/tikz/rwf/optuna.tex}}
+      % \caption{The Schematic Unfolding of an Iterative Algorithm}
+      \label{fig:urwf_optuna}
+    \end{figure}
+  \end{frame}
