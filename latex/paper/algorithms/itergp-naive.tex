@@ -1,0 +1,40 @@
+\textbf{Input:} GP prior \(\gp{\mu}{\kernel}\), training data \((\traindata, \targets)\)\\%, \textcolor{gray}{low rank approximation \(\kernmatinvapprox_0 \approx \hat{\kernmat}^{-1}\)}\\
+\textbf{Output:} (combined) GP posterior \(\gp{\mu_{\idxiter}}{\kernel_{\idxiter}}\)
+\begin{algorithmic}[1]
+    \Procedure{\textsc{CaGP}}{$\mu, \kernel, \traindata, \targets, \kernmatinvapprox_0 = \mZero$} \Comment{}{Time}{Space}
+    % \State \((\mu_0, \kernel_0) \gets (\mu, \kernel)\) \Comment{Initialize mean and covariance function with prior.}
+    % \State \(\vec{\mu} \gets \mu(\traindata)\) \Comment{Prior predictive mean.}
+    % \State \(\shat{\kernmat} \gets \kernel(\traindata, \traindata) + \sigma^2 \mI\) \Comment{Prior predictive kernel matrix.}
+    % \State \(\kernmatinvapprox_0 \gets \precond^\dagger\)  \Comment{Initial guess of precision matrix.}
+    % \State \(\rweightsapprox_0 \gets \kernmatinvapprox_0(\targets - \vmu)\) \Comment{Initial guess of representer weights.}
+    % \State \textcolor{gray}{\(\kernmatapprox_0 \gets \shat{\kernmat} \kernmatinvapprox_0 \shat{\kernmat}\) \Comment{Initial guess of kernel matrix.}}
+    \While{\textbf{not} \textsc{StoppingCriterion}()} %\Comment{Stopping criterion.}
+    \State \(\action_\idxiter \gets
+    \textsc{Policy}()\) \Comment{Select action via policy.}{}{}
+    \State \(\residual_{\idxiter - 1} \gets (\targets - \vec{\mu}) -  \shat{\kernmat} \rweightsapprox_{\idxiter-1}\)
+    \Comment{Residual.}{\(\bigO{n^2}\)}{\(\bigO{\numtraindata}\)}
+    \State \(\observ_\idxiter \gets \action_\idxiter^\top \residual_{\idxiter-1}\)
+    \Comment{Observation.}{\(\bigO{\nnzactions}\)}{\(\bigO{1}\)}
+    \State \(\kernmataction_\idxiter \gets \hat{\kernmat}\action_\idxiter\) \Comment{}{\(\bigO{n\nnzactions}\)}{\(\bigO{\numtraindata}\)}
+    \State \(\searchdir_\idxiter \gets \textcolor{gray}{\rweightscov_{\idxiter-1} \shat{\kernmat}
+    \action_\idxiter = \,} \action_\idxiter - \kernmatinvapprox_{\idxiter-1}\kernmataction_\idxiter\) \Comment{Search direction.}{\(\bigO{\numtraindata\idxiter}\)}{\(\bigO{\numtraindata}\)}
+    \State \(\searchdirsqnorm_\idxiter \gets \textcolor{gray}{\action_{\idxiter}^\top \shat{\kernmat} \rweightscov_{\idxiter-1} \shat{\kernmat} \action_{\idxiter} = \,}\kernmataction_\idxiter^\top \searchdir_\idxiter\) \Comment{}{\(\bigO{\numtraindata}\)}{\(\bigO{1}\)}
+    % \State \(\normsearchdir_\idxiter \gets \frac{\searchdir_\idxiter}{\sqrt{\searchdirsqnorm}_\idxiter}\) \Comment{Normalized search direction \(\lVert\normsearchdir \rVert_{\rweightscov_{\idxiter-1}^{\dagger}}=1\).}
+    % \State \(\kernmatinvapprox_\idxiter \gets \kernmatinvapprox_{\idxiter-1} + \normsearchdir_\idxiter \normsearchdir_\idxiter^\top\)
+    % \Comment{Precision matrix approximation \(\kernmatinvapprox_\idxiter \approx \kernmat^{-1}\).}
+    \State \(\kernmatinvapprox_\idxiter \gets \kernmatinvapprox_{\idxiter-1} + \frac{1}{\searchdirsqnorm_\idxiter}\searchdir_\idxiter \searchdir_\idxiter^\top\)
+    \Comment{Precision matrix approx. \(\kernmatinvapprox_\idxiter \approx \shat{\kernmat}^{-1}\).}{\(\bigO{\numtraindata}\)}{\(\bigO{\numtraindata\idxiter}\)}
+    % \State \textcolor{gray}{\(\kernmatapprox_\idxiter \gets \kernmatapprox_{\idxiter-1} + \frac{1}{\searchdirsqnorm_\idxiter} \shat{\kernmat} \searchdir_\idxiter \searchdir_\idxiter^\top\shat{\kernmat}\)
+    % \Comment{Kernel matrix approximation \(\kernmatapprox_\idxiter \approx \shat{\kernmat}\).}}
+    \State \(\rweightsapprox_\idxiter \gets \rweightsapprox_{\idxiter-1} + \frac{\alpha_\idxiter}{\searchdirsqnorm_\idxiter}\searchdir_\idxiter  \)
+    \Comment{Representer weights estimate.}{\(\bigO{\numtraindata}\)}{\(\bigO{\numtraindata}\)}
+    \State \textcolor{gray}{\(\rweightscov_\idxiter \gets \rweightscov_0 - \kernmatinvapprox_\idxiter\)}
+    \Comment{Representer weights uncertainty.}{}{}
+    \EndWhile
+    \State \(\mu_{\idxiter}(\cdot) \gets \mu(\cdot) + \kernel(\cdot, \traindata) \rweightsapprox_\idxiter\)\Comment{Approximate posterior mean.}{\(\bigO{\numtestdata \numtraindata}\)}{\(\bigO{\numtestdata}\)}
+    \State \(\kernel_{\idxiter}(\cdot, \cdot) \gets \kernel(\cdot, \cdot)	- \kernel(\cdot, \traindata)
+    \kernmatinvapprox_\idxiter \kernel(\traindata, \cdot)\) \Comment{Combined covariance function.}{\(\bigO{\numtestdata \numtraindata \idxiter}\)}{\(\bigO{\numtestdata^2}\)}
+    \State \Return \(\gp{\mu_{\idxiter}}{\kernel_{\idxiter}}\)
+    \EndProcedure
+    \vspace{-2em}
+\end{algorithmic}

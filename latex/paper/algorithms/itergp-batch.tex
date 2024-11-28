@@ -1,0 +1,17 @@
+\textbf{Input:} GP prior \(\gp{\mu}{\kernel}\), training data \((\traindata, \targets)\)\\%, \textcolor{gray}{low rank approximation \(\kernmatinvapprox_0 \approx \hat{\kernmat}^{-1}\)}\\
+\textbf{Output:} (combined) GP posterior \(\gp{\mu_{\idxiter}}{\kernel_{\idxiter}}\)
+\begin{algorithmic}[1]
+    \Procedure{\textsc{CaGP}}{$\mu, \kernel, \traindata, \targets$} \Comment{}{Time}{Space}
+    \State \(\mActions_\idxiter \gets \textsc{Policy}()\) \Comment{Select batch of actions via policy.}{}{}
+    \State \(\tilde{\targets} \gets \mActions_\idxiter^\tr(\targets - \vmu)\) \Comment{``Projected'' data.}{\(\bigO{\nnzactions\idxiter}\)}{\(\bigO{\idxiter}\)}
+    \State \(\mKernmatActions_\idxiter \gets \hat{\kernmat}\mActions_\idxiter\) \Comment{}{\(\bigO{n\nnzactions\idxiter}\)}{\(\bigO{\numtraindata\idxiter}\)}
+    \State \(\mCholfacActionsKernmatActions_\idxiter \gets \textsc{Cholesky}(\mActions_\idxiter^\tr \mKernmatActions_\idxiter)\) \Comment{}{\(\bigO{\idxiter^2(\idxiter +\nnzactions)}\)}{\(\bigO{\idxiter^2}\)}
+    \State \(\tilde{\rweightsapprox}_\idxiter \gets \mCholfacActionsKernmatActions_{\idxiter}^{-\top} \mCholfacActionsKernmatActions_{\idxiter}^{-1}\tilde{\targets}\)
+    \Comment{``Projected'' representer weights.}{\(\bigO{\idxiter^2}\)}{\(\bigO{\idxiter}\)}
+    \State \(\kernel_{\mActions}(\cdot, \traindata) \gets \kernel(\cdot, \traindata)\mActions_\idxiter\) \Comment{}{\(\bigO{\numtestdata \nnzactions \idxiter}\)}{\(\bigO{\numtestdata \idxiter}\)} 
+    \State \(\mu_{\idxiter}(\cdot) \gets \mu(\cdot) + \kernel_{\mActions}(\cdot, \traindata)\tilde{\rweightsapprox}_\idxiter\)\Comment{}{\(\bigO{\numtestdata \idxiter}\)}{\(\bigO{\numtestdata}\)}
+    \State \(\kernel_{\idxiter}(\cdot, \cdot) \gets \kernel(\cdot, \cdot)	- \kernel_{\mActions}(\cdot, \traindata) \mCholfacActionsKernmatActions_{\idxiter}^{-\top} \mCholfacActionsKernmatActions_{\idxiter}^{-1} \kernel_{\mActions}(\traindata, \cdot)\) \Comment{}{\(\bigO{\numtestdata \idxiter^2}\)}{\(\bigO{\numtestdata^2}\)}
+    \State \Return \(\gp{\mu_{\idxiter}}{\kernel_{\idxiter}}\)
+    \EndProcedure
+    \vspace{-2em}
+\end{algorithmic}

@@ -1,0 +1,25 @@
+\usepackage{scrhack} % ignore warnings about deprecated KOMA-Script
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+% Custom algorithm formatting
+% \algrenewcommand{\algorithmiccomment}[1]{\hfill {\small \textcolor{darkgray}{$\vartriangleright$ #1}}}
+\algrenewcommand{\algorithmiccomment}[3]{\hfill {\small \textcolor{darkgray}{#1 \hspace{0.5em} \makebox[5.5em][l]{#2} \makebox[3.5em][l]{#3}}}}
+\algrenewcommand\algorithmicindent{2em}
+\algrenewcommand\alglinenumber[1]{\small {\textcolor{darkgray}{#1}}}
+
+\makeatletter
+% Adjust spacing between items
+\expandafter\patchcmd\csname\string\algorithmic\endcsname{\itemsep\z@}{\itemsep=0.25ex}{}{}
+% Adjust the algorithm environment to match booktabs
+\newcommand\fs@booktabsruled{%
+    \def\@fs@cfont{\bfseries\strut}\let\@fs@capt\floatc@ruled
+    \def\@fs@pre{\hrule height\heavyrulewidth depth0pt \kern\belowrulesep}%
+    \def\@fs@mid{\kern\aboverulesep\hrule height\lightrulewidth\kern\belowrulesep}%
+    \def\@fs@post{\kern\aboverulesep\hrule height\heavyrulewidth\relax}%
+    \let\@fs@iftopcapt\iftrue
+}
+\makeatother
+\floatstyle{booktabsruled}
+\restylefloat{algorithm}
+% \captionsetup[algorithm]{singlelinecheck=off}

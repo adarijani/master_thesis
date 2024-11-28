@@ -1,0 +1,103 @@
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{thm-restate}
+
+\declaretheoremstyle[
+    % numberwithin=chapter,
+    headfont=\normalfont\bfseries,
+    notefont=\normalfont,
+    bodyfont=\normalfont,
+    headpunct={},
+    postheadspace=\newline,
+    % mdframed={
+    %         backgroundcolor=lightgraycolor!20,
+    %         linecolor=lightgraycolor!20,
+    %         rightline=false,
+    %         topline=false,
+    %         bottomline=false,
+    %         linewidth=0.25em,
+    %         splittopskip=\baselineskip,
+    %         skipabove=1em,
+    %         innertopmargin=0.5em,
+    %         innerbottommargin=1em,
+    %     },
+]{definitionstyle}
+
+\declaretheoremstyle[
+    % numberwithin=chapter,
+    headfont=\normalfont\bfseries,
+    notefont=\normalfont,
+    bodyfont=\normalfont\itshape,
+    headpunct={},
+    postheadspace=\newline,
+    % mdframed={
+    %         backgroundcolor=lightgraycolor!20,
+    %         linecolor=lightgraycolor,
+    %         rightline=false,
+    %         topline=false,
+    %         bottomline=false,
+    %         linewidth=0.25em,
+    %         splittopskip=\baselineskip,
+    %         skipabove=1em,
+    %         innertopmargin=0.5em,
+    %         innerbottommargin=1em,
+    %     },
+]{lemmastyle}
+
+\declaretheoremstyle[
+    % numberwithin=chapter,
+    headfont=\normalfont\bfseries,
+    notefont=\normalfont,
+    bodyfont=\normalfont\itshape,
+    headpunct={},
+    postheadspace=\newline,
+    % mdframed={
+    %         backgroundcolor=lightgraycolor!20,
+    %         linecolor=maincolor,
+    %         rightline=false,
+    %         topline=false,
+    %         bottomline=false,
+    %         linewidth=0.25em,
+    %         splittopskip=\baselineskip,
+    %         skipabove=1em,
+    %         innertopmargin=0.5em,
+    %         innerbottommargin=1em,
+    %     },
+]{theoremstyle}
+
+\declaretheoremstyle[
+    % numberwithin=chapter,
+    headfont=\normalfont\bfseries,
+    notefont=\normalfont,
+    bodyfont=\normalfont,
+    headpunct={},
+    postheadspace=\newline,
+    % mdframed={
+    %         linecolor=lightgraycolor,
+    %         rightline=false,
+    %         topline=false,
+    %         bottomline=false,
+    %         linewidth=0.25em,
+    %         splittopskip=0pt,
+    %         skipabove=1em,
+    %         innertopmargin=0.5em,
+    %         innerbottommargin=1em,
+    %     },
+]{remarkstyle}
+
+\makeatletter
+\@ifclassloaded{beamer}{
+    % QED symbol
+    \renewcommand{\qedsymbol}{\textcolor{fg}{\openbox}}
+}{
+    \declaretheorem[style=definitionstyle,name=Definition]{definition}
+    \declaretheorem[style=lemmastyle,name=Lemma]{lemma}
+    \declaretheorem[style=lemmastyle,name=Proposition]{proposition}
+    \declaretheorem[style=lemmastyle,name=Corollary]{corollary}
+    \declaretheorem[style=theoremstyle,name=Theorem]{theorem}
+    \declaretheorem[style=remarkstyle,name=Remark]{remark}
+    \declaretheorem[style=remarkstyle,name=Example]{example}
+    \declaretheorem[style=definitionstyle,name=Disclaimer]{disclaimer}
+}
+\makeatother
+

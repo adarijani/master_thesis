@@ -1,0 +1,16 @@
+% Document table of contents
+\usepackage{titletoc}
+
+\makeatletter
+\@ifclassloaded{beamer}{}{
+    \usepackage{tocloft}
+    \setlength\cftbeforesecskip{0em}
+    \setlength\cftbeforesubsecskip{-0.5em}
+    \setlength\cftbeforesubsubsecskip{-0.5em}
+    \renewcommand{\cftsecafterpnum}{\vspace{0em}}
+}
+\makeatother
+
+
+% PDF table of contents
+\usepackage[numbered,open=true]{bookmark}

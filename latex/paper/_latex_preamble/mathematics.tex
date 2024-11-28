@@ -1,0 +1,488 @@
+% \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools} % Documentation: https://ctan.net/macros/latex/contrib/mathtools/mathtools.pdf
+\usepackage{bm}
+\usepackage{etoolbox}
+
+% Environments
+\allowdisplaybreaks    % Allow page breaks in `align` etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sets %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*{\setsym}[1]{\ensuremath{#1}}
+
+% Set builder notation
+% see section 6.2 "Paired delimiters" in `mathtools` manual)
+\providecommand{\where}{}
+\providecommand{\suchthat}{}
+
+\DeclarePairedDelimiterX{\set}[1]\{\}{%
+\renewcommand*{\where}{\colon}
+\renewcommand*{\suchthat}{%
+  \nonscript\:\delimsize\vert%
+  \allowbreak%
+  \nonscript\:%
+  \mathopen{}%
+}%
+#1}
+
+% Number Sets
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\C}{\mathbb{C}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Topology %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \newcommand*{\boundary}[1]{\partial #1}
+\newcommand*{\closure}[1]{\overline{#1}}
+\newcommand*{\interior}[1]{#1^{\mathrm{o}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Spaces %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\spacesym}[1]{{\mathbb{#1}}}  % {Metric, Vector, Banach, Hilbert} Space
+
+% (Vector) Spaces
+\renewcommand*{\Rn}{\R^n}
+\newcommand*{\Rnn}{\R^{n \times n}}
+
+% Inner Product Spaces
+\newcommand*{\hilbertsp}[1][H]{\spacesym{#1}}  % Hilbert space
+
+% Function Spaces
+\NewDocumentCommand{\sobolevsp}{o m o}{%
+  \IfNoValueTF{#1}{
+    H^{#2}
+  }{
+    W^{#1,#2}
+  }
+  \IfNoValueF{#3}{\left( #3 \right)}
+}
+
+\newcommand*{\rkhs}[1]{\hilbertsp_{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Linear Algebra %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Vectors
+\renewcommand*{\vec}[1]{{\bm{#1}}}
+\newcommand*{\vecelem}[1]{{#1}}
+
+% Matrices
+\newcommand*{\mat}[1]{{\bm{#1}}}
+\newcommand*{\matelem}[1]{{#1}}
+
+% Functions
+\DeclarePairedDelimiterXPP\linspan[1]{\operatorname{span}}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\colsp[1]{\operatorname{colsp}}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\im[1]{\operatorname{im}}{(}{)}{}{#1}
+\let\ker\relax % avoids warnings when declaring a paired delimiter which already exists
+\DeclarePairedDelimiterXPP\ker[1]{\operatorname{ker}}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\rank[1]{\operatorname{rank}}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\trace[1]{\operatorname{tr}}{(}{)}{}{#1}
+\let\det\relax
+\DeclarePairedDelimiterXPP\det[1]{\operatorname{det}}{(}{)}{}{#1}
+
+% Unary operators
+\newcommand*{\inv}{{-1}}
+\newcommand*{\pinv}{\dagger}
+\newcommand*{\tr}{{\mathsf{T}}}
+\renewcommand{\top}{{\tr}} % for legacy purposes
+\newcommand*{\conj}[1]{\overline{#1}}
+\newcommand*{\hermconj}{{\mathsf{H}}}
+
+% Binary operators
+\DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+\DeclareMathSymbol\obar\mathrel{stmry}{"3A}
+\DeclareMathSymbol\otimes\mathrel{stmry}{"0F}
+\DeclareMathSymbol\ominus\mathrel{stmry}{"17}
+\makeatletter
+\newcommand{\superimpose}[2]{%s
+  {\ooalign{$#1\@firstoftwo#2$\cr\hfil$#1\@secondoftwo#2$\hfil\cr}}}
+\makeatother
+\newcommand{\ostimes}{\mathbin{\mathpalette\superimpose{{\otimes}{\ominus}}}}
+\newcommand{\oatimes}{\mathbin{\mathpalette\superimpose{{\otimes}{\obar}}}}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Calculus %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Norms and inner products
+
+\DeclarePairedDelimiterX\abs[1]{\lvert}{\rvert}{
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+\DeclarePairedDelimiterX\norm[1]{\lVert}{\rVert}{
+  \ifblank{#1}{\:\cdot\:}{#1}
+}
+\DeclarePairedDelimiterX\innerprod[2]{\langle}{\rangle}{
+  \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2}}
+
+% Differential operators
+
+\DeclareDocumentCommand\partialderivative{ s o m g g d() }
+{ % Partial derivative
+  % s: star for \flatfrac flat derivative
+  % o: optional n for nth derivative
+  % m: mandatory (x in df/dx)
+  % g: optional (f in df/dx)
+  % g: optional (y in d^2f/dxdy)
+  % d: long-form d/dx(...)
+  \IfBooleanTF{#1}
+  {\let\fractype\flatfrac}
+  {\let\fractype\frac}
+  \IfNoValueTF{#4}
+  {
+    \IfNoValueTF{#6}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}}}{\partial #3\IfNoValueTF{#2}{}{^{#2}}} \argopen(#6\argclose)}
+  }
+  {
+    \IfNoValueTF{#5}
+    {\fractype{\partial \IfNoValueTF{#2}{}{^{#2}} #3}{\partial #4\IfNoValueTF{#2}{}{^{#2}}}}
+    {\fractype{\partial^2 #3}{\partial #4 \partial #5}}
+  }
+}
+\DeclareDocumentCommand\pdv{}{\partialderivative} % Shorthand for \partialderivative
+
+
+% Jacobian
+\NewDocumentCommand{\jac}{o m m o}{%
+  \operatorname{D}\IfNoValueF{#1}{_{#1}}\mathopen{}%
+  #2\mathopen{}\left( #3 \right)\mathclose{}%
+  \IfNoValueF{#4}{%
+    \IfNoValueTF{#1}{%
+      |_{#3}
+    }{%
+      |_{#1=#4}
+    }
+  }
+}
+
+% Gradient
+\NewDocumentCommand{\grad}{o m m o}{%
+  \nabla\IfNoValueF{#1}{_{#1}}\mathopen{}%
+  #2\mathopen{}\left( #3 \right)\mathclose{}%
+  \IfNoValueF{#4}{%
+    \IfNoValueTF{#1}{%
+      |_{#3}
+    }{%
+      |_{#1=#4}
+    }
+  }
+}
+
+\NewDocumentCommand{\natgrad}{o m m o}{%
+  \tilde{\nabla}\IfNoValueF{#1}{_{#1}}\mathopen{}%
+  #2\mathopen{}\left( #3 \right)\mathclose{}%
+  \IfNoValueF{#4}{%
+    \IfNoValueTF{#1}{%
+      |_{#3}
+    }{%
+      |_{#1=#4}
+    }
+  }
+}
+
+% Hessian
+\NewDocumentCommand{\hessian}{o m m o}{%
+  \nabla^2\IfNoValueF{#1}{_{#1}}\mathopen{}%
+  #2\mathopen{}\left( #3 \right)\mathclose{}%
+  \IfNoValueF{#4}{%
+    \IfNoValueTF{#1}{%
+      |_{#3}
+    }{%
+      |_{#1=#4}
+    }
+  }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Probability and Statistics %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Random variables
+\newcommand{\rvar}[1]{{\mathrm{#1}}}
+\newcommand{\rvec}[1]{{\bm{\mathrm{#1}}}}
+\newcommand*{\rvecelem}[1]{\rvar{#1}}
+\newcommand{\rmat}[1]{{\bm{\mathrm{#1}}}}
+
+% Probability
+\makeatletter
+\newcommand*{\@probsymbol}{\mathrm{P}}
+% See section 6.2 "Paired delimiters" in `mathtools` manual
+\newcommand*{\@given}[1]{%
+  \nonscript\:#1\vert
+  \allowbreak
+  \nonscript\:
+  \mathopen{}}
+
+\providecommand*{\given}{}
+\DeclarePairedDelimiterXPP{\@prob}[1]{\@probsymbol}{(}{)}{}{%
+  \renewcommand*{\given}{\@given{\delimsize}}%
+  #1}
+\newcommand*{\prob}[1]{\ifblank{#1}{\@probsymbol}{\@prob*{#1}}}
+\makeatother
+
+% Expectation and (Co-)Variance
+\NewDocumentCommand{\expval}{o o m}{%
+  \operatorname{\mathbb{E}}\IfNoValueF{#1}{_{#1\IfNoValueF{#2}{\sim #2}}}\mathopen{}\left( #3 \right)
+}
+\NewDocumentCommand{\cov}{o o m}{%
+  \operatorname{Cov}\IfNoValueF{#1}{_{#1\IfNoValueF{#2}{\sim #2}}}\mathopen{}\left( #3 \right)
+}
+\NewDocumentCommand{\var}{o o m}{%
+  \operatorname{Var}\IfNoValueF{#1}{_{#1\IfNoValueF{#2}{\sim #2}}}\mathopen{}\left( #3 \right)
+}
+
+% Distributions and probability density functions
+\newcommand*{\gaussian}[2]{{\ensuremath{\operatorname{\mathcal{N}}\mathopen{}\left(#1, #2\right)}}}
+\newcommand*{\gaussianpdf}[3]{%
+  {\ensuremath{\operatorname{\mathcal{N}}\mathopen{}\left(#1; #2, #3\right)}}%
+}
+
+% Operators and information-theoretic distances 
+\NewDocumentCommand{\entropy}{o o m}{%
+\operatorname{H}\IfNoValueF{#1}{_{#1\IfNoValueF{#2}{\sim #2}}}\mathopen{}\left( #3 \right)
+}
+\NewDocumentCommand{\infogain}{o o m}{%
+\operatorname{IG}\IfNoValueF{#1}{_{#1\IfNoValueF{#2}{\sim #2}}}\mathopen{}\left( #3 \right)
+}
+\NewDocumentCommand{\mutualinfo}{o o m}{%
+\operatorname{MI}\IfNoValueF{#1}{_{#1\IfNoValueF{#2}{\sim #2}}}\mathopen{}\left( #3 \right)
+}
+\NewDocumentCommand{\dkl}{m m}{%
+  \operatorname{KL}\mathopen{}\left( \ifblank{#1}{\:\cdot\:}{#1}\;\middle\|\;\ifblank{#2}{\:\cdot\:}{#2} \right)
+}
+\NewDocumentCommand{\dtv}{m m}{%
+  \operatorname{TV}\mathopen{}\left( \ifblank{#1}{\:\cdot\:}{#1},\ifblank{#2}{\:\cdot\:}{#2} \right)
+}
+\NewDocumentCommand{\dw}{O{2} m m}{%
+  \operatorname{W}\IfNoValueF{#1}{_{#1}}\mathopen{}\left( \ifblank{#2}{\:\cdot\:}{#2},\ifblank{#3}{\:\cdot\:}{#3} \right)
+}
+% Optional arguments with default: O{default}
+% See: https://tex.stackexchange.com/questions/478354/newcommand-using-one-parameter-as-the-default-for-the-other
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Random Processes %
+%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\rproc}[1]{{\mathrm{#1}}}
+\newcommand*{\morproc}[1]{{\bm{\mathrm{#1}}}}
+
+\newcommand*{\paths}[1]{\operatorname{paths}\left(#1\right)}
+
+% Gaussian Processes
+\newcommand*{\gp}[2]{{\ensuremath{\operatorname{\mathcal{GP}}}\mathopen{}\left(#1, #2\right)}}
+
+\newcommand{\meanfn}{\mu}
+\newcommand{\kernel}{K}
+\newcommand{\covfn}{\kernel}
+\newcommand{\postmeanfn}{\mu_{\star}}
+\newcommand{\postcovfn}{\covfn_{\star}}
+\newcommand{\outputscale}{o}
+\newcommand{\noisescale}{\sigma}
+\newcommand{\lengthscale}{l}
+\newcommand{\kernmat}{\mat{K}}
+\newcommand{\rweights}{{\vec{v}_\star}}
+
+\newcommand{\lossnll}{\loss^{\mathrm{NLL}}}
+\newcommand{\logmarglik}{\loss}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optimization %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Computational Complexity %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclarePairedDelimiterXPP\bigO[1]{\mathcal{O}}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\smallo[1]{o}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\bigOmega[1]{\Omega}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\smallomega[1]{\omega}{(}{)}{}{#1}
+\DeclarePairedDelimiterXPP\bigTheta[1]{\Theta}{(}{)}{}{#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Numerical Analysis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\precond}{\mat{P}}
+\newcommand{\residual}{\vec{r}}
+\newcommand{\cholfac}{\mat{L}}
+\newcommand{\nnz}{\operatorname{nnz}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Machine Learning %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\inputdim}{d}
+\newcommand*{\outputdim}{{d'}}
+\newcommand*{\latentfn}{f}
+\newcommand*{\inputspace}{\spacesym{X}}
+\newcommand*{\modeloutputspace}{\spacesym{F}}
+\newcommand*{\targetspace}{\spacesym{Y}}
+\newcommand*{\numclasses}{C}
+\newcommand*{\numtraindata}{n}
+\newcommand*{\traindata}{\mat{X}}
+\newcommand*{\targets}{\vec{y}}
+\newcommand*{\target}{y}
+\newcommand*{\datadist}{p_{\text{data}}}
+\newcommand*{\symboltestdata}{\diamond}
+\newcommand*{\numtestdata}{n_\symboltestdata}
+\newcommand*{\testdata}{\mat{X}_\symboltestdata}
+\newcommand*{\testpoint}{\vec{x}_\symboltestdata}
+\newcommand*{\params}{\vec{w}}
+\newcommand*{\paramspace}{\spacesym{W}}
+\newcommand*{\paramspacedim}{p}
+\newcommand*{\hyperparams}{\vec{\theta}}
+\newcommand*{\loss}{\ell}
+\newcommand*{\regularizer}{R}
+\newcommand*{\regloss}{\bar{\loss}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Probabilistic Numerics %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% GP approximation
+\newcommand{\inducingpoint}{\vz}
+\newcommand{\inducingpoints}{\mZ}
+\newcommand{\numinducingpoints}{m}
+
+\newcommand{\rweightsapprox}{\vec{v}}
+\newcommand{\rweightscov}{\mat{\Sigma}}
+\newcommand{\kernmatapprox}{\mQ}
+\newcommand{\kernmatinvapprox}{\mat{C}}
+
+\newcommand{\logmarglikitergp}{\logmarglik^{\mathrm{NLL}}_{\mathrm{proj}}}
+\newcommand{\lossitergp}{\loss_{\mathrm{CaGP}}^{\mathrm{ELBO}}}
+\newcommand{\projnllitergp}{\loss^{\mathrm{NLL}}_{\mathrm{proj}}}
+
+\newcommand{\approxpostmeanfn}{\hat{\meanfn}}
+\newcommand{\approxpostcovfn}{\hat{\covfn}}
+
+
+% Probabilistic linear solvers
+\makeatletter
+\@ifclassloaded{beamer}{
+    \renewcommand{\action}{\vec{s}}
+}{
+    \newcommand{\action}{\vec{s}}
+}
+\makeatother
+\newcommand{\nnzactions}{k}
+\newcommand{\mActions}{\mat{S}}
+\newcommand{\actionhyperparams}{\bm{\vartheta}}
+\newcommand{\kernmataction}{\vec{z}}
+\newcommand{\mKernmatActions}{\mat{Z}}
+\newcommand{\mCholfacActionsKernmatActions}{\mat{L}}
+\newcommand{\observ}{\alpha}
+\newcommand{\searchdir}{\vec{d}}
+\newcommand{\mSearchdir}{\mat{D}}
+\newcommand{\searchdirsqnorm}{\eta}
+\newcommand{\normsearchdir}{\tilde{\vec{d}}}
+\newcommand{\mNormsearchdir}{\tilde{\mat{D}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Syntactic sugar for vectors and matrices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Vectors
+\newcommand{\va}{\vec{a}}
+\newcommand{\vb}{\vec{b}}
+\newcommand{\vc}{\vec{c}}
+\newcommand{\vd}{\vec{d}}
+\newcommand{\ve}{\vec{e}}
+\newcommand{\vf}{\vec{f}}
+\newcommand{\vg}{\vec{g}}
+\newcommand{\vh}{\vec{h}}
+\newcommand{\vi}{\vec{i}}
+\newcommand{\vj}{\vec{j}}
+\newcommand{\vk}{\vec{k}}
+\newcommand{\vl}{\vec{l}}
+\newcommand{\vm}{\vec{m}}
+\newcommand{\vn}{\vec{n}}
+\newcommand{\vo}{\vec{o}}
+\newcommand{\vp}{\vec{p}}
+\newcommand{\vq}{\vec{q}}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\vs}{\vec{s}}
+\newcommand{\vt}{\vec{t}}
+\newcommand{\vu}{\vec{u}}
+\newcommand{\vv}{\vec{v}}
+\newcommand{\vw}{\vec{w}}
+\newcommand{\vx}{\vec{x}}
+\newcommand{\vy}{\vec{y}}
+\newcommand{\vz}{\vec{z}}
+
+\newcommand{\vzero}{\vec{0}}
+\newcommand{\vone}{\vec{1}}
+
+\newcommand{\vlambda}{\vec{\lambda}}
+\newcommand{\vmu}{\vec{\mu}}
+\newcommand{\vtheta}{\vec{\theta}}
+
+% Matrices
+\newcommand{\mA}{\mat{A}}
+\newcommand{\mB}{\mat{B}}
+\newcommand{\mC}{\mat{C}}
+\newcommand{\mD}{\mat{D}}
+\newcommand{\mE}{\mat{E}}
+\newcommand{\mF}{\mat{F}}
+\newcommand{\mG}{\mat{G}}
+\newcommand{\mH}{\mat{H}}
+\newcommand{\mI}{\mat{I}}
+\newcommand{\mJ}{\mat{J}}
+\newcommand{\mK}{\mat{K}}
+\newcommand{\mL}{\mat{L}}
+\newcommand{\mM}{\mat{M}}
+\newcommand{\mN}{\mat{N}}
+\newcommand{\mO}{\mat{O}}
+\newcommand{\mP}{\mat{P}}
+\newcommand{\mQ}{\mat{Q}}
+\newcommand{\mR}{\mat{R}}
+\newcommand{\mS}{\mat{S}}
+\newcommand{\mT}{\mat{T}}
+\newcommand{\mU}{\mat{U}}
+\newcommand{\mV}{\mat{V}}
+\newcommand{\mW}{\mat{W}}
+\newcommand{\mX}{\mat{X}}
+\newcommand{\mY}{\mat{Y}}
+\newcommand{\mZ}{\mat{Z}}
+
+\newcommand{\mZero}{\mat{0}}
+\newcommand{\mId}{\mat{I}}
+
+\newcommand{\mLambda}{\mat{\Lambda}}
+\newcommand{\mDelta}{\mat{\Delta}}
+\newcommand{\mSigma}{\mat{\Sigma}}
+\newcommand{\mPi}{\mat{\Pi}}
+\newcommand{\mPhi}{\mat{\Phi}}
+\newcommand{\mPsi}{\mat{\Psi}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom Notation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Indices
+\newcommand{\idxiter}{i}
+
+% Named methods
+\newcommand{\itergp}{CaGP\ }
+
+% Miscellaneous
+\newcommand{\indicatorfn}{\mathsf{1}}
+\newcommand{\shat}[1]{\vphantom{#1}\smash[t]{\hat{#1}}}

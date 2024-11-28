@@ -1,0 +1,51 @@
+\begin{tabular}{lrrllrrrrrrr}
+    \toprule
+    \multirow{2}{*}{Dataset} & \multirow{2}{*}{$n$} & \multirow{2}{*}{$d$} & \multirow{2}{*}{Method}& \multirow{2}{*}{Optim.} & \multirow{2}{*}{LR} & \multirow{2}{*}{Epoch} &
+    \multicolumn{2}{c}{Test NLL $\downarrow$} & \multicolumn{2}{c}{Test RMSE $\downarrow$} &
+    \multirow{2}{*}{Avg. Runtime $\downarrow$} \\
+    \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+    &  &  &  &  &  & & mean & std & mean & std & \\
+    \midrule
+\multirow[t]{7}{*}{Parkinsons \citep{Tsanas2009ParkinsonsTelemonitoring}} & \multirow[t]{7}{*}{5\,288} & \multirow[t]{7}{*}{21} & \textcolor{CholeskyGP}{CholeskyGP} & \textcolor{CholeskyGP}{LBFGS} & \textcolor{CholeskyGP}{0.100} & \textcolor{CholeskyGP}{100}
+& \textcolor{CholeskyGP}{-3.645} & \textcolor{CholeskyGP}{0.002} & \textcolor{CholeskyGP}{0.001} & \textcolor{CholeskyGP}{0.000} &  \textcolor{CholeskyGP}{\phantom{0}1min \phantom{0}3s}\\
+ &  &  & \multirow[t]{2}{*}{\textcolor{SGPR}{SGPR}} & Adam & 0.100 & 268 & -2.837 & 0.087 & 0.031 & 0.022 & 27s\\
+ &  &  &  & LBFGS & 1.000 & 100 & -3.245 & 0.067 & 0.007 & 0.003 & 2min 14s\\
+ &  &  & \textcolor{SVGP}{SVGP} & Adam & 0.100 & 1000 & -2.858 & 0.016 & 0.006 & 0.002 & 2min 25s\\ 
+ &  &  & \textcolor{CGGP}{CGGP} & LBFGS & 0.100 & 81 & -2.663 & 0.141 & 0.019 & 0.013 & 1min 12s\\
+ &  &  & \textcolor{CaGP-CG}{CaGP-CG} & Adam & 1.000 & 250 & -2.936 & 0.007 & 0.009 & 0.006 & 1min 44s\\
+ &  &  & \multirow[t]{2}{*}{\textcolor{CaGP-Opt}{CaGP-Opt}} & Adam & 1.000 & 956 & -3.384 & 0.005 & 0.004 & 0.002 & 1min 27s\\
+ &  &  &  & LBFGS & 0.010 & 37 & \textcolor{CaGP-Opt}{\bfseries-3.449} & 0.009 & \textcolor{CaGP-Opt}{\bfseries0.002} & 0.000 & 1min 53s\\
+\arrayrulecolor{lightgray}\cmidrule(lr){1-12}
+\multirow[t]{6}{*}{Bike \citep{Fanaee2013BikeSharing}} & \multirow[t]{6}{*}{15\,642} & \multirow[t]{6}{*}{16} & \multirow[t]{2}{*}{\textcolor{CholeskyGP}{CholeskyGP}} & \textcolor{CholeskyGP}{LBFGS} & \textcolor{CholeskyGP}{0.100} & \textcolor{CholeskyGP}{100} & \textcolor{CholeskyGP}{-3.472} & \textcolor{CholeskyGP}{0.012} & \textcolor{CholeskyGP}{0.006} & \textcolor{CholeskyGP}{0.007} & \textcolor{CholeskyGP}{7min 15s}\\
+ &  &  & \textcolor{SGPR}{SGPR} & Adam & 0.100 & 948 & -2.121 & 0.110 & 0.026 & 0.004 & 4min \phantom{0}3s\\
+ &  &  &  & LBFGS & 1.000 & 100 & \textcolor{SGPR}{\bfseries-3.017} & 0.022 & \textcolor{SGPR}{\bfseries0.009} & 0.002 & 4min 10s\\
+ &  &  & \textcolor{SVGP}{SVGP} & Adam & 0.010 & 1000 & -2.256 & 0.020 & 0.020 & 0.002 & 6min 41s\\
+ &  &  & \textcolor{CGGP}{CGGP} & LBFGS & 1.000 & 15 & -1.952 & 0.078 & 0.024 & 0.004 & 2min \phantom{0}6s\\
+ &  &  & \textcolor{CaGP-CG}{CaGP-CG} & Adam & 1.000 & 250 & -2.042 & 0.024 & 0.024 & 0.002 & 5min 17s\\
+ &  &  & \multirow[t]{2}{*}{\textcolor{CaGP-Opt}{CaGP-Opt}} & Adam & 1.000 & 1000 & -2.401 & 0.037 & 0.018 & 0.002 & 8min 10s\\
+ &  &  &  & LBFGS & 1.000 & 100 & -2.438 & 0.038 & 0.017 & 0.001 & 14min 48s\\
+ \arrayrulecolor{lightgray}\cmidrule(lr){1-12}
+ \multirow[t]{6}{*}{Protein \citep{Rana2013PhysiochemicalProperties}} & \multirow[t]{6}{*}{41\,157} & \multirow[t]{6}{*}{9} & \multirow[t]{2}{*}{\textcolor{SGPR}{SGPR}} & Adam & 0.100 & 993 & 0.844 & 0.006 & 0.561 & 0.005 & 10min 25s\\
+ &  &  &  & LBFGS & 0.100 & 96 & 0.846 & 0.006 & 0.562 & 0.005 & 6min 56s\\
+ &  &  & \textcolor{SVGP}{SVGP} & Adam & 0.010 & 996 & 0.851 & 0.006 & 0.564 & 0.005 & 17min 19s\\
+ &  &  & \textcolor{CGGP}{CGGP} & LBFGS & 0.100 & 35 & 0.853 & 0.006 & \textcolor{CGGP}{\bfseries0.517} & 0.004 & 20min 15s\\
+ &  &  & \textcolor{CaGP-CG}{CaGP-CG} & Adam & 1.000 & 27 & \textcolor{CaGP-CG}{\bfseries0.820} & 0.006 & 0.542 & 0.004 & 1min 26s\\
+ &  &  & \multirow[t]{2}{*}{\textcolor{CaGP-Opt}{CaGP-Opt}} & Adam & 0.100 & 941 & 0.829 & 0.005 & 0.545 & 0.004 & 13min 48s\\
+ &  &  &  & LBFGS & 1.000 & 84 & 0.830 & 0.005 & 0.545 & 0.004 & 14min 29s\\
+ \arrayrulecolor{lightgray}\cmidrule(lr){1-12}
+ \multirow[t]{6}{*}{KEGGu \citep{Naeem2011KEGG}} & \multirow[t]{6}{*}{57\,248} & \multirow[t]{6}{*}{26} &  \multirow[t]{2}{*}{\textcolor{SGPR}{SGPR}} & Adam & 0.100 & 143 & -0.681 & 0.025 & 0.123 & 0.002 & 2min \phantom{0}4s\\
+ &  &  &  & LBFGS & 1.000 & 100 & \textcolor{SGPR}{\bfseries-0.712} & 0.028 & \textcolor{SGPR}{\bfseries0.118} & 0.003 & 8min 58s\\
+ &  &  & \textcolor{SVGP}{SVGP} & Adam & 0.010 & 988 & \textcolor{SVGP}{\bfseries-0.710} & 0.026 & \textcolor{SVGP}{\bfseries0.118} & 0.003 & 24min 21s\\
+ &  &  &  \textcolor{CGGP}{CGGP} & LBFGS & 0.100 & 30 & -0.512 & 0.034 & \textcolor{CGGP}{\bfseries0.120} & 0.003 & 33min 55s \\
+ &  &  & \textcolor{CaGP-CG}{CaGP-CG} & Adam & 1.000 & 229 & \textcolor{CaGP-CG}{\bfseries-0.699} & 0.026 & \textcolor{CaGP-CG}{\bfseries0.120} & 0.003 & 39min \phantom{0}5s\\
+ &  &  & \multirow[t]{2}{*}{\textcolor{CaGP-Opt}{CaGP-Opt}} & Adam & 1.000 & 990 & \textcolor{CaGP-Opt}{\bfseries-0.693} & 0.026 & \textcolor{CaGP-Opt}{\bfseries0.120} & 0.003 & 22min \phantom{0}3s\\
+ &  &  &  & LBFGS & 0.010 & 40 & \textcolor{CaGP-Opt}{\bfseries-0.694} & 0.026 & \textcolor{CaGP-Opt}{\bfseries0.120} & 0.003 & 22min \phantom{0}0s\\
+ \arrayrulecolor{lightgray}\cmidrule(lr){1-12}
+ \multirow[t]{2}{*}{Road \citep{Kaul2013RoadNetwork}} & \multirow[t]{2}{*}{391\,387} & \multirow[t]{2}{*}{2} & \textcolor{SVGP}{SVGP} & Adam & 0.001 & 998 & 0.149 & 0.007 & 0.277 & 0.002 & 2h \phantom{0}7min 37s\\
+ &  &  & \textcolor{CaGP-Opt}{CaGP-Opt} & Adam & 0.100 & 1000 & \textcolor{CaGP-Opt}{\bfseries-0.291} & 0.011 & \textcolor{CaGP-Opt}{\bfseries0.159} & 0.003 & 2h 11min 31s\\
+ \arrayrulecolor{lightgray}\cmidrule(lr){1-12}
+ \multirow[t]{2}{*}{Power \citep{Hebrail2006IndividualHousehold}} & \multirow[t]{2}{*}{1\,844\,352} & \multirow[t]{2}{*}{7} & \textcolor{SVGP}{SVGP} & Adam & 0.010 & 399 & \textcolor{SVGP}{\bfseries-2.104} & 0.007 & \textcolor{SVGP}{\bfseries0.029} & 0.000 & 5h \phantom{0}7min 57s\\
+ &  &  & \textcolor{CaGP-Opt}{CaGP-Opt} & Adam & 0.100 & 200 & \textcolor{CaGP-Opt}{\bfseries-2.103} & 0.006 & 0.030 & 0.000 & 4h 32min 48s\\
+\bottomrule
+\end{tabular}
+

@@ -1,0 +1,18 @@
+\begin{tabular}{lcclclcc}
+    \toprule
+    \multirow{2}{*}{Method} & \multicolumn{2}{c}{Posterior Approximation} & \multicolumn{4}{c}{Model Selection / Training} &\\ 
+    \cmidrule(lr){2-3} \cmidrule(lr){4-7}
+    & Iters. \(\idxiter\) / Ind. Points \(m\) & Solver Tol. & Optimizer  & Epochs & (Initial) Learning Rate &  Batch Size & Precision \\
+    \midrule
+    \textcolor{CholeskyGP}{CholeskyGP} & - & - & LBFGS & 100 & \(\{1, 10^{-1}, 10^{-2}, 10^{-3}, 10^{-4}\}\) & \(\numtraindata\) & \texttt{float64}\\
+    \textcolor{SGPR}{SGPR}& 1024 & - & Adam & 1000 & \(\{1, 10^{-1}, 10^{-2}, 10^{-3}, 10^{-4}\}\) & \(\numtraindata\) & \texttt{float32}\\
+    &
+    1024 & - & LBFGS & 100 & \(\{1, 10^{-1}, 10^{-2}, 10^{-3}, 10^{-4}\}\) & \(\numtraindata\) & \texttt{float64}\\
+    \textcolor{SVGP}{SVGP}& 1024 & - & Adam & 1000 & \(\{1, 10^{-1}, 10^{-2}, 10^{-3}, 10^{-4}\}\) & 1024 & \texttt{float32}\\
+    \textcolor{CGGP}{CGGP} & 512 & \(10^{-4}\) & LBFGS & 100 & \(\{1, 10^{-1}, 10^{-2}, 10^{-3}, 10^{-4}\}\) & \(\numtraindata\) & \texttt{float64}\\
+    \textcolor{CaGP-CG}{CaGP-CG}& 512 & \(10^{-4}\) & Adam & 250 & \(\{1, 10^{-1}\}\) & \(\numtraindata\) & \texttt{float32}\\
+    \textcolor{CaGP-Opt}{CaGP-Opt}& 512 & - & Adam & 1000 & \(\{1, 10^{-1}, 10^{-2}\}\) & \(\numtraindata\) & \texttt{float32}\\
+    &
+    512 & - & LBFGS & 100 & \(\{1, 10^{-1}, 10^{-2}\}\) & \(\numtraindata\) & \texttt{float64}\\
+    \bottomrule
+\end{tabular}

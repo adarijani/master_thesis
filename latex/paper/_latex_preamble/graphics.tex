@@ -1,0 +1,22 @@
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{adjustbox}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+
+% Symbols
+\newcommand{\cmark}{}%
+\DeclareRobustCommand{\cmark}{%
+	\tikz\fill[scale=0.4, color=MPLgreen]
+	(0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;%
+}
+\newcommand{\xmark}{}%
+\DeclareRobustCommand{\xmark}{%
+	\tikz [x=1.4ex,y=1.4ex,line width=.2ex, color=MPLred] \draw (0,0) -- (1,1) (0,1) -- (1,0);
+}
+\newcommand{\umark}{{\color{MPLorange}\(\thicksim\)}}
+
+\newcommand{\colordot}[2][0.75ex]{\tikz[baseline=-0.66ex]\draw[#2,fill=#2,radius=#1,fill opacity=0.4] (0,0) circle ;}%
+\newcommand{\colorcircle}[2][0.75ex]{\tikz[baseline=-0.66ex]\draw[#2,fill=white,radius=#1,very thick,fill opacity=1.0] (0,0) circle ;}
+\newcommand{\filledcolordot}[2][0.75ex]{\tikz[baseline=-0.66ex]\draw[#2,fill=#2,radius=#1] (0,0) circle ;}%

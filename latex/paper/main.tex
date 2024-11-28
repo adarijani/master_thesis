@@ -1,0 +1,170 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes.arrows}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes}
+\usetikzlibrary{graphs}
+\usepackage[nonatbib,final]{neurips_2024}
+% Preamble
+\input{_latex_preamble/algorithms}
+\input{_latex_preamble/bibliography}
+\input{_latex_preamble/colors}
+\input{_latex_preamble/enumerations}
+\input{_latex_preamble/figures}
+\input{_latex_preamble/graphics}
+\input{_latex_preamble/mathematics}
+\input{_latex_preamble/notes}
+\input{_latex_preamble/table_of_contents}
+\input{_latex_preamble/tables}
+\input{_latex_preamble/text}
+\input{_latex_preamble/theorems}
+\input{_latex_preamble/todos}
+\input{_latex_preamble/supplementary}
+\input{_latex_preamble/_final}
+
+
+\newcommand{\papertitle}{Deep Unfolding of Wirtinger Flow Type Schemes}
+\newcommand{\authorinfo}{
+	Ali Darijani$^{1}$ \qquad Benjamin Berkels$^{2}$
+	 \vspace{0.5em}\\
+	$^1$ Karlsruhe Institute of Technology\\
+	$^2$ RWTH Aachen University\\
+}
+
+\title{\papertitle}
+\author{\authorinfo}
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	\todo[inline]{write the abstract}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+ \emph{Wirtinger Flow}
+(\eg WR,TWF,RWF)
+   \begin{figure}
+     \centering
+     % \captionsetup{justification=centering}
+    \resizebox{0.7\textwidth}{!}{\input{./figures/tikz/test.tex}}
+     \caption{$\boldsymbol{x} =\text{input},\boldsymbol{h}^j=\text{hidden variables},\boldsymbol{y}=\text{out
+    put}$}
+     \label{fig:tikz_test}
+   \end{figure}
+\citep[e.g.][]{Wirtinger1927},
+\citep{Wirtinger1927},
+\cite[\eg variance starvation of RFF,][]{Wirtinger1927}
+\cref{fig:tikz_test}
+\Cref{fig:tikz_test},
+\cite{Wirtinger1927}
+\citet{Wirtinger1927} 
+   \begin{figure}
+     \centering
+     % \captionsetup{justification=centering}
+    \resizebox{0.7\textwidth}{!}{\input{./figures/tikz/rwf/rwf_s_00_l_30_e_50_lr_0.001.tex}}
+     \caption{$\boldsymbol{x} =\text{input},\boldsymbol{h}^j=\text{hidden variables},\boldsymbol{y}=\text{out
+    put}$}
+     \label{fig:tikz_test}
+   \end{figure}
+      \begin{figure}
+     \centering
+     % \captionsetup{justification=centering}
+    \resizebox{0.7\textwidth}{!}{\input{./figures/tikz/diagrams/unfolding.tex}}
+     \caption{$\boldsymbol{x} =\text{input},\boldsymbol{h}^j=\text{hidden variables},\boldsymbol{y}=\text{out
+    put}$}
+     \label{fig:tikz_test_2}
+   \end{figure}
+
+\textbf{Contributions}\quad
+
+
+\Cref{fig:tikz_test}
+
+\section{Background}
+\label{sec:background}
+
+
+\paragraph{Gaussian Processes}
+
+\paragraph{Sparse Gaussian Process Regression (SGPR) \cite{Titsias2009}}
+
+\paragraph{Stochastic Variational Gaussian Processes (SVGP) \cite{Hensman2013}}
+
+\paragraph{Computation-aware Gaussian Process Inference (CaGP) \cite{Wenger2022PosteriorComputational}}
+
+\section{Model Selection in Computation-Aware Gaussian Processes}
+
+\paragraph{ELBO Training Loss}
+
+\section{Choice of Actions}
+
+\paragraph{Posterior Entropy Minimization}
+
+\paragraph{(Conjugate) Gradient / Residual Actions}
+
+\paragraph{Learned Sparse Actions}
+
+
+\subsection{Algorithms and Computational Complexity}
+
+
+\subsection{Related Work}
+
+\textbf{Computational Uncertainty and Probabilistic Numerics}\quad
+
+
+\textbf{Scalable GPs with Lower-Bounded Log Marginal Likelihoods}\quad
+
+
+\section{Experiments}
+\label{sec:experiments}
+
+
+
+
+
+\paragraph{Experimental Details}
+
+\paragraph{Evaluation Metrics}
+
+
+
+\paragraph{bla bla bla}
+
+
+\paragraph{SVGP Overestimates Observation Noise and (Often) Lengthscale}
+
+\section{Conclusion}
+
+
+
+\textbf{Limitations}\quad
+
+
+\textbf{Outlook and Future Work}\quad
+
+
+\newpage
+
+\begin{ack}
+    GP acknowledges support from NSERC and the Canada CIFAR AI Chair program.
+\end{ack}
+
+{
+	\small
+	\nocite{*}
+	\printbibliography
+}
+
+%%% SUPPLEMENTARY MATERIAL %%%
+\clearpage
+\input{supplementary/supplementary.tex}
+\end{document}

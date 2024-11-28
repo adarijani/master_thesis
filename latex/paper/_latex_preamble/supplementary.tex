@@ -1,0 +1,23 @@
+\newcommand{\beginsupplementary}{%
+
+  % For section headers starting with S (source: http://jshodges.com/index.php?qs=kb_001)
+  \renewcommand{\thesection}{S\arabic{section}}
+  \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+  \renewcommand{\theHsection}{S\arabic{section}} % Fixes links to the supplementary material
+
+  % Tables, figures, equations and theorem-type environments
+  \setcounter{table}{0}
+  \renewcommand{\thetable}{S\arabic{table}}% table numbers
+  \setcounter{figure}{0}
+  \renewcommand{\thefigure}{S\arabic{figure}}% figure numbers
+  \setcounter{section}{0}
+  \renewcommand{\theequation}{S\arabic{equation}} % equation numbers
+  \renewcommand{\thetheorem}{S\arabic{theorem}} % theorem numbers
+  \renewcommand{\thedefinition}{S\arabic{definition}} % definition numbers
+  \renewcommand{\thecorollary}{S\arabic{corollary}} % corollary numbers
+  \renewcommand{\theproposition}{S\arabic{proposition}} % proposition numbers
+  \renewcommand{\theremark}{S\arabic{remark}} % remark numbers
+  \renewcommand{\thelemma}{S\arabic{lemma}} % lemma numbers
+  \renewcommand{\theexample}{S\arabic{example}} % example numbers
+  \renewcommand{\thealgorithm}{S\arabic{algorithm}}
+}

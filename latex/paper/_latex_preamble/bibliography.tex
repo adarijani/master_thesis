@@ -1,0 +1,39 @@
+% Tips on getting biblatex to work with arxiv, journal styles, etc.
+% https://avt.im/blog/2019/12/30/biblatex
+
+\makeatletter
+% Document cite and bibstyle
+\newcommand{\mycitestyle}{numeric-comp}
+\newcommand{\mybibstyle}{numeric}
+
+\@ifclassloaded{beamer}{
+    % Beamer cite and bibstyle
+    \renewcommand{\mycitestyle}{alphabetic}
+    \renewcommand{\mybibstyle}{alphabetic}
+    % \renewcommand{\mycitestyle}{authoryear-comp}
+    % \renewcommand{\mybibstyle}{authoryear}
+}
+\makeatother
+
+\usepackage[
+    backend=biber,
+    citestyle=\mycitestyle,
+    bibstyle=\mybibstyle,
+    sorting=none,
+    maxcitenames=2,
+    maxbibnames=99,
+    backref=true,
+    natbib=true, % Natbib compatibility mode. Allows usage of \citet and \citep
+    giveninits, % abbreviate author first names by initials.
+    uniquelist=false,
+    ]{biblatex}
+
+\addbibresource{bibliography.bib}
+
+% Use citep per default
+\let\cite\citep
+
+% % This fixes a hyperref warning
+% \pdfstringdefDisableCommands{%
+% \def\translate#1{#1}%
+% }

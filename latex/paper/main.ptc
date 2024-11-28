@@ -1,0 +1,40 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Background}{2}{section.2}%
+\contentsline {paragraph}{Gaussian Processes}{2}{section*.6}%
+\contentsline {paragraph}{Sparse Gaussian Process Regression (SGPR) \blx@tocontentsinit {0}\cite {Titsias2009}}{2}{section*.7}%
+\contentsline {paragraph}{Stochastic Variational Gaussian Processes (SVGP) \blx@tocontentsinit {0}\cite {Hensman2013}}{2}{section*.8}%
+\contentsline {paragraph}{Computation-aware Gaussian Process Inference (CaGP) \blx@tocontentsinit {0}\cite {Wenger2022PosteriorComputational}}{2}{section*.9}%
+\contentsline {section}{\numberline {3}Model Selection in Computation-Aware Gaussian Processes}{2}{section.3}%
+\contentsline {paragraph}{ELBO Training Loss}{2}{section*.10}%
+\contentsline {section}{\numberline {4}Choice of Actions}{2}{section.4}%
+\contentsline {paragraph}{Posterior Entropy Minimization}{2}{section*.11}%
+\contentsline {paragraph}{(Conjugate) Gradient / Residual Actions}{2}{section*.12}%
+\contentsline {paragraph}{Learned Sparse Actions}{2}{section*.13}%
+\contentsline {subsection}{\numberline {4.1}Algorithms and Computational Complexity}{2}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Related Work}{2}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Experiments}{3}{section.5}%
+\contentsline {paragraph}{Experimental Details}{3}{section*.14}%
+\contentsline {paragraph}{Evaluation Metrics}{3}{section*.15}%
+\contentsline {paragraph}{bla bla bla}{3}{section*.16}%
+\contentsline {paragraph}{SVGP Overestimates Observation Noise and (Often) Lengthscale}{3}{section*.17}%
+\contentsline {section}{\numberline {6}Conclusion}{3}{section.6}%
+\ttl@starttoc {supplementary@1}
+\contentsline {section}{\numberline {S1}Theoretical Results}{11}{section.S1}%
+\contentsline {subsection}{\numberline {S1.1}Alternative Derivation of CaGP Posterior}{11}{subsection.S1.1}%
+\contentsline {subsection}{\numberline {S1.2}Worst Case Error Interpretations of the Variance of Exact GPs, CaGPs and SVGPs}{11}{subsection.S1.2}%
+\contentsline {subsection}{\numberline {S1.3}CaGP's Variance Decreases Monotonically as the Number of Iterations Increases}{11}{subsection.S1.3}%
+\contentsline {section}{\numberline {S2}Training Losses}{11}{section.S2}%
+\contentsline {subsection}{\numberline {S2.1}Projected-Data Log-Marginal Likelihood}{11}{subsection.S2.1}%
+\contentsline {subsection}{\numberline {S2.2}Evidence Lower Bound (ELBO)}{11}{subsection.S2.2}%
+\contentsline {subsection}{\numberline {S2.3}Comparison of Training Losses}{12}{subsection.S2.3}%
+\contentsline {section}{\numberline {S3}Choice of Actions}{12}{section.S3}%
+\contentsline {subsection}{\numberline {S3.1}(Conjugate) Gradient / Residual Policy}{12}{subsection.S3.1}%
+\contentsline {section}{\numberline {S4}Algorithms}{12}{section.S4}%
+\contentsline {subsection}{\numberline {S4.1}Iterative and Batch Versions of CaGP}{12}{subsection.S4.1}%
+\contentsline {subsection}{\numberline {S4.2}Implementation}{12}{subsection.S4.2}%
+\contentsline {section}{\numberline {S5}Additional Experimental Results and Details}{13}{section.S5}%
+\contentsline {subsection}{\numberline {S5.1}Inducing Points Placement and Uncertainty Quantification of SVGP}{13}{subsection.S5.1}%
+\contentsline {subsection}{\numberline {S5.2}Grassman Distance Between Subspaces}{13}{subsection.S5.2}%
+\contentsline {subsection}{\numberline {S5.3}Generalization Experiment}{13}{subsection.S5.3}%
+\ttl@stoptoc {supplementary@1}
+\contentsfinish 

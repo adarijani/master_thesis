@@ -1,0 +1,23 @@
+% Packages which must be loaded after other packages.
+
+\usepackage{hyperref}
+\hypersetup{
+    unicode,                    % Use unicode for links
+    pdfborder       = {0 0 0},  % Suppress border around pdf
+    bookmarksdepth  = subsection,
+    bookmarksopen   = true,     % Expand the bookmarks as soon as the pdf file is opened
+    % bookmarksopenlevel = 4,   % What depth level of bookmarks to show.
+    linktoc         = all,      % Toc entries and numbers links to pages
+    % linktocpage   = true,     % Only the page number links to pages
+    breaklinks      = true,
+    colorlinks      = true,
+    linkcolor       = linkcolor,
+    citecolor       = citecolor,
+    urlcolor        = urlcolor,
+}
+
+\usepackage[
+    capitalize,
+    nameinlink,
+    noabbrev,
+]{cleveref}

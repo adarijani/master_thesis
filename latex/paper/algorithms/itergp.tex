@@ -1,0 +1,36 @@
+\textbf{Input:} GP prior \(\gp{\mu}{\kernel}\), training data \((\traindata, \targets)\)\\%, \textcolor{gray}{low rank approximation \(\kernmatinvapprox_0 \approx \hat{\kernmat}^{-1}\)}\\
+\textbf{Output:} (combined) GP posterior \(\gp{\mu_{\idxiter}}{\kernel_{\idxiter}}\)
+\begin{algorithmic}[1]
+    \Procedure{\textsc{CaGP}}{$\mu, \kernel, \traindata, \targets$} \Comment{}{Time}{Space}
+    \State \(\residual_{0} \gets \targets - \vec{\mu}\)
+    \Comment{Initial residual.}{\(\bigO{\numtraindata}\)}{\(\bigO{\numtraindata}\)}
+    \State \(\mActions_{0} \gets \begin{pmatrix}&\end{pmatrix}, \textcolor{gray}{\mKernmatActions_{0} \gets \begin{pmatrix}&\end{pmatrix},} \mCholfacActionsKernmatActions_{0} \gets \begin{pmatrix}&\end{pmatrix}\)
+    \While{\textbf{not} \textsc{StoppingCriterion}(\textcolor{gray}{\(\residual_\idxiter, \searchdirsqnorm_\idxiter\)})}
+    \State \(\action_\idxiter \gets
+    \textsc{Policy}()\) \Comment{Select action via policy.}{}{}
+    % \State \(\observ_\idxiter \gets \action_\idxiter^\top \residual_{\idxiter-1}\)
+    % \Comment{Observation.}{\(\bigO{\nnzactions}\)}{\(\bigO{1}\)}
+    \State \(\kernmataction_\idxiter \gets \hat{\kernmat}\action_\idxiter\) \Comment{}{\(\bigO{n\nnzactions}\)}{\(\bigO{\numtraindata}\)}
+    \State \(\tilde{\kernmataction}_\idxiter \gets \mActions_{\idxiter-1}^\top\kernmataction_\idxiter\)\Comment{}{\(\bigO{\idxiter \nnzactions}\)}{\(\bigO{\idxiter}\)}
+    % \State \(\searchdir_\idxiter \gets \action_\idxiter - \mActions_{\idxiter-1}\tilde{\vw}_\idxiter\) \Comment{Search direction.}{\(\bigO{\numtraindata\idxiter}\)}{\(\bigO{\numtraindata}\)}
+    \State \(\textcolor{gray}{\searchdirsqnorm_\idxiter \gets \kernmataction_\idxiter^\top \action_\idxiter - \tilde{\kernmataction}_\idxiter^\top \mCholfacActionsKernmatActions_{\idxiter-1}^{-\top} \mCholfacActionsKernmatActions_{\idxiter-1}^{-1} \tilde{\kernmataction}_\idxiter}\) \Comment{\textcolor{gray}{Schur comp. \(\mActions_\idxiter^\top \hat{\kernmat}\mActions_\idxiter / \mActions_{\idxiter-1}^\top \hat{\kernmat}\mActions_{\idxiter-1}\)}}{\(\bigO{\nnzactions + \idxiter^2}\)}{\(\bigO{1}\)} %TODO: this quantity is not needed anymore, except as a stopping criterion / sanity check for stability
+    \State \(\mActions_{\idxiter} \gets \begin{pmatrix}\mActions_{\idxiter-1} & \action_\idxiter \end{pmatrix}\) \Comment{}{-}{\(\bigO{\nnzactions \idxiter}\)}
+    \State \(\textcolor{gray}{\mKernmatActions_{\idxiter} \gets \begin{pmatrix}\mKernmatActions_{\idxiter-1} & \kernmataction_\idxiter\end{pmatrix}}\) \Comment{}{-}{\(\textcolor{gray}{\bigO{\numtraindata \idxiter}}\)}
+    \State \(\mCholfacActionsKernmatActions_{\idxiter} \gets \textsc{CholeskyUpdate}\begin{pmatrix}\mCholfacActionsKernmatActions_{\idxiter-1} \mCholfacActionsKernmatActions_{\idxiter-1}^\top & \tilde{\kernmataction}_{\idxiter} \\ \tilde{\kernmataction}_{\idxiter}^\top & \kernmataction_\idxiter^\top \action_\idxiter\end{pmatrix}\) \Comment{}{\(\bigO{\idxiter^2}\)}{\(\bigO{\idxiter^2}\)}
+    \State \(\tilde{\rweightsapprox}_\idxiter \gets \mCholfacActionsKernmatActions_{\idxiter}^{-\top} \mCholfacActionsKernmatActions_{\idxiter}^{-1}\mActions_{\idxiter}^\top(\targets - \vmu)\)
+    \Comment{``Projected'' representer weights.}{\(\bigO{\idxiter(\idxiter + \nnzactions)}\)}{\(\bigO{\idxiter}\)}
+    \State \(\textcolor{gray}{\residual_\idxiter \gets \targets - \vmu - \mKernmatActions_\idxiter \tilde{\rweightsapprox}_\idxiter} = \residual_{\idxiter-1}-\kernmataction_\idxiter (\tilde{\rweightsapprox}_\idxiter)_\idxiter\) \Comment{\textcolor{gray}{Residual.}}{\(\bigO{\numtraindata}\)}{\(\bigO{\numtraindata}\)}
+    \EndWhile
+    \State \(\textcolor{gray}{\rweightsapprox_\idxiter \gets \mActions_{\idxiter}\tilde{\rweightsapprox}_\idxiter \approx \hat{\kernmat}^{-1}(\targets - \vmu)}\)
+    \Comment{\textcolor{gray}{Representer weights approximation.}}{}{}
+    \State \(\textcolor{gray}{\kernmatinvapprox_\idxiter \gets \mActions_{\idxiter}\mCholfacActionsKernmatActions_{\idxiter}^{-\top} \mCholfacActionsKernmatActions_{\idxiter}^{-1}\mActions_{\idxiter}^\top \approx \hat{\kernmat}^{-1}}\)
+    \Comment{\textcolor{gray}{Precision matrix approximation.}}{}{}
+    \State \(\textcolor{gray}{\kernmatapprox_\idxiter \gets \mActions_{\idxiter}\mCholfacActionsKernmatActions_{\idxiter} \mCholfacActionsKernmatActions_{\idxiter}^{\top}\mActions_{\idxiter}^\top \approx \hat{\kernmat}}\)
+    \Comment{\textcolor{gray}{Kernel matrix approximation.}}{}{}
+    \State \(\kernel_{\mActions}(\cdot, \traindata) \gets \kernel(\cdot, \traindata)\mActions_\idxiter\) \Comment{}{\(\bigO{\numtestdata \nnzactions \idxiter}\)}{\(\bigO{\numtestdata \idxiter}\)} 
+    \State \(\mu_{\idxiter}(\cdot) \gets \mu(\cdot) + \kernel_{\mActions}(\cdot, \traindata)\tilde{\rweightsapprox}_\idxiter\)\Comment{}{\(\bigO{\numtestdata \idxiter}\)}{\(\bigO{\numtestdata}\)}
+    \State \(\kernel_{\idxiter}(\cdot, \cdot) \gets \kernel(\cdot, \cdot)	- \kernel_{\mActions}(\cdot, \traindata) \mCholfacActionsKernmatActions_{\idxiter}^{-\top} \mCholfacActionsKernmatActions_{\idxiter}^{-1} \kernel_{\mActions}(\traindata, \cdot)\) \Comment{}{\(\bigO{\numtestdata \idxiter^2}\)}{\(\bigO{\numtestdata^2}\)}
+    \State \Return \(\gp{\mu_{\idxiter}}{\kernel_{\idxiter}}\)
+    \EndProcedure
+    \vspace{-2em}
+\end{algorithmic}

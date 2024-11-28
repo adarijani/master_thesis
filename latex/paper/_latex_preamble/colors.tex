@@ -1,0 +1,100 @@
+\usepackage[table]{xcolor}
+
+% Matplotlib
+\definecolor{MPLblue}{HTML}{1f77b4}
+\definecolor{MPLorange}{HTML}{ff7f0e}
+\definecolor{MPLgreen}{HTML}{2ca02c}
+\definecolor{MPLred}{HTML}{d62728}
+\definecolor{MPLpurple}{HTML}{9467bd}
+
+% Seaborn
+\definecolor{SNSblue}{rgb}{0.1216, 0.4666, 0.7059}
+\definecolor{SNSorange}{rgb}{1.0, 0.4980, 0.0549}
+\definecolor{SNSgreen}{rgb}{0.1725, 0.6274, 0.1725}
+\definecolor{SNSred}{rgb}{0.84, 0.15, 0.16}
+\definecolor{SNSpurple}{rgb}{0.58, 0.40, 0.74}
+
+\definecolor{SNSblue_shaded}{HTML}{8ebad9}
+\definecolor{SNSorange_shaded}{HTML}{ffcea3}
+\definecolor{SNSgreen_shaded}{HTML}{cae7ca}
+\definecolor{SNSred_shaded}{HTML}{ea9293}
+
+\definecolor{SNSblue_colorblind}{HTML}{0173b2}
+\definecolor{SNSyellow_colorblind}{HTML}{de8f05}
+\definecolor{SNSgreen_colorblind}{HTML}{029e73}
+\definecolor{SNSred_colorblind}{HTML}{d55e00}
+\definecolor{SNSpink_colorblind}{HTML}{cc78bc}
+
+% University of Tübingen
+\definecolor{TUgray}{RGB}{185,184,188}
+\definecolor{TUdarkgray}{RGB}{50,65,75}
+\definecolor{TUgold}{RGB}{180,160,105}
+\definecolor{TUdarkblue}{RGB}{65,90,140}
+\definecolor{TUblue}{RGB}{0,105,170}
+\definecolor{TUlightblue}{RGB}{80,170,200}
+\definecolor{TUlightgreen}{RGB}{130,185,160}
+\definecolor{TUgreen}{RGB}{125,165,75}
+\definecolor{TUdarkgreen}{RGB}{50,110,30}
+\definecolor{TUred}{RGB}{165,30,55}
+\definecolor{TUlightred}{RGB}{200,80,60}
+\definecolor{TUorange}{RGB}{210,150,0}
+\definecolor{TUpurple}{RGB}{175,110,150}
+\definecolor{TUocre}{RGB}{200,80,60}
+\definecolor{TUviolet}{RGB}{175,110,150}
+\definecolor{TUmauve}{RGB}{180,160,150}
+\definecolor{TUbeige}{RGB}{215,180,105}
+\definecolor{TUbrown}{RGB}{145,105,70}
+
+% Columbia University
+\definecolor{CUblue}{RGB}{29,79,145}
+\definecolor{CUlightblue}{RGB}{185,217,235}
+\definecolor{CUdarkblue}{RGB}{0,48,135}
+\definecolor{CUgray}{RGB}{117,120,123}
+\definecolor{CUlightgray}{RGB}{208,208,206}
+\definecolor{CUdarkgray}{RGB}{83,86,90}
+\definecolor{CUmagenta}{RGB}{174,37,115}
+\definecolor{CUyellow}{RGB}{255,152,0}
+\definecolor{CUorange}{RGB}{185,71,0}
+\definecolor{CUred}{RGB}{166,10,61}
+\definecolor{CUgreen}{RGB}{118,136,29}
+
+% This document
+\colorlet{maincolor}{CUblue}		        % Main color, used for headings, etc.
+\colorlet{secondcolor}{CUblue}		        % Secondary color, used for enumerations, etc.
+% \colorlet{thirdcolor}{MPLblue}		    % Tertiary color, used for URLs, etc.
+% \colorlet{fourthcolor}{TUgold}		    % Fourth color
+
+\colorlet{lightgraycolor}{CUlightgray}  % A gray color, used for lines, backgrounds, etc.
+\colorlet{darkgraycolor}{TUdarkgray}	% A dark color, used for numbers, etc.
+
+\colorlet{alertcolor}{CUred}
+\colorlet{alertlightcolor}{CUred!50!white}
+
+% GP approximation methods
+\colorlet{CholeskyGP}{CUgray}
+\colorlet{SGPR}{SNSpink_colorblind!90!black}
+\colorlet{SVGP}{SNSred_colorblind}
+\colorlet{CGGP}{SNSyellow_colorblind}
+\colorlet{CaGP-CG}{SNSblue_colorblind}
+\colorlet{CaGP-Opt}{SNSgreen_colorblind}
+
+
+\makeatletter
+\@ifclassloaded{beamer}{
+    % Talk colors
+    \colorlet{citecolor}{CUblue}
+    \colorlet{citelightcolor}{CUlightblue}
+    \colorlet{linkcolor}{CUblue}
+    \colorlet{linklightcolor}{CUlightblue}
+    \colorlet{urlcolor}{CUblue}
+    \colorlet{urllightcolor}{CUlightblue}
+}{
+    % Document colors
+    \colorlet{citecolor}{MPLblue}
+    \colorlet{linkcolor}{black}
+    \colorlet{urlcolor}{MPLblue}
+}
+\makeatother
+
+
+
