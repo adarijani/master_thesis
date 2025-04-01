@@ -19,22 +19,22 @@
 \contentsline {paragraph}{SVGP Overestimates Observation Noise and (Often) Lengthscale}{3}{section*.17}%
 \contentsline {section}{\numberline {6}Conclusion}{3}{section.6}%
 \ttl@starttoc {supplementary@1}
-\contentsline {section}{\numberline {S1}Theoretical Results}{11}{section.S1}%
-\contentsline {subsection}{\numberline {S1.1}Alternative Derivation of CaGP Posterior}{11}{subsection.S1.1}%
-\contentsline {subsection}{\numberline {S1.2}Worst Case Error Interpretations of the Variance of Exact GPs, CaGPs and SVGPs}{11}{subsection.S1.2}%
-\contentsline {subsection}{\numberline {S1.3}CaGP's Variance Decreases Monotonically as the Number of Iterations Increases}{11}{subsection.S1.3}%
-\contentsline {section}{\numberline {S2}Training Losses}{11}{section.S2}%
-\contentsline {subsection}{\numberline {S2.1}Projected-Data Log-Marginal Likelihood}{11}{subsection.S2.1}%
-\contentsline {subsection}{\numberline {S2.2}Evidence Lower Bound (ELBO)}{11}{subsection.S2.2}%
-\contentsline {subsection}{\numberline {S2.3}Comparison of Training Losses}{12}{subsection.S2.3}%
-\contentsline {section}{\numberline {S3}Choice of Actions}{12}{section.S3}%
-\contentsline {subsection}{\numberline {S3.1}(Conjugate) Gradient / Residual Policy}{12}{subsection.S3.1}%
-\contentsline {section}{\numberline {S4}Algorithms}{12}{section.S4}%
-\contentsline {subsection}{\numberline {S4.1}Iterative and Batch Versions of CaGP}{12}{subsection.S4.1}%
-\contentsline {subsection}{\numberline {S4.2}Implementation}{12}{subsection.S4.2}%
-\contentsline {section}{\numberline {S5}Additional Experimental Results and Details}{13}{section.S5}%
-\contentsline {subsection}{\numberline {S5.1}Inducing Points Placement and Uncertainty Quantification of SVGP}{13}{subsection.S5.1}%
-\contentsline {subsection}{\numberline {S5.2}Grassman Distance Between Subspaces}{13}{subsection.S5.2}%
-\contentsline {subsection}{\numberline {S5.3}Generalization Experiment}{13}{subsection.S5.3}%
+\contentsline {section}{\numberline {S1}Theoretical Results}{5}{section.S1}%
+\contentsline {subsection}{\numberline {S1.1}Alternative Derivation of CaGP Posterior}{5}{subsection.S1.1}%
+\contentsline {subsection}{\numberline {S1.2}Worst Case Error Interpretations of the Variance of Exact GPs, CaGPs and SVGPs}{5}{subsection.S1.2}%
+\contentsline {subsection}{\numberline {S1.3}CaGP's Variance Decreases Monotonically as the Number of Iterations Increases}{5}{subsection.S1.3}%
+\contentsline {section}{\numberline {S2}Training Losses}{5}{section.S2}%
+\contentsline {subsection}{\numberline {S2.1}Projected-Data Log-Marginal Likelihood}{5}{subsection.S2.1}%
+\contentsline {subsection}{\numberline {S2.2}Evidence Lower Bound (ELBO)}{5}{subsection.S2.2}%
+\contentsline {subsection}{\numberline {S2.3}Comparison of Training Losses}{6}{subsection.S2.3}%
+\contentsline {section}{\numberline {S3}Choice of Actions}{6}{section.S3}%
+\contentsline {subsection}{\numberline {S3.1}(Conjugate) Gradient / Residual Policy}{6}{subsection.S3.1}%
+\contentsline {section}{\numberline {S4}Algorithms}{6}{section.S4}%
+\contentsline {subsection}{\numberline {S4.1}Iterative and Batch Versions of CaGP}{6}{subsection.S4.1}%
+\contentsline {subsection}{\numberline {S4.2}Implementation}{6}{subsection.S4.2}%
+\contentsline {section}{\numberline {S5}Additional Experimental Results and Details}{7}{section.S5}%
+\contentsline {subsection}{\numberline {S5.1}Inducing Points Placement and Uncertainty Quantification of SVGP}{7}{subsection.S5.1}%
+\contentsline {subsection}{\numberline {S5.2}Grassman Distance Between Subspaces}{7}{subsection.S5.2}%
+\contentsline {subsection}{\numberline {S5.3}Generalization Experiment}{7}{subsection.S5.3}%
 \ttl@stoptoc {supplementary@1}
 \contentsfinish 
